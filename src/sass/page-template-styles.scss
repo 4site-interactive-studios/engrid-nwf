@@ -1,2 +1,23 @@
 /* Add your custom theme styles here */
 
+[data-engrid-theme="nwf"]{
+
+    input:focus {
+        outline:1px solid #333;
+        border-radius:0;
+    }
+
+    .radio-to-buttons .en__field--radio input[type=radio]+label, .en__field--give-by-select.en__field--radio input[type=radio]+label {
+        text-transform:uppercase;
+    }
+
+    .en__field--recurrfreq .en__field__item, .en__field--give-by-select .en__field__item {
+        padding:0 !important;
+    }
+
+    .en__field__label {
+        padding-bottom:0;
+    }
+
+
+}

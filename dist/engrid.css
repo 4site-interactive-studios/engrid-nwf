@@ -6022,6 +6022,77 @@ body:not(#en__pagebuilder)[data-engrid-layout=centerright1col] .page-backgroundI
 #en__pagebuilder .edit-lock.en__component.en__component--active.en__component--activeTarget>.en__component__actions>a.en__component__action{
   background-color:#000;
 }
+[data-engrid-theme=nwf]{
+  --color_primary:#4d9068;
+  --color_primary_accent:#333;
+  --color_secondary:#e0e9ea;
+  --root_font-size:14px;
+  --default_font-family:"Fira Sans", "Arial", sans-serif;
+  --default_color:var(--color_primary_accent);
+  --default_font-size:var(--root_font-size);
+  --default_line-height:1.4;
+  --h1_font-family:"Patua One", "Arial", serif;
+  --h1_color:var(--color_primary);
+  --h2_color:var(--color_primary);
+  --p_font-size:var(--root_font-size);
+  --input_font-family:var(--default_font-family);
+  --input_background-color:var(--color_secondary);
+  --input_border-radius:0;
+  --label-font-weight:700;
+  --button_color:var(--color_primary);
+  --button_font-size:calc(var(--root_font-size)*1.5);
+  --button_background-color:var(--color_secondary);
+  --button_border-width:0;
+  --button_border-radius:0;
+  --button_background-color_hover:var(--color_secondary);
+  --button_color_checked:var(--color_secondary);
+  --button_background-color_checked:var(--color_primary);
+  --give-monthly-donation-amount-appended-label:"/mo";
+  --recurring-frequency__button_count:3;
+  --donation-amount__button_count:3;
+  --give-by-select__button_count:3;
+}
+@font-face{
+  font-display:swap;
+  font-family:Patua One;
+  font-style:normal;
+  font-weight:400;
+  src:url(https://fonts.gstatic.com/s/patuaone/v11/ZXuke1cDvLCKLDcimxB44_luFgxbuQ.woff2) format("woff2");
+  unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
+}
+@font-face{
+  font-display:swap;
+  font-family:Fira Sans;
+  font-style:normal;
+  font-weight:400;
+  src:url(https://fonts.gstatic.com/s/firasans/v11/va9E4kDNxMZdWfMOD5Vvl4jLazX3dA.woff2) format("woff2");
+  unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
+}
+@font-face{
+  font-display:swap;
+  font-family:Fira Sans;
+  font-style:bold;
+  font-weight:700;
+  src:url(https://fonts.gstatic.com/s/firasans/v11/va9B4kDNxMZdWfMOD5VnLK3eRhf6Xl7Glw.woff2) format("woff2");
+  unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
+}
+[data-engrid-theme=nwf] input:focus{
+  border-radius:0;
+  outline:1px solid #333;
+  z-index:-99;
+}
+
+[data-engrid-theme=nwf] .en__field--give-by-select.en__field--radio input[type=radio]+label,[data-engrid-theme=nwf] .radio-to-buttons .en__field--radio input[type=radio]+label{
+  text-transform:uppercase;
+}
+
+[data-engrid-theme=nwf] .en__field--give-by-select .en__field__item,[data-engrid-theme=nwf] .en__field--recurrfreq .en__field__item{
+  padding:0 !important;
+}
+
+[data-engrid-theme=nwf] .en__field__label{
+  padding-bottom:0;
+}
 body{
   opacity:1;
   transition:opacity .2s;

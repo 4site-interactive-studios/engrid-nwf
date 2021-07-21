@@ -2,25 +2,42 @@
 // Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
 
 // All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
-[data-engrid-theme="organizational-name"]{
+[data-engrid-theme="nwf"]{
+    // PRIMARY COLORS
+    // e.g. Used for the main Submit Button
+    --color_primary: #4d9068;
+    // --color_primary_overlay: #ffffff;
+    --color_primary_accent: #333;
+
+    // SECONDARY COLORS
+    // e.g. Used for the non-Submit Buttons
+    --color_secondary: #e0e9ea;
+    // --color_secondary_overlay: #ffffff;
+    // --color_secondary_accent: #000000;
+
+    
     // TYPOGRAPHY DEFAULT
-    // --default_font-family: var(--native-fonts__sans-serif);
-    // --default_color: initial;
-    // --default_font-size: var(--root_font-size);
+    --root_font-size: 14px;
+    --default_font-family: 'Fira Sans', 'Arial', sans-serif;
+    --default_color: var(--color_primary_accent);
+    --default_font-size: var(--root_font-size);
     // --default_font-weight: initial;
-    // --default_line-height: initial;
+    --default_line-height: 1.4;
 
     // TYPOGRAPHY H1
-    // --h1_font-family: var(--default_font-family);
-    // --h1_color: initial;
+    --h1_font-family: 'Patua One', 'Arial', serif;
+    --h1_color:var(--color_primary);
     // --h1_font-size: calc(var(--root_font-size) * var(--scale-up_160pct));
     // --h1_font-weight: initial;
     // --h1_line-height: initial;
-        
+
+    // TYPOGRAPHY H2
+    --h2_color:var(--color_primary);
+
     // TYPOGRAPHY P
     // --p_font-family: var(--default_font-family);
     // --p_color: initial;
-    // --p_font-size: var(--root_font-size);
+    --p_font-size: var(--root_font-size);
     // --p_font-weight: initial;
     // --p_line-height: initial;
 
@@ -35,15 +52,15 @@
     // --a_text-decoration_hover: initial;
 
     // TYPOGRAPHY INPUT
-    // --input_font-family: var(--default_font-family);
+    --input_font-family: var(--default_font-family);
     // --input_color: #000000;
     // --input_font-size: var(--root_font-size);
     // --input_font-weight: initial;
     // --input_line-height: initial;
-    // --input_background-color: #fafafa;
+    --input_background-color: var(--color_secondary);
     // --input_border-width: 1px;
     // --input_border-color: #dfdfe1;
-    // --input_border-radius: 6px;
+    --input_border-radius: 0;
     // --input_placeholder-color: var(--color_light-gray);
     // --input_box-shadow: inset 0 2px 2px -1px rgba(74, 74, 104, 0.1);
         
@@ -55,31 +72,34 @@
     // --input_border-bottom-color_hover: var(--input_border-color_hover);
     // --input_box-shadow_hover: --input_box-shadow;
 
+    // TYPOGRAPHY INPUT LABELS
+    --label-font-weight:700;
+
     // TYPOGRAPHY BUTTON
     // --button_font-family: var(--default_font-family);
-    // --button_color: var(--color_white);
-    // --button_font-size: var(--root_font-size);
+    --button_color: var(--color_primary);
+    --button_font-size: calc(var(--root_font-size) * 1.5);
     // --button_font-weight: initial;
     // --button_line-height: initial;
-    // --button_background-color: #535b61;
-    // --button_border-width: 1px;
+    --button_background-color:var(--color_secondary);
+    --button_border-width: 0;
     // --button_border-color: var(--color_black);
-    // --button_border-radius: 6px;
+    --button_border-radius: 0;
 
     // TYPOGRAPHY BUTTON:HOVER
     // --button_color_hover: var(--button_color);
-    // --button_background-color_hover: var(--color_black);
+    --button_background-color_hover: var(--color_secondary);
     // --button_border-color_hover: var(--button_background-color_hover);
 
     // TYPOGRAPHY BUTTON:SELECTED
-    // --button_color_checked: var(--button_color_hover);
-    // --button_background-color_checked: var(--button_background-color_hover);
+    --button_color_checked: var(--color_secondary);
+    --button_background-color_checked: var(--color_primary);
     // --button_border-color_checked: var(--button_border-color_hover);
 
     // DONATION PAGE
-    // --give-monthly-donation-amount-appended-label: "/mo";
+    --give-monthly-donation-amount-appended-label: "/mo";
     // --give-annual-donation-amount-appended-label: "/yr";  
-    // --recurring-frequency__button_count: 4;
-    // --donation-amount__button_count: 4;
-    // --give-by-select__button_count: 4;
+    --recurring-frequency__button_count: 3;
+    --donation-amount__button_count: 3;
+    --give-by-select__button_count: 3;
 }
