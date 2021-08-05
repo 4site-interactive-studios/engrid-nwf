@@ -4676,17 +4676,12 @@ header .indicator__percentage{
   --engrid__page-customCode_margin:var(--engrid__page_margin);
 }
 
-<<<<<<< HEAD
 #engrid>.en__component--row.en__component--advrow,form>.en__component--row.en__component--advrow{
-=======
-#engrid>.en__component--row.en__component--advrow,.pseudo-subgrid,form>.en__component--row.en__component--advrow{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
   display:grid;
   max-width:100vw;
   width:100%;
 }
 
-<<<<<<< HEAD
 form>.en__component--row.en__component--advrow>*{
   display:grid;
 }
@@ -4707,25 +4702,6 @@ body:not([data-engrid-embedded]) form{
   min-height:100vh;
 }
 #engrid>.en__component--advrow,form>.en__component--advrow,form>.en__component--advrow>*{
-=======
-body#en__pagebuilder .page-backgroundImage.pseudo-subgrid>*{
-  grid-column:pc;
-}
-
-#engrid>.en__component--advrow,form>.en__component--advrow{
-  max-width:100vw;
-  width:100%;
-}
-
-.en__component--row.en__component--advrow form>.en__component--row.en__component--advrow{
-  display:flex;
-}
-
-body:not([data-engrid-embedded]) form{
-  min-height:100vh;
-}
-#engrid>.en__component--advrow,.pseudo-subgrid,form>.en__component--advrow{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
   grid-template-columns:[pc-start lpc-start lpc-end cc-start lcc-start lcc-end bc-start lbc-start lbc-end] auto [rbc-start rbc-end bc-end rcc-start rcc-end cc-end rpc-start rpc-end pc-end];
 }
 #engrid>.en__component--advrow,form>.en__component--advrow{
@@ -4959,7 +4935,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   display:none;
 }
 @media screen and (min-width:700px){
-<<<<<<< HEAD
   [data-engrid-layout=centercenter1col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter1col] form>.en__component--advrow{
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 470px) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 470px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
@@ -4969,12 +4944,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   [data-engrid-layout=centercenter1col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter1col] form>.en__component--advrow{
     grid-template-rows:[page-start page-alert-start] min-content [page-alert-end content-header-start] min-content [content-header-end body-headerOutside-start] min-content [body-headerOutside-end body-header-start] min-content [body-header-end body-banner-start] min-content [body-banner-end body-bannerOverlay-start] min-content [body-bannerOverlay-end body-title-start] min-content [body-title-end body-top-start] min-content [body-top-end body-side-start] min-content [body-side-end body-main-start] min-content [body-main-end body-bottom-start] min-content [body-bottom-end body-footer-start] min-content [body-footer-end body-footerOutside-start] min-content [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr) [content-footerSpacer-end content-preFooter-start] min-content [content-preFooter-end content-footer-start] min-content [content-footer-end page-backgroundImage-start] min-content [page-backgroundImage-end page-backgroundImageOverlay-start] min-content [page-backgroundImageOverlay-end page-end page-customCode-start] min-content [page-customCode-end];
   }
-=======
-  [data-engrid-layout=centercenter1col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter1col] .pseudo-subgrid,[data-engrid-layout=centercenter1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 470px) [lcc-end bc-start lbc-start] 250px [lbc-end rbc-start] 250px [rbc-end bc-end rcc-start] minmax(0, 470px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
-    grid-template-rows:[page-start page-alert-start] min-content [page-alert-end content-header-start] min-content [content-header-end body-headerOutside-start] min-content [body-headerOutside-end body-header-start] min-content [body-header-end body-banner-start] min-content [body-banner-end body-bannerOverlay-start] min-content [body-bannerOverlay-end body-title-start] min-content [body-title-end body-top-start] min-content [body-top-end body-side-start] min-content [body-side-end body-main-start] min-content [body-main-end body-bottom-start] min-content [body-bottom-end body-footer-start] min-content [body-footer-end body-footerOutside-start] min-content [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr) [content-footerSpacer-end content-preFooter-start] min-content [content-preFooter-end content-footer-start] min-content [content-footer-end page-backgroundImage-start] min-content [page-backgroundImage-end page-backgroundImageOverlay-start] min-content [page-backgroundImageOverlay-end page-end page-customCode-start] min-content [page-customCode-end];
-  }
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
   [data-engrid-layout=centercenter1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
@@ -5005,7 +4974,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   }
 }
 @media screen and (min-width:900px){
-<<<<<<< HEAD
   [data-engrid-layout=centercenter2col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter2col] form>.en__component--advrow{
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 190px) [lcc-end bc-start lbc-start] minmax(450px, 450px) [lbc-end rbc-start] minmax(450px, 450px) [rbc-end bc-end rcc-start] minmax(0, 190px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
@@ -5013,10 +4981,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 190px) [lcc-end bc-start lbc-start] minmax(0, 450px) [lbc-end rbc-start] minmax(0, 450px) [rbc-end bc-end rcc-start] minmax(0, 190px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centercenter2col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter2col] form>.en__component--advrow{
-=======
-  [data-engrid-layout=centercenter2col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter2col] .pseudo-subgrid,[data-engrid-layout=centercenter2col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 190px) [lcc-end bc-start lbc-start] 450px [lbc-end rbc-start] 450px [rbc-end bc-end rcc-start] minmax(0, 190px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     grid-template-rows:[page-start page-alert-start] min-content [page-alert-end content-header-start] min-content [content-header-end body-headerOutside-start] min-content [body-headerOutside-end body-header-start] min-content [body-header-end body-title-start] min-content [body-title-end body-banner-start] min-content [body-banner-end body-bannerOverlay-start] min-content [body-bannerOverlay-end body-top-start] minmax(0, 1fr) [body-top-end body-side-start] min-content [body-side-end body-main-start] min-content [body-main-end body-bottom-start] min-content [body-bottom-end body-footer-start] min-content [body-footer-end body-footerOutside-start] min-content [body-footerOutside-end content-footerSpacer-start] max-content [content-footerSpacer-end content-preFooter-start] min-content [content-preFooter-end content-footer-start] min-content [content-footer-end page-backgroundImage-start] min-content [page-backgroundImage-end page-backgroundImageOverlay-start] min-content [page-backgroundImageOverlay-end page-end page-customCode-start] min-content [page-customCode-end];
   }
   [data-engrid-layout=centercenter2col]:not(#en__pagebuilder) .page-backgroundImage{
@@ -5058,7 +5022,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   }
   [data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=centercenter2col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
     content:none !important;
-<<<<<<< HEAD
   }
 }
 @media screen and (min-width:700px){
@@ -5105,21 +5068,11 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 840px) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerright1col]:not(#en__pagebuilder) .page-backgroundImage{
-=======
-  }
-}
-@media screen and (min-width:700px){
-  [data-engrid-layout=centerleft1col] #engrid>.en__component--advrow,[data-engrid-layout=centerleft1col] .pseudo-subgrid,[data-engrid-layout=centerleft1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] 250px [lbc-end rbc-start] 250px [rbc-end bc-end rcc-start] minmax(0, 840px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
-  }
-  [data-engrid-layout=centerleft1col]:not(#en__pagebuilder) .page-backgroundImage{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     grid-row:page-start /  content-footerSpacer-end;
   }
 }
 
 @media screen and (max-width:700px){
-<<<<<<< HEAD
   .page-backgroundImage,.page-backgroundImage:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-banner,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-bannerOverlay,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-banner,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-bannerOverlay,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-banner,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-bannerOverlay,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-banner,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-bannerOverlay,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-banner,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-bannerOverlay,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-banner,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-bannerOverlay{
     display:none;
   }
@@ -5128,16 +5081,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     grid-row:body-banner;
   }
   [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage video,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage video,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage video,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage video{
-=======
-  [data-engrid-layout=centerleft1col] .page-backgroundImage,[data-engrid-layout=centerleft1col] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-banner,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-banner,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-banner,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-banner,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-banner,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-banner,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-bannerOverlay{
-    display:none;
-  }
-  [data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay{
-    grid-column:pc;
-    grid-row:body-banner;
-  }
-  [data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage video{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     aspect-ratio:16/9;
     height:100% !important;
     left:0 !important;
@@ -5146,22 +5089,14 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     transform:none !important;
     width:100vw !important;
   }
-<<<<<<< HEAD
   [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage img,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage img,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage img,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage img,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay img{
     display:block !important;
   }
   [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
-=======
-  [data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay img{
-    display:block !important;
-  }
-  [data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=centerleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     content:none !important;
   }
 }
 @media screen and (min-width:700px){
-<<<<<<< HEAD
   [data-engrid-layout=leftleft1col] #engrid>.en__component--advrow,[data-engrid-layout=leftleft1col] form>.en__component--advrow{
     grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
@@ -5169,18 +5104,11 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
-=======
-  [data-engrid-layout=centerright1col] #engrid>.en__component--advrow,[data-engrid-layout=centerright1col] .pseudo-subgrid,[data-engrid-layout=centerright1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 840px) [lcc-end bc-start lbc-start] 250px [lbc-end rbc-start] 250px [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
-  }
-  [data-engrid-layout=centerright1col]:not(#en__pagebuilder) .page-backgroundImage{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     grid-row:page-start /  content-footerSpacer-end;
   }
 }
 
 @media screen and (max-width:700px){
-<<<<<<< HEAD
   [data-engrid-layout=leftleft1col] .page-backgroundImage,[data-engrid-layout=leftleft1col] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-bannerOverlay{
     display:none;
   }
@@ -5189,16 +5117,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     grid-row:body-banner;
   }
   [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage video{
-=======
-  .page-backgroundImage,.page-backgroundImage:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-banner,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-bannerOverlay,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-banner,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-bannerOverlay,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-banner,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-bannerOverlay,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-banner,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-bannerOverlay,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-banner,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-bannerOverlay,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-banner,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-bannerOverlay{
-    display:none;
-  }
-  [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay{
-    grid-column:pc;
-    grid-row:body-banner;
-  }
-  [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage video,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage video,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage video,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage figure,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage video{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     aspect-ratio:16/9;
     height:100% !important;
     left:0 !important;
@@ -5207,22 +5125,14 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
     transform:none !important;
     width:100vw !important;
   }
-<<<<<<< HEAD
   [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay img{
     display:block !important;
   }
   [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
-=======
-  [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage img,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage img,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage img,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage img,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage img,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay img{
-    display:block !important;
-  }
-  [data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
     content:none !important;
   }
 }
 @media screen and (min-width:700px){
-<<<<<<< HEAD
   [data-engrid-layout=rightright1col] #engrid>.en__component--advrow,[data-engrid-layout=rightright1col] form>.en__component--advrow{
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end];
   }
@@ -5231,67 +5141,6 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   }
   [data-engrid-layout=rightright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
-=======
-  [data-engrid-layout=leftleft1col] #engrid>.en__component--advrow,[data-engrid-layout=leftleft1col] .pseudo-subgrid,[data-engrid-layout=leftleft1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] 250px [lbc-end rbc-start] 250px [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
-  }
-  [data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
-    grid-column:rcc-start /  pc-end;
-    grid-row:page-start /  content-footer-end;
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
-  }
-}
-
-@media screen and (max-width:700px){
-<<<<<<< HEAD
-  [data-engrid-layout=rightright1col] .page-backgroundImage,[data-engrid-layout=rightright1col] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-banner,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-banner,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-banner,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-banner,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-banner,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-banner,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-bannerOverlay{
-    display:none;
-  }
-  [data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay{
-    grid-column:pc;
-    grid-row:body-banner;
-  }
-  [data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage video{
-=======
-  [data-engrid-layout=leftleft1col] .page-backgroundImage,[data-engrid-layout=leftleft1col] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .body-bannerOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-banner,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .body-bannerOverlay{
-    display:none;
-  }
-  [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay{
-    grid-column:pc;
-    grid-row:body-banner;
-  }
-  [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay figure,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay video,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage video{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
-    aspect-ratio:16/9;
-    height:100% !important;
-    left:0 !important;
-    position:absolute !important;
-    top:0 !important;
-    transform:none !important;
-    width:100vw !important;
-  }
-<<<<<<< HEAD
-  [data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay img{
-    display:block !important;
-  }
-  [data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=rightright1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
-    content:none !important;
-=======
-  [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage img,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay img{
-    display:block !important;
-  }
-  [data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-exists][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-image][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-background-video][data-engrid-page-background=video] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImageOverlay:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImage:before,[data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=video] .page-backgroundImageOverlay:before{
-    content:none !important;
-  }
-}
-@media screen and (min-width:700px){
-  [data-engrid-layout=rightright1col] #engrid>.en__component--advrow,[data-engrid-layout=rightright1col] .pseudo-subgrid,[data-engrid-layout=rightright1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] 250px [lbc-end rbc-start] 250px [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end];
-  }
-  [data-engrid-layout=rightright1col]:not(#en__pagebuilder) .page-backgroundImage{
-    grid-column:lpc-start /  lpc-end;
-    grid-row:page-start /  content-footer-end;
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
   }
 }
 
@@ -5345,11 +5194,7 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   background-image:none;
 }
 
-<<<<<<< HEAD
 [data-engrid-embedded] .en__component--advrow,[data-engrid-embedded] .en__component--advrow>*{
-=======
-[data-engrid-embedded] .en__component--advrow,[data-engrid-embedded] .pseudo-subgrid{
->>>>>>> f682eb6553b80d73ff97ed1ce6a7d3f47a028597
   grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(0, 50vw) [lbc-end rbc-start] minmax(0, 50vw) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end] !important;
 }
 
@@ -6455,6 +6300,8 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   --h1_color:var(--color_primary);
   --h1_font-size:2.4rem;
   --h2_color:var(--color_primary);
+  --h3_color:var(--color_primary);
+  --h4_color:#000;
   --p_font-size:var(--root_font-size);
   --p_line-height:1.7;
   --input_font-family:var(--default_font-family);
@@ -6544,6 +6391,8 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   background-color:#ad7c1d;
   color:#fff;
   font-size:var(--button_font-size);
+  margin:1rem 0 4rem;
+  padding:1.7ch;
 }
 
 [data-engrid-theme=engrid-nwf] .en__submit button:hover{
@@ -6620,6 +6469,10 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   z-index:2;
 }
 
+[data-engrid-theme=engrid-nwf] .NWF_name h4{
+  color:#000;
+}
+
 [data-engrid-theme=engrid-nwf] .nav-spacer{
   height:90px;
   position:relative;
@@ -6639,7 +6492,8 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
   clear:both;
 }
 
-[data-engrid-theme=engrid-nwf] #main-nav{
+[data-engrid-theme=engrid-nwf] #footer-nav,[data-engrid-theme=engrid-nwf] #main-nav{
+  background-color:#000;
   height:65px;
   margin-bottom:0;
   text-transform:uppercase;
@@ -6688,6 +6542,94 @@ body:not(#en__pagebuilder) .body-banner:empty,body:not(#en__pagebuilder) .body-b
 
 [data-engrid-theme=engrid-nwf] h1.top{
   margin:0 0 2rem;
+}
+
+[data-engrid-theme=engrid-nwf] .en__component--premiumgiftblock,[data-engrid-theme=engrid-nwf] .en__pg,[data-engrid-theme=engrid-nwf] .en__pgHeader{
+  border:0;
+}
+
+[data-engrid-theme=engrid-nwf] .body-title{
+  padding:0;
+}
+
+[data-engrid-theme=engrid-nwf] .body-top{
+  background-color:var(--color_secondary);
+}
+
+[data-engrid-theme=engrid-nwf] .en__pgHeader{
+  background-color:#fff;
+  color:var(--h2_color);
+  font-family:var(--h2_font-family);
+  font-size:var(--h2_font-size);
+  font-weight:var(--h2_font-weight);
+  line-height:var(--h2_line-height);
+  margin-bottom:calc(1rem*var(--scale-down_20pct));
+  margin-top:calc(2rem*var(--scale-down_20pct));
+  padding:0;
+}
+
+[data-engrid-theme=engrid-nwf] .footer-social-icon{
+  background:#272b2d;
+  border-radius:50%;
+  display:inline-block;
+  height:28px;
+  list-style:none;
+  margin-right:4px;
+  position:relative;
+  width:28px;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row{
+  align-content:center;
+  align-items:flex-start;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:center;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes{
+  margin:3rem 1rem;
+  width:30%;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes img{
+  height:auto;
+  width:120px;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes ul{
+  padding:0;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes .footer-social-icon img{
+  padding:5px;
+  width:30px;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes .legal-nav{
+  color:#272b2d;
+  font-size:12px;
+  font-weight:700;
+  list-style:none;
+  margin:40px -35px 0 0;
+  padding:0;
+}
+
+[data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes .legal-nav li{
+  display:inline-block;
+  float:left;
+  padding-right:20px;
+}
+
+@media screen and (max-width:600px){
+  [data-engrid-theme=engrid-nwf] .content-footer .row{
+    flex-direction:column;
+  }
+  [data-engrid-theme=engrid-nwf] .content-footer .row .footer-boxes{
+    padding:0 2rem 0 0;
+    width:100%;
+  }
 }
 body{
   opacity:1;

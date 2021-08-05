@@ -1,16 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Start Google Tag Manager Data Layer Initialization Script -->
-<script>
-  dataLayer = [];
-</script>
-<!-- End Google Tag Manager Data Layer Initialization Script -->
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-119708728-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-119708728-1');
+  </script>
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KF8N');</script>
+  <!-- End Google Tag Manager -->
+
+<link rel="shortcut icon" href="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/favicon.ico?v=1542650328000" type="image/vnd.microsoft.icon">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>engrid | Donation Page</title>
 <meta name="title" content="engrid | Donation Page">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@wildlifeaction">
+<meta name="twitter:creator" content="@wildlifeaction">
+
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0080/0550.js" async="async"></script>
+
+    <!-- XVERIFY START -->
+    <script type="text/javascript" src="//www.xverify.com/sharedjs/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="//www.xverify.com/sharedjs/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//www.xverify.com/css/ui_tooltip_style.css">
+    <script type="text/javascript" src="//www.xverify.com/js/clients/nwf/client.js"></script>
+    <script type="text/javascript" src="//www.xverify.com/sharedjs/jquery.xverify.plugin.js"></script>
+    <!-- XVERIFY END -->
+    
+  
+    <!-- 4Site ACH Handler Start -->
+    <script type="text/javascript" src="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/ach-handler.js?v=1601341145000"></script>
+    <!-- 4Site ACH Handler End -->
+    <!-- 4Site Donation Amount Label Fix Start -->
+    <script type="text/javascript" src="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/amount-label.js?v=1610028897000"></script>
+    <!-- 4Site Donation Amount Label Fix End -->
+    <script>
+    // ACH IE11 Removal Start
+    $(document).ready(function(){
+        if (window.document.documentMode) {
+          // If IE, Remove E-Check
+          var echeck = $('.en__field__input.en__field__input--radio[value="E-Check"]');
+          if(echeck){
+              echeck.closest('.en__field__item').remove();
+              var achOption = $('#en__field_transaction_paymenttype option[value="ACH"]');
+              if(achOption){
+                  achOption.remove();
+              }
+          }
+        }
+    });
+    // ACH IE11 Removal End
+    </script>
+  </head>
+  <body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KF8N" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <!-- Update as needed -->
 <link href="https://e-activist.com/ea-demo/frontend/pbAssets/build/css/enPage.css?v=3.62.0" rel="stylesheet" type="text/css">
@@ -31,6 +98,33 @@
     height: auto;
   }
 </style>
+
+<noscript>With Javascript disabled this page may not function as expected.</noscript>
+
+<!-- Quickly check to see if the page is in an iFrame and if so set the corresponding Custom Attribute so it can also set the background-color. Must be after <body> otherwise there will be a flash of color -->
+<script>
+  if (window.self !== window.top) {
+    document
+      .getElementsByTagName("BODY")[0]
+      .setAttribute("data-engrid-embedded", "");
+  }
+</script>
+
+<!-- Load ENGrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
+<link href="../engrid.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Fake Data to Emulate EN Scripts -->
 <script>
   var pageJson = {
@@ -57,7 +151,7 @@
 </script>
 <script src="https://us.e-activist.com/ea-demo/frontend/pbAssets/build/js/enPage.js?v=3.60.1"></script>
 
-
+</body></html>
   </head>
   <body data-engrid-layout="centercenter1col" data-engrid-theme="engrid">
     <noscript>With Javascript disabled this page may not function as expected.</noscript>
