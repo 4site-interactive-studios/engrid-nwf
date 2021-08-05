@@ -3338,9 +3338,6 @@ const debugBar = () => {
       if (enGrid) {
         if (enGrid.classList.contains("layout-centercenter1col")) {
           removeClassesByPrefix(enGrid, "layout-");
-          enGrid.classList.add("layout-centercenter1col-wide");
-        } else if (enGrid.classList.contains("layout-centercenter1col-wide")) {
-          removeClassesByPrefix(enGrid, "layout-");
           enGrid.classList.add("layout-centerright1col");
         } else if (enGrid.classList.contains("layout-centerright1col")) {
           removeClassesByPrefix(enGrid, "layout-");
@@ -4789,9 +4786,7 @@ class SrcDefer {
 
 
     for (let i = 0; i < this.videoBackground.length; i++) {
-      let video = this.videoBackground[i];
-      video.setAttribute("loading", "lazy"); // Lets the browser determine when the asset should be downloaded
-      // Process one or more defined sources in the <video> tag
+      let video = this.videoBackground[i]; // Process one or more defined sources in the <video> tag
 
       let videoBackgroundSource = video.querySelectorAll("source");
       let videoBackgroundSourcedDataSrc = this.videoBackgroundSource[i].getAttribute("data-src");
@@ -4995,7 +4990,11 @@ class NeverBounce {
         field.addEventListener("nb:result", function (e) {
           if (e.detail.result.is(window._nb.settings.getAcceptedStatusCodes())) {
             NBClass.setEmailStatus("valid");
-            if (NBClass.nbDate) NBClass.nbDate.value = new Date().toLocaleDateString();
+            if (NBClass.nbDate) NBClass.nbDate.value = new Date().toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            });
           } else {
             NBClass.setEmailStatus("invalid");
             if (NBClass.nbDate) NBClass.nbDate.value = "";
@@ -5132,7 +5131,7 @@ class NeverBounce {
       this.nbStatus.value = engrid_ENGrid.getFieldValue("nb-result");
     }
 
-    if (!['catchall', 'valid'].indexOf(engrid_ENGrid.getFieldValue('nb-result'))) {
+    if (!['catchall', 'valid'].includes(engrid_ENGrid.getFieldValue('nb-result'))) {
       this.setEmailStatus("required");
       (_a = this.emailField) === null || _a === void 0 ? void 0 : _a.focus();
       return false;
