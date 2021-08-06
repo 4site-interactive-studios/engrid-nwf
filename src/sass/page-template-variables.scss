@@ -1,126 +1,13 @@
-// The most broadly used CSS Custom Properties for quick theming.
-// Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
+/* SCSS Layout Variables should be defined outside a CSS declaration so they're global */
 
-// All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
-[data-engrid-theme="engrid-nwf"]{
-    // PRIMARY COLORS
-    // e.g. Used for the main Submit Button
-    --color_primary: #4d9068;
-    // --color_primary_overlay: #ffffff;
-    --color_primary_accent: #333;
+// ONE COLUMN LAYOUTS
+// $one_col_content-column_max-width: 880px;
+// $one_col_content-column_min-width: 700px;
+// $one_col_body-column_max-width:    500px;
+// $one_col_body-column_offset-width: 130px;
 
-    // SECONDARY COLORS
-    // e.g. Used for the non-Submit Buttons
-    --color_secondary: #e0e9ea;
-    // --color_secondary_overlay: #ffffff;
-    // --color_secondary_accent: #000000;
-
-    
-    // TYPOGRAPHY DEFAULT
-    --root_font-size: 1rem;
-    --default_font-family: 'Fira Sans', 'Arial', sans-serif;
-    --default_color: var(--color_primary_accent);
-    --default_font-size: var(--root_font-size);
-    // --default_font-weight: initial;
-    --default_line-height: 1.4;
-
-    // TYPOGRAPHY H1
-    --h1_font-family: 'Patua One', 'Arial', serif;
-    --h1_color:var(--color_primary);
-    --h1_font-size: 2.4rem;
-    // --h1_font-weight: initial;
-    // --h1_line-height: initial;
-
-    // TYPOGRAPHY H2, H3, H4
-    --h2_color:var(--color_primary);
-    --h3_color:var(--color_primary);
-    --h4_color:#000;
-
-    // TYPOGRAPHY P
-    // --p_font-family: var(--default_font-family);
-    // --p_color: initial;
-    --p_font-size: var(--root_font-size);
-    // --p_font-weight: initial;
-    --p_line-height: 1.7;
-
-    // TYPOGRAPHY A
-    // --a_font-family: var(--default_font-family);
-    // --a_color: initial;
-    // --a_text-decoration: underline;
-
-    // TYPOGRAPHY A:FOCUS
-    // TYPOGRAPHY A:HOVER
-    // --a_color_hover: var(--a_color);
-    // --a_text-decoration_hover: initial;
-
-    // TYPOGRAPHY INPUT
-    --input_font-family: var(--default_font-family);
-    // --input_color: #000000;
-    // --input_font-size: var(--root_font-size);
-    // --input_font-weight: initial;
-    // --input_line-height: initial;
-    --input_background-color: var(--color_secondary);
-    --input_border-width: 0;
-    // --input_border-color: #dfdfe1;
-    --input_border-radius: 0;
-    // --input_placeholder-color: #6a6a6a;
-    --input_box-shadow: 0;
-    --input_placeholder-font-size:.9rem;
-        
-    // TYPOGRAPHY INPUT:FOCUS
-    // TYPOGRAPHY INPUT:HOVER
-    // --input_color_hover: var(--input_color);
-    // --input_background-color_hover: var(--input_background-color);
-    // --input_border-color_hover: #767677;
-    // --input_border-bottom-color_hover: var(--input_border-color_hover);
-    // --input_box-shadow_hover: --input_box-shadow;
-
-    // TYPOGRAPHY INPUT LABELS
-    --label-font-weight:700;
-    --label-font-size:.9rem;
-
-    // TYPOGRAPHY BUTTON
-    // --button_font-family: var(--default_font-family);
-    --button_color: var(--color_primary);
-    --button_font-size: 1.2rem;
-    // --button_font-weight: initial;
-    // --button_line-height: initial;
-    --button_background-color:var(--color_secondary);
-    --button_border-width: 0;
-    // --button_border-color: var(--color_black);
-    --button_border-radius: 0;
-    --button_padding: 1.7ch 2.3ch;
-
-    // TYPOGRAPHY BUTTON:HOVER
-    // --button_color_hover: var(--button_color);
-    --button_background-color_hover: var(--color_secondary);
-    // --button_border-color_hover: var(--button_background-color_hover);
-
-    // TYPOGRAPHY BUTTON:SELECTED
-    --button_color_checked: var(--color_secondary);
-    --button_background-color_checked: var(--color_primary);
-    // --button_border-color_checked: var(--button_border-color_hover);
-
-    // DONATION PAGE
-    --give-monthly-donation-amount-appended-label: "/mo";
-    // --give-annual-donation-amount-appended-label: "/yr";  
-    --recurring-frequency__button_count: 2;
-    --donation-amount__button_count: 3;
-    --give-by-select__button_count: 3;
-
-    // GIVE BY SELECTS
-    --give-by-select__button_background-color_checked:var(--color_primary);
-    --give-by-select__button_color_checked:#fff;
-
-    // RADIOS
-    --radio_background-color:#fff;
-    --radio_border-width:2px;
-    --radio_border-color:var(--color_primary);
-    --radio_color_selected:var(--color_primary);
-
-    // CHECKBOXES
-    --checkbox_color_checked:var(--color_primary);
-    --checkbox_border-color_checked:var(--color_primary);
-    --checkbox_border-width:2px;
-    --checkbox_border-color:var(--color_primary);
-}
+// TWO COLUMN LAYOUTS
+$two_col_content-column_max-width: 1280px;
+$two_col_content-column_min-width:  900px;
+$two_col_body-column_max-width:    1080px;
+$two_col_body-column_min-width:     900px;

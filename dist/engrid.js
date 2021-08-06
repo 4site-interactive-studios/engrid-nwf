@@ -2692,6 +2692,7 @@ class App extends engrid_ENGrid {
     new PageBackground(); // TODO: Abstract everything to the App class so we can remove custom-methods
 
     inputPlaceholder();
+    preventAutocomplete();
     watchInmemField();
     watchGiveBySelectField();
     SetEnFieldOtherAmountRadioStepValue();
@@ -3501,6 +3502,17 @@ const inputPlaceholder = () => {
     enFieldBankRoutingNumber.placeholder = "Bank Routing Number";
   }
 };
+const preventAutocomplete = () => {
+  let enFieldDonationAmt = document.querySelector(".en__field--donationAmt.en__field--withOther .en__field__input--other");
+
+  if (enFieldDonationAmt) {
+    enFieldDonationAmt.setAttribute("autocomplete", "off");
+  }
+
+  if (enFieldDonationAmt) {
+    enFieldDonationAmt.setAttribute("data-lpignore", "true");
+  }
+};
 const watchInmemField = () => {
   const enFieldTransactionInmem = document.getElementById("en__field_transaction_inmem");
 
@@ -3731,7 +3743,7 @@ const handleCCUpdate = () => {
   const payment_text = field_payment_type.options[field_payment_type.selectedIndex].text;
 
   if (card_type && payment_text != card_type) {
-    field_payment_type.value = Array.from(field_payment_type.options).filter(d => card_values[card_type].indexOf(d.value.toLowerCase()))[0].value;
+    field_payment_type.value = Array.from(field_payment_type.options).filter(d => card_values[card_type].includes(d.value.toLowerCase()))[0].value;
   }
 };
 
@@ -4911,11 +4923,15 @@ class PageBackground {
   }
 
   hasVideoBackground() {
-    return !!this.pageBackground.querySelector('video');
+    if (this.pageBackground) {
+      return !!this.pageBackground.querySelector('video');
+    }
   }
 
   hasImageBackground() {
-    return !this.hasVideoBackground() && !!this.pageBackground.querySelector('img');
+    if (this.pageBackground) {
+      return !this.hasVideoBackground() && !!this.pageBackground.querySelector('img');
+    }
   }
 
 }
@@ -5207,6 +5223,8 @@ class ProgressBar {
 
 
 
+
+ // Events
 
 
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js

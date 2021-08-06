@@ -1,13 +1,251 @@
-/* Add your custom theme styles here */
-
+// The most broadly used CSS Custom Properties for quick theming.
+// Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
+// All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
 [data-engrid-theme="engrid-nwf"]{
+    // PRIMARY COLORS
+    // e.g. Used for the main Submit Button
+    --color_primary: #4d9068;
+    --color_primary_overlay: #ffffff;
+    --color_primary_accent: #333;
+
+    // SECONDARY COLORS
+    // e.g. Used for the non-Submit Buttons
+    --color_secondary: #e0e9ea;
+    // --color_secondary_overlay: #ffffff;
+    // --color_secondary_accent: #000000;
+
+    
+    // TYPOGRAPHY DEFAULT
+    --root_font-size: 1rem;
+    --default_font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --default_color: var(--color_primary_accent);
+    --default_font-size: var(--root_font-size);
+    // --default_font-weight: initial;
+    --default_line-height: 1.4;
+
+    // TYPOGRAPHY H1
+    --h1_font-family: 'Patua One', serif;
+    --h1_color:var(--color_primary);
+    --h1_font-size: 2.4rem;
+    // --h1_font-weight: initial;
+    // --h1_line-height: initial;
+
+    // TYPOGRAPHY H2, H3, H4
+    --h2_color:var(--color_primary);
+    --h3_color:var(--color_primary);
+    --h4_color:#000;
+
+    // TYPOGRAPHY P
+    // --p_font-family: var(--default_font-family);
+    // --color_primary: initial;
+    --p_font-size: var(--root_font-size);
+    // --p_font-weight: initial;
+    --p_line-height: 1.7;
+
+    // TYPOGRAPHY A
+    // --a_font-family: var(--default_font-family);
+    // --a_color: initial;
+    // --a_text-decoration: underline;
+
+    // TYPOGRAPHY A:FOCUS
+    // TYPOGRAPHY A:HOVER
+    // --a_color_hover: var(--a_color);
+    // --a_text-decoration_hover: initial;
+
+    // TYPOGRAPHY INPUT
+    --input_font-family: var(--default_font-family);
+    // --input_color: #000000;
+    // --input_font-size: var(--root_font-size);
+    // --input_font-weight: initial;
+    // --input_line-height: initial;
+    --input_background-color: var(--color_secondary);
+    --input_border-width: 0;
+    // --input_border-color: #dfdfe1;
+    --input_border-radius: 0;
+    // --input_placeholder-color: #6a6a6a;
+    --input_box-shadow: 0;
+    --input_placeholder-font-size:.9rem;
+        
+    // TYPOGRAPHY INPUT:FOCUS
+    // TYPOGRAPHY INPUT:HOVER
+    // --input_color_hover: var(--input_color);
+    // --input_background-color_hover: var(--input_background-color);
+    // --input_border-color_hover: #767677;
+    // --input_border-bottom-color_hover: var(--input_border-color_hover);
+    // --input_box-shadow_hover: --input_box-shadow;
+
+    // TYPOGRAPHY INPUT LABELS
+    --label-font-weight:700;
+    --label-font-size:.9rem;
+
+    // TYPOGRAPHY BUTTON
+    // --button_font-family: var(--default_font-family);
+    --button_color: var(--color_primary);
+    --button_font-size: 1.2rem;
+    // --button_font-weight: initial;
+    // --button_line-height: initial;
+    --button_background-color:var(--color_secondary);
+    --button_border-width: 0;
+    // --button_border-color: var(--color_black);
+    --button_border-radius: 0;
+    --button_padding: 1.7ch 1ch;
+
+    // TYPOGRAPHY BUTTON:HOVER
+    // --button_color_hover: var(--button_color);
+    --button_background-color_hover: var(--button_background-color);
+    // --button_border-color_hover: var(--button_background-color_hover);
+
+    // TYPOGRAPHY BUTTON:SELECTED
+    --button_color_checked: var(--color_secondary);
+    --button_background-color_checked: var(--color_primary);
+    // --button_border-color_checked: var(--button_border-color_hover);
+
+    // DONATION PAGE
+    --give-monthly-donation-amount-appended-label: "/mo";
+    // --give-annual-donation-amount-appended-label: "/yr";  
+    --recurring-frequency__button_count: 2;
+    --donation-amount__button_count: 3;
+    --give-by-select__button_count: 3;
+
+    // GIVE BY SELECTS
+    --give-by-select__button_background-color_checked:var(--color_primary);
+    --give-by-select__button_color_checked:#fff;
+
+    // RADIOS
+    --radio_background-color:#fff;
+    --radio_border-width:2px;
+    --radio_border-color:var(--color_primary);
+    --radio_color_selected:var(--color_primary);
+
+    // CHECKBOXES
+    --checkbox_color_checked:var(--color_primary);
+    --checkbox_border-color_checked:var(--color_primary);
+    --checkbox_border-width:2px;
+    --checkbox_border-color:var(--color_primary);
+
+    // --fields_spacing-block: 0.5rem;
+    // --fields_spacing-inline: 0.5rem;
+
+    --input_placeholder-color: #888b8b;
+
+    --recurring-frequency__button_background-color_checked: var(--color_primary);
+    --recurring-frequency__button_color_checked: var(--color_primary_overlay);
+    --donation-amount__button_background-color_checked: var(--color_primary);
+    --donation-amount__button_color_checked: var(--color_primary_overlay);
+
+    // TYPOGRAPHY SUBMIT BUTTON
+    --submit__button_color: #ffffff;
+    --submit__button_background-color:#ad7c1d;
+    --submit__button_padding-top: 1rem;
+    --submit__button_padding-bottom: 1rem;
+    --submit__button_text-transform: uppercase;
+
+    // TYPOGRAPHY SUBMIT BUTTON:HOVER
+    --submit__button_color_hover: #ffffff;
+    --submit__button_background-color_hover: #8c6b29;
+}
+
+
+
+/* Add your custom theme styles here */
+[data-engrid-theme="engrid-nwf"]{
+    @mixin until-mobile-l {
+        // STYLES
+    }
+
+    @mixin from-mobile-l {
+        // STYLES
+    }
+
+    @mixin simplified-header {
+        // STLES
+    }
+
+    // Example Breakpoints Stylings (See engrid-scripts > _engrid-breakpoints.scss for more breakpoints)
+    &[data-engrid-layout] {
+        @include mq($until: mobile-l){
+            @include until-mobile-l;
+        }
+
+        @include mq($from: mobile-l){
+            @include from-mobile-l;
+        }
+    }
+    
+    // Example of Shared Layout Stylings
+    &[data-engrid-layout="centerleft1col"]{
+        @media screen and (max-width: $centerleft1col_content-column_min-width) {
+            @include simplified-header;
+        }
+    }
+
+    &[data-engrid-layout="centerright1col"]{
+        @media screen and (max-width: $centerright1col_content-column_min-width) {
+            @include simplified-header;
+        }
+    }
+
+}
+
+/* Add your custom theme styles here */
+[data-engrid-theme="engrid-nwf"]{
+    --fields_spacing-inline: 0.25rem;
+
+    .en__field--recurrfreq,
+    .give-by-select,
+    .en__field--donationAmt{
+        --donation-amount__button_text-transform: uppercase;
+        --give-by-select__button_text-transform: uppercase;
+
+        label{
+            outline: none !important;
+        }
+    }
+
+    .en__field--recurrfreq,
+    .give-by-select{
+        --fields_spacing-inline: 0rem;
+        --fields_spacing-block: 0.25rem;
+    }
+
+    .en__field--donationAmt{
+        --fields_spacing-block: 0.25rem;
+
+        .en__field__label--item{
+            align-items: flex-end;
+        
+            &:after{
+                --fields_spacing-inline: 0;
+                font-size: 80%;
+                opacity: 0.75;
+            }
+        }
+
+        .en__field__item--other{
+            flex-grow: 1; // Expand to fill the row
+
+            .en__field__input--other {
+                padding: var(--button_padding);
+                font-size: var(--button_font-size);
+                line-height: var(--button_line-height);
+            }
+        }
+    }
+
+    &.en__field--validationFailed{
+        margin-bottom: calc(var(--fields_spacing-block) * 2); // Give a little breathing room when a field has an erro
+    }
+
+    .en__submit button {
+        margin:1rem 0;
+    }
 
     h1, h2 {
         text-align: center;
     }
 
     input:focus, button:focus {
-        outline:1px solid #333;
+        outline: 1px solid #333;
         border-radius:0;
     }
 
@@ -15,62 +253,30 @@
         text-transform:uppercase;
     }
 
-    .radio-to-buttons .en__field--radio input[type=radio]+label, .en__field--give-by-select.en__field--radio input[type=radio]+label {
-        padding: var(--button_padding);
-        text-transform: uppercase;
-    }
-    // .radio-to-buttons .en__field--radio input[type=radio]+label, .en__field--give-by-select.en__field--radio input[type=radio]+label {
-        // text-transform:uppercase;
-    // }
 
-    .en__field--recurrfreq .en__field__item, .en__field--give-by-select .en__field__item {
-        padding:0 !important;
-    }
-
-    // .en__field__label {
-        // padding-bottom:0;
-    // }
-    
-    .en__field__input--other {
-        padding:var(--button_padding);
-        font-size: var(--button_font-size);
-    }
-
-    .en__submit button {
-        background-color: #ad7c1d;
-        color:#fff;
-        font-size: var(--button_font-size);
-        padding:1.7ch;
-        margin:1rem 0 4rem 0;
-
-        &:hover {
-            background-color: #8c6b29;
-        }
-    }
-
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: #6a6a6a;
-        font-weight:normal;
-        font-size: .9rem;
-      }
-    ::-moz-placeholder { /* Firefox 19+ */
-        color: #6a6a6a;
-        font-weight:normal;
-        font-size: .9rem;
-      }
-    :-ms-input-placeholder { /* IE 10+ */
-        color: #6a6a6a;
-        font-weight:normal;
-        font-size: .9rem;
-      }
-    :-moz-placeholder { /* Firefox 18- */
-        color: #6a6a6a;
-        font-weight:normal;
-        font-size: .9rem;
-      }
+    // ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    //     color: #6a6a6a;
+    //     font-weight:normal;
+    //     font-size: .9rem;
+    //   }
+    // ::-moz-placeholder { /* Firefox 19+ */
+    //     color: #6a6a6a;
+    //     font-weight:normal;
+    //     font-size: .9rem;
+    //   }
+    // :-ms-input-placeholder { /* IE 10+ */
+    //     color: #6a6a6a;
+    //     font-weight:normal;
+    //     font-size: .9rem;
+    //   }
+    // :-moz-placeholder { /* Firefox 18- */
+    //     color: #6a6a6a;
+    //     font-weight:normal;
+    //     font-size: .9rem;
+    //   }
       
     .recurring-payment .en__field__item {
-            padding:0 !important;
+            // padding:0 !important;
 
             &:focus {
                 padding:0;
@@ -114,7 +320,6 @@
 
 
     // Imported styles
-
     .NWF_name {
         position: absolute;
         top:20px;
@@ -151,9 +356,10 @@
         text-transform: uppercase;
         // position: absolute;
         z-index: 100;
-        width: 100%;
+        // width: 100%;
         height:65px;
         background-color:#000;
+        grid-column: pc;
     }
 
     .navbar-brand {
@@ -245,7 +451,7 @@
             align-items: flex-start;
 
             .footer-boxes {
-                width:30%;
+                max-width:30%;
                 margin:3rem 1rem;
 
                 img {
@@ -274,7 +480,7 @@
                 }
 
                 .legal-nav li {
-                    display: inline-block;
+                    // display: inline-block;
                     float: left;
                     padding-right: 20px;
                 }
@@ -283,14 +489,25 @@
 
     }
 
-    @media screen and (max-width:600px) {
-        .content-footer .row {
-            flex-direction:column;
+    &[data-engrid-layout="centercenter2col"]{
+        @media screen and (max-width: $centercenter2col_body-column_min-width) {
+            .benefits-copy{
+                margin-bottom: 20px;
+            }
+    
+            .content-footer .row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .content-footer .row .footer-boxes {
+                max-width: 100%;
+                padding: 0;
+            }
         }
-        .content-footer .row .footer-boxes {
-            width:100%;
-            padding:0 2rem 0 0;
+
+        @media screen and (min-width: $centercenter2col_body-column_min-width) {
+            --engrid__body-main_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
+            --engrid__body-bottom_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
         }
     }
-    
 }
