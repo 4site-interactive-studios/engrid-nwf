@@ -130,8 +130,10 @@
 
     --recurring-frequency__button_background-color_checked: var(--color_primary);
     --recurring-frequency__button_color_checked: var(--color_primary_overlay);
+    --recurring-frequency__button_text-transform: uppercase;
     --donation-amount__button_background-color_checked: var(--color_primary);
     --donation-amount__button_color_checked: var(--color_primary_overlay);
+    --give-by-select__button_text-transform: uppercase;
 
     // TYPOGRAPHY SUBMIT BUTTON
     --submit__button_color: #ffffff;
@@ -194,9 +196,6 @@
     .en__field--recurrfreq,
     .give-by-select,
     .en__field--donationAmt{
-        --donation-amount__button_text-transform: uppercase;
-        --give-by-select__button_text-transform: uppercase;
-
         label{
             outline: none !important;
         }

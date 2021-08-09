@@ -4648,21 +4648,19 @@ class ShowHideRadioCheckboxes {
 // This class works when the user has added ".simple_country_select" as a class in page builder for the Country select
 class SimpleCountrySelect {
   constructor() {
-    var _a;
-
     this.countryWrapper = document.querySelector('.simple_country_select');
-    this.countrySelect = document.querySelector('#en__field_supporter_country');
+    this.countrySelect = document.querySelector('#en__field_supporter_country'); // @TODO Check if there is a country select AN an address1 label, otherwise we can abort the function
 
     if (this.countrySelect) {
-      let countrySelecLabel = this.countrySelect.options[this.countrySelect.selectedIndex].innerHTML;
-      let countrySelecValue = this.countrySelect.options[this.countrySelect.selectedIndex].value;
+      let countrySelectLabel = this.countrySelect.options[this.countrySelect.selectedIndex].innerHTML;
+      let countrySelectValue = this.countrySelect.options[this.countrySelect.selectedIndex].value; // @TODO Update so that it reads "(Outside X?)" where X is the Value of the Country Select. No need for long form version of it.
 
-      if (countrySelecValue == "US") {
-        countrySelecValue = " US";
+      if (countrySelectValue == "US") {
+        countrySelectValue = " US";
       }
 
-      if (countrySelecLabel == "United States") {
-        countrySelecLabel = "the United States";
+      if (countrySelectLabel == "United States") {
+        countrySelectLabel = "the United States";
       }
 
       let countryWrapper = document.querySelector('.simple_country_select');
@@ -4671,8 +4669,8 @@ class SimpleCountrySelect {
         // Remove Country Select tab index
         this.countrySelect.tabIndex = -1; // Find the address label
 
-        let addressLabel = document.querySelector('.en__field--address1 label');
-        let addressWrapper = (_a = addressLabel.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement; // EN does not enforce a labels on fields so we have to check for it
+        let addressLabel = document.querySelector('.en__field--address1 label'); // EN does not enforce a labels on fields so we have to check for it
+        // @TODO Update so that this follows the same pattern / HTML structure as the Tippy tooltips which are added to labels. REF: https://github.com/4site-interactive-studios/engrid-aiusa/blob/6e4692d4f9a28b9668d6c1bfed5622ac0cc5bdb9/src/scripts/main.js#L42
 
         if (addressLabel) {
           // Wrap the address label in a div to break out of the flexbox
@@ -4680,7 +4678,7 @@ class SimpleCountrySelect {
           // Includes both long form and short form variants
 
           let newEl = document.createElement('span');
-          newEl.innerHTML = ' <label id="en_custom_field_simple_country_select_long" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelecLabel + '?)</a></label><label id="en_custom_field_simple_country_select_short" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelecValue + '?)</a></label>';
+          newEl.innerHTML = ' <label id="en_custom_field_simple_country_select_long" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelectLabel + '?)</a></label><label id="en_custom_field_simple_country_select_short" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelectValue + '?)</a></label>';
           newEl.querySelectorAll("a").forEach(el => {
             el.addEventListener("click", this.showCountrySelect.bind(this));
           });
