@@ -59,8 +59,8 @@
     // --input_font-weight: initial;
     // --input_line-height: initial;
     --input_background-color: var(--color_secondary);
-    --input_border-width: 0;
-    // --input_border-color: #dfdfe1;
+    --input_border-width: 2px;
+    --input_border-color: var(--color_secondary);
     --input_border-radius: 0;
     // --input_placeholder-color: #6a6a6a;
     --input_box-shadow: 0;
@@ -113,7 +113,6 @@
 
     // RADIOS
     --radio_background-color: #ffffff;
-    --radio_border-width: 2px;
     --radio_border-color: var(--color_primary);
     --radio_border-background-color: #ffffff;
     --radio_box-shadow_hover: none;
@@ -123,7 +122,6 @@
     --radio_box-shadow_selected: inset 0 0 0 5px #fff; 
 
     // CHECKBOXES
-    --checkbox_border-width: 2px;
     --checkbox_border-color_checked: var(--color_primary);
     --checkbox_background-color_checked: #ffffff;
     --checkbox_color_checked: var(--color_primary);

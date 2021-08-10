@@ -3527,7 +3527,6 @@ button.en__ecarditems__prevclose{
   color:var(--error__color);
   font-size:calc(max(75%, 10px));
   order:3;
-  padding:.25rem .5rem 0 0;
 }
 .en__field--validationFailed:not(.has-focus):not(.has-value){
   --input_placeholder-color:var(--error__color);
@@ -6460,7 +6459,8 @@ body:not([data-engrid-debug]) #debug-bar{
   --p_line-height:1.7;
   --input_font-family:var(--default_font-family);
   --input_background-color:var(--color_secondary);
-  --input_border-width:0;
+  --input_border-width:2px;
+  --input_border-color:var(--color_secondary);
   --input_border-radius:0;
   --input_box-shadow:0;
   --input_placeholder-font-size:.9rem;
@@ -6482,7 +6482,6 @@ body:not([data-engrid-debug]) #debug-bar{
   --give-by-select__button_background-color_checked:var(--color_primary);
   --give-by-select__button_color_checked:#fff;
   --radio_background-color:#fff;
-  --radio_border-width:2px;
   --radio_border-color:var(--color_primary);
   --radio_border-background-color:#fff;
   --radio_box-shadow_hover:none;
@@ -6490,7 +6489,6 @@ body:not([data-engrid-debug]) #debug-bar{
   --radio_background-color_selected:var(--color_primary);
   --radio_border-color_selected:var(--color_primary);
   --radio_box-shadow_selected:inset 0 0 0 5px #fff;
-  --checkbox_border-width:2px;
   --checkbox_border-color_checked:var(--color_primary);
   --checkbox_background-color_checked:#fff;
   --checkbox_color_checked:var(--color_primary);
