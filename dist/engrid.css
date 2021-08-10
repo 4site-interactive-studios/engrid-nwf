@@ -6464,8 +6464,8 @@ body:not([data-engrid-debug]) #debug-bar{
   --input_border-radius:0;
   --input_box-shadow:0;
   --input_placeholder-font-size:.9rem;
-  --label-font-weight:700;
-  --label-font-size:.9rem;
+  --label_font-weight:700;
+  --label_font-size:.9rem;
   --button_color:var(--color_primary);
   --button_font-size:1.2rem;
   --button_background-color:var(--color_secondary);
