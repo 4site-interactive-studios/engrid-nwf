@@ -6701,6 +6701,13 @@ body:not([data-engrid-debug]) #debug-bar{
   width:28px;
 }
 
+[data-engrid-theme=engrid-nwf] .benefits-copy{
+  background-color:#fff;
+  margin-bottom:var(--spacing_lg);
+  margin-top:20px;
+  padding:20px;
+}
+
 [data-engrid-theme=engrid-nwf] .content-footer .row{
   align-content:center;
   align-items:flex-start;
@@ -6744,9 +6751,6 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 
 @media screen and (max-width:900px){
-  [data-engrid-theme=engrid-nwf][data-engrid-layout=centercenter2col] .benefits-copy{
-    margin-bottom:20px;
-  }
   [data-engrid-theme=engrid-nwf][data-engrid-layout=centercenter2col] .content-footer .row{
     align-items:center;
     flex-direction:column;

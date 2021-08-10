@@ -399,6 +399,13 @@
         margin-right: 4px;
     }
 
+    .benefits-copy{
+        margin-top: 20px;
+        margin-bottom: var(--spacing_lg);
+        padding: 20px;
+        background-color: #ffffff;
+    }
+
     .content-footer {
 
         .row {
@@ -449,11 +456,7 @@
     }
 
     &[data-engrid-layout="centercenter2col"]{
-        @media screen and (max-width: $centercenter2col_body-column_min-width) {
-            .benefits-copy{
-                margin-bottom: 20px;
-            }
-    
+        @media screen and (max-width: $centercenter2col_body-column_min-width) {    
             .content-footer .row {
                 flex-direction: column;
                 align-items: center;
