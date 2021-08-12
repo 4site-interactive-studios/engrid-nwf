@@ -451,6 +451,40 @@
                     padding-right: 20px;
                 }
             }
+    
+        }
+
+        
+    }
+
+    @media screen and (max-width:980px) {
+            
+        .navbar-brand {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            -webkit-transform: translate(-50%,-50%);
+            z-index: 100;
+        }
+
+        .nav-spacer {display: none;}
+
+        #main-nav {margin-bottom:4rem;}
+
+        .navbar-brand>img {
+            display:unset;
+            margin:4rem 0 0 0;
+            max-width:unset;
+        }
+
+        .NWF_name {display:none;}
+    }
+
+    @media screen and (max-width:680px) {
+
+        .navbar-brand>img {
+            max-width:120px;
         }
 
     }

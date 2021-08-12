@@ -2846,14 +2846,137 @@ class App extends engrid_ENGrid {
 
 
   setDataAttributes() {
-    // Add a body banner data attribute if it's empty
+    // Add a body banner data attribute if the banner contains no image
+    // @TODO Should this account for video?
+    // @TODO Should we merge this with the script that checks the background image?
     if (!document.querySelector(".body-banner img")) {
       App.setBodyData("body-banner", "empty");
-    } // Add a body title data attribute if it is empty
+    } // Add a page-alert data attribute if it is empty
+
+
+    if (document.querySelector(".page-alert *")) {
+      App.setBodyData("has-page-alert", "");
+    } else {
+      App.setBodyData("does-not-have-page-alert", "");
+    } // Add a content-header data attribute if it is empty
+
+
+    if (document.querySelector(".content-header *")) {
+      App.setBodyData("has-content-header", "");
+    } else {
+      App.setBodyData("does-not-have-content-header", "");
+    } // Add a body-headerOutside data attribute if it is empty
+
+
+    if (document.querySelector(".body-headerOutside *")) {
+      App.setBodyData("has-body-headerOutside", "");
+    } else {
+      App.setBodyData("does-not-have-body-headerOutside", "");
+    } // Add a body-header data attribute if it is empty
+
+
+    if (document.querySelector(".body-header *")) {
+      App.setBodyData("has-body-header", "");
+    } else {
+      App.setBodyData("does-not-have-body-header", "");
+    } // Add a body-title data attribute if it is empty
 
 
     if (document.querySelector(".body-title *")) {
       App.setBodyData("has-body-title", "");
+    } else {
+      App.setBodyData("does-not-have-body-title", "");
+    } // Add a body-banner data attribute if it is empty
+
+
+    if (document.querySelector(".body-banner *")) {
+      App.setBodyData("has-body-banner", "");
+    } else {
+      App.setBodyData("does-not-have-body-banner", "");
+    } // Add a body-bannerOverlay data attribute if it is empty
+
+
+    if (document.querySelector(".body-bannerOverlay *")) {
+      App.setBodyData("has-body-bannerOverlay", "");
+    } else {
+      App.setBodyData("does-not-have-body-bannerOverlay", "");
+    } // Add a body-top data attribute if it is empty
+
+
+    if (document.querySelector(".body-top *")) {
+      App.setBodyData("has-body-top", "");
+    } else {
+      App.setBodyData("does-not-have-body-top", "");
+    } // Add a body-main data attribute if it is empty
+
+
+    if (document.querySelector(".body-main *")) {
+      App.setBodyData("has-body-main", "");
+    } else {
+      App.setBodyData("does-not-have-body-main", "");
+    } // Add a body-bottom data attribute if it is empty
+
+
+    if (document.querySelector(".body-bottom *")) {
+      App.setBodyData("has-body-bottom", "");
+    } else {
+      App.setBodyData("does-not-have-body-bottom", "");
+    } // Add a body-footer data attribute if it is empty
+
+
+    if (document.querySelector(".body-footer *")) {
+      App.setBodyData("has-body-footer", "");
+    } else {
+      App.setBodyData("does-not-have-body-footer", "");
+    } // Add a body-footerOutside data attribute if it is empty
+
+
+    if (document.querySelector(".body-footerOutside *")) {
+      App.setBodyData("has-body-footerOutside", "");
+    } else {
+      App.setBodyData("does-not-have-body-footerOutside", "");
+    } // Add a content-footerSpacer data attribute if it is empty
+
+
+    if (document.querySelector(".content-footerSpacer *")) {
+      App.setBodyData("has-content-footerSpacer", "");
+    } else {
+      App.setBodyData("does-not-have-content-footerSpacer", "");
+    } // Add a content-preFooter data attribute if it is empty
+
+
+    if (document.querySelector(".content-preFooter *")) {
+      App.setBodyData("has-content-preFooter", "");
+    } else {
+      App.setBodyData("does-not-have-content-preFooter", "");
+    } // Add a content-footer data attribute if it is empty
+
+
+    if (document.querySelector(".content-footer *")) {
+      App.setBodyData("has-content-footer", "");
+    } else {
+      App.setBodyData("does-not-have-content-footer", "");
+    } // Add a page-backgroundImage data attribute if it is empty
+
+
+    if (document.querySelector(".page-backgroundImage *")) {
+      App.setBodyData("has-page-backgroundImage", "");
+    } else {
+      App.setBodyData("does-not-have-page-backgroundImage", "");
+    } // Add a page-backgroundImageOverlay data attribute if it is empty
+
+
+    if (document.querySelector(".page-backgroundImageOverlay *")) {
+      App.setBodyData("has-page-backgroundImageOverlay", "");
+    } else {
+      App.setBodyData("does-not-have-page-backgroundImageOverlay", "");
+    } // Add a page-customCode data attribute if it is empty
+
+
+    if (document.querySelector(".page-customCode *")) {
+      App.setBodyData("has-page-customCode", "");
+    } else {
+      App.setBodyData("does-not-have-page-customCode", "");
     }
   }
 
@@ -4386,7 +4509,7 @@ class UpsellLightbox {
                 </p>
                 <!-- YES BUTTON -->
                 <div id="upsellYesButton">
-                  <a href="#">
+                  <a class="pseduo__en__submit_button" href="#">
                     <div>
                     <span class='loader-wrapper'><span class='loader loader-quart'></span></span>
                     <span class='label'>${yes}</span>
@@ -4653,8 +4776,8 @@ class ShowHideRadioCheckboxes {
 // This class works when the user has added ".simple_country_select" as a class in page builder for the Country select
 class SimpleCountrySelect {
   constructor() {
-    this.countryWrapper = document.querySelector('.simple_country_select');
-    this.countrySelect = document.querySelector('#en__field_supporter_country'); // @TODO Check if there is a country select AN an address1 label, otherwise we can abort the function
+    this.countryWrapper = document.querySelector(".simple_country_select");
+    this.countrySelect = document.querySelector("#en__field_supporter_country"); // @TODO Check if there is a country select AN an address1 label, otherwise we can abort the function
 
     if (this.countrySelect) {
       let countrySelectLabel = this.countrySelect.options[this.countrySelect.selectedIndex].innerHTML;
@@ -4668,26 +4791,27 @@ class SimpleCountrySelect {
         countrySelectLabel = "the United States";
       }
 
-      let countryWrapper = document.querySelector('.simple_country_select');
+      let countryWrapper = document.querySelector(".simple_country_select");
 
       if (countryWrapper) {
         // Remove Country Select tab index
         this.countrySelect.tabIndex = -1; // Find the address label
 
-        let addressLabel = document.querySelector('.en__field--address1 label'); // EN does not enforce a labels on fields so we have to check for it
+        let addressLabel = document.querySelector(".en__field--address1 label"); // EN does not enforce a labels on fields so we have to check for it
         // @TODO Update so that this follows the same pattern / HTML structure as the Tippy tooltips which are added to labels. REF: https://github.com/4site-interactive-studios/engrid-aiusa/blob/6e4692d4f9a28b9668d6c1bfed5622ac0cc5bdb9/src/scripts/main.js#L42
 
         if (addressLabel) {
-          // Wrap the address label in a div to break out of the flexbox
-          this.wrap(addressLabel, document.createElement('div')); // Add our link after the address label
+          let labelText = addressLabel.innerHTML; // Wrap the address label in a div to break out of the flexbox
+
+          this.wrap(addressLabel, document.createElement("div")); // Add our link INSIDE the address label
           // Includes both long form and short form variants
 
-          let newEl = document.createElement('span');
-          newEl.innerHTML = ' <label id="en_custom_field_simple_country_select_long" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelectLabel + '?)</a></label><label id="en_custom_field_simple_country_select_short" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelectValue + '?)</a></label>';
-          newEl.querySelectorAll("a").forEach(el => {
+          let newEl = document.createElement("span");
+          newEl.innerHTML = ' <label id="en_custom_field_simple_country_select_long" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelectLabel + '?)</a></label><label id="en_custom_field_simple_country_select_short" class="en__field__label"><a href="javascript:void(0)">(Outside ' + countrySelectValue + "?)</a></label>";
+          addressLabel.innerHTML = `${labelText}${newEl.innerHTML}`;
+          addressLabel.querySelectorAll("a").forEach(el => {
             el.addEventListener("click", this.showCountrySelect.bind(this));
-          });
-          this.insertAfter(newEl, addressLabel);
+          }); //this.insertAfter(newEl, addressLabel);
         }
       }
     }
@@ -4711,7 +4835,7 @@ class SimpleCountrySelect {
 
     e.preventDefault();
     this.countryWrapper.classList.add("country-select-visible");
-    let addressLabel = document.querySelector('.en__field--address1 label');
+    let addressLabel = document.querySelector(".en__field--address1 label");
     let addressWrapper = (_a = addressLabel.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
     addressWrapper.classList.add("country-select-visible");
     this.countrySelect.focus(); // Reinstate Country Select tab index
