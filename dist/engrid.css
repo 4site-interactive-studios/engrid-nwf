@@ -3686,6 +3686,7 @@ input[type=text].en__ticket__quantity{
   border:none !important;
   box-shadow:none !important;
   flex-basis:auto;
+  height:-moz-fit-content !important;
   height:fit-content !important;
   padding-left:0;
   padding-right:0;
@@ -6434,7 +6435,8 @@ body:not([data-engrid-debug]) #debug-bar{
   --color_primary_accent:#333;
   --color_secondary:#e0e9ea;
   --root_font-size:1rem;
-  --default_font-family:"Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --default_font-family:"Fira Sans", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Helvetica, Arial, sans-serif;
   --default_color:var(--color_primary_accent);
   --default_font-size:var(--root_font-size);
   --default_line-height:1.4;
@@ -6452,9 +6454,9 @@ body:not([data-engrid-debug]) #debug-bar{
   --input_border-color:var(--color_secondary);
   --input_border-radius:0;
   --input_box-shadow:0;
-  --input_placeholder-font-size:.9rem;
+  --input_placeholder-font-size:0.9rem;
   --label_font-weight:700;
-  --label_font-size:.9rem;
+  --label_font-size:0.9rem;
   --button_color:var(--color_primary);
   --button_font-size:1.2rem;
   --button_background-color:var(--color_secondary);
@@ -6730,7 +6732,7 @@ body:not([data-engrid-debug]) #debug-bar{
   font-size:12px;
   font-weight:700;
   list-style:none;
-  margin:40px -35px 0 0;
+  margin:40px 0 0;
   padding:0;
 }
 
