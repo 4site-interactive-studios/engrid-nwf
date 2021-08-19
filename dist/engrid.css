@@ -6543,6 +6543,7 @@ body:not([data-engrid-debug]) #debug-bar{
   font-size:var(--button_font-size);
   line-height:var(--button_line-height);
   padding:var(--button_padding);
+  text-align:center;
 }
 
 [data-engrid-theme=engrid-nwf].en__field--validationFailed{
