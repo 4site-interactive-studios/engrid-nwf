@@ -3170,18 +3170,22 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
 
 .radio-to-buttons>.en__field>.en__field__element>.en__field__input--other{
   border-radius:var(--button_border-radius);
+  border-width:var(--button_border-width);
 }
 
 .en__field--give-by-select>.en__field__element .en__field__input--other{
   border-radius:var(--give-by-select__button_border-radius);
+  border-width:var(--give-by-select__button_border-width);
 }
 
 .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio>.en__field__element .en__field__input--other{
   border-radius:var(--donation-amount__button_border-radius);
+  border-width:var(--donation-amount__button_border-width);
 }
 
 .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio>.en__field__element .en__field__input--other{
   border-radius:var(--recurring-frequency__button_border-radius);
+  border-width:var(--recurring-frequency__button_border-width);
 }
 .radio-to-buttons .en__field--radio input[type=radio]+label{
   background-color:var(--button_background-color);
@@ -4017,6 +4021,10 @@ img:not([width]),video:not([width]){
   width:100%;
 }
 
+img{
+  color:#0000;
+}
+
 #enModal{
   align-items:center;
   background-color:#000000d9;
@@ -4339,6 +4347,7 @@ h2.en__pg__name{
 
 .en__pg__optionType{
   display:flex;
+  flex-direction:column;
 }
 
 .en__pg__optionType select{
@@ -6480,6 +6489,7 @@ body:not([data-engrid-debug]) #debug-bar{
   --radio_background-color_selected:var(--color_primary);
   --radio_border-color_selected:var(--color_primary);
   --radio_box-shadow_selected:inset 0 0 0 4px #fff;
+  --checkbox_padding-top:2px;
   --checkbox_border-color_checked:var(--color_primary);
   --checkbox_background-color_checked:#fff;
   --checkbox_color_checked:var(--color_primary);
@@ -6497,6 +6507,13 @@ body:not([data-engrid-debug]) #debug-bar{
   --submit__button_text-transform:uppercase;
   --submit__button_color_hover:#fff;
   --submit__button_background-color_hover:#8c6b29;
+  --media-attribution__background-color:#0000;
+  --media-attribution__margin:0ch 0.8ch;
+  --media-attribution__padding:0;
+  --media-attribution__font-size:10px;
+  --media-attribution__text-shadow:1px 1px 3px #969696;
+  --media-attribution__color:#ffffffe6;
+  --media-attribution__font-weight:400;
   --fields_spacing-inline:0.25rem;
 }
 
@@ -6631,6 +6648,9 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 
 [data-engrid-theme=engrid-nwf] .logo_desktop{
+  background-color:#000;
+  border-radius:5000px;
+  color:#0000;
   width:140px;
 }
 
@@ -6784,13 +6804,16 @@ body:not([data-engrid-debug]) #debug-bar{
   [data-engrid-theme=engrid-nwf]{
     --engrid__body_padding:0 calc(var(--fields_spacing-inline)*4);
     --recurring-frequency__button_count:2;
+    --give-by-select__button_count:3;
   }
 }
 
-@media screen and (max-width:375px){
-  [data-engrid-theme=engrid-nwf]{
-    --give-by-select__button_count:1;
-  }
+[data-engrid-theme=engrid-nwf][data-engrid-layout=centercenter2col] .body-banner{
+  background-color:var(--color_secondary);
+}
+
+[data-engrid-theme=engrid-nwf][data-engrid-layout=centercenter2col] .body-banner img[data-src]{
+  opacity:0;
 }
 
 @media screen and (max-width:900px){

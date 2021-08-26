@@ -123,6 +123,7 @@
   --radio_box-shadow_selected: inset 0 0 0 4px #fff;
 
   // CHECKBOXES
+  --checkbox_padding-top: 2px;
   --checkbox_border-color_checked: var(--color_primary);
   --checkbox_background-color_checked: #ffffff;
   --checkbox_color_checked: var(--color_primary);
@@ -149,6 +150,15 @@
   // TYPOGRAPHY SUBMIT BUTTON:HOVER
   --submit__button_color_hover: #ffffff;
   --submit__button_background-color_hover: #8c6b29;
+
+  // TYPOGRAPHY MEDIA ATTRIBUTION
+  --media-attribution__background-color: transparent;
+  --media-attribution__margin: 0ch 0.8ch;
+  --media-attribution__padding: 0;
+  --media-attribution__font-size: 10px;
+  --media-attribution__text-shadow: 1px 1px 3px rgba(150, 150, 150, 1);
+  --media-attribution__color: hsl(0deg 0% 100% / 90%);
+  --media-attribution__font-weight: 400;
 }
 
 /* Add your custom theme styles here */
@@ -397,6 +407,9 @@
 
   .logo_desktop {
     width: 140px;
+    background-color: black;
+    border-radius: 5000px;
+    color: transparent;
   }
 
   .navbar-inverse {
@@ -561,13 +574,19 @@
   @media screen and (max-width: 425px) {
     --engrid__body_padding: 0 calc(var(--fields_spacing-inline) * 4);
     --recurring-frequency__button_count: 2;
-  }
-
-  @media screen and (max-width: 375px) {
-    --give-by-select__button_count: 1;
+    --give-by-select__button_count: 3;
   }
 
   &[data-engrid-layout="centercenter2col"] {
+
+    .body-banner{
+      background-color: var(--color_secondary);
+
+      img[data-src] {
+        opacity: 0;
+      }
+    }
+
     @media screen and (max-width: $centercenter2col_body-column_min-width) {
       .content-footer .row {
         flex-direction: column;
