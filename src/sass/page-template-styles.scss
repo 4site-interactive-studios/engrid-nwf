@@ -102,9 +102,9 @@
   // DONATION PAGE
   --give-monthly-donation-amount-appended-label: "/mo";
   // --give-annual-donation-amount-appended-label: "/yr";
-  --recurring-frequency__button_count: 2;
+  --recurring-frequency__button_count: 3;
   --donation-amount__button_count: 3;
-  --give-by-select__button_count: 3;
+  --give-by-select__button_count: 4;
 
   // GIVE BY SELECTS
   --give-by-select__button_background-color_checked: var(--color_primary);
@@ -114,11 +114,13 @@
   --radio_background-color: #ffffff;
   --radio_border-color: var(--color_primary);
   --radio_border-background-color: #ffffff;
+  --radio_width: 22px;
+  --radio_height: 22px;
   --radio_box-shadow_hover: none;
   --radio_color_selected: var(--color_primary);
   --radio_background-color_selected: var(--color_primary);
   --radio_border-color_selected: var(--color_primary);
-  --radio_box-shadow_selected: inset 0 0 0 5px #fff;
+  --radio_box-shadow_selected: inset 0 0 0 4px #fff;
 
   // CHECKBOXES
   --checkbox_border-color_checked: var(--color_primary);
@@ -190,6 +192,17 @@
 
 /* Add your custom theme styles here */
 [data-engrid-theme="engrid-nwf"] {
+  .page-alert,
+  .body-headerOutside,
+  .body-bannerOverlay,
+  .body-bottom,
+  .body-footer,
+  .body-footerOutside,
+  .content-preFooter,
+  .page-backgroundImageOverlay{
+    display: none !important;
+  }
+
   --fields_spacing-inline: 0.25rem;
 
   .en__field--recurrfreq,
@@ -200,8 +213,8 @@
     }
   }
 
-  .en__field--recurrfreq,
-  .give-by-select {
+  .en__field--recurrfreq .en__field__element,
+  .give-by-select .en__field__element {
     --fields_spacing-inline: 0rem;
     --fields_spacing-block: 0.25rem;
   }
@@ -214,8 +227,9 @@
 
       &:after {
         --fields_spacing-inline: 0;
-        font-size: 80%;
-        opacity: 0.75;
+        font-size: 85% !important;
+        margin-left: 0 !important;
+        opacity: .75 !important;
       }
     }
 
@@ -409,6 +423,8 @@
 
   .body-title {
     padding: 0;
+    grid-row: body-headerOutside;
+    grid-column: bc !important;
   }
 
   .body-top {
@@ -540,6 +556,15 @@
     .navbar-brand > img {
       max-width: 120px;
     }
+  }
+
+  @media screen and (max-width: 425px) {
+    --engrid__body_padding: 0 calc(var(--fields_spacing-inline) * 4);
+    --recurring-frequency__button_count: 2;
+  }
+
+  @media screen and (max-width: 375px) {
+    --give-by-select__button_count: 1;
   }
 
   &[data-engrid-layout="centercenter2col"] {

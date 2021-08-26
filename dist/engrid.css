@@ -2041,15 +2041,19 @@ a:focus,a:hover{
   --radio_border-width:var(--input_border-width);
   --radio_border-radius:50%;
   --radio_box-shadow:none;
-  --radio_width:1.4rem;
-  --radio_height:1.4rem;
+  --radio_width:20px;
+  --radio_height:20px;
+  --radio_top:0px;
   --radio_box-shadow_hover:inset 0 0 0 6px #f5f5f5;
   --radio_box-shadow_selected:inset 0 0 0 6px #000;
   --checkbox_border-width:var(--input_border-width);
   --checkbox_border-radius:var(--input_border-radius);
   --checkbox_font-weight:700;
-  --checkbox_width:1.4rem;
-  --checkbox_height:1.4rem;
+  --checkbox_width:var(--radio_width);
+  --checkbox_height:var(--radio_height);
+  --checkbox_top:0px;
+  --checkbox_padding-top:0px;
+  --checkbox_padding-left:0px;
   --checkbox_content_checked:"\2713";
   --select_font-family:var(--input_font-family);
   --select_font-size:var(--input_font-size);
@@ -2212,6 +2216,7 @@ input[type=radio]+label{
   align-items:center;
   cursor:pointer;
   display:flex;
+  padding-top:MAX(0px, calc(var(--radio_top)*-1));
 }
 
 input[type=radio]+label:before{
@@ -2223,10 +2228,11 @@ input[type=radio]+label:before{
   color:var(--radio_color);
   content:var(--radio_content);
   display:flex;
-  display:inline-flex;
   height:var(--radio_height);
   justify-content:center;
   margin-right:MAX(var(--fields_spacing-inline), 1ch, .5rem);
+  position:relative;
+  top:var(--radio_top);
   width:var(--radio_width);
 }
 
@@ -2252,6 +2258,7 @@ input[type=checkbox]+label{
   content:"";
   cursor:pointer;
   display:flex;
+  padding-top:MAX(0px, calc(var(--checkbox_top)*-1));
 }
 
 input[type=checkbox]+label:before{
@@ -2260,14 +2267,17 @@ input[type=checkbox]+label:before{
   border:var(--checkbox_border-width) solid var(--checkbox_border-color);
   border-radius:var(--checkbox_border-radius);
   color:var(--checkbox_color);
-  content:var(--checkbox_content_checked);
+  content:" ";
   display:flex;
-  display:inline-flex;
   flex:1 0 auto;
   font-weight:var(--checkbox_font-weight);
   height:var(--checkbox_height);
   justify-content:center;
   margin-right:MAX(var(--fields_spacing-inline), 1ch, .5rem);
+  padding-left:var(--checkbox_padding-left);
+  padding-top:var(--checkbox_padding-top);
+  position:relative;
+  top:var(--checkbox_top);
   width:var(--checkbox_width);
 }
 
@@ -2285,11 +2295,13 @@ input[type=checkbox]:checked+label:before{
   background-color:var(--checkbox_background-color_checked);
   border-color:var(--checkbox_border-color_checked);
   color:var(--checkbox_color_checked);
+  content:var(--checkbox_content_checked);
 }
 .en__twitterTarget__select{
   content:"";
   cursor:pointer;
   max-width:min-content;
+  padding-top:MAX(0px, calc(var(--checkbox_top)*-1));
   visibility:hidden;
 }
 
@@ -2299,13 +2311,16 @@ input[type=checkbox]:checked+label:before{
   border:var(--checkbox_border-width) solid var(--checkbox_border-color);
   border-radius:var(--checkbox_border-radius);
   color:var(--checkbox_color);
-  content:var(--checkbox_content_checked);
+  content:" ";
   display:flex;
-  display:inline-flex;
   font-size:.99936rem;
   font-weight:var(--checkbox_font-weight);
   height:var(--checkbox_height);
   justify-content:center;
+  padding-left:var(--checkbox_padding-left);
+  padding-top:var(--checkbox_padding-top);
+  position:relative;
+  top:var(--checkbox_top);
   visibility:visible;
   width:var(--checkbox_width);
 }
@@ -2324,6 +2339,7 @@ input[type=checkbox]:checked+label:before{
   background-color:var(--checkbox_background-color_checked);
   border-color:var(--checkbox_border-color_checked);
   color:var(--checkbox_color_checked);
+  content:var(--checkbox_content_checked);
 }
 .en__pg__select input{
   content:"";
@@ -2529,7 +2545,7 @@ select.en__field__input--select:focus,select.en__field__input--select:hover,sele
 .en__contacts:not(.en__contacts--hideCheck)
 .en__contactDetails__select:checked+.en__contactDetails__rows:after{
   color:var(--checkbox_color_checked);
-  content:"✓";
+  content:var(--checkbox_content_checked);
   cursor:pointer;
   font-size:.99936rem;
   font-weight:var(--checkbox_font-weight);
@@ -3102,6 +3118,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   --recurring-frequency__button_padding:var(--button_padding);
   --recurring-frequency__button_text-transform:var(--button_text-transform);
   --recurring-frequency__button_count:4;
+  --recurring-frequency__flex-grow:initial;
   --donation-amount__button_font-family:var(--button_font-family);
   --donation-amount__button_font-size:var(--button_font-size);
   --donation-amount__button_font-weight:var(--button_font-weight);
@@ -3111,6 +3128,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   --donation-amount__button_padding:var(--button_padding);
   --donation-amount__button_text-transform:var(--button_text-transform);
   --donation-amount__button_count:4;
+  --donation-amount__flex-grow:initial;
   --give-monthly-donation-amount-appended-label:"/mo";
   --give-annual-donation-amount-appended-label:"/yr";
   --give-by-select__button_font-family:var(--button_font-family);
@@ -3122,6 +3140,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   --give-by-select__button_padding:var(--button_padding);
   --give-by-select__button_text-transform:var(--button_text-transform);
   --give-by-select__button_count:4;
+  --give-by-select__flex-grow:initial;
   --radio-to-buttons__button_count:4;
 }
 
@@ -3144,7 +3163,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   display:none;
 }
 
-.en__field--give-by-select>.en__field__element .en__field__item--other,.en__field--give-by-select>.en__field__element .en__field__item:not(.en__field__item--other),.radio-to-buttons>.en__field>.en__field__element>.en__field__item--other,.radio-to-buttons>.en__field>.en__field__element>.en__field__item:not(.en__field__item--other),.radio-to-buttons_donationAmt>.en__field>.en__field__element .en__field__item--other,.radio-to-buttons_donationAmt>.en__field>.en__field__element .en__field__item:not(.en__field__item--other),.radio-to-buttons_recurrfreq>.en__field>.en__field__element .en__field__item--other,.radio-to-buttons_recurrfreq>.en__field>.en__field__element .en__field__item:not(.en__field__item--other){
+.en__field--give-by-select>.en__field__element .en__field__item--other,.en__field--give-by-select>.en__field__element .en__field__item:not(.en__field__item--other),.radio-to-buttons>.en__field>.en__field__element>.en__field__item--other,.radio-to-buttons>.en__field>.en__field__element>.en__field__item:not(.en__field__item--other),.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio>.en__field__element .en__field__item--other,.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio>.en__field__element .en__field__item:not(.en__field__item--other),.radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio>.en__field__element .en__field__item--other,.radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio>.en__field__element .en__field__item:not(.en__field__item--other){
   flex-shrink:1;
   justify-content:center;
 }
@@ -3157,11 +3176,11 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   border-radius:var(--give-by-select__button_border-radius);
 }
 
-.radio-to-buttons_donationAmt>.en__field>.en__field__element .en__field__input--other{
+.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio>.en__field__element .en__field__input--other{
   border-radius:var(--donation-amount__button_border-radius);
 }
 
-.radio-to-buttons_recurrfreq>.en__field>.en__field__element .en__field__input--other{
+.radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio>.en__field__element .en__field__input--other{
   border-radius:var(--recurring-frequency__button_border-radius);
 }
 .radio-to-buttons .en__field--radio input[type=radio]+label{
@@ -3170,6 +3189,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   border:var(--button_border-width) solid var(--button_border-color);
   border-radius:var(--button_border-radius);
   color:var(--button_color);
+  flex-flow:wrap;
   font-family:var(--button_font-family);
   font-size:var(--button_font-size);
   font-weight:var(--button_font-weight);
@@ -3209,6 +3229,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   border:var(--give-by-select__button_border-width) solid var(--give-by-select__button_border-color);
   border-radius:var(--give-by-select__button_border-radius);
   color:var(--give-by-select__button_color);
+  flex-flow:wrap;
   font-family:var(--give-by-select__button_font-family);
   font-size:var(--give-by-select__button_font-size);
   font-weight:var(--give-by-select__button_font-weight);
@@ -3221,6 +3242,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
 
 .en__field--give-by-select>.en__field__element .en__field__item{
   flex-basis:calc(100%/var(--give-by-select__button_count));
+  flex-grow:var(--give-by-select__flex-grow);
 }
 
 .give-by-select_count_1{
@@ -3248,6 +3270,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   border:var(--donation-amount__button_border-width) solid var(--donation-amount__button_border-color);
   border-radius:var(--donation-amount__button_border-radius);
   color:var(--donation-amount__button_color);
+  flex-flow:wrap;
   font-family:var(--donation-amount__button_font-family);
   font-size:var(--donation-amount__button_font-size);
   font-weight:var(--donation-amount__button_font-weight);
@@ -3258,8 +3281,9 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   text-transform:var(--donation-amount__button_text-transform);
 }
 
-.radio-to-buttons_donationAmt>.en__field--donationAmt>.en__field__element .en__field__item{
+.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio>.en__field__element .en__field__item{
   flex-basis:calc(100%/var(--donation-amount__button_count));
+  flex-grow:var(--donation-amount__flex-grow);
 }
 
 .donation-amount_count_1{
@@ -3287,6 +3311,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   border:var(--recurring-frequency__button_border-width) solid var(--recurring-frequency__button_border-color);
   border-radius:var(--recurring-frequency__button_border-radius);
   color:var(--recurring-frequency__button_color);
+  flex-flow:wrap;
   font-family:var(--recurring-frequency__button_font-family);
   font-size:var(--recurring-frequency__button_font-size);
   font-weight:var(--recurring-frequency__button_font-weight);
@@ -3297,8 +3322,9 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   text-transform:var(--recurring-frequency__button_text-transform);
 }
 
-.radio-to-buttons_recurrfreq>.en__field--recurrfreq>.en__field__element .en__field__item{
+.radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio>.en__field__element .en__field__item{
   flex-basis:calc(100%/var(--recurring-frequency__button_count));
+  flex-grow:var(--recurring-frequency__flex-grow);
 }
 
 .recurring-frequency_count_1{
@@ -3351,7 +3377,7 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   color:var(--give-by-select__button_color_checked);
 }
 
-.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__item input[type=radio]:checked+label{
+.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio.en__field--withOther--active .en__field__item .en__field__input--other,.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__item input[type=radio]:checked+label{
   background-color:var(--donation-amount__button_background-color_checked);
   border-color:var(--donation-amount__button_border-color_checked);
   color:var(--donation-amount__button_color_checked);
@@ -3382,7 +3408,9 @@ body:not(#en__pagebuilder) .i1-hide-label .en__field:first-of-type>label,body:no
   color:var(--recurring-frequency__button_color_checked);
 }
 [data-engrid-transaction-recurring-frequency] .radio-to-buttons_donationAmt .en__field--donationAmt div:not(.en__field__item--other) .en__field__label--item:after{
-  margin-left:var(--fields_spacing-inline);
+  font-size:75%;
+  margin-left:.25ch;
+  opacity:.5;
 }
 [data-engrid-transaction-recurring-frequency=monthly] .radio-to-buttons_donationAmt .en__field--donationAmt div:not(.en__field__item--other) .en__field__label--item:after{
   content:var(--give-monthly-donation-amount-appended-label);
@@ -3560,51 +3588,6 @@ body.error-jump-assist .en__component .en__field__error{
 .en__field--validationFailed:not(.has-value):not(.has-focus) [type],.en__field--validationFailed:not(.has-value):not(.has-focus) select,.en__field--validationFailed:not(.has-value):not(.has-focus) textarea{
   background-color:var(--error__color_faded);
   border-color:var(--error__color);
-}
-
-.en__component
-.en__field.en__field--checkbox.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--imgselect.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--radio.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--rating.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--select.en__field--withOther.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--splitselect.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--splittext.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--tripleselect.en__field--validationFailed
-.en__field__element,.en__component
-.en__field.en__field--tripletext.en__field--validationFailed
-.en__field__element{
-  background-color:var(--error__color_faded);
-  border:var(--error__border-width) solid var(--error__color);
-  border-radius:var(--input_border-radius);
-  margin-left:0;
-  margin-right:0;
-}
-
-.en__component
-.en__field.en__field--checkbox.en__field--validationFailed
-.en__field__error,.en__component
-.en__field.en__field--radio.en__field--validationFailed
-.en__field__error,.en__component
-.en__field.en__field--select.en__field--withOther.en__field--validationFailed
-.en__field__error,.en__component
-.en__field.en__field--splitselect.en__field--validationFailed
-.en__field__error,.en__component
-.en__field.en__field--splittext.en__field--validationFailed
-.en__field__error,.en__component
-.en__field.en__field--tripleselect.en__field--validationFailed
-.en__field__error,.en__component
-.en__field.en__field--tripletext.en__field--validationFailed
-.en__field__error,.en__field--email.en__field--validationFailed .en__field__error,.en__field--number.en__field--validationFailed .en__field__error,.en__field--select.en__field--validationFailed .en__field__error,.en__field--telephone.en__field--validationFailed .en__field__error,.en__field--text.en__field--validationFailed .en__field__error,.en__field--textarea.en__field--validationFailed .en__field__error{
-  border-top-left-radius:0;
-  border-top-right-radius:0;
 }
 
 .en__field--radio.en__field--validationFailed
@@ -3785,28 +3768,17 @@ button.en__eventOccurrence__select>label{
     padding-right:0;
   }
 }
+[data-engrid-errors=fancy] .en__component--formblock .en__field.en__field--validationFailed,[data-engrid-errors=fancy] .en__component--svblock .en__field.en__field--validationFailed{
+  margin-bottom:calc(var(--fields_spacing-block)*2);
+}
+
 [data-engrid-errors=fancy] .en__field__error{
   background-color:var(--error__color);
-  border-bottom-left-radius:var(--input_border-radius);
-  border-bottom-right-radius:var(--input_border-radius);
+  border-radius:var(--input_border-radius);
   color:var(--color_white);
   font-size:calc(max(75%, 10px));
   order:3;
   padding:.25rem .5rem;
-}
-
-[data-engrid-errors=fancy] .en__field--calendar.en__field--validationFailed input,[data-engrid-errors=fancy] .en__field--email.en__field--validationFailed input,[data-engrid-errors=fancy] .en__field--number.en__field--validationFailed input,[data-engrid-errors=fancy] .en__field--password.en__field--validationFailed input,[data-engrid-errors=fancy] .en__field--select.en__field--validationFailed select,[data-engrid-errors=fancy] .en__field--telephone.en__field--validationFailed input,[data-engrid-errors=fancy] .en__field--text.en__field--validationFailed input,[data-engrid-errors=fancy] .en__field--textarea.en__field--validationFailed textarea{
-  border-bottom-left-radius:0;
-  border-bottom-right-radius:0;
-}
-
-[data-engrid-errors=fancy] .en__field--calendar.en__field--validationFailed input:only-of-type,[data-engrid-errors=fancy] .en__field--email.en__field--validationFailed input:only-of-type,[data-engrid-errors=fancy] .en__field--number.en__field--validationFailed input:only-of-type,[data-engrid-errors=fancy] .en__field--password.en__field--validationFailed input:only-of-type,[data-engrid-errors=fancy] .en__field--select.en__field--validationFailed select:only-of-type,[data-engrid-errors=fancy] .en__field--telephone.en__field--validationFailed input:only-of-type,[data-engrid-errors=fancy] .en__field--text.en__field--validationFailed input:only-of-type,[data-engrid-errors=fancy] .en__field--textarea.en__field--validationFailed textarea:only-of-type{
-  margin-bottom:0 !important;
-}
-
-[data-engrid-errors=fancy] .en__field--calendar.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--checkbox.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--imgselect.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--radio.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--rating.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--select.en__field--withOther.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--splitselect.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--splittext.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--tripleselec.en__field--validationFailed .en__field__element,[data-engrid-errors=fancy] .en__field--tripletext.en__field--validationFailed .en__field__element{
-  border-bottom-left-radius:0 !important;
-  border-bottom-right-radius:0 !important;
 }
 
 [data-engrid-errors=fancy] .en__field--calendar .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--checkbox .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--imgselect .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--radio .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--rating .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--select.en__field--withOther .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--splitselect .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--splittext .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--tripleselec .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--tripletext .en__field--validationFailed.has-value{
@@ -4315,7 +4287,7 @@ div[id^=nb-field-].nb-success input{
   border-color:initial !important;
 }
 
-#nb-wrapper>input[type=email]{
+#nb-wrapper>input[type=email],.en__component--formblock .en__field .en__field__element>[id^=nb]>input,.en__component--svblock .en__field .en__field__element>[id^=nb]>input{
   margin-bottom:var(--fields_spacing-block);
   margin-top:calc(var(--fields_spacing-inline)*.5);
 }
@@ -5030,7 +5002,7 @@ body:not(#en__pagebuilder)[data-engrid-does-not-have-body-banner] .en__component
     grid-column:rbc;
   }
   [data-engrid-layout=centercenter2col] form>.en__component--advrow .body-top{
-    grid-row:body-top-start /  body-main-end;
+    grid-row:body-top-start /  body-footer-start;
   }
   [data-engrid-layout=centercenter2col] form>.en__component--advrow .body-main{
     grid-row:body-header-end /  body-main-end;
@@ -6417,6 +6389,20 @@ body:not([data-engrid-debug]) #debug-bar{
 #en__pagebuilder .edit-lock.en__component.en__component--active.en__component--activeTarget>.en__component__actions>a.en__component__action{
   background-color:#000;
 }
+#en__pagebuilder img[data-src],#en__pagebuilder video[data-src]{
+  background-color:#ccc;
+  background-position:50%;
+  background-repeat:no-repeat;
+  background-size:contain;
+}
+
+#en__pagebuilder img[data-src]{
+  background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgMzAwIj48cGF0aCBmaWxsPSIjY2NjIiBkPSJNMCAwaDQwMHYzMDBIMHoiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNiIgZmlsbD0iIzMzMyI+TGF6eSBMb2FkZWQgSW1hZ2U8L3RleHQ+PC9zdmc+);
+}
+
+#en__pagebuilder video[data-src]{
+  background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgMzAwIj48cGF0aCBmaWxsPSIjY2NjIiBkPSJNMCAwaDQwMHYzMDBIMHoiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNiIgZmlsbD0iIzMzMyI+TGF6eSBMb2FkZWQgVmlkZW88L3RleHQ+PC9zdmc+);
+}
 @font-face{
   font-display:swap;
   font-family:Patua One;
@@ -6479,19 +6465,21 @@ body:not([data-engrid-debug]) #debug-bar{
   --button_color_checked:var(--color_secondary);
   --button_background-color_checked:var(--color_primary);
   --give-monthly-donation-amount-appended-label:"/mo";
-  --recurring-frequency__button_count:2;
+  --recurring-frequency__button_count:3;
   --donation-amount__button_count:3;
-  --give-by-select__button_count:3;
+  --give-by-select__button_count:4;
   --give-by-select__button_background-color_checked:var(--color_primary);
   --give-by-select__button_color_checked:#fff;
   --radio_background-color:#fff;
   --radio_border-color:var(--color_primary);
   --radio_border-background-color:#fff;
+  --radio_width:22px;
+  --radio_height:22px;
   --radio_box-shadow_hover:none;
   --radio_color_selected:var(--color_primary);
   --radio_background-color_selected:var(--color_primary);
   --radio_border-color_selected:var(--color_primary);
-  --radio_box-shadow_selected:inset 0 0 0 5px #fff;
+  --radio_box-shadow_selected:inset 0 0 0 4px #fff;
   --checkbox_border-color_checked:var(--color_primary);
   --checkbox_background-color_checked:#fff;
   --checkbox_color_checked:var(--color_primary);
@@ -6512,11 +6500,15 @@ body:not([data-engrid-debug]) #debug-bar{
   --fields_spacing-inline:0.25rem;
 }
 
+[data-engrid-theme=engrid-nwf] .body-bannerOverlay,[data-engrid-theme=engrid-nwf] .body-bottom,[data-engrid-theme=engrid-nwf] .body-footer,[data-engrid-theme=engrid-nwf] .body-footerOutside,[data-engrid-theme=engrid-nwf] .body-headerOutside,[data-engrid-theme=engrid-nwf] .content-preFooter,[data-engrid-theme=engrid-nwf] .page-alert,[data-engrid-theme=engrid-nwf] .page-backgroundImageOverlay{
+  display:none !important;
+}
+
 [data-engrid-theme=engrid-nwf] .en__field--donationAmt label,[data-engrid-theme=engrid-nwf] .en__field--recurrfreq label,[data-engrid-theme=engrid-nwf] .give-by-select label{
   outline:none !important;
 }
 
-[data-engrid-theme=engrid-nwf] .en__field--recurrfreq,[data-engrid-theme=engrid-nwf] .give-by-select{
+[data-engrid-theme=engrid-nwf] .en__field--recurrfreq .en__field__element,[data-engrid-theme=engrid-nwf] .give-by-select .en__field__element{
   --fields_spacing-inline:0rem;
   --fields_spacing-block:0.25rem;
 }
@@ -6531,8 +6523,9 @@ body:not([data-engrid-debug]) #debug-bar{
 
 [data-engrid-theme=engrid-nwf] .en__field--donationAmt .en__field__label--item:after{
   --fields_spacing-inline:0;
-  font-size:80%;
-  opacity:.75;
+  font-size:85% !important;
+  margin-left:0 !important;
+  opacity:.75 !important;
 }
 
 [data-engrid-theme=engrid-nwf] .en__field--donationAmt .en__field__item--other{
@@ -6663,6 +6656,8 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 
 [data-engrid-theme=engrid-nwf] .body-title{
+  grid-column:bc !important;
+  grid-row:body-headerOutside;
   padding:0;
 }
 
@@ -6782,6 +6777,19 @@ body:not([data-engrid-debug]) #debug-bar{
 @media screen and (max-width:680px){
   [data-engrid-theme=engrid-nwf] .navbar-brand>img{
     max-width:120px;
+  }
+}
+
+@media screen and (max-width:425px){
+  [data-engrid-theme=engrid-nwf]{
+    --engrid__body_padding:0 calc(var(--fields_spacing-inline)*4);
+    --recurring-frequency__button_count:2;
+  }
+}
+
+@media screen and (max-width:375px){
+  [data-engrid-theme=engrid-nwf]{
+    --give-by-select__button_count:1;
   }
 }
 
