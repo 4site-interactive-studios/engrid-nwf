@@ -209,7 +209,7 @@
   .body-footer,
   .body-footerOutside,
   .content-preFooter,
-  .page-backgroundImageOverlay{
+  .page-backgroundImageOverlay {
     display: none !important;
   }
 
@@ -239,7 +239,7 @@
         --fields_spacing-inline: 0;
         font-size: 85% !important;
         margin-left: 0 !important;
-        opacity: .75 !important;
+        opacity: 0.75 !important;
       }
     }
 
@@ -250,7 +250,7 @@
         padding: var(--button_padding);
         font-size: var(--button_font-size);
         line-height: var(--button_line-height);
-        text-align:center;
+        text-align: center;
       }
     }
   }
@@ -580,8 +580,7 @@
   }
 
   &[data-engrid-layout="centercenter2col"] {
-
-    .body-banner{
+    .body-banner {
       background-color: var(--color_secondary);
 
       img[data-src] {
@@ -605,4 +604,8 @@
       --engrid__body-bottom_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
     }
   }
+}
+
+#enModal h1 {
+  margin-top: 0;
 }

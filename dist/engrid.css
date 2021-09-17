@@ -21,7 +21,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, September 17, 2021 @ 16:30:30 ET
+ *  Date: Friday, September 17, 2021 @ 16:38:26 ET
  *  By: fe
  *  ENGrid styles: v0.3.35
  *  ENGrid scripts: v0.3.35
@@ -7151,6 +7151,10 @@ body:not([data-engrid-debug]) #debug-bar{
     --engrid__body-main_padding:0px 0px 0px var(--spacing_lg);
     --engrid__body-bottom_padding:0px 0px 0px var(--spacing_lg);
   }
+}
+
+#enModal h1{
+  margin-top:0;
 }
 body{
   opacity:1;
