@@ -10,6 +10,7 @@ const options: Options = {
   ClickToExpand: true,
   CurrencySymbol: "$",
   DecimalSeparator: ".",
+  // AutoYear: true,
   MediaAttribution: true,
   SkipToMainContentLink: true,
   SrcDefer: true,
