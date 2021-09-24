@@ -1,13 +1,13 @@
 const crumbs = {
   debug: false,
-  setDebug: function(isDebug) {
+  setDebug: function (isDebug) {
     try {
       this.debug = isDebug;
     } catch (e) {
       this.throwError(e);
     }
   },
-  isLsAvailable: function() {
+  isLsAvailable: function () {
     let test = "test";
     try {
       localStorage.setItem(test, test);
@@ -17,10 +17,10 @@ const crumbs = {
       return false;
     }
   },
-  throwError: function(err, type = "error") {
+  throwError: function (err, type = "error") {
     console[type](`[crumbsJS] An error has occurred: ${err}`);
   },
-  set: function(name, value, expires, domain) {
+  set: function (name, value, expires, domain) {
     // Set a cookie, expires and domain are optional parameters
     // Name can be an array of the "set" function elements or simply a string
     // Expires on default when browser closes
@@ -30,15 +30,15 @@ const crumbs = {
         // If name is an array, support mass set of cookies
         var mass_set_cookies_array = name;
         // Name change for comfort purposes
-        mass_set_cookies_array.forEach(v => {
+        mass_set_cookies_array.forEach((v) => {
           // Check to see correct setting format on all cookies with mass set
           if (!v.hasOwnProperty("name") || !v.hasOwnProperty("value"))
             throw "Mass cookie set failed, on or more object properties are incorrect.";
         });
-        var succeeded_set_cookies = mass_set_cookies_array.map(c => {
+        var succeeded_set_cookies = mass_set_cookies_array.map((c) => {
           return this.set(c.name, c.value, c.expires, c.domain) ? c : false;
         });
-        return succeeded_set_cookies.filter(x => {
+        return succeeded_set_cookies.filter((x) => {
           return x;
         });
       }
@@ -84,12 +84,12 @@ const crumbs = {
       return false;
     }
   },
-  get: function(name) {
+  get: function (name) {
     // Get a specific cookie by name, if no cookie was found, returns false
     try {
       var all_cookies = decodeURIComponent(document.cookie);
       all_cookies = all_cookies.split("; ");
-      var returned_cookie = all_cookies.filter(c => {
+      var returned_cookie = all_cookies.filter((c) => {
         var c = c.split("=");
         return c[0] === name ? 1 : 0;
       });
@@ -101,13 +101,13 @@ const crumbs = {
       return false;
     }
   },
-  getAll: function() {
+  getAll: function () {
     // Get all cookies in a key-pair object
     try {
       var all_cookies = decodeURIComponent(document.cookie);
       all_cookies = all_cookies.split("; ");
       return all_cookies[0]
-        ? all_cookies.map(c => {
+        ? all_cookies.map((c) => {
             var c = c.split("=");
             return { name: c[0], value: c[1] };
           })
@@ -117,14 +117,14 @@ const crumbs = {
       return false;
     }
   },
-  delete: function(name) {
+  delete: function (name) {
     // Deletes a cookie by its name
     try {
       if (Array.isArray(name)) {
         // If name is an array, support mass delete of cookies
         var mass_set_cookies_array = name;
         // Name change for comfort purposes
-        mass_set_cookies_array.forEach(v => {
+        mass_set_cookies_array.forEach((v) => {
           this.delete(v);
         });
         return true;
@@ -135,11 +135,11 @@ const crumbs = {
       this.throwError(e);
     }
   },
-  deleteAll: function() {
+  deleteAll: function () {
     // Deletes all cookies
     try {
       var all_cookies = decodeURIComponent(document.cookie);
-      all_cookies = all_cookies.split("; ").map(c => {
+      all_cookies = all_cookies.split("; ").map((c) => {
         var c = c.split("=");
         return this.delete(c[0]);
       });
@@ -156,7 +156,7 @@ const crumbs = {
     },
     ls: window.localStorage,
     // Shorter name, just for ease of use
-    set: function(key, value) {
+    set: function (key, value) {
       // If localstorage is not available, fall back to using cookies
       if (!crumbs.isLsAvailable()) {
         this.throwError(
@@ -169,15 +169,15 @@ const crumbs = {
       try {
         if (Array.isArray(key)) {
           // If key is an array, support mass set of local storage values
-          key.forEach(v => {
+          key.forEach((v) => {
             if (!v.hasOwnProperty("key") || !v.hasOwnProperty("value"))
               throw "Mass key-value pair set failed, on or more object properties are incorrect.";
           });
           return key
-            .map(v => {
+            .map((v) => {
               this.set(v.key, v.value);
             })
-            .filter(x => x);
+            .filter((x) => x);
         }
         this.ls.setItem(key, JSON.stringify(value));
         return true;
@@ -186,7 +186,7 @@ const crumbs = {
         return false;
       }
     },
-    get: function(key, asJSON = true) {
+    get: function (key, asJSON = true) {
       // Gets key from local storage, always parsing the JSON unless stated otherwise
       // If localstorage is not available, fall back to using cookies
       if (!crumbs.isLsAvailable()) {
@@ -200,10 +200,10 @@ const crumbs = {
         if (Array.isArray(key)) {
           // If key is an array, support mass get of local storage values
           return key
-            .map(k => {
+            .map((k) => {
               return { key: k, value: this.get(k) };
             })
-            .filter(x => x);
+            .filter((x) => x);
         }
         return asJSON ? JSON.parse(this.ls.getItem(key)) : this.ls.getItem(key);
       } catch (e) {
@@ -211,7 +211,7 @@ const crumbs = {
         return false;
       }
     },
-    getAll: function(asJSON = true) {
+    getAll: function (asJSON = true) {
       // If localstorage is not available, fall back to using cookies
       if (!crumbs.isLsAvailable()) {
         this.throwError(
@@ -233,7 +233,7 @@ const crumbs = {
             continue;
           return_array.push({
             key: idx,
-            value: asJSON ? JSON.parse(this.ls[idx]) : this.ls[idx]
+            value: asJSON ? JSON.parse(this.ls[idx]) : this.ls[idx],
           });
         }
         return return_array;
@@ -242,7 +242,7 @@ const crumbs = {
         return false;
       }
     },
-    delete: function(key) {
+    delete: function (key) {
       // If localstorage is not available, fall back to using cookies
       if (!crumbs.isLsAvailable()) {
         this.throwError("Local Storage is not available, action was aborted");
@@ -256,7 +256,7 @@ const crumbs = {
         return false;
       }
     },
-    deleteAll: function() {
+    deleteAll: function () {
       // If localstorage is not available, fall back to using cookies
       if (!crumbs.isLsAvailable()) {
         this.throwError("Local Storage is not available, action was aborted");
@@ -269,8 +269,8 @@ const crumbs = {
         this.throwError(e);
         return false;
       }
-    }
-  }
+    },
+  },
 };
 
 export default crumbs;

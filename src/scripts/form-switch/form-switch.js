@@ -64,8 +64,8 @@ export class FormSwitch {
 
   // Switch Form Action
   switchFormAction() {
-    let payment = this.paymentType.options[this.paymentType.selectedIndex]
-      .value;
+    let payment =
+      this.paymentType.options[this.paymentType.selectedIndex].value;
     if (this.options.hasOwnProperty(payment)) {
       console.log("Form Switch Found!", this.options[payment]);
       this.form.setAttribute(
