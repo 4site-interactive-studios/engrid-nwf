@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, September 23, 2021 @ 20:58:55 ET
- *  By: fe
+ *  Date: Tuesday, September 28, 2021 @ 14:21:11 ET
+ *  By: michaelwdc
  *  ENGrid styles: v0.3.38
- *  ENGrid scripts: v0.3.38
+ *  ENGrid scripts: v0.3.39
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -5631,7 +5631,6 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
     });
 };
 
-
 /*global window */
 const ApplePaySession = window.ApplePaySession;
 const merchantIdentifier = window.merchantIdentifier;
@@ -5650,6 +5649,7 @@ class ApplePay {
     constructor() {
         this.applePay = document.querySelector('.en__field__input.en__field__input--radio[value="applepay"]');
         this._amount = DonationAmount.getInstance();
+        this._fees = ProcessingFees.getInstance();
         this._form = EnForm.getInstance();
         this.checkApplePay();
     }
@@ -5734,7 +5734,7 @@ class ApplePay {
         // Only work if Payment Type is Apple Pay
         if (enFieldPaymentType.value == "applepay" && applePayToken.value == "") {
             try {
-                let donationAmount = this._amount.amount;
+                let donationAmount = this._amount.amount + this._fees.fee;
                 var request = {
                     supportedNetworks: merchantSupportedNetworks,
                     merchantCapabilities: merchantCapabilities,

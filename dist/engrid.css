@@ -21,10 +21,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, September 23, 2021 @ 20:58:55 ET
- *  By: fe
+ *  Date: Tuesday, September 28, 2021 @ 14:21:11 ET
+ *  By: michaelwdc
  *  ENGrid styles: v0.3.38
- *  ENGrid scripts: v0.3.38
+ *  ENGrid scripts: v0.3.39
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -7448,6 +7448,141 @@ body:not([data-engrid-debug]) #debug-bar{
 
 #enModal h1{
   margin-top:0;
+}
+.cards-container{
+  background-color:#e0e9ea;
+  margin-top:40px;
+}
+
+.cards-title{
+  padding-bottom:10px;
+  padding-top:30px;
+  text-align:center;
+}
+
+.card-section{
+  margin-top:80px;
+}
+
+.blocks,.card-section{
+  background-color:#e0e9ea;
+}
+
+.blocks{
+  display:-ms-flex;
+  display:flex;
+  flex-flow:row wrap;
+  justify-content:center;
+  margin:0 auto;
+  max-width:1600px;
+  padding:10px 0 80px 10px;
+}
+
+a.cards,a.cards:hover{
+  color:#000;
+  text-decoration:none;
+}
+
+.block-label h4{
+  margin:0;
+}
+
+article.block img{
+  margin-bottom:5px;
+  width:100%;
+}
+
+.block{
+  flex:1 1 calc(50% - 1rem);
+  margin-bottom:1rem;
+  margin-right:1rem;
+  padding:1rem;
+  position:relative;
+}
+
+.block .block:nth-child(2n){
+  margin-right:0;
+}
+
+@media screen and (max-width:450px){
+  .block{
+    flex:1 1 calc(100% - 1rem);
+  }
+}
+
+@media screen and (min-width:60em){
+  .block{
+    flex:1 1 calc(30% - 1rem);
+    overflow:hidden;
+  }
+  .block:nth-child(2n){
+    margin-right:1rem;
+  }
+  article.block img{
+    float:left;
+    margin-right:11px;
+    max-width:169px;
+  }
+}
+html{
+  box-sizing:border-box;
+}
+
+*,:after,:before{
+  box-sizing:inherit;
+}
+
+.block{
+  background:#fff;
+  font-size:18px;
+  line-height:1.5;
+  max-width:500px;
+  width:100%;
+}
+
+.block img{
+  max-width:100%;
+}
+
+.block h1{
+  color:#444;
+  font:1.6666em/1 normal ,Open Sans,helvetica,arial;
+  margin-bottom:0;
+}
+
+.block p{
+  font-size:15px;
+  line-height:1.4em;
+  margin-bottom:0;
+  overflow:hidden;
+  padding-bottom:0;
+}
+
+.block .read-more{
+  background:#2c212e;
+  border-radius:2px;
+  bottom:1rem;
+  color:#fff;
+  display:inline-block;
+  font-size:14px;
+  left:0;
+  margin:0 auto;
+  padding:.5rem 1rem;
+  position:absolute;
+  right:0;
+  text-decoration:none;
+  text-transform:uppercase;
+  width:calc(100% - 2rem);
+}
+
+.block .read-more:focus,.block .read-more:hover{
+  background-color:#2c8888;
+}
+
+@media screen and (max-width:600px){
+  .card-section{
+    margin-top:120px;
+  }
 }
 body{
   opacity:1;
