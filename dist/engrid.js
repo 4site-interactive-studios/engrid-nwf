@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, September 28, 2021 @ 17:18:29 ET
- *  By: michaelwdc
+ *  Date: Tuesday, September 28, 2021 @ 22:00:48 ET
+ *  By: fe
  *  ENGrid styles: v0.3.38
  *  ENGrid scripts: v0.3.39
  *
@@ -8391,7 +8391,21 @@ const options = {
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   onLoad: () => console.log("Starter Theme Loaded"),
-  onResize: () => console.log("Starter Theme Window Resized")
+  onResize: () => console.log("Starter Theme Window Resized"),
+  onValidate: () => {
+    const premiumGift = document.querySelector('[name="en__pg"]:checked');
+    let excludePremiumGift = false;
+
+    if (premiumGift) {
+      excludePremiumGift = premiumGift.value === "0" ? document.querySelector('[name="supporter.questions.100077"][value="Y"]') : document.querySelector('[name="supporter.questions.100077"][value="N"]');
+
+      if (excludePremiumGift) {
+        excludePremiumGift.checked = true;
+      }
+    }
+
+    return true;
+  }
 };
 new App(options);
 window.FormSwitch = FormSwitch;
