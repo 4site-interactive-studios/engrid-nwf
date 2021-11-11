@@ -18,7 +18,7 @@ const options: Options = {
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   onLoad: () => console.log("Starter Theme Loaded"),
   onResize: () => console.log("Starter Theme Window Resized"),
-  onValidate: () => {
+  onSubmit: () => {
     const premiumGift = <HTMLInputElement>(
       document.querySelector('[name="en__pg"]:checked')
     );
@@ -38,6 +38,7 @@ const options: Options = {
             );
       if (excludePremiumGift) {
         excludePremiumGift.checked = true;
+        console.log("Excluding Premium Gift", excludePremiumGift);
       }
     }
     return true;
