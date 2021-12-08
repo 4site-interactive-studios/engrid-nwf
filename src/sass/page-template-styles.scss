@@ -2,6 +2,7 @@
 // Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
 // All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
 [data-engrid-theme="nwf"] {
+
   // PRIMARY COLORS
   // e.g. Used for the main Submit Button
   --color_primary: #4d9068;
@@ -752,4 +753,65 @@
 
 #enModal h1 {
   margin-top: 0;
+}
+
+
+/*Styles for Advocacy Progress Widget */
+[data-engrid-theme="nwf"] {
+  .enWidget__copy.enWidget__copy--below > div > p {
+    display: inline-block;
+  }
+
+  .enWidget__copy.enWidget__copy--below > div {
+    text-align: center;
+  }
+
+  .enWidget__copy.enWidget__copy--below > div > p:nth-child(3n) {
+    float: right;
+  }
+
+  .enWidget__copy.enWidget__copy--below > div > p:first-child {
+    float: left;
+  }
+
+  /* without div */
+  .enWidget__copy.enWidget__copy--below > p {
+    display: inline-block;
+  }
+
+  .enWidget__copy.enWidget__copy--below {
+    text-align: center;
+  }
+
+  .enWidget__copy.enWidget__copy--below > p:nth-child(3n) {
+    float: right;
+  }
+
+  .enWidget__copy.enWidget__copy--below > p:first-child {
+    float: left;
+  }
+  .enWidget__copy--below {
+    margin-top: 0px;
+    font-size: 14px;
+  }
+
+  .enWidget__progress {
+    height: 50px!important;
+  }
+
+  .enWidget__fill {
+    background-color: rgb(77, 144, 104)!important;
+  }
+
+  .enWidget__copy--above {
+    margin-bottom: 0px;
+  }
+
+  .enWidget__display {
+    padding-bottom: 8px;
+  }
+
+  .enWidget__progress{
+    height: 45px!important;
+  }
 }
