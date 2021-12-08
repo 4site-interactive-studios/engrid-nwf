@@ -599,10 +599,10 @@
       }
     }
 
-    @media screen and (min-width: $centercenter2col_body-column_min-width) {
-      --engrid__body-main_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
-      --engrid__body-bottom_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
-    }
+    // @media screen and (min-width: $centercenter2col_body-column_min-width) {
+    //   --engrid__body-main_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
+    //   --engrid__body-bottom_padding: 0px 0px 0px var(--spacing_lg); // Remove right padding because visually it's unneeded
+    // }
   }
 
   /* Copied & pasted from the "Donation Form Thank You Page Card Styles" Code Block on the NWF EN account */
