@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, December 1, 2021 @ 16:14:27 ET
+ *  Date: Wednesday, December 8, 2021 @ 15:56:19 ET
  *  By: fe
- *  ENGrid styles: v0.6.6
- *  ENGrid scripts: v0.6.6
+ *  ENGrid styles: v0.6.10
+ *  ENGrid scripts: v0.6.8
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -12054,6 +12054,7 @@ class TranslateFields {
         }
         if (this.countrySelect) {
             this.countrySelect.addEventListener("change", this.translateFields.bind(this));
+            this.translateFields();
         }
         if (this.stateField) {
             this.stateField.addEventListener("change", this.rememberState.bind(this));
@@ -13494,8 +13495,8 @@ class ShowIfAmount {
         if (showifamountClass) {
             let amountCheckMin = showifamountClass.split("-").slice(-2, -1)[0];
             let amountCheckMax = showifamountClass.split("-").slice(-1)[0];
-            if (amount >= Number(amountCheckMin) &&
-                amount <= Number(amountCheckMax)) {
+            if (amount > Number(amountCheckMin) &&
+                amount < Number(amountCheckMax)) {
                 if (engrid_ENGrid.debug)
                     console.log("Show If Amount (between):", element);
                 element.classList.add("engrid-open");
