@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, December 8, 2021 @ 16:33:17 ET
- *  By: maansacdalan
+ *  Date: Wednesday, December 8, 2021 @ 20:44:06 ET
+ *  By: fe
  *  ENGrid styles: v0.6.10
- *  ENGrid scripts: v0.6.8
+ *  ENGrid scripts: v0.6.11
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -9259,8 +9259,14 @@ class Loader {
     reload() {
         var _a, _b, _c;
         const isLoaded = engrid_ENGrid.getBodyData("loaded");
-        const assets = this.getOption("assets");
-        if (!assets || isLoaded) {
+        let assets = this.getOption("assets");
+        const enIsLoaded = engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs");
+        if (!enIsLoaded) {
+            if (engrid_ENGrid.debug)
+                console.log("ENgrid Loader: EngagingNetworks Script NOT LOADED");
+            assets = "flush";
+        }
+        else if (!assets || isLoaded) {
             if (engrid_ENGrid.debug)
                 console.log("ENgrid Loader: LOADED");
             return false;
