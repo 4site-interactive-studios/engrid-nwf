@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, December 8, 2021 @ 20:44:06 ET
+ *  Date: Thursday, December 9, 2021 @ 12:38:22 ET
  *  By: fe
  *  ENGrid styles: v0.6.10
- *  ENGrid scripts: v0.6.11
+ *  ENGrid scripts: v0.6.12
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10050,7 +10050,12 @@ class App extends engrid_ENGrid {
         this._form.onValidate.subscribe(() => this.onValidate());
         // Event Listener Examples
         this._amount.onAmountChange.subscribe((s) => console.log(`Live Amount: ${s}`));
-        this._frequency.onFrequencyChange.subscribe((s) => console.log(`Live Frequency: ${s}`));
+        this._frequency.onFrequencyChange.subscribe((s) => {
+            console.log(`Live Frequency: ${s}`);
+            setTimeout(() => {
+                this._amount.load();
+            }, 150);
+        });
         this._form.onSubmit.subscribe((s) => console.log("Submit: ", s));
         this._form.onError.subscribe((s) => console.log("Error:", s));
         window.enOnSubmit = () => {
