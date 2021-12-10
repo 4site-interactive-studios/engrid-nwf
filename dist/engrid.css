@@ -21,10 +21,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, December 8, 2021 @ 10:58:30 ET
- *  By: bryancasler
- *  ENGrid styles: v0.6.10
- *  ENGrid scripts: v0.6.8
+ *  Date: Friday, December 10, 2021 @ 23:01:58 ET
+ *  By: fe
+ *  ENGrid styles: v0.6.13
+ *  ENGrid scripts: v0.6.14
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -2447,6 +2447,15 @@ input[type=checkbox]:checked+label:before{
   box-shadow:var(--radio_box-shadow_selected);
   color:var(--radio_color_selected);
 }
+
+@-moz-document url-prefix(){
+  .en__pg__select input[type=radio]{
+    accent-color:var(--radio_color_selected);
+    transform:scale(1.4);
+    visibility:visible !important;
+    width:var(--radio_height);
+  }
+}
 input.en__contactDetails__select,input.en__field__input--checkbox,input.en__field__input--radio{
   clip:rect(0 0 0 0);
   border:0;
@@ -4003,6 +4012,7 @@ input[type=text].en__ticket__quantity{
   border:none !important;
   box-shadow:none !important;
   flex-basis:auto;
+  height:-moz-fit-content !important;
   height:fit-content !important;
   padding-left:0;
   padding-right:0;
@@ -5421,10 +5431,10 @@ body:not(#en__pagebuilder)[data-engrid-no-body-banner]
 }
 @media screen and (min-width:700px){
   [data-engrid-layout=centercenter1col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 390px) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 390px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 240px) [lcc-end bc-start lbc-start] minmax(250px, 400px) [lbc-end rbc-start] minmax(250px, 400px) [rbc-end bc-end rcc-start] minmax(0, 240px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centercenter1col] form>.en__component--advrow>*{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 390px) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 390px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 240px) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 240px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centercenter1col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter1col] form>.en__component--advrow{
     grid-template-rows:[page-start page-alert-start] min-content [page-alert-end content-header-start] min-content [content-header-end body-headerOutside-start] min-content [body-headerOutside-end body-header-start] min-content [body-header-end body-banner-start] min-content [body-banner-end body-bannerOverlay-start] min-content [body-bannerOverlay-end body-title-start] min-content [body-title-end body-top-start] min-content [body-top-end body-side-start] min-content [body-side-end body-main-start] min-content [body-main-end body-bottom-start] min-content [body-bottom-end body-footer-start] min-content [body-footer-end body-footerOutside-start] min-content [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr) [content-footerSpacer-end content-preFooter-start] min-content [content-preFooter-end content-footer-start] min-content [content-footer-end page-backgroundImage-start] min-content [page-backgroundImage-end page-backgroundImageOverlay-start] min-content [page-backgroundImageOverlay-end page-end page-customCode-start] min-content [page-customCode-end];
@@ -5613,10 +5623,10 @@ body:not(#en__pagebuilder)[data-engrid-no-body-banner]
 }
 @media screen and (min-width:700px){
   [data-engrid-layout=centerleft1col] #engrid>.en__component--advrow,[data-engrid-layout=centerleft1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 680px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(250px, 400px) [lbc-end rbc-start] minmax(250px, 400px) [rbc-end bc-end rcc-start] minmax(0, 380px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerleft1col] form>.en__component--advrow>*{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 680px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 380px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
@@ -5694,10 +5704,10 @@ body:not(#en__pagebuilder)[data-engrid-no-body-banner]
 }
 @media screen and (min-width:700px){
   [data-engrid-layout=centerright1col] #engrid>.en__component--advrow,[data-engrid-layout=centerright1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 680px) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 380px) [lcc-end bc-start lbc-start] minmax(250px, 400px) [lbc-end rbc-start] minmax(250px, 400px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerright1col] form>.en__component--advrow>*{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 680px) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 380px) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
@@ -5775,10 +5785,10 @@ body:not(#en__pagebuilder)[data-engrid-no-body-banner]
 }
 @media screen and (min-width:700px){
   [data-engrid-layout=leftleft1col] #engrid>.en__component--advrow,[data-engrid-layout=leftleft1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(400px, 400px) [lbc-end rbc-start] minmax(400px, 400px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=leftleft1col] form>.en__component--advrow>*{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 0) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
@@ -5856,10 +5866,10 @@ body:not(#en__pagebuilder)[data-engrid-no-body-banner]
 }
 @media screen and (min-width:700px){
   [data-engrid-layout=rightright1col] #engrid>.en__component--advrow,[data-engrid-layout=rightright1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(250px, 250px) [lbc-end rbc-start] minmax(250px, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(400px, 400px) [lbc-end rbc-start] minmax(400px, 400px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end];
   }
   [data-engrid-layout=rightright1col] form>.en__component--advrow>*{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(0, 250px) [lbc-end rbc-start] minmax(0, 250px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 0) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 0) [rcc-end cc-end rpc-start] minmax(0, 0) [rpc-end pc-end];
   }
   [data-engrid-layout=rightright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
@@ -7531,6 +7541,13 @@ body:not([data-engrid-debug]) #debug-bar{
   }
 }
 
+@media screen and (min-width:900px){
+  [data-engrid-theme=nwf][data-engrid-layout=centercenter2col]{
+    --engrid__body-main_padding:0px 0px 0px var(--spacing_lg);
+    --engrid__body-bottom_padding:0px 0px 0px var(--spacing_lg);
+  }
+}
+
 [data-engrid-theme=nwf] .cards-container{
   background-color:#e0e9ea;
   margin-top:40px;
@@ -7668,6 +7685,63 @@ body:not([data-engrid-debug]) #debug-bar{
 
 #enModal h1{
   margin-top:0;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>div>p{
+  display:inline-block;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>div{
+  text-align:center;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>div>p:nth-child(3n){
+  float:right;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>div>p:first-child{
+  float:left;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>p{
+  display:inline-block;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below{
+  text-align:center;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>p:nth-child(3n){
+  float:right;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy.enWidget__copy--below>p:first-child{
+  float:left;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy--below{
+  font-size:14px;
+  margin-top:0;
+}
+
+[data-engrid-theme=nwf] .enWidget__progress{
+  height:50px !important;
+}
+
+[data-engrid-theme=nwf] .enWidget__fill{
+  background-color:#4d9068 !important;
+}
+
+[data-engrid-theme=nwf] .enWidget__copy--above{
+  margin-bottom:0;
+}
+
+[data-engrid-theme=nwf] .enWidget__display{
+  padding-bottom:8px;
+}
+
+[data-engrid-theme=nwf] .enWidget__progress{
+  height:45px !important;
 }
 body{
   opacity:1;
