@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, December 9, 2021 @ 13:56:13 ET
+ *  Date: Friday, December 10, 2021 @ 23:01:58 ET
  *  By: fe
  *  ENGrid styles: v0.6.13
- *  ENGrid scripts: v0.6.12
+ *  ENGrid scripts: v0.6.14
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -9261,15 +9261,15 @@ class Loader {
         const isLoaded = engrid_ENGrid.getBodyData("loaded");
         let assets = this.getOption("assets");
         const enIsLoaded = engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs");
-        if (!enIsLoaded) {
-            if (engrid_ENGrid.debug)
-                console.log("ENgrid Loader: EngagingNetworks Script NOT LOADED");
-            assets = "flush";
-        }
-        else if (!assets || isLoaded) {
+        if (isLoaded) {
             if (engrid_ENGrid.debug)
                 console.log("ENgrid Loader: LOADED");
             return false;
+        }
+        if (!assets && !enIsLoaded) {
+            if (engrid_ENGrid.debug)
+                console.log("ENgrid Loader: EngagingNetworks Script NOT LOADED");
+            assets = "flush";
         }
         // Load the right ENgrid
         if (engrid_ENGrid.debug)
@@ -9299,9 +9299,12 @@ class Loader {
                 if (engrid_ENGrid.debug)
                     console.log("ENgrid Loader: FLUSHING CACHE");
                 const timestamp = Date.now();
-                engrid_js_url = ((_a = this.jsElement) === null || _a === void 0 ? void 0 : _a.getAttribute("src")) + "?v=" + timestamp;
-                engrid_css_url =
-                    ((_b = this.cssElement) === null || _b === void 0 ? void 0 : _b.getAttribute("href")) + "?v=" + timestamp;
+                const jsCurrentURL = new URL(((_a = this.jsElement) === null || _a === void 0 ? void 0 : _a.getAttribute("src")) || "");
+                jsCurrentURL.searchParams.set("v", timestamp.toString());
+                engrid_js_url = jsCurrentURL.toString();
+                const cssCurrentURL = new URL(((_b = this.cssElement) === null || _b === void 0 ? void 0 : _b.getAttribute("href")) || "");
+                cssCurrentURL.searchParams.set("v", timestamp.toString());
+                engrid_css_url = cssCurrentURL.toString();
                 break;
             default:
                 if (engrid_ENGrid.debug)
