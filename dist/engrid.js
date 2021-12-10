@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, December 10, 2021 @ 15:17:14 ET
+ *  Date: Friday, December 10, 2021 @ 15:44:38 ET
  *  By: fe
  *  ENGrid styles: v0.6.13
- *  ENGrid scripts: v0.6.15
+ *  ENGrid scripts: v0.6.16
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -9266,10 +9266,17 @@ class Loader {
                 console.log("ENgrid Loader: LOADED");
             return false;
         }
-        if (!assets && !enIsLoaded) {
-            if (engrid_ENGrid.debug)
-                console.log("ENgrid Loader: EngagingNetworks Script NOT LOADED");
-            assets = "flush";
+        if (!assets) {
+            if (!enIsLoaded) {
+                if (engrid_ENGrid.debug)
+                    console.log("ENgrid Loader: EngagingNetworks Script NOT LOADED");
+                assets = "flush";
+            }
+            else {
+                if (engrid_ENGrid.debug)
+                    console.log("ENgrid Loader: LOADED");
+                return false;
+            }
         }
         // Load the right ENgrid
         if (engrid_ENGrid.debug)
