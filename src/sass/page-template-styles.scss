@@ -2,7 +2,6 @@
 // Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
 // All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
 [data-engrid-theme="nwf"] {
-
   // PRIMARY COLORS
   // e.g. Used for the main Submit Button
   --color_primary: #4d9068;
@@ -396,7 +395,7 @@
     padding: 0px;
     top: 5px;
     left: 0px;
-    width: 118px;
+    // width: 118px;
   }
 
   .navbar-brand > img {
@@ -426,11 +425,11 @@
     border: 1px solid transparent;
   }
 
-  .navbar-inverse .navbar-collapse,
-  .navbar-inverse .navbar-form {
-    background: #000;
-    height: 65px;
-  }
+  // .navbar-inverse .navbar-collapse,
+  // .navbar-inverse .navbar-form {
+  //   background: #000;
+  //   height: 65px;
+  // }
 
   h1.top {
     margin: 0 0 2rem 0;
@@ -443,7 +442,7 @@
   }
 
   .body-top {
-    background-color: var(--color_secondary);
+    --engrid__body-top_background-color: var(--color_secondary);
   }
 
   .en__component--premiumgiftblock,
@@ -570,7 +569,8 @@
 
   @media screen and (max-width: 680px) {
     .navbar-brand > img {
-      max-width: 120px;
+      width: auto;
+      height: 120px;
     }
   }
 
@@ -582,7 +582,7 @@
 
   &[data-engrid-layout="centercenter2col"] {
     .body-banner {
-      background-color: var(--color_secondary);
+      --engrid__body-banner_background-color: var(--color_secondary);
 
       img[data-src] {
         opacity: 0;
@@ -755,7 +755,6 @@
   margin-top: 0;
 }
 
-
 /*Styles for Advocacy Progress Widget */
 [data-engrid-theme="nwf"] {
   .enWidget__copy.enWidget__copy--below > div > p {
@@ -796,11 +795,11 @@
   }
 
   .enWidget__progress {
-    height: 50px!important;
+    height: 50px !important;
   }
 
   .enWidget__fill {
-    background-color: rgb(77, 144, 104)!important;
+    background-color: rgb(77, 144, 104) !important;
   }
 
   .enWidget__copy--above {
@@ -811,7 +810,99 @@
     padding-bottom: 8px;
   }
 
-  .enWidget__progress{
-    height: 45px!important;
+  .enWidget__progress {
+    height: 45px !important;
+  }
+}
+
+[data-engrid-subtheme="hecho"] {
+  .content-header {
+    --engrid__content-header_background-color: #5c5478;
+    color: #ffffff;
+  }
+
+  --color_primary: #41477b;
+  --color_primary_overlay: #dadceb;
+  --color_primary_accent: #333;
+  --color_secondary: #e0e9ea;
+
+  .body-top {
+    --engrid__body-top_background-color: #d7d4e4;
+  }
+
+  --submit__button_background-color: #ea7200;
+  --submit__button_background-color_hover: #d66800;
+
+  .footer-nav {
+    display: none;
+  }
+}
+
+[data-engrid-subtheme="action-fund"] {
+  .nav-spacer {
+    height: 40px;
+    background-color: #f3f3ed;
+  }
+
+  #main-nav {
+    background-color: #ad7c1d;
+  }
+
+  .logo_desktop {
+    background-color: transparent;
+    border-radius: initial;
+    height: 120px;
+    width: auto;
+  }
+
+  .navbar-brand > img {
+    margin-top: -33px;
+  }
+
+  @media screen and (max-width: 980px) {
+    #main-nav {
+      margin-bottom: 1rem;
+      height: 82px;
+      .navbar-brand > img {
+        margin-top: 30px;
+        height: 72px;
+      }
+    }
+  }
+
+  .footer-nav {
+    display: none;
+  }
+
+  .content-footer {
+    --engrid__content-footer_background-color: #000000;
+    color: #ffffff;
+    --a_color: #ffffff;
+    --a_color_hover: #4d9068;
+    --a_text-decoration: none;
+  }
+}
+
+[data-engrid-subtheme="garden-for-wildlife"] {
+  .logo_desktop {
+    background-color: transparent;
+    border-radius: initial;
+    height: 120px;
+    width: auto;
+  }
+
+  .navbar-brand > img {
+    margin-top: -33px;
+  }
+
+  @media screen and (max-width: 980px) {
+    #main-nav {
+      margin-bottom: 1rem;
+      height: 82px;
+      .navbar-brand > img {
+        margin-top: 30px;
+        height: 72px;
+      }
+    }
   }
 }

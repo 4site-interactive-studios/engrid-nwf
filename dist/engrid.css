@@ -21,8 +21,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, December 10, 2021 @ 23:01:58 ET
- *  By: fe
+ *  Date: Friday, December 10, 2021 @ 14:21:50 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.14
  *
@@ -7354,7 +7354,6 @@ body:not([data-engrid-debug]) #debug-bar{
   padding:0;
   position:relative;
   top:5px;
-  width:118px;
 }
 
 [data-engrid-theme=nwf] .navbar-brand>img{
@@ -7384,11 +7383,6 @@ body:not([data-engrid-debug]) #debug-bar{
   position:relative;
 }
 
-[data-engrid-theme=nwf] .navbar-inverse .navbar-collapse,[data-engrid-theme=nwf] .navbar-inverse .navbar-form{
-  background:#000;
-  height:65px;
-}
-
 [data-engrid-theme=nwf] h1.top{
   margin:0 0 2rem;
 }
@@ -7400,7 +7394,7 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 
 [data-engrid-theme=nwf] .body-top{
-  background-color:var(--color_secondary);
+  --engrid__body-top_background-color:var(--color_secondary);
 }
 
 [data-engrid-theme=nwf] .en__component--premiumgiftblock,[data-engrid-theme=nwf] .en__pg,[data-engrid-theme=nwf] .en__pgHeader{
@@ -7510,7 +7504,8 @@ body:not([data-engrid-debug]) #debug-bar{
 
 @media screen and (max-width:680px){
   [data-engrid-theme=nwf] .navbar-brand>img{
-    max-width:120px;
+    height:120px;
+    width:auto;
   }
 }
 
@@ -7523,7 +7518,7 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 
 [data-engrid-theme=nwf][data-engrid-layout=centercenter2col] .body-banner{
-  background-color:var(--color_secondary);
+  --engrid__body-banner_background-color:var(--color_secondary);
 }
 
 [data-engrid-theme=nwf][data-engrid-layout=centercenter2col] .body-banner img[data-src]{
@@ -7538,13 +7533,6 @@ body:not([data-engrid-debug]) #debug-bar{
   [data-engrid-theme=nwf][data-engrid-layout=centercenter2col] .content-footer .row .footer-boxes{
     max-width:100%;
     padding:0;
-  }
-}
-
-@media screen and (min-width:900px){
-  [data-engrid-theme=nwf][data-engrid-layout=centercenter2col]{
-    --engrid__body-main_padding:0px 0px 0px var(--spacing_lg);
-    --engrid__body-bottom_padding:0px 0px 0px var(--spacing_lg);
   }
 }
 
@@ -7742,6 +7730,93 @@ body:not([data-engrid-debug]) #debug-bar{
 
 [data-engrid-theme=nwf] .enWidget__progress{
   height:45px !important;
+}
+
+[data-engrid-subtheme=hecho]{
+  --color_primary:#41477b;
+  --color_primary_overlay:#dadceb;
+  --color_primary_accent:#333;
+  --color_secondary:#e0e9ea;
+  --submit__button_background-color:#ea7200;
+  --submit__button_background-color_hover:#d66800;
+}
+
+[data-engrid-subtheme=hecho] .content-header{
+  --engrid__content-header_background-color:#5c5478;
+  color:#fff;
+}
+
+[data-engrid-subtheme=hecho] .body-top{
+  --engrid__body-top_background-color:#d7d4e4;
+}
+
+[data-engrid-subtheme=hecho] .footer-nav{
+  display:none;
+}
+
+[data-engrid-subtheme=action-fund] .nav-spacer{
+  background-color:#f3f3ed;
+  height:40px;
+}
+
+[data-engrid-subtheme=action-fund] #main-nav{
+  background-color:#ad7c1d;
+}
+
+[data-engrid-subtheme=action-fund] .logo_desktop{
+  background-color:initial;
+  border-radius:initial;
+  height:120px;
+  width:auto;
+}
+
+[data-engrid-subtheme=action-fund] .navbar-brand>img{
+  margin-top:-33px;
+}
+
+@media screen and (max-width:980px){
+  [data-engrid-subtheme=action-fund] #main-nav{
+    height:82px;
+    margin-bottom:1rem;
+  }
+  [data-engrid-subtheme=action-fund] #main-nav .navbar-brand>img{
+    height:72px;
+    margin-top:30px;
+  }
+}
+
+[data-engrid-subtheme=action-fund] .footer-nav{
+  display:none;
+}
+
+[data-engrid-subtheme=action-fund] .content-footer{
+  --engrid__content-footer_background-color:#000;
+  --a_color:#fff;
+  --a_color_hover:#4d9068;
+  --a_text-decoration:none;
+  color:#fff;
+}
+
+[data-engrid-subtheme=garden-for-wildlife] .logo_desktop{
+  background-color:initial;
+  border-radius:initial;
+  height:120px;
+  width:auto;
+}
+
+[data-engrid-subtheme=garden-for-wildlife] .navbar-brand>img{
+  margin-top:-33px;
+}
+
+@media screen and (max-width:980px){
+  [data-engrid-subtheme=garden-for-wildlife] #main-nav{
+    height:82px;
+    margin-bottom:1rem;
+  }
+  [data-engrid-subtheme=garden-for-wildlife] #main-nav .navbar-brand>img{
+    height:72px;
+    margin-top:30px;
+  }
 }
 body{
   opacity:1;
