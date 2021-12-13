@@ -3,6 +3,7 @@ import { Options, App, ENGrid } from "@4site/engrid-common"; // Uses ENGrid via 
 import "./sass/main.scss";
 import "./scripts/main.js";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
+import { XVerify } from "./scripts/xverify/xverify";
 
 const options: Options = {
   applePay: false,
@@ -16,7 +17,13 @@ const options: Options = {
   SrcDefer: true,
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
-  onLoad: () => console.log("Starter Theme Loaded"),
+  onLoad: () => {
+    console.log("Starter Theme Loaded");
+    if (window.hasOwnProperty("XVerifyOptions")) {
+      (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
+    }
+    (<any>window).validateXverify = XVerify.validateXverify;
+  },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
     const premiumGift = <HTMLInputElement>(

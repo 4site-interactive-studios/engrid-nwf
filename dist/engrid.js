@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, December 10, 2021 @ 15:44:38 ET
+ *  Date: Monday, December 13, 2021 @ 15:02:35 ET
  *  By: fe
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
@@ -13947,9 +13947,157 @@ class FormSwitch {
   }
 
 }
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+;// CONCATENATED MODULE: ./src/scripts/xverify/xverify.ts
+
+
+class XVerify {
+  constructor(options) {
+    _defineProperty(this, "form", EnForm.getInstance());
+
+    _defineProperty(this, "emailField", void 0);
+
+    _defineProperty(this, "apiURL", void 0);
+
+    _defineProperty(this, "emailWrapper", document.querySelector(".en__field--emailAddress"));
+
+    _defineProperty(this, "xvDate", null);
+
+    _defineProperty(this, "xvDateFormat", void 0);
+
+    _defineProperty(this, "xvStatus", null);
+
+    _defineProperty(this, "options", void 0);
+
+    this.emailField = document.querySelector("#en__field_supporter_emailAddress");
+    this.options = options;
+    this.xvStatus = this.options.statusField ? document.querySelector(this.options.statusField) : null;
+    this.xvDate = this.options.dateField ? document.querySelector(this.options.dateField) : null;
+    this.xvDateFormat = this.options.dateFormat ? this.options.dateFormat : "YYYY-MM-DD";
+    this.apiURL = "https://www.xverify.com/services/emails/process/?type=json&autocorrect=0&apikey=nwf&domain=nwf.org&callback=validateXverify";
+    this.init();
+    this.form.onValidate.subscribe(() => this.form.validate = this.validateSubmit());
+    if (engrid_ENGrid.debug) console.log("Engrid Xverify: LOADED", this.emailField);
+  }
+
+  static getInstance(options) {
+    if (!XVerify.instance) {
+      XVerify.instance = new XVerify(options);
+    }
+
+    return XVerify.instance;
+  }
+
+  init() {
+    if (!this.emailField) {
+      if (engrid_ENGrid.debug) console.log("Engrid Xverify: E-mail Field Not Found", this.emailField);
+      return;
+    }
+
+    "change paste".split(" ").forEach(e => {
+      this.emailField.addEventListener(e, event => {
+        // Run after 50ms
+        setTimeout(() => {
+          this.validateEmail(this.emailField.value);
+        }, 50);
+      });
+    });
+  }
+
+  deleteENFieldError() {
+    const emailWrapper = this.emailField.closest(".en__field");
+    emailWrapper.classList.remove("en__field--validationFailed");
+    const errorField = document.querySelector(".en__field--emailAddress>div.en__field__error");
+    if (errorField) errorField.remove();
+  }
+
+  validateEmail(email) {
+    if (!this.emailField) {
+      if (engrid_ENGrid.debug) console.log("Engrid XVerify validate(): E-mail Field Not Found. Returning true.");
+      return true;
+    }
+
+    engrid_ENGrid.disableSubmit("Validating Your Email");
+    engrid_ENGrid.loadJS(this.apiURL + "&email=" + email, () => {
+      engrid_ENGrid.enableSubmit();
+    });
+  }
+
+  static validateXverify(data) {
+    if (engrid_ENGrid.debug) console.log("Engrid XVerify validateXverify():", data);
+    const xv = window.hasOwnProperty("XVerifyOptions") ? XVerify.getInstance(window.XVerifyOptions) : XVerify.getInstance({});
+
+    if (xv.xvStatus) {
+      xv.xvStatus.value = data.email.status;
+    }
+
+    if (xv.xvDate) {
+      xv.xvDate.value = xv.xvDate.value = engrid_ENGrid.formatDate(new Date(), xv.xvDateFormat);
+    }
+
+    xv.emailField.dataset.xverifyStatus = data.email.status;
+    xv.emailField.dataset.xverifyDate = engrid_ENGrid.formatDate(new Date(), xv.xvDateFormat);
+
+    if (!["accept_all", "unknown", "valid", "risky"].includes(data.email.status)) {
+      var _xv$emailField;
+
+      (_xv$emailField = xv.emailField) === null || _xv$emailField === void 0 ? void 0 : _xv$emailField.focus();
+      if (engrid_ENGrid.debug) console.log("Engrid XVerify validateXverify():", "INVALID");
+      xv.invalid(data.email.message);
+      return false;
+    }
+
+    if (engrid_ENGrid.debug) console.log("Engrid XVerify validateXverify():", "VALID");
+    xv.valid();
+    return true;
+  }
+
+  validateSubmit() {
+    if (!!["accept_all", "unknown", "valid", "risky"].includes(this.emailField.dataset.xverifyStatus || "")) {
+      this.valid();
+      return true;
+    }
+
+    this.invalid("Invalid Email");
+    return false;
+  }
+
+  valid() {
+    this.deleteENFieldError();
+  }
+
+  invalid() {
+    let message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Invalid Email";
+    const emailWrapper = this.emailField.closest(".en__field");
+    emailWrapper.classList.add("en__field--validationFailed");
+    const emailError = document.createElement("div");
+    emailError.id = "engridEmailValidator";
+    emailError.classList.add("en__field__error");
+    emailError.innerHTML = message;
+    emailWrapper.prepend(emailError);
+  }
+
+}
+
+_defineProperty(XVerify, "instance", void 0);
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM
 // import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+
 
 
 
@@ -13966,7 +14114,15 @@ const options = {
   SrcDefer: true,
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
-  onLoad: () => console.log("Starter Theme Loaded"),
+  onLoad: () => {
+    console.log("Starter Theme Loaded");
+
+    if (window.hasOwnProperty("XVerifyOptions")) {
+      window.XVerify = XVerify.getInstance(window.XVerifyOptions);
+    }
+
+    window.validateXverify = XVerify.validateXverify;
+  },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
     const premiumGift = document.querySelector('[name="en__pg"]:checked');
