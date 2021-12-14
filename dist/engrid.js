@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, December 14, 2021 @ 24:22:05 ET
- *  By: bryancasler
+ *  Date: Tuesday, December 14, 2021 @ 08:53:24 ET
+ *  By: fe
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
  *
@@ -14016,6 +14016,10 @@ class XVerify {
         }, 50);
       });
     });
+
+    if (this.emailField.value) {
+      this.validateEmail(this.emailField.value);
+    }
   }
 
   deleteENFieldError() {
@@ -14072,7 +14076,7 @@ class XVerify {
       return true;
     }
 
-    this.invalid("Invalid Email");
+    this.invalid();
     return false;
   }
 
@@ -14082,6 +14086,7 @@ class XVerify {
 
   invalid() {
     let message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Invalid Email";
+    this.deleteENFieldError();
     const emailWrapper = this.emailField.closest(".en__field");
     emailWrapper.classList.add("en__field--validationFailed");
     const emailError = document.createElement("div");

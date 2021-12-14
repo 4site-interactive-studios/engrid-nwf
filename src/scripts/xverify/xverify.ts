@@ -65,6 +65,9 @@ export class XVerify {
         }, 50);
       });
     });
+    if (this.emailField.value) {
+      this.validateEmail(this.emailField.value);
+    }
   }
 
   private deleteENFieldError() {
@@ -131,13 +134,14 @@ export class XVerify {
       this.valid();
       return true;
     }
-    this.invalid("Invalid Email");
+    this.invalid();
     return false;
   }
   public valid() {
     this.deleteENFieldError();
   }
   public invalid(message: string = "Invalid Email") {
+    this.deleteENFieldError();
     const emailWrapper = <HTMLDivElement>this.emailField.closest(".en__field");
     emailWrapper.classList.add("en__field--validationFailed");
     const emailError = document.createElement("div");
