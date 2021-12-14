@@ -21,17 +21,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
-<<<<<<< Updated upstream
- *  Date: Monday, December 13, 2021 @ 15:02:35 ET
- *  By: fe
+ *  Date: Monday, December 13, 2021 @ 19:07:01 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
-=======
- *  Date: Monday, December 13, 2021 @ 14:19:34 ET
- *  By: maansacdalan
- *  ENGrid styles: v0.6.10
- *  ENGrid scripts: v0.6.8
->>>>>>> Stashed changes
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -7742,7 +7735,6 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-theme=nwf] .enWidget__progress{
   height:45px !important;
 }
-<<<<<<< Updated upstream
 
 [data-engrid-subtheme=hecho]{
   --color_primary:#41477b;
@@ -7762,7 +7754,7 @@ body:not([data-engrid-debug]) #debug-bar{
   --engrid__body-top_background-color:#d7d4e4;
 }
 
-[data-engrid-subtheme=hecho] .footer-nav{
+[data-engrid-subtheme=hecho] #footer-nav{
   display:none;
 }
 
@@ -7829,7 +7821,7 @@ body:not([data-engrid-debug]) #debug-bar{
     height:72px;
     margin-top:30px;
   }
-=======
+}
 [data-engrid-theme=nwf] .en__submit button{
   margin:1rem auto;
   max-width:400px;
@@ -8012,7 +8004,6 @@ label[for=en__field_supporter_questions_882501]{
 
 [data-engrid-theme=nwf] .en__ticketSummary__checkout:hover{
   background-color:#666;
->>>>>>> Stashed changes
 }
 body{
   opacity:1;

@@ -17,17 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
-<<<<<<< Updated upstream
- *  Date: Monday, December 13, 2021 @ 15:02:35 ET
- *  By: fe
+ *  Date: Monday, December 13, 2021 @ 19:07:01 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
-=======
- *  Date: Monday, December 13, 2021 @ 14:19:34 ET
- *  By: maansacdalan
- *  ENGrid styles: v0.6.10
- *  ENGrid scripts: v0.6.8
->>>>>>> Stashed changes
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you

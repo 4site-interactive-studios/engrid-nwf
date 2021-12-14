@@ -538,9 +538,9 @@
     }
   }
 
-/** FOOTER SPACER **/
+  /** FOOTER SPACER **/
   .content-footerSpacer {
-      height: 40px;
+    height: 40px;
   }
 
   @media screen and (max-width: 980px) {
@@ -838,7 +838,7 @@
   --submit__button_background-color: #ea7200;
   --submit__button_background-color_hover: #d66800;
 
-  .footer-nav {
+  #footer-nav {
     display: none;
   }
 }
@@ -913,11 +913,10 @@
 }
 
 /* Submit Button */
-[data-engrid-theme=nwf] .en__submit button {
+[data-engrid-theme="nwf"] .en__submit button {
   margin: 1rem auto;
   max-width: 400px;
 }
-
 
 /** Subscription Page - Opt In Styles **/
 
@@ -931,175 +930,179 @@ p.optin-description {
 /* Advocacy Opt In Style */
 
 label[for="en__field_supporter_questions_882501"] {
-  display: none!important;
+  display: none !important;
 }
 
 /**  BODY HEADER - H1 **/
-.body-header h1{
-  text-align:left;
-  line-height:39px;
+.body-header h1 {
+  text-align: left;
+  line-height: 39px;
 }
-
 
 /** CENTERCENTER 1 COLUMN STYLES **/
 
-//Image lines right up to the header 
-[data-engrid-layout="centercenter1col"]{
+//Image lines right up to the header
+[data-engrid-layout="centercenter1col"] {
+  .en__component.en__component--imageblock {
+    margin-top: -25px;
+  }
 
+  // Survey Styles - Text Area
+  .en__c2c__survey textarea.en__field__input.en__field__input--textarea {
+    min-width: 25rem;
+    width: 25rem;
+  }
 
-.en__component.en__component--imageblock {
-  margin-top: -25px;
-}
+  // Survey Styles - Rate
+  .en__c2c__survey__rate {
+    margin: 0.75rem 0;
+    max-width: 25rem;
+  }
 
-// Survey Styles - Text Area
-.en__c2c__survey textarea.en__field__input.en__field__input--textarea {
-  min-width: 25rem;
-  width:25rem;
-}
-
-// Survey Styles - Rate
-.en__c2c__survey__rate {
-  margin: 0.75rem 0;
-  max-width: 25rem;
-}
-
-// Center Survey Styles
-.en__component.en__component--callsurveyblock {
-  margin: 0 auto;
-}
-
+  // Center Survey Styles
+  .en__component.en__component--callsurveyblock {
+    margin: 0 auto;
+  }
 }
 
 /** One Column H1 H2 Styles **/
-[data-engrid-layout="centercenter1col"]{
-  [data-engrid-theme=nwf]h1{
-    text-align:left;
-    line-height:39px;
-  } 
-  [data-engrid-theme=nwf] h2 {
-    text-align:left;
+[data-engrid-layout="centercenter1col"] {
+  [data-engrid-theme="nwf"]h1 {
+    text-align: left;
+    line-height: 39px;
+  }
+  [data-engrid-theme="nwf"] h2 {
+    text-align: left;
   }
 }
 
 //TODO This doesn't seem to work
-/** Changes body background color **/ 
-[data-engrid-layout=centercenter1col] {
-    --engrid__body-top_background-color: #ffffff;
+/** Changes body background color **/
+[data-engrid-layout="centercenter1col"] {
+  --engrid__body-top_background-color: #ffffff;
 }
 
 /** EVENT PAGE TYPE **/
-[data-engrid-theme=nwf]{
-    .event-details {    
-        padding: 30px 30px 0;
-        background-color: #ffffff;
-        margin-bottom: 30px;
-    }
-    .event-details div {
-        padding-bottom: 20px;
-    }
-    .event-fineprint {
-        padding-bottom: 30px;
-    }
-    .event-fineprint p {
-        font-size: 1.05em;
-        line-height: 1.4;
-        padding-bottom: 8px!important;
-    }
-
-    .en__ticketBlock {
-        border: none;
-        background-color: #e0e9ea;
-        margin-top: 40px;
-        font-family: 'Fira Sans', sans-serif;
-    }
-    .en__tickets {
-        padding: 0;
-    }
-    .en__additional, .en__ticket {
-        display: block;
-    }
-    .en__additional__amount, .en__additional__label, .en__ticket__currency, .en__ticket__name, .en__ticket__price {
-        font-size: 1.2em;
-        font-weight: 500;
-        color: #4d9068;
-        text-align: left;
-        word-wrap: break-word;
-        line-height: 1.3;
-    }
-    .en__ticket__desc {
-        text-align: left;
-        word-wrap: break-word;
-    }
-    .en__ticket__field--info {
-        padding-right: 0;
-        width: 100%;
-        word-break: break-word;
-    }
-    .en__ticket__price  {
-        color: #333;
-    }
-    .en__ticket__field--cost {
-        width: 20%;
-        padding: 20px 5px 0;
-        min-width: 75px;
-    }
-    .en__ticket__price, .en__ticket__currency  {
-        display: inline-block;
-    }
-    .en__ticket__price {
-        font-size: 1.4em;
-    }
-    .en__ticket__price:before {
-        content:"$";
-    }
-    .en__ticket__currency, .en__additional__amount {
-        font-size: 1em;
-        color: #333;
-    }
-    .en__ticket__field.en__ticket__field--quantity {
-        padding: 0;
-        min-width: 100px;
-    }
-    .en__ticket__field {
-        border-bottom: 7px solid #FFF;
-    }
-    .en__ticket__field--quantity {
-        border-left: 7px solid #FFF;
-    }
-    .en__ticket__selector input.en__ticket__quantity {
-        width: 22px;
-        padding: 10px 0;
-    }
-    .en__ticket__selector .en__ticket__minus, .en__ticket__selector .en__ticket__plus {
-        background-color: unset;
-        border: unset;
-        margin: 0;
-        height: 2em;
-        width: 2em;
-        background-size: 13px;
-    }
-    .en__additional__amount:before {
-        content:"$";
-    }
-    .en__additional__promo {
-        border-left: 7px solid white;
-        min-width: 100px;
-    }
-    .en__additional__promo input[type=text] {
-        padding: 12px 5px;
-    }
-    .en__ticketSummary {
-        border: none;
-        background-color: #fff;
-    }
-    .en__ticketSummary__checkout {
-        background-color: #4d9068;
-        text-transform: unset;
-        margin-top: 7px;
-        width: 133px;
-        font-size: 16px;
-    }
-    .en__ticketSummary__checkout:hover {
-        background-color: #666;
-    }
+[data-engrid-theme="nwf"] {
+  .event-details {
+    padding: 30px 30px 0;
+    background-color: #ffffff;
+    margin-bottom: 30px;
   }
+  .event-details div {
+    padding-bottom: 20px;
+  }
+  .event-fineprint {
+    padding-bottom: 30px;
+  }
+  .event-fineprint p {
+    font-size: 1.05em;
+    line-height: 1.4;
+    padding-bottom: 8px !important;
+  }
+
+  .en__ticketBlock {
+    border: none;
+    background-color: #e0e9ea;
+    margin-top: 40px;
+    font-family: "Fira Sans", sans-serif;
+  }
+  .en__tickets {
+    padding: 0;
+  }
+  .en__additional,
+  .en__ticket {
+    display: block;
+  }
+  .en__additional__amount,
+  .en__additional__label,
+  .en__ticket__currency,
+  .en__ticket__name,
+  .en__ticket__price {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #4d9068;
+    text-align: left;
+    word-wrap: break-word;
+    line-height: 1.3;
+  }
+  .en__ticket__desc {
+    text-align: left;
+    word-wrap: break-word;
+  }
+  .en__ticket__field--info {
+    padding-right: 0;
+    width: 100%;
+    word-break: break-word;
+  }
+  .en__ticket__price {
+    color: #333;
+  }
+  .en__ticket__field--cost {
+    width: 20%;
+    padding: 20px 5px 0;
+    min-width: 75px;
+  }
+  .en__ticket__price,
+  .en__ticket__currency {
+    display: inline-block;
+  }
+  .en__ticket__price {
+    font-size: 1.4em;
+  }
+  .en__ticket__price:before {
+    content: "$";
+  }
+  .en__ticket__currency,
+  .en__additional__amount {
+    font-size: 1em;
+    color: #333;
+  }
+  .en__ticket__field.en__ticket__field--quantity {
+    padding: 0;
+    min-width: 100px;
+  }
+  .en__ticket__field {
+    border-bottom: 7px solid #fff;
+  }
+  .en__ticket__field--quantity {
+    border-left: 7px solid #fff;
+  }
+  .en__ticket__selector input.en__ticket__quantity {
+    width: 22px;
+    padding: 10px 0;
+  }
+  .en__ticket__selector .en__ticket__minus,
+  .en__ticket__selector .en__ticket__plus {
+    background-color: unset;
+    border: unset;
+    margin: 0;
+    height: 2em;
+    width: 2em;
+    background-size: 13px;
+  }
+  .en__additional__amount:before {
+    content: "$";
+  }
+  .en__additional__promo {
+    border-left: 7px solid white;
+    min-width: 100px;
+  }
+  .en__additional__promo input[type="text"] {
+    padding: 12px 5px;
+  }
+  .en__ticketSummary {
+    border: none;
+    background-color: #fff;
+  }
+  .en__ticketSummary__checkout {
+    background-color: #4d9068;
+    text-transform: unset;
+    margin-top: 7px;
+    width: 133px;
+    font-size: 16px;
+  }
+  .en__ticketSummary__checkout:hover {
+    background-color: #666;
+  }
+}
