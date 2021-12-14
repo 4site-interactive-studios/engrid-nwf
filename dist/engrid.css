@@ -21,7 +21,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, December 13, 2021 @ 19:08:05 ET
+ *  Date: Monday, December 13, 2021 @ 23:41:28 ET
  *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
@@ -7741,17 +7741,290 @@ body:not([data-engrid-debug]) #debug-bar{
   --submit__button_background-color_hover:#d66800;
 }
 
+[data-engrid-subtheme=hecho] .body-main{
+  padding-bottom:2rem;
+}
+
+[data-engrid-subtheme=hecho] .footer_logo_rr,[data-engrid-subtheme=hecho] .nwf_logo_footer{
+  width:109px;
+}
+
+[data-engrid-subtheme=hecho] .footertext{
+  color:#aaa;
+  font-family:Fira Sans;
+  font-size:10px;
+  line-height:22px;
+  text-align:center;
+}
+
+[data-engrid-subtheme=hecho] .footer-spacer{
+  padding:30px;
+}
+
+[data-engrid-subtheme=hecho] .footer-nav-spacer{
+  display:inline;
+}
+
+[data-engrid-subtheme=hecho] .footer{
+  font-family:Fira Sans,sans-serif;
+}
+
+[data-engrid-subtheme=hecho] .footer-boxes{
+  margin-top:40px;
+}
+
+[data-engrid-subtheme=hecho] .footer-boxes img{
+  padding-bottom:15px;
+}
+
+[data-engrid-subtheme=hecho] .footer-boxes p{
+  font-size:12px;
+  padding-bottom:0;
+}
+
+[data-engrid-subtheme=hecho] .footer-boxes .large-subhead{
+  font-weight:400;
+}
+
+[data-engrid-subtheme=hecho] .footer-boxes h4{
+  margin-top:0;
+}
+
+[data-engrid-subtheme=hecho] .footer-boxes ul{
+  margin-top:20px;
+  padding:0;
+}
+
+[data-engrid-subtheme=hecho] .footer-nav-container{
+  clear:left;
+  padding:0;
+}
+
+[data-engrid-subtheme=hecho] .footer-nav{
+  display:table;
+  margin:0 auto;
+  max-width:400px;
+  text-align:center;
+  width:100%;
+}
+
+[data-engrid-subtheme=hecho] .footer-nav-item{
+  cursor:pointer;
+  display:inline-block;
+  font-family:Fira Sans,sans-serif;
+  font-size:1em;
+  font-weight:400;
+  padding:0;
+  position:relative;
+  text-transform:uppercase;
+}
+
+[data-engrid-subtheme=hecho] div.ac-wrapper-footer ul{
+  -webkit-padding-start:0 !important;
+  padding:0;
+}
+
+[data-engrid-subtheme=hecho] .ac-wrapper-footer{
+  font-family:Fira Sans,sans-serif;
+  padding:30px;
+  text-align:center;
+}
+
+[data-engrid-subtheme=hecho] .ac-wrapper-footer li{
+  display:inline-block;
+  font-size:13px;
+  list-style:none;
+}
+
+[data-engrid-subtheme=hecho] .ac-wrapper-footer p{
+  font-size:10px;
+}
+
+[data-engrid-subtheme=hecho] .ac-wrapper-footer a{
+  text-decoration:none;
+}
+
+[data-engrid-subtheme=hecho] .media-footer h4{
+  margin:20px 0 10px;
+}
+
+[data-engrid-subtheme=hecho] .media-footer p{
+  font-size:.8em;
+}
+
+[data-engrid-subtheme=hecho] .svg-inline--fa{
+  display:inline-block;
+  font-size:50px;
+  height:1em;
+  overflow:visible;
+  padding:5px;
+  vertical-align:-.125em;
+}
+
 [data-engrid-subtheme=hecho] .content-header{
   --engrid__content-header_background-color:#5c5478;
   color:#fff;
+}
+
+[data-engrid-subtheme=hecho] .content-header #main-nav{
+  background-color:initial;
+  height:auto;
+}
+
+[data-engrid-subtheme=hecho] .content-header .navbar-header{
+  float:none;
+}
+
+[data-engrid-subtheme=hecho] .content-header .logo_desktop{
+  background-color:initial;
+  border-radius:initial;
+  height:153px;
+  width:auto;
+}
+
+[data-engrid-subtheme=hecho] .content-header .navbar-brand{
+  top:0;
+}
+
+[data-engrid-subtheme=hecho] .content-header .navbar-brand>img{
+  margin-left:25px;
+  margin-top:0;
 }
 
 [data-engrid-subtheme=hecho] .body-top{
   --engrid__body-top_background-color:#d7d4e4;
 }
 
+[data-engrid-subtheme=hecho] .content-footer{
+  --engrid__content-footer_background-color:#5c5478;
+  --a_color:#fff;
+  --a_color_hover:#fff;
+  --a_text-decoration:none;
+  color:#fff;
+}
+
 [data-engrid-subtheme=hecho] #footer-nav{
   display:none;
+}
+
+[data-engrid-subtheme=action-fund] .body-main{
+  padding-bottom:2rem;
+}
+
+[data-engrid-subtheme=action-fund] .footer_logo_rr,[data-engrid-subtheme=action-fund] .nwf_logo_footer{
+  width:109px;
+}
+
+[data-engrid-subtheme=action-fund] .footertext{
+  color:#aaa;
+  font-family:Fira Sans;
+  font-size:10px;
+  line-height:22px;
+  text-align:center;
+}
+
+[data-engrid-subtheme=action-fund] .footer-spacer{
+  padding:30px;
+}
+
+[data-engrid-subtheme=action-fund] .footer-nav-spacer{
+  display:inline;
+}
+
+[data-engrid-subtheme=action-fund] .footer{
+  font-family:Fira Sans,sans-serif;
+}
+
+[data-engrid-subtheme=action-fund] .footer-boxes{
+  margin-top:40px;
+}
+
+[data-engrid-subtheme=action-fund] .footer-boxes img{
+  padding-bottom:15px;
+}
+
+[data-engrid-subtheme=action-fund] .footer-boxes p{
+  font-size:12px;
+  padding-bottom:0;
+}
+
+[data-engrid-subtheme=action-fund] .footer-boxes .large-subhead{
+  font-weight:400;
+}
+
+[data-engrid-subtheme=action-fund] .footer-boxes h4{
+  margin-top:0;
+}
+
+[data-engrid-subtheme=action-fund] .footer-boxes ul{
+  margin-top:20px;
+  padding:0;
+}
+
+[data-engrid-subtheme=action-fund] .footer-nav-container{
+  clear:left;
+  padding:0;
+}
+
+[data-engrid-subtheme=action-fund] .footer-nav{
+  display:table;
+  margin:0 auto;
+  max-width:400px;
+  text-align:center;
+  width:100%;
+}
+
+[data-engrid-subtheme=action-fund] .footer-nav-item{
+  cursor:pointer;
+  display:inline-block;
+  font-family:Fira Sans,sans-serif;
+  font-size:1em;
+  font-weight:400;
+  padding:0;
+  position:relative;
+  text-transform:uppercase;
+}
+
+[data-engrid-subtheme=action-fund] div.ac-wrapper-footer ul{
+  -webkit-padding-start:0 !important;
+  padding:0;
+}
+
+[data-engrid-subtheme=action-fund] .ac-wrapper-footer{
+  font-family:Fira Sans,sans-serif;
+  padding:30px;
+  text-align:center;
+}
+
+[data-engrid-subtheme=action-fund] .ac-wrapper-footer li{
+  display:inline-block;
+  font-size:13px;
+  list-style:none;
+}
+
+[data-engrid-subtheme=action-fund] .ac-wrapper-footer p{
+  font-size:10px;
+}
+
+[data-engrid-subtheme=action-fund] .ac-wrapper-footer a{
+  text-decoration:none;
+}
+
+[data-engrid-subtheme=action-fund] .media-footer h4{
+  margin:20px 0 10px;
+}
+
+[data-engrid-subtheme=action-fund] .media-footer p{
+  font-size:.8em;
+}
+
+[data-engrid-subtheme=action-fund] .svg-inline--fa{
+  display:inline-block;
+  font-size:50px;
+  height:1em;
+  overflow:visible;
+  padding:5px;
+  vertical-align:-.125em;
 }
 
 [data-engrid-subtheme=action-fund] .nav-spacer{
@@ -7783,10 +8056,6 @@ body:not([data-engrid-debug]) #debug-bar{
     height:72px;
     margin-top:30px;
   }
-}
-
-[data-engrid-subtheme=action-fund] .footer-nav{
-  display:none;
 }
 
 [data-engrid-subtheme=action-fund] .content-footer{
