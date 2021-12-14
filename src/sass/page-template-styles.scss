@@ -539,9 +539,10 @@
   }
 
   /** FOOTER SPACER **/
-  .content-footerSpacer {
-    height: 40px;
-  }
+  // Bryan: The .content-footerSpacer height shouldn't be explicitly set because it always expands to ensure the footer is always on the bottom of the page, even when the body content is shorter than the browser window is tall.
+  // .content-footerSpacer {
+  //     height: 40px;
+  // }
 
   @media screen and (max-width: 980px) {
     .navbar-brand {
