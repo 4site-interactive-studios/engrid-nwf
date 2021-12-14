@@ -21,7 +21,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, December 13, 2021 @ 23:41:28 ET
+ *  Date: Tuesday, December 14, 2021 @ 24:22:05 ET
  *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
@@ -7803,7 +7803,8 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-subtheme=hecho] .footer-nav{
   display:table;
   margin:0 auto;
-  max-width:400px;
+  padding-left:.5rem;
+  padding-right:.5rem;
   text-align:center;
   width:100%;
 }
@@ -7855,15 +7856,20 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-subtheme=hecho] .svg-inline--fa{
   display:inline-block;
   font-size:50px;
+  font-size:38px;
   height:1em;
   overflow:visible;
   padding:5px;
   vertical-align:-.125em;
 }
 
-[data-engrid-subtheme=hecho] .content-header{
-  --engrid__content-header_background-color:#5c5478;
+[data-engrid-subtheme=hecho] .content-header>*{
+  background-color:#5c5478;
   color:#fff;
+}
+
+[data-engrid-subtheme=hecho] .content-header{
+  padding-bottom:28px;
 }
 
 [data-engrid-subtheme=hecho] .content-header #main-nav{
@@ -7891,6 +7897,15 @@ body:not([data-engrid-debug]) #debug-bar{
   margin-top:0;
 }
 
+@media screen and (max-width:980px){
+  [data-engrid-subtheme=hecho] .content-header .navbar-brand>img{
+    margin-left:0;
+    position:relative;
+    top:53px;
+    transform:scale(.8);
+  }
+}
+
 [data-engrid-subtheme=hecho] .body-top{
   --engrid__body-top_background-color:#d7d4e4;
 }
@@ -7903,8 +7918,8 @@ body:not([data-engrid-debug]) #debug-bar{
   color:#fff;
 }
 
-[data-engrid-subtheme=hecho] #footer-nav{
-  display:none;
+[data-engrid-subtheme=hecho] .footer-nav{
+  font-size:12px;
 }
 
 [data-engrid-subtheme=action-fund] .body-main{
@@ -7969,7 +7984,8 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-subtheme=action-fund] .footer-nav{
   display:table;
   margin:0 auto;
-  max-width:400px;
+  padding-left:.5rem;
+  padding-right:.5rem;
   text-align:center;
   width:100%;
 }
