@@ -345,6 +345,18 @@
     display: none !important;
   }
 
+  &[data-engrid-layout*="1col"] {
+    --engrid__page_background-color: #e0e9ea;
+    --engrid__content_background-color: #ffffff;
+    --engrid__body_background-color: #ffffff;
+  }
+
+  &[data-engrid-layout*="2col"] {
+    .body-top {
+      --engrid__body-top_background-color: var(--color_secondary);
+    }
+  }
+
   --fields_spacing-inline: 0.25rem;
 
   .en__field--recurrfreq,
@@ -449,7 +461,7 @@
   }
 
   .navbar-header {
-    float: left;
+    // float: left;
   }
 
   .btn-group-vertical > .btn-group:after,
@@ -563,18 +575,26 @@
   //   height: 65px;
   // }
 
-  h1.top {
-    margin: 0 0 2rem 0;
-  }
+  // h1.top {
+  //   margin: 0 0 2rem 0;
+  // }
 
   .body-title {
     padding: 0;
     grid-row: body-headerOutside;
     grid-column: bc !important;
-  }
 
-  .body-top {
-    --engrid__body-top_background-color: var(--color_secondary);
+    h1 {
+      margin: 0 0 1rem 0;
+    }
+
+    h1:first-child {
+      margin-top: 1rem;
+    }
+
+    h1:last-child {
+      margin-bottom: 2rem;
+    }
   }
 
   .en__component--premiumgiftblock,

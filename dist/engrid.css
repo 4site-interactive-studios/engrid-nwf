@@ -21,8 +21,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, December 14, 2021 @ 08:53:24 ET
- *  By: fe
+ *  Date: Thursday, December 16, 2021 @ 15:59:42 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
  *
@@ -7238,6 +7238,16 @@ body:not([data-engrid-debug]) #debug-bar{
   display:none !important;
 }
 
+[data-engrid-theme=nwf][data-engrid-layout*="1col"]{
+  --engrid__page_background-color:#e0e9ea;
+  --engrid__content_background-color:#fff;
+  --engrid__body_background-color:#fff;
+}
+
+[data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-top{
+  --engrid__body-top_background-color:var(--color_secondary);
+}
+
 [data-engrid-theme=nwf] .en__field--donationAmt label,[data-engrid-theme=nwf] .en__field--recurrfreq label,[data-engrid-theme=nwf] .give-by-select label{
   outline:none !important;
 }
@@ -7324,10 +7334,6 @@ body:not([data-engrid-debug]) #debug-bar{
   z-index:1;
 }
 
-[data-engrid-theme=nwf] .navbar-header{
-  float:left;
-}
-
 [data-engrid-theme=nwf] .btn-group-vertical>.btn-group:after,[data-engrid-theme=nwf] .btn-group-vertical>.btn-group:before,[data-engrid-theme=nwf] .btn-toolbar:after,[data-engrid-theme=nwf] .btn-toolbar:before,[data-engrid-theme=nwf] .clearfix:after,[data-engrid-theme=nwf] .clearfix:before,[data-engrid-theme=nwf] .container-fluid:after,[data-engrid-theme=nwf] .container-fluid:before,[data-engrid-theme=nwf] .container:after,[data-engrid-theme=nwf] .container:before,[data-engrid-theme=nwf] .dl-horizontal dd:after,[data-engrid-theme=nwf] .dl-horizontal dd:before,[data-engrid-theme=nwf] .form-horizontal .form-group:after,[data-engrid-theme=nwf] .form-horizontal .form-group:before,[data-engrid-theme=nwf] .modal-footer:after,[data-engrid-theme=nwf] .modal-footer:before,[data-engrid-theme=nwf] .modal-header:after,[data-engrid-theme=nwf] .modal-header:before,[data-engrid-theme=nwf] .nav:after,[data-engrid-theme=nwf] .nav:before,[data-engrid-theme=nwf] .navbar-collapse:after,[data-engrid-theme=nwf] .navbar-collapse:before,[data-engrid-theme=nwf] .navbar-header:after,[data-engrid-theme=nwf] .navbar-header:before,[data-engrid-theme=nwf] .navbar:after,[data-engrid-theme=nwf] .navbar:before,[data-engrid-theme=nwf] .pager:after,[data-engrid-theme=nwf] .pager:before,[data-engrid-theme=nwf] .panel-body:after,[data-engrid-theme=nwf] .panel-body:before,[data-engrid-theme=nwf] .row:after,[data-engrid-theme=nwf] .row:before{
   content:" ";
   display:table;
@@ -7383,18 +7389,22 @@ body:not([data-engrid-debug]) #debug-bar{
   position:relative;
 }
 
-[data-engrid-theme=nwf] h1.top{
-  margin:0 0 2rem;
-}
-
 [data-engrid-theme=nwf] .body-title{
   grid-column:bc !important;
   grid-row:body-headerOutside;
   padding:0;
 }
 
-[data-engrid-theme=nwf] .body-top{
-  --engrid__body-top_background-color:var(--color_secondary);
+[data-engrid-theme=nwf] .body-title h1{
+  margin:0 0 1rem;
+}
+
+[data-engrid-theme=nwf] .body-title h1:first-child{
+  margin-top:1rem;
+}
+
+[data-engrid-theme=nwf] .body-title h1:last-child{
+  margin-bottom:2rem;
 }
 
 [data-engrid-theme=nwf] .en__component--premiumgiftblock,[data-engrid-theme=nwf] .en__pg,[data-engrid-theme=nwf] .en__pgHeader{
