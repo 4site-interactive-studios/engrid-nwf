@@ -21,7 +21,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, December 16, 2021 @ 15:59:42 ET
+ *  Date: Thursday, December 16, 2021 @ 16:33:32 ET
  *  By: bryancasler
  *  ENGrid styles: v0.6.13
  *  ENGrid scripts: v0.6.16
@@ -7387,6 +7387,11 @@ body:not([data-engrid-debug]) #debug-bar{
   margin-bottom:20px;
   min-height:50px;
   position:relative;
+}
+
+[data-engrid-theme=nwf] .en__component--svblock .en__field__element--radio{
+  align-items:flex-start;
+  flex-direction:column;
 }
 
 [data-engrid-theme=nwf] .body-title{
