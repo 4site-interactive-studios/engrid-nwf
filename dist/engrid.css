@@ -21,8 +21,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, December 17, 2021 @ 24:06:13 ET
- *  By: fe
+ *  Date: Monday, December 20, 2021 @ 14:16:05 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.7.0
  *  ENGrid scripts: v0.7.0
  *
@@ -2338,7 +2338,7 @@ input[type=checkbox]+label:before{
   color:var(--checkbox_color);
   content:"";
   display:flex;
-  flex:1 0 auto;
+  flex:0 0 auto;
   height:var(--checkbox_height);
   justify-content:center;
   margin-right:MAX(var(--fields_spacing-inline), 1ch, .5rem);
@@ -7490,6 +7490,10 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-theme=nwf] .content-footer .row .footer-boxes .legal-nav li{
   float:left;
   padding-right:20px;
+}
+
+[data-engrid-theme=nwf] .content-footerSpacer{
+  grid-column:bc;
 }
 
 @media screen and (max-width:980px){

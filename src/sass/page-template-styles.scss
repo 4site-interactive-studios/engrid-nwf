@@ -702,6 +702,11 @@
   //     height: 40px;
   // }
 
+  // Force the footer spacer to occupy the body column so we can give it a white background that extends to the bottom of the top of the footer https://d.pr/i/pNH0gX
+  .content-footerSpacer {
+    grid-column: bc;
+  }
+
   @media screen and (max-width: 980px) {
     .navbar-brand {
       position: absolute;
