@@ -402,7 +402,7 @@
   &.en__field--validationFailed {
     margin-bottom: calc(
       var(--fields_spacing-block) * 2
-    ); // Give a little breathing room when a field has an erro
+    ); // Give a little breathing room when a field has an error
   }
 
   // NWF had some unexpected markup in their labels on Survey pages, this cleans up the display https://d.pr/v/nwsuT4
