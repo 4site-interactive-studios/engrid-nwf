@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, December 20, 2021 @ 18:34:31 ET
+ *  Date: Monday, December 20, 2021 @ 18:43:14 ET
  *  By: bryancasler
  *  ENGrid styles: v0.7.0
  *  ENGrid scripts: v0.7.0
@@ -1502,7 +1502,9 @@ __webpack_unused_export__ = ({ enumerable: true, get: function () { return ste_p
 /***/ }),
 
 /***/ 4747:
-/***/ (() => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+const tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 
 document.onreadystatechange = () => {
   if (document.readyState === "interactive" || document.readyState === "complete") {
@@ -1511,6 +1513,31 @@ document.onreadystatechange = () => {
 
     if (enFieldOtherAmt) {
       enFieldOtherAmt.placeholder = "Other";
+    } // Add "Why is this required?" markup to the Title field
+    // Only show it if the Title field is marked as required
+
+
+    let titleLabel = document.querySelectorAll(".en__field--title.en__mandatory > label")[0];
+    let pageType;
+
+    if ("pageJson" in window && "pageType" in window.pageJson) {
+      pageType = window.pageJson.pageType;
+    }
+
+    if (titleLabel && pageType === "emailtotarget") {
+      let el = document.createElement("span");
+      let childEl = document.createElement("a");
+      childEl.href = "#";
+      childEl.id = "title-tooltip";
+      childEl.className = "label-tooltip";
+      childEl.tabIndex = "-1";
+      childEl.innerText = "Why is this required?";
+      childEl.addEventListener("click", e => e.preventDefault());
+      el.appendChild(childEl);
+      titleLabel.appendChild(el);
+      tippy("#title-tooltip", {
+        content: "Why is title required? The U.S. Senate currently requires that messages to Senators include one of these five titles: Mr., Mrs., Miss, Ms., Dr. We understand that not everyone identifies with one of these titles, and we have provided additional options. However, to ensure your message can be received by your Senators, you may need to select one of the five titles described above."
+      });
     }
   }
 };
