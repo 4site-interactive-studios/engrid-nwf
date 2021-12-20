@@ -405,6 +405,21 @@
     ); // Give a little breathing room when a field has an erro
   }
 
+  // NWF had some unexpected markup in their labels on Survey pages, this cleans up the display https://d.pr/v/nwsuT4
+  .en__field--survey {
+    .en__field__label.en__field__label--positionabove {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    input[type="checkbox"] + label {
+      flex-wrap: wrap;
+      br {
+        display: none;
+      }
+    }
+  }
+
   .en__submit button {
     margin: 1rem 0;
   }
