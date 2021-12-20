@@ -21,7 +21,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, December 20, 2021 @ 16:20:35 ET
+ *  Date: Monday, December 20, 2021 @ 18:34:31 ET
  *  By: bryancasler
  *  ENGrid styles: v0.7.0
  *  ENGrid scripts: v0.7.0
@@ -2823,7 +2823,7 @@ body{
   --submit__button_font-size:var(--button_font-size);
   --submit__button_text-transform:var(--button_text-transform);
 }
-.button,.pseduo__en__submit_button,button,button.en__eventOccurrence__select,button.en__ticketRecurring__select,button.en__ticketSummary__checkout{
+.button,.en__button,.pseduo__en__submit_button,button,button.en__eventOccurrence__select,button.en__ticketRecurring__select,button.en__ticketSummary__checkout{
   -webkit-appearance:none;
   background-color:var(--button_background-color);
   border:var(--button_border-width) solid var(--button_border-color);
@@ -2842,13 +2842,13 @@ body{
   transition:background-color .2s ease-out,color .2s ease-out,border-color .2s ease-out;
 }
 
-.button:focus,.button:hover,.pseduo__en__submit_button:focus,.pseduo__en__submit_button:hover,button.en__eventOccurrence__select:focus,button.en__eventOccurrence__select:hover,button.en__ticketRecurring__select:focus,button.en__ticketRecurring__select:hover,button.en__ticketSummary__checkout:focus,button.en__ticketSummary__checkout:hover,button:focus,button:hover{
+.button:focus,.button:hover,.en__button:focus,.en__button:hover,.pseduo__en__submit_button:focus,.pseduo__en__submit_button:hover,button.en__eventOccurrence__select:focus,button.en__eventOccurrence__select:hover,button.en__ticketRecurring__select:focus,button.en__ticketRecurring__select:hover,button.en__ticketSummary__checkout:focus,button.en__ticketSummary__checkout:hover,button:focus,button:hover{
   background-color:var(--button_background-color_hover);
   border-color:var(--button_border-color_hover);
   color:var(--button_color_hover);
 }
 
-.button:active,.pseduo__en__submit_button:active,button.en__eventOccurrence__select:active,button.en__ticketRecurring__select:active,button.en__ticketSummary__checkout:active,button:active{
+.button.active,.button:active,.en__button.active,.en__button:active,.pseduo__en__submit_button.active,.pseduo__en__submit_button:active,button.active,button.en__eventOccurrence__select.active,button.en__eventOccurrence__select:active,button.en__ticketRecurring__select.active,button.en__ticketRecurring__select:active,button.en__ticketSummary__checkout.active,button.en__ticketSummary__checkout:active,button:active{
   background-color:var(--button_background-color_checked);
   border-color:var(--button_border-color_checked);
   color:var(--button_color_checked);
@@ -2913,6 +2913,21 @@ body{
   cursor:not-allowed;
   filter:grayscale(1);
   opacity:.5;
+}
+
+[data-engrid-theme] .en__component--callcontactblock .en__contacts{
+  background-color:initial;
+  padding:0;
+}
+
+[data-engrid-theme] .en__component--callcontactblock .en__contact__main{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+}
+
+[data-engrid-theme] .en__component--callsurveyblock .en__c2c__survey__rate .en__button{
+  opacity:1;
 }
 
 [data-engrid-theme]{
