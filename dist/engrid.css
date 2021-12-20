@@ -21,7 +21,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, December 20, 2021 @ 14:19:45 ET
+ *  Date: Monday, December 20, 2021 @ 16:20:35 ET
  *  By: bryancasler
  *  ENGrid styles: v0.7.0
  *  ENGrid scripts: v0.7.0
@@ -2133,7 +2133,7 @@ a:focus,a:hover{
   --textarea_min-height:calc(1ch + var(--textarea_font-size)*10);
   --textarea_box-shadow_hover:var(--input_box-shadow_hover);
 }
-.en__component--formblock,.en__component--svblock{
+.en__component--formblock,.en__component--svblock,.en__registrants__registrantDetails{
   display:flex;
   flex-wrap:wrap;
   justify-content:flex-start;
@@ -2141,12 +2141,12 @@ a:focus,a:hover{
   margin-right:calc(var(--fields_spacing-inline)*-1);
 }
 
-.en__component--formblock>*,.en__component--svblock>*{
+.en__component--formblock>*,.en__component--svblock>*,.en__registrants__registrantDetails>*{
   padding-left:var(--fields_spacing-inline);
   padding-right:var(--fields_spacing-inline);
 }
 
-.en__component--formblock .en__field,.en__component--svblock .en__field{
+.en__component--formblock .en__field,.en__component--svblock .en__field,.en__registrants__registrantDetails .en__field{
   display:flex;
   flex-basis:100%;
   flex-direction:column;
@@ -2154,50 +2154,50 @@ a:focus,a:hover{
   padding-bottom:0;
 }
 
-.en__component--formblock .en__field .en__field__helpText,.en__component--formblock .en__field .en__field__label:not(.en__field__label--item),.en__component--svblock .en__field .en__field__helpText,.en__component--svblock .en__field .en__field__label:not(.en__field__label--item){
+.en__component--formblock .en__field .en__field__helpText,.en__component--formblock .en__field .en__field__label:not(.en__field__label--item),.en__component--svblock .en__field .en__field__helpText,.en__component--svblock .en__field .en__field__label:not(.en__field__label--item),.en__registrants__registrantDetails .en__field .en__field__helpText,.en__registrants__registrantDetails .en__field .en__field__label:not(.en__field__label--item){
   align-items:center;
   display:flex;
   justify-content:space-between;
   position:relative;
 }
 
-.en__component--formblock .en__field .en__field__element,.en__component--svblock .en__field .en__field__element{
+.en__component--formblock .en__field .en__field__element,.en__component--svblock .en__field .en__field__element,.en__registrants__registrantDetails .en__field .en__field__element{
   align-items:center;
   display:flex;
   flex-wrap:wrap;
 }
 
-.en__component--formblock .en__field .en__field__element .en__submit,.en__component--svblock .en__field .en__field__element .en__submit{
+.en__component--formblock .en__field .en__field__element .en__submit,.en__component--svblock .en__field .en__field__element .en__submit,.en__registrants__registrantDetails .en__field .en__field__element .en__submit{
   padding-left:var(--fields_spacing-inline);
   padding-right:var(--fields_spacing-inline);
 }
 
-.en__component--formblock .en__field .en__field__element .en__submit.en__rangeFieldLabels,.en__component--svblock .en__field .en__field__element .en__submit.en__rangeFieldLabels{
+.en__component--formblock .en__field .en__field__element .en__submit.en__rangeFieldLabels,.en__component--svblock .en__field .en__field__element .en__submit.en__rangeFieldLabels,.en__registrants__registrantDetails .en__field .en__field__element .en__submit.en__rangeFieldLabels{
   margin-bottom:var(--fields_spacing-block);
   padding-left:0;
   padding-right:0;
 }
 
-.en__component--formblock .en__field .en__field__element.en__field__element--checkbox,.en__component--formblock .en__field .en__field__element.en__field__element--imgselect,.en__component--formblock .en__field .en__field__element.en__field__element--radio,.en__component--formblock .en__field .en__field__element.en__field__element--rating,.en__component--formblock .en__field .en__field__element.en__field__element--splitselect,.en__component--formblock .en__field .en__field__element.en__field__element--splittext,.en__component--formblock .en__field .en__field__element.en__field__element--tripleselect,.en__component--formblock .en__field .en__field__element.en__field__element--tripletext,.en__component--formblock .en__field .en__field__element.en__field__element--withOther,.en__component--svblock .en__field .en__field__element.en__field__element--checkbox,.en__component--svblock .en__field .en__field__element.en__field__element--imgselect,.en__component--svblock .en__field .en__field__element.en__field__element--radio,.en__component--svblock .en__field .en__field__element.en__field__element--rating,.en__component--svblock .en__field .en__field__element.en__field__element--splitselect,.en__component--svblock .en__field .en__field__element.en__field__element--splittext,.en__component--svblock .en__field .en__field__element.en__field__element--tripleselect,.en__component--svblock .en__field .en__field__element.en__field__element--tripletext,.en__component--svblock .en__field .en__field__element.en__field__element--withOther{
+.en__component--formblock .en__field .en__field__element.en__field__element--checkbox,.en__component--formblock .en__field .en__field__element.en__field__element--imgselect,.en__component--formblock .en__field .en__field__element.en__field__element--radio,.en__component--formblock .en__field .en__field__element.en__field__element--rating,.en__component--formblock .en__field .en__field__element.en__field__element--splitselect,.en__component--formblock .en__field .en__field__element.en__field__element--splittext,.en__component--formblock .en__field .en__field__element.en__field__element--tripleselect,.en__component--formblock .en__field .en__field__element.en__field__element--tripletext,.en__component--formblock .en__field .en__field__element.en__field__element--withOther,.en__component--svblock .en__field .en__field__element.en__field__element--checkbox,.en__component--svblock .en__field .en__field__element.en__field__element--imgselect,.en__component--svblock .en__field .en__field__element.en__field__element--radio,.en__component--svblock .en__field .en__field__element.en__field__element--rating,.en__component--svblock .en__field .en__field__element.en__field__element--splitselect,.en__component--svblock .en__field .en__field__element.en__field__element--splittext,.en__component--svblock .en__field .en__field__element.en__field__element--tripleselect,.en__component--svblock .en__field .en__field__element.en__field__element--tripletext,.en__component--svblock .en__field .en__field__element.en__field__element--withOther,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--checkbox,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--imgselect,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--radio,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--rating,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--splitselect,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--splittext,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--tripleselect,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--tripletext,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--withOther{
   margin-left:calc(var(--fields_spacing-inline)*-1);
   margin-right:calc(var(--fields_spacing-inline)*-1);
 }
 
-.en__component--formblock .en__field .en__field__element.en__field__element--checkbox .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--imgselect .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--radio .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--rating .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--splitselect .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--splittext .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--tripleselect .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--tripletext .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--withOther .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--checkbox .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--imgselect .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--radio .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--rating .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--splitselect .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--splittext .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--tripleselect .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--tripletext .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--withOther .en__field__item{
+.en__component--formblock .en__field .en__field__element.en__field__element--checkbox .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--imgselect .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--radio .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--rating .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--splitselect .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--splittext .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--tripleselect .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--tripletext .en__field__item,.en__component--formblock .en__field .en__field__element.en__field__element--withOther .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--checkbox .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--imgselect .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--radio .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--rating .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--splitselect .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--splittext .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--tripleselect .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--tripletext .en__field__item,.en__component--svblock .en__field .en__field__element.en__field__element--withOther .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--checkbox .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--imgselect .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--radio .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--rating .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--splitselect .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--splittext .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--tripleselect .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--tripletext .en__field__item,.en__registrants__registrantDetails .en__field .en__field__element.en__field__element--withOther .en__field__item{
   padding:calc(var(--fields_spacing-block)*.5) var(--fields_spacing-inline) var(--fields_spacing-block);
 }
 
-.en__component--formblock .en__field .en__field__element>input,.en__component--formblock .en__field .en__field__element>select,.en__component--formblock .en__field .en__field__element>textarea,.en__component--svblock .en__field .en__field__element>input,.en__component--svblock .en__field .en__field__element>select,.en__component--svblock .en__field .en__field__element>textarea{
+.en__component--formblock .en__field .en__field__element>input,.en__component--formblock .en__field .en__field__element>select,.en__component--formblock .en__field .en__field__element>textarea,.en__component--svblock .en__field .en__field__element>input,.en__component--svblock .en__field .en__field__element>select,.en__component--svblock .en__field .en__field__element>textarea,.en__registrants__registrantDetails .en__field .en__field__element>input,.en__registrants__registrantDetails .en__field .en__field__element>select,.en__registrants__registrantDetails .en__field .en__field__element>textarea{
   margin-bottom:var(--fields_spacing-block);
   margin-top:calc(var(--fields_spacing-inline)*.5);
 }
 
-.en__component--formblock .en__field.en__field--withOther .en__field__element,.en__component--svblock .en__field.en__field--withOther .en__field__element{
+.en__component--formblock .en__field.en__field--withOther .en__field__element,.en__component--svblock .en__field.en__field--withOther .en__field__element,.en__registrants__registrantDetails .en__field.en__field--withOther .en__field__element{
   margin-left:calc(var(--fields_spacing-inline)*-1);
   margin-right:calc(var(--fields_spacing-inline)*-1);
 }
 
-.en__component--formblock .en__field.en__field--withOther .en__field__element .en__field__item,.en__component--svblock .en__field.en__field--withOther .en__field__element .en__field__item{
+.en__component--formblock .en__field.en__field--withOther .en__field__element .en__field__item,.en__component--svblock .en__field.en__field--withOther .en__field__element .en__field__item,.en__registrants__registrantDetails .en__field.en__field--withOther .en__field__element .en__field__item{
   padding-left:var(--fields_spacing-inline);
   padding-right:var(--fields_spacing-inline);
 }
@@ -4018,33 +4018,8 @@ input[type=text].en__ticket__quantity{
   padding-right:0;
 }
 
-.en__registrants{
+.en__registrants,.en__registrants__registrant{
   padding-left:0;
-  padding-right:0;
-}
-
-.en__registrants__registrantDetails{
-  display:flex;
-  flex-wrap:wrap;
-}
-
-.en__registrants__registrant{
-  padding-left:0;
-  padding-right:0;
-  width:100%;
-}
-
-.en__registrants__registrantDetails .en__field.en__field--text{
-  flex-basis:33.33333%;
-  padding-left:.5rem;
-  padding-right:.5rem;
-}
-
-.en__registrants__registrantDetails .en__field.en__field--text:first-of-type{
-  padding-left:0;
-}
-
-.en__registrants__registrantDetails .en__field.en__field--text:last-of-type{
   padding-right:0;
 }
 
@@ -4089,14 +4064,6 @@ button.en__eventOccurrence__select{
 
 button.en__eventOccurrence__select>label{
   font-family:var(--button_font-family);
-}
-
-@media screen and (max-width:599px){
-  .en__registrants__registrantDetails .en__field.en__field--text.en__field{
-    flex-basis:100%;
-    padding-left:0;
-    padding-right:0;
-  }
 }
 [data-engrid-errors=fancy] .en__field__error{
   background-color:var(--error__color);
@@ -8180,143 +8147,10 @@ label[for=en__field_supporter_questions_882501]{
 [data-engrid-layout=centercenter1col]{
   --engrid__body-top_background-color:#fff;
 }
-[data-engrid-theme=nwf] .event-details{
-  background-color:#fff;
-  margin-bottom:30px;
-  padding:30px 30px 0;
-}
-
-[data-engrid-theme=nwf] .event-details div{
-  padding-bottom:20px;
-}
-
-[data-engrid-theme=nwf] .event-fineprint{
-  padding-bottom:30px;
-}
-
-[data-engrid-theme=nwf] .event-fineprint p{
-  font-size:1.05em;
-  line-height:1.4;
-  padding-bottom:8px !important;
-}
-
-[data-engrid-theme=nwf] .en__ticketBlock{
-  background-color:#e0e9ea;
-  border:none;
-  font-family:Fira Sans,sans-serif;
-  margin-top:40px;
-}
-
-[data-engrid-theme=nwf] .en__tickets{
-  padding:0;
-}
-
-[data-engrid-theme=nwf] .en__additional,[data-engrid-theme=nwf] .en__ticket{
-  display:block;
-}
-
-[data-engrid-theme=nwf] .en__additional__amount,[data-engrid-theme=nwf] .en__additional__label,[data-engrid-theme=nwf] .en__ticket__currency,[data-engrid-theme=nwf] .en__ticket__name,[data-engrid-theme=nwf] .en__ticket__price{
-  word-wrap:break-word;
-  color:#4d9068;
-  font-size:1.2em;
-  font-weight:500;
-  line-height:1.3;
-  text-align:left;
-}
-
-[data-engrid-theme=nwf] .en__ticket__desc{
-  word-wrap:break-word;
-  text-align:left;
-}
-
-[data-engrid-theme=nwf] .en__ticket__field--info{
-  padding-right:0;
-  width:100%;
-  word-break:break-word;
-}
-
-[data-engrid-theme=nwf] .en__ticket__price{
-  color:#333;
-}
-
-[data-engrid-theme=nwf] .en__ticket__field--cost{
-  min-width:75px;
-  padding:20px 5px 0;
-  width:20%;
-}
-
-[data-engrid-theme=nwf] .en__ticket__currency,[data-engrid-theme=nwf] .en__ticket__price{
-  display:inline-block;
-}
-
-[data-engrid-theme=nwf] .en__ticket__price{
-  font-size:1.4em;
-}
-
-[data-engrid-theme=nwf] .en__ticket__price:before{
-  content:"$";
-}
-
-[data-engrid-theme=nwf] .en__additional__amount,[data-engrid-theme=nwf] .en__ticket__currency{
-  color:#333;
-  font-size:1em;
-}
-
-[data-engrid-theme=nwf] .en__ticket__field.en__ticket__field--quantity{
-  min-width:100px;
-  padding:0;
-}
-
-[data-engrid-theme=nwf] .en__ticket__field{
-  border-bottom:7px solid #fff;
-}
-
-[data-engrid-theme=nwf] .en__ticket__field--quantity{
-  border-left:7px solid #fff;
-}
-
-[data-engrid-theme=nwf] .en__ticket__selector input.en__ticket__quantity{
-  padding:10px 0;
-  width:22px;
-}
-
-[data-engrid-theme=nwf] .en__ticket__selector .en__ticket__minus,[data-engrid-theme=nwf] .en__ticket__selector .en__ticket__plus{
-  background-color:unset;
-  background-size:13px;
-  border:unset;
-  height:2em;
-  margin:0;
-  width:2em;
-}
-
-[data-engrid-theme=nwf] .en__additional__amount:before{
-  content:"$";
-}
-
-[data-engrid-theme=nwf] .en__additional__promo{
-  border-left:7px solid #fff;
-  min-width:100px;
-}
-
-[data-engrid-theme=nwf] .en__additional__promo input[type=text]{
-  padding:12px 5px;
-}
-
-[data-engrid-theme=nwf] .en__ticketSummary{
-  background-color:#fff;
-  border:none;
-}
-
-[data-engrid-theme=nwf] .en__ticketSummary__checkout{
-  background-color:#4d9068;
-  font-size:16px;
-  margin-top:7px;
-  text-transform:unset;
-  width:133px;
-}
-
-[data-engrid-theme=nwf] .en__ticketSummary__checkout:hover{
-  background-color:#666;
+@media screen and (min-width:599px){
+  .en__registrants__registrantDetails .en__field--registrant[class*="--firstName"],.en__registrants__registrantDetails .en__field--registrant[class*="--lastName"]{
+    flex:1 0 50%;
+  }
 }
 body{
   opacity:1;
