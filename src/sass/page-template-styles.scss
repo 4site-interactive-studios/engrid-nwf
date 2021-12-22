@@ -1333,6 +1333,104 @@ label[for="en__field_supporter_questions_882501"] {
   // }
 }
 
+[data-engrid-theme="nwf"] {
+  // Increase size of the image https://d.pr/v/zLC6Kp
+  .en__hubPledge__icon {
+    flex-basis: 100%;
+  }
+
+  .en__hubOverlay--supportersubscriptions {
+    .en__field--question {
+      // Hide the unneeded question labels https://d.pr/i/amn2DJ
+      > label.en__field__label {
+        display: none;
+      }
+
+      // Hide the "N" checkboxes https://d.pr/i/I2239i
+      input[value="n" i] + label {
+        display: none;
+      }
+    }
+  }
+
+  &[data-engrid-page-type="supporterhub"] {
+    .body-top {
+      padding-bottom: 3rem;
+    }
+
+    .body-main {
+      align-self: center;
+
+      #account-information {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+    .cards-container {
+      margin-top: 0;
+
+      .blocks {
+        padding-bottom: 0;
+      }
+
+      hubplaceholder {
+        .en__component--hubgadget {
+          margin: 0;
+          padding: 0;
+          border: none;
+          box-shadow: none;
+          cursor: pointer;
+
+          img {
+            float: none;
+            max-width: 100%;
+            margin-right: 0;
+          }
+
+          // Give the same styling as an h3
+          span {
+            color: var(--h3_color);
+            font-family: var(--h3_font-family);
+            font-weight: var(--h3_font-weight);
+            line-height: var(--h3_line-height);
+            font-size: var(--h3_font-size);
+            margin-bottom: calc(1rem * var(--scale-down_40pct));
+            margin-top: calc(2rem * var(--scale-down_40pct));
+            text-transform: var(--h3_text-transform);
+          }
+        }
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+
+    .take-action-cards-container {
+      margin-top: 0;
+
+      .blocks {
+        padding-bottom: 1rem;
+      }
+
+      .cards-title h1 {
+        margin-top: 0;
+      }
+
+      article.block {
+        img {
+          float: none;
+          max-width: 100%;
+          margin-right: 0;
+        }
+
+        h3 {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
 @media screen and (min-width: 599px) {
   .en__registrants__registrantDetails {
     .en__field--registrant[class*="--firstName"],

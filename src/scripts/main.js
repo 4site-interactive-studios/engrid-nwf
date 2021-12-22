@@ -38,5 +38,10 @@ document.onreadystatechange = () => {
           "Why is title required? The U.S. Senate currently requires that messages to Senators include one of these five titles: Mr., Mrs., Miss, Ms., Dr. We understand that not everyone identifies with one of these titles, and we have provided additional options. However, to ensure your message can be received by your Senators, you may need to select one of the five titles described above.",
       });
     }
+
+    // In the support hub style donation amount radio selects like buttons
+    if (document.querySelector(".en__component--hubgadget")) {
+      document.body.classList.add("radio-to-buttons_donationAmt");
+    }
   }
 };
