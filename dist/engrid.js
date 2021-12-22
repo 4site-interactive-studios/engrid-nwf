@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, December 21, 2021 @ 19:13:18 ET
+ *  Date: Wednesday, December 22, 2021 @ 11:52:54 ET
  *  By: bryancasler
  *  ENGrid styles: v0.7.0
  *  ENGrid scripts: v0.7.0
@@ -16152,6 +16152,10 @@ class engrid_ENGrid {
           return "SUBSCRIBEFORM";
           break;
 
+        case "supporterhub":
+          return "SUPPORTERHUB";
+          break;
+
         default:
           return "DONATION";
       }
@@ -16783,7 +16787,7 @@ class App extends engrid_ENGrid {
 
   setDataAttributes() {
     // Add the Page Type as a Data Attribute on the video
-    if (window.pageJson && window.pageJson.pageType) {
+    if (engrid_ENGrid.checkNested(window, "pageJson", "pageType")) {
       App.setBodyData("page-type", window.pageJson.pageType);
       this.logger.log("Page Type: " + window.pageJson.pageType);
     } else {
