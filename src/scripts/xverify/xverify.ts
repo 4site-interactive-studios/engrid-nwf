@@ -101,13 +101,22 @@ export class XVerify {
     });
   }
   public static validateXverify(data: any) {
+    const xvStatusList = {
+      valid: "Valid",
+      invalid: "Invalid",
+      accept_all: "Catch All (Potential to Bounce)",
+      risky: "High Risk",
+      unknown: "Unknown",
+    };
     if (ENGrid.debug) console.log("Engrid XVerify validateXverify():", data);
     const xv = window.hasOwnProperty("XVerifyOptions")
       ? XVerify.getInstance((<any>window).XVerifyOptions)
       : XVerify.getInstance({});
 
     if (xv.xvStatus) {
-      xv.xvStatus.value = data.email.status;
+      xv.xvStatus.value = xvStatusList.hasOwnProperty(data.email.status)
+        ? xvStatusList[data.email.status as keyof typeof xvStatusList]
+        : data.email.status;
     }
     if (xv.xvDate) {
       xv.xvDate.value = xv.xvDate.value = ENGrid.formatDate(

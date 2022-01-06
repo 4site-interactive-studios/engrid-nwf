@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, January 6, 2022 @ 16:50:41 ET
+ *  Date: Thursday, January 6, 2022 @ 18:32:52 ET
  *  By: fe
  *  ENGrid styles: v0.8.1
  *  ENGrid scripts: v0.8.0
@@ -14198,11 +14198,18 @@ class XVerify {
   }
 
   static validateXverify(data) {
+    const xvStatusList = {
+      valid: "Valid",
+      invalid: "Invalid",
+      accept_all: "Catch All (Potential to Bounce)",
+      risky: "High Risk",
+      unknown: "Unknown"
+    };
     if (engrid_ENGrid.debug) console.log("Engrid XVerify validateXverify():", data);
     const xv = window.hasOwnProperty("XVerifyOptions") ? XVerify.getInstance(window.XVerifyOptions) : XVerify.getInstance({});
 
     if (xv.xvStatus) {
-      xv.xvStatus.value = data.email.status;
+      xv.xvStatus.value = xvStatusList.hasOwnProperty(data.email.status) ? xvStatusList[data.email.status] : data.email.status;
     }
 
     if (xv.xvDate) {
