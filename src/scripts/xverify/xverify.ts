@@ -1,4 +1,5 @@
 import { EnForm, ENGrid } from "@4site/engrid-common";
+// import { EnForm, ENGrid } from "../../../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 
 export class XVerify {
   public form: EnForm = EnForm.getInstance();
@@ -26,16 +27,22 @@ export class XVerify {
     );
     this.options = options;
     this.xvStatus = this.options.statusField
-      ? document.querySelector(this.options.statusField)
+      ? document.querySelector(`[name="${this.options.statusField}"]`)
       : null;
     this.xvDate = this.options.dateField
-      ? document.querySelector(this.options.dateField)
+      ? document.querySelector(`[name="${this.options.dateField}"]`)
       : null;
     this.xvDateFormat = this.options.dateFormat
       ? this.options.dateFormat
       : "YYYY-MM-DD";
     this.apiURL =
       "https://www.xverify.com/services/emails/process/?type=json&autocorrect=0&apikey=nwf&domain=nwf.org&callback=validateXverify";
+    if (this.options.statusField && !this.xvStatus) {
+      this.xvStatus = ENGrid.createHiddenInput(this.options.statusField);
+    }
+    if (this.options.dateField && !this.xvDate) {
+      this.xvDate = ENGrid.createHiddenInput(this.options.dateField);
+    }
     this.init();
     this.form.onValidate.subscribe(
       () => (this.form.validate = this.validateSubmit())
@@ -45,6 +52,7 @@ export class XVerify {
   public static getInstance(options: {
     statusField?: string;
     dateField?: string;
+    dateFormat?: string;
   }): XVerify {
     if (!XVerify.instance) {
       XVerify.instance = new XVerify(options);
