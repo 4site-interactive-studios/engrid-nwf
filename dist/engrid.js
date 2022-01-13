@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, January 13, 2022 @ 11:29:52 ET
- *  By: bryancasler
+ *  Date: Thursday, January 13, 2022 @ 17:15:00 ET
+ *  By: fe
  *  ENGrid styles: v0.8.1
- *  ENGrid scripts: v0.8.0
+ *  ENGrid scripts: v0.8.2
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -13468,20 +13468,20 @@ class ShowIfAmount {
 // This class automatically select other radio input when an amount is entered into it.
 class OtherAmount {
     constructor() {
-        this.otherAmountField = document.querySelector(".en__field__input--other");
-        if (this.otherAmountField) {
-            "focus input".split(" ").forEach((e) => {
-                var _a;
-                (_a = document.querySelector("body")) === null || _a === void 0 ? void 0 : _a.addEventListener(e, (event) => {
-                    if (event.target === this.otherAmountField) {
-                        this.setRadioInput();
-                    }
-                });
+        "focus input".split(" ").forEach((e) => {
+            var _a;
+            // We're attaching this event to the body because sometimes the other amount input is not in the DOM yet and comes via AJAX.
+            (_a = document.querySelector("body")) === null || _a === void 0 ? void 0 : _a.addEventListener(e, (event) => {
+                const target = event.target;
+                if (target.classList.contains("en__field__input--other")) {
+                    console.log("Other Amount Field Focused");
+                    this.setRadioInput();
+                }
             });
-        }
+        });
     }
     setRadioInput() {
-        const target = this.otherAmountField;
+        const target = document.querySelector(".en__field__input--other");
         if (target && target.parentNode && target.parentNode.parentNode) {
             const targetWrapper = target.parentNode;
             targetWrapper.classList.remove("en__field__item--hidden");
