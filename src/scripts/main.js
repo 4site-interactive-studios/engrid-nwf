@@ -21,7 +21,11 @@ export const customScript = function () {
   if ("pageJson" in window && "pageType" in window.pageJson) {
     pageType = window.pageJson.pageType;
   }
-  if (titleLabel && pageType === "emailtotarget") {
+  if (
+    titleLabel &&
+    pageType === "emailtotarget" &&
+    !document.getElementById("title-tooltip")
+  ) {
     let el = document.createElement("span");
     let childEl = document.createElement("a");
     childEl.href = "#";

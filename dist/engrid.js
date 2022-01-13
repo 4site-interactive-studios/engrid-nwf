@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, January 13, 2022 @ 11:01:30 ET
+ *  Date: Thursday, January 13, 2022 @ 11:29:52 ET
  *  By: bryancasler
  *  ENGrid styles: v0.8.1
  *  ENGrid scripts: v0.8.0
@@ -13639,7 +13639,7 @@ const customScript = function () {
     pageType = window.pageJson.pageType;
   }
 
-  if (titleLabel && pageType === "emailtotarget") {
+  if (titleLabel && pageType === "emailtotarget" && !document.getElementById("title-tooltip")) {
     let el = document.createElement("span");
     let childEl = document.createElement("a");
     childEl.href = "#";
@@ -14201,6 +14201,7 @@ const options = {
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   onLoad: () => {
     console.log("Starter Theme Loaded");
+    customScript();
 
     if (window.hasOwnProperty("XVerifyOptions")) {
       window.XVerify = XVerify.getInstance(window.XVerifyOptions);
