@@ -159,6 +159,8 @@
   --media-attribution__text-shadow: 1px 1px 3px rgba(150, 150, 150, 1);
   --media-attribution__color: hsl(0deg 0% 100% / 90%);
   --media-attribution__font-weight: 400;
+
+  --engrid__content-footer_margin: 40px 0 0 0;
 }
 
 @mixin simple-footer {
@@ -722,6 +724,12 @@
     grid-column: bc;
   }
 
+  @media only screen and (min-width: 769px) {
+    .social-sharing {
+      text-align: center;
+    }
+  }
+
   @media screen and (max-width: 980px) {
     .navbar-brand {
       position: absolute;
@@ -792,8 +800,8 @@
 
   /* Copied & pasted from the "Donation Form Thank You Page Card Styles" Code Block on the NWF EN account */
   /* styles for the cards on the thank you page for the donation pages */
+
   .cards-container {
-    margin-top: 40px;
     background-color: #e0e9ea;
 
     * {
@@ -933,6 +941,137 @@
       }
     }
   }
+
+  /* Migrated from NWF's old CSS */
+  /*hides Participation Group fields*/
+  // .en__field--NOT_TAGGED_9,
+  // .en__field--NOT_TAGGED_39,
+  // .en__field--NOT_TAGGED_10,
+  // .en__field--NOT_TAGGED_48,
+  // .en__field--NOT_TAGGED_50,
+  // .en__field--NOT_TAGGED_49,
+  // .en__field--NOT_TAGGED_51,
+  // .en__field--NOT_TAGGED_41,
+  // .en__field--NOT_TAGGED_40,
+  // .en__field--NOT_TAGGED_30,
+  // .en__field--NOT_TAGGED_44,
+  // .en__field--NOT_TAGGED_45,
+  // .en__field--NOT_TAGGED_46,
+  // .en__field--NOT_TAGGED_43,
+  // .en__field--NOT_TAGGED_38,
+  // .en__field--NOT_TAGGED_31,
+  // .en__field--NOT_TAGGED_32,
+  // .en__field--NOT_TAGGED_47,
+  // .en__field--NOT_TAGGED_33,
+  // .en__field--NOT_TAGGED_34,
+  // .en__field--NOT_TAGGED_36,
+  // .en__field--NOT_TAGGED_35,
+  // .en__field--NOT_TAGGED_42,
+  // .en__field--NOT_TAGGED_37,
+  // .en__field--NOT_TAGGED_79,
+  // .en__field--NOT_TAGGED_108
+  // {
+  //     display:none;
+  // }
+
+  /* Migrated from NWF's old CSS */
+  /*hides Web Interest fields*/
+  // .en__field--int-animal-bison,
+  // .en__field--int-mining-dirty-fuels,
+  // .en__field--int-climate-change,
+  // .en__field--int-corridors-and-crossings,
+  // .en__field--int-renewable-energy,
+  // .en__field--int-oceans-coasts-marine-life,
+  // .en__field--int-national-parks,
+  // .en__field--int-public-lands,
+  // .en__field--int-water-for-wildlife,
+  // .en__field--int-invasive-species,
+  // .en__field--int-animal-bears,
+  // .en__field--int-animal-pollinators,
+  // .en__field--int-grazing-allotments,
+  // .en__field--int-forests,
+  // .en__field--int-farms-ranches,
+  // .en__field--int-animal-mountain-lion,
+  // .en__field--int-animal-big-horn-sheep,
+  // .en__field--int-animal-foxes,
+  // .en__field--int-adopt-a-wildlife-acre,
+  // .en__field--int-animal-wolves,
+  // .en__field--int-animal-endangered-species,
+  // .en__field--int-connecting-kids-with-nature,
+  // .en__field--int-backyard-habitats,
+  // .en__field--int-wildlife-recovery-legislation,
+  // .en__field--int-animal-birds-water-,
+  // .en__field--int-animal-birds-land-,
+  // .en__field--int-animal-birds-predatory-,
+  // .en__field--int-animal-turtles,
+  // .en__field--int-animal-big-cats,
+  // .en__field--int-arctic,
+  // .en__field--int-animal-otters,
+  // .en__field--int-animal-monarchs,
+  // .en__field--int-animal-polar-bears,
+  // .en__field--int-animal-sage-grouse,
+  // .en__field--int-animal-ocean-mammals,
+  // .en__field--int-animal-reptiles-amphibians,
+  // .en__field--int-animal-large-mammals,
+  // .en__field--int-animal-small-mammals,
+  // .en__field--int-animal-salmon,
+  // .en__field--int-millennial,
+  // .en__field--int-environmental-justice,
+  // .en__field--interested-in-taking-action-alerts,
+  // .en__field--uncheck-all-interests,
+  // .en__field--int-hunter,
+  // .en__field--int-angler,
+  // .en__field--int-leadfree-landscapes {
+  //     display:none;
+  // }
+
+  div#slider {
+    overflow: hidden;
+    margin: auto;
+    width: 100%;
+    margin-bottom: 30px;
+
+    div {
+      position: relative;
+      width: 500%;
+      margin: 0;
+      left: 0;
+      font-size: 0;
+      animation: 20s slider infinite;
+
+      img {
+        width: 20%;
+        float: left;
+      }
+    }
+  }
+
+  @keyframes slider {
+    0% {
+      left: 0%;
+    }
+    20% {
+      left: 0%;
+    }
+    25% {
+      left: -100%;
+    }
+    45% {
+      left: -100%;
+    }
+    50% {
+      left: -200%;
+    }
+    70% {
+      left: -200%;
+    }
+    75% {
+      left: -300%;
+    }
+    95% {
+      left: -300%;
+    }
+  }
 }
 
 #enModal h1 {
@@ -1068,6 +1207,10 @@
 
   .footer-nav {
     font-size: 12px;
+  }
+
+  .social-sharing img.social-green {
+    filter: hue-rotate(114deg); // Make the green social icons purple
   }
 }
 
