@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, January 13, 2022 @ 09:01:07 ET
+ *  Date: Thursday, January 13, 2022 @ 11:01:30 ET
  *  By: bryancasler
  *  ENGrid styles: v0.8.1
  *  ENGrid scripts: v0.8.0
@@ -28,12 +28,12 @@
  *
  */
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 2705:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatchError = void 0;
@@ -63,7 +63,6 @@ exports.DispatchError = DispatchError;
 /***/ 9885:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherBase = void 0;
@@ -313,7 +312,6 @@ exports.DispatcherBase = DispatcherBase;
 /***/ 1637:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherWrapper = void 0;
@@ -441,7 +439,6 @@ exports.DispatcherWrapper = DispatcherWrapper;
 /***/ 4155:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventListBase = void 0;
@@ -493,7 +490,6 @@ exports.EventListBase = EventListBase;
 /***/ 2849:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseDispatcherBase = void 0;
@@ -576,7 +572,6 @@ exports.PromiseDispatcherBase = PromiseDispatcherBase;
 /***/ 4220:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SubscriptionChangeEventDispatcher = void 0;
@@ -608,7 +603,6 @@ exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 /***/ 7278:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSubscription = void 0;
@@ -671,7 +665,6 @@ exports.PromiseSubscription = PromiseSubscription;
 /***/ 8326:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Subscription = void 0;
@@ -725,7 +718,6 @@ exports.Subscription = Subscription;
 /***/ 516:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HandlingBase = void 0;
@@ -820,7 +812,6 @@ exports.HandlingBase = HandlingBase;
 /***/ 4844:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -859,7 +850,6 @@ Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerabl
 /***/ 5638:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventManagement = void 0;
@@ -899,7 +889,6 @@ exports.EventManagement = EventManagement;
 /***/ 4402:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventDispatcher = void 0;
@@ -971,7 +960,6 @@ exports.EventDispatcher = EventDispatcher;
 /***/ 9411:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventHandlingBase = void 0;
@@ -993,7 +981,6 @@ exports.EventHandlingBase = EventHandlingBase;
 /***/ 2453:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventList = void 0;
@@ -1025,7 +1012,6 @@ exports.EventList = EventList;
 /***/ 7891:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NonUniformEventList = void 0;
@@ -1072,7 +1058,6 @@ exports.NonUniformEventList = NonUniformEventList;
 /***/ 3111:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -1099,7 +1084,6 @@ Object.defineProperty(exports, "NonUniformEventList", ({ enumerable: true, get: 
 /***/ 4729:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SignalDispatcher = void 0;
@@ -1156,7 +1140,6 @@ exports.SignalDispatcher = SignalDispatcher;
 /***/ 4243:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SignalHandlingBase = void 0;
@@ -1189,7 +1172,6 @@ exports.SignalHandlingBase = SignalHandlingBase;
 /***/ 7991:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SignalList = void 0;
@@ -1232,7 +1214,6 @@ exports.SignalList = SignalList;
 /***/ 1254:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Promise Signals
@@ -1257,7 +1238,6 @@ Object.defineProperty(exports, "SignalList", ({ enumerable: true, get: function 
 /***/ 9360:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NonUniformSimpleEventList = void 0;
@@ -1304,7 +1284,6 @@ exports.NonUniformSimpleEventList = NonUniformSimpleEventList;
 /***/ 4624:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SimpleEventDispatcher = void 0;
@@ -1373,7 +1352,6 @@ exports.SimpleEventDispatcher = SimpleEventDispatcher;
 /***/ 1269:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SimpleEventHandlingBase = void 0;
@@ -1395,7 +1373,6 @@ exports.SimpleEventHandlingBase = SimpleEventHandlingBase;
 /***/ 5570:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SimpleEventList = void 0;
@@ -1427,7 +1404,6 @@ exports.SimpleEventList = SimpleEventList;
 /***/ 5931:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NonUniformSimpleEventList = exports.SimpleEventList = exports.SimpleEventHandlingBase = exports.SimpleEventDispatcher = void 0;
@@ -1446,7 +1422,6 @@ Object.defineProperty(exports, "SimpleEventList", ({ enumerable: true, get: func
 /***/ 5363:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 var __webpack_unused_export__;
 
 /*!
@@ -1501,58 +1476,9 @@ __webpack_unused_export__ = ({ enumerable: true, get: function () { return ste_p
 
 /***/ }),
 
-/***/ 4747:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-const tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
-
-document.onreadystatechange = () => {
-  if (document.readyState === "interactive" || document.readyState === "complete") {
-    // Add placeholder to the "other" giving amount field
-    let enFieldOtherAmt = document.querySelectorAll(".radio-to-buttons_donationAmt .en__field--radio.en__field--donationAmt .en__field__input--other")[0];
-
-    if (enFieldOtherAmt) {
-      enFieldOtherAmt.placeholder = "Other";
-    } // Add "Why is this required?" markup to the Title field
-    // Only show it if the Title field is marked as required
-
-
-    let titleLabel = document.querySelectorAll(".en__field--title.en__mandatory > label")[0];
-    let pageType;
-
-    if ("pageJson" in window && "pageType" in window.pageJson) {
-      pageType = window.pageJson.pageType;
-    }
-
-    if (titleLabel && pageType === "emailtotarget") {
-      let el = document.createElement("span");
-      let childEl = document.createElement("a");
-      childEl.href = "#";
-      childEl.id = "title-tooltip";
-      childEl.className = "label-tooltip";
-      childEl.tabIndex = "-1";
-      childEl.innerText = "Why is this required?";
-      childEl.addEventListener("click", e => e.preventDefault());
-      el.appendChild(childEl);
-      titleLabel.appendChild(el);
-      tippy("#title-tooltip", {
-        content: "Why is title required? The U.S. Senate currently requires that messages to Senators include one of these five titles: Mr., Mrs., Miss, Ms., Dr. We understand that not everyone identifies with one of these titles, and we have provided additional options. However, to ensure your message can be received by your Senators, you may need to select one of the five titles described above."
-      });
-    } // In the support hub style donation amount radio selects like buttons
-
-
-    if (document.querySelector(".en__component--hubgadget")) {
-      document.body.classList.add("radio-to-buttons_donationAmt");
-    }
-  }
-};
-
-/***/ }),
-
 /***/ 6357:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NonUniformPromiseEventList = void 0;
@@ -1599,7 +1525,6 @@ exports.NonUniformPromiseEventList = NonUniformPromiseEventList;
 /***/ 5072:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseEventDispatcher = void 0;
@@ -1665,7 +1590,6 @@ exports.PromiseEventDispatcher = PromiseEventDispatcher;
 /***/ 7873:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseEventHandlingBase = void 0;
@@ -1687,7 +1611,6 @@ exports.PromiseEventHandlingBase = PromiseEventHandlingBase;
 /***/ 4414:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseEventList = void 0;
@@ -1719,7 +1642,6 @@ exports.PromiseEventList = PromiseEventList;
 /***/ 6586:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -1746,7 +1668,6 @@ Object.defineProperty(exports, "NonUniformPromiseEventList", ({ enumerable: true
 /***/ 4383:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatchError = void 0;
@@ -1776,7 +1697,6 @@ exports.DispatchError = DispatchError;
 /***/ 894:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherBase = void 0;
@@ -2026,7 +1946,6 @@ exports.DispatcherBase = DispatcherBase;
 /***/ 9757:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherWrapper = void 0;
@@ -2154,7 +2073,6 @@ exports.DispatcherWrapper = DispatcherWrapper;
 /***/ 5930:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventListBase = void 0;
@@ -2206,7 +2124,6 @@ exports.EventListBase = EventListBase;
 /***/ 7541:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseDispatcherBase = void 0;
@@ -2289,7 +2206,6 @@ exports.PromiseDispatcherBase = PromiseDispatcherBase;
 /***/ 2545:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SubscriptionChangeEventDispatcher = void 0;
@@ -2321,7 +2237,6 @@ exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 /***/ 8452:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSubscription = void 0;
@@ -2384,7 +2299,6 @@ exports.PromiseSubscription = PromiseSubscription;
 /***/ 365:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Subscription = void 0;
@@ -2438,7 +2352,6 @@ exports.Subscription = Subscription;
 /***/ 954:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HandlingBase = void 0;
@@ -2533,7 +2446,6 @@ exports.HandlingBase = HandlingBase;
 /***/ 2874:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -2572,7 +2484,6 @@ Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerabl
 /***/ 4796:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventManagement = void 0;
@@ -2612,7 +2523,6 @@ exports.EventManagement = EventManagement;
 /***/ 5890:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSignalDispatcher = void 0;
@@ -2664,7 +2574,6 @@ exports.PromiseSignalDispatcher = PromiseSignalDispatcher;
 /***/ 205:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSignalHandlingBase = void 0;
@@ -2686,7 +2595,6 @@ exports.PromiseSignalHandlingBase = PromiseSignalHandlingBase;
 /***/ 3146:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSignalList = void 0;
@@ -2718,7 +2626,6 @@ exports.PromiseSignalList = PromiseSignalList;
 /***/ 6838:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Promise Signals
@@ -2743,7 +2650,6 @@ Object.defineProperty(exports, "PromiseSignalList", ({ enumerable: true, get: fu
 /***/ 6463:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatchError = void 0;
@@ -2773,7 +2679,6 @@ exports.DispatchError = DispatchError;
 /***/ 1368:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherBase = void 0;
@@ -3023,7 +2928,6 @@ exports.DispatcherBase = DispatcherBase;
 /***/ 6982:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherWrapper = void 0;
@@ -3151,7 +3055,6 @@ exports.DispatcherWrapper = DispatcherWrapper;
 /***/ 2177:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventListBase = void 0;
@@ -3203,7 +3106,6 @@ exports.EventListBase = EventListBase;
 /***/ 2300:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseDispatcherBase = void 0;
@@ -3286,7 +3188,6 @@ exports.PromiseDispatcherBase = PromiseDispatcherBase;
 /***/ 4303:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SubscriptionChangeEventDispatcher = void 0;
@@ -3318,7 +3219,6 @@ exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 /***/ 9703:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSubscription = void 0;
@@ -3381,7 +3281,6 @@ exports.PromiseSubscription = PromiseSubscription;
 /***/ 4683:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Subscription = void 0;
@@ -3435,7 +3334,6 @@ exports.Subscription = Subscription;
 /***/ 5673:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HandlingBase = void 0;
@@ -3530,7 +3428,6 @@ exports.HandlingBase = HandlingBase;
 /***/ 8486:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -3569,7 +3466,6 @@ Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerabl
 /***/ 8209:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventManagement = void 0;
@@ -3609,7 +3505,6 @@ exports.EventManagement = EventManagement;
 /***/ 4537:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NonUniformPromiseSimpleEventList = void 0;
@@ -3656,7 +3551,6 @@ exports.NonUniformPromiseSimpleEventList = NonUniformPromiseSimpleEventList;
 /***/ 8921:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSimpleEventDispatcher = void 0;
@@ -3715,7 +3609,6 @@ exports.PromiseSimpleEventDispatcher = PromiseSimpleEventDispatcher;
 /***/ 532:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSimpleEventHandlingBase = void 0;
@@ -3737,7 +3630,6 @@ exports.PromiseSimpleEventHandlingBase = PromiseSimpleEventHandlingBase;
 /***/ 7929:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSimpleEventList = void 0;
@@ -3769,7 +3661,6 @@ exports.PromiseSimpleEventList = PromiseSimpleEventList;
 /***/ 9176:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -3796,7 +3687,6 @@ Object.defineProperty(exports, "PromiseSimpleEventList", ({ enumerable: true, ge
 /***/ 8181:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatchError = void 0;
@@ -3826,7 +3716,6 @@ exports.DispatchError = DispatchError;
 /***/ 3040:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherBase = void 0;
@@ -4076,7 +3965,6 @@ exports.DispatcherBase = DispatcherBase;
 /***/ 3122:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DispatcherWrapper = void 0;
@@ -4204,7 +4092,6 @@ exports.DispatcherWrapper = DispatcherWrapper;
 /***/ 7955:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventListBase = void 0;
@@ -4256,7 +4143,6 @@ exports.EventListBase = EventListBase;
 /***/ 2490:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseDispatcherBase = void 0;
@@ -4339,7 +4225,6 @@ exports.PromiseDispatcherBase = PromiseDispatcherBase;
 /***/ 1002:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SubscriptionChangeEventDispatcher = void 0;
@@ -4371,7 +4256,6 @@ exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 /***/ 9347:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PromiseSubscription = void 0;
@@ -4434,7 +4318,6 @@ exports.PromiseSubscription = PromiseSubscription;
 /***/ 2229:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Subscription = void 0;
@@ -4488,7 +4371,6 @@ exports.Subscription = Subscription;
 /***/ 1605:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HandlingBase = void 0;
@@ -4583,7 +4465,6 @@ exports.HandlingBase = HandlingBase;
 /***/ 3310:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 /*!
  * Strongly Typed Events for TypeScript - Core
@@ -4622,7 +4503,6 @@ Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerabl
 /***/ 2234:
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EventManagement = void 0;
@@ -4662,7 +4542,6 @@ exports.EventManagement = EventManagement;
 /***/ 3861:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
@@ -9153,9 +9032,8 @@ tippy.setDefaultProps({
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/deprecated.js
 // A way to gracefully handle deprecation.
@@ -13739,8 +13617,49 @@ class EngridLogger {
 // Events
 
 
-// EXTERNAL MODULE: ./src/scripts/main.js
-var main = __webpack_require__(4747);
+;// CONCATENATED MODULE: ./src/scripts/main.js
+const main_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
+
+const customScript = function () {
+  console.log("ENGrid client scripts are executing"); // Add your client scripts here
+  // Add placeholder to the "other" giving amount field
+
+  let enFieldOtherAmt = document.querySelectorAll(".radio-to-buttons_donationAmt .en__field--radio.en__field--donationAmt .en__field__input--other")[0];
+
+  if (enFieldOtherAmt) {
+    enFieldOtherAmt.placeholder = "Other";
+  } // Add "Why is this required?" markup to the Title field
+  // Only show it if the Title field is marked as required
+
+
+  let titleLabel = document.querySelectorAll(".en__field--title.en__mandatory > label")[0];
+  let pageType;
+
+  if ("pageJson" in window && "pageType" in window.pageJson) {
+    pageType = window.pageJson.pageType;
+  }
+
+  if (titleLabel && pageType === "emailtotarget") {
+    let el = document.createElement("span");
+    let childEl = document.createElement("a");
+    childEl.href = "#";
+    childEl.id = "title-tooltip";
+    childEl.className = "label-tooltip";
+    childEl.tabIndex = "-1";
+    childEl.innerText = "Why is this required?";
+    childEl.addEventListener("click", e => e.preventDefault());
+    el.appendChild(childEl);
+    titleLabel.appendChild(el);
+    main_tippy("#title-tooltip", {
+      content: "Why is title required? The U.S. Senate currently requires that messages to Senators include one of these five titles: Mr., Mrs., Miss, Ms., Dr. We understand that not everyone identifies with one of these titles, and we have provided additional options. However, to ensure your message can be received by your Senators, you may need to select one of the five titles described above."
+    });
+  } // In the support hub style donation amount radio selects like buttons
+
+
+  if (document.querySelector(".en__component--hubgadget")) {
+    document.body.classList.add("radio-to-buttons_donationAmt");
+  }
+};
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js
 const crumbs = {
   debug: false,
