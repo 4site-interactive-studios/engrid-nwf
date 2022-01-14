@@ -161,6 +161,8 @@
   --media-attribution__font-weight: 400;
 
   --engrid__content-footer_margin: 40px 0 0 0;
+  --engrid__content-header_background-color: transparent;
+  --engrid__content-footer_background-color: #ffffff;
 }
 
 @mixin simple-footer {
@@ -347,8 +349,43 @@
     display: none !important;
   }
 
+  // Strip the top margin from the first child on body top/main, and any of its first child children
+  .body-top,
+  .body-top > *:first-child,
+  .body-top > *:first-child > *:first-child,
+  .body-top > *:first-child > *:first-child > *:first-child,
+  .body-top > *:first-child > *:first-child > *:first-child > *:first-child,
+  .body-main,
+  .body-main > *:first-child,
+  .body-main > *:first-child > *:first-child,
+  .body-main > *:first-child > *:first-child > *:first-child,
+  .body-main > *:first-child > *:first-child > *:first-child > *:first-child {
+    margin-top: 0;
+  }
+
+  // Strip the bottom margin from the first child on body top/main, and any of its first child children
+  .body-top,
+  .body-top > *:last-child,
+  .body-top > *:last-child > *:last-child,
+  .body-top > *:last-child > *:last-child > *:last-child,
+  .body-top > *:last-child > *:last-child > *:last-child > *:last-child,
+  .body-main,
+  .body-main > *:last-child,
+  .body-main > *:last-child > *:last-child,
+  .body-main > *:last-child > *:last-child > *:last-child,
+  .body-main > *:last-child > *:last-child > *:last-child > *:last-child {
+    margin-bottom: 0;
+  }
+
+  // Add back in spacing to the top and bottom of body top/main
+  .body-top,
+  .body-main {
+    padding-top: calc(var(--spacing_lg) / 2);
+    padding-bottom: calc(var(--spacing_lg) / 2);
+  }
+
   &[data-engrid-layout*="1col"] {
-    --engrid__page_background-color: #e0e9ea;
+    // --engrid__page_background-color: #e0e9ea;
     --engrid__content_background-color: #ffffff;
     --engrid__body_background-color: #ffffff;
   }
@@ -401,7 +438,7 @@
     }
   }
 
-  &.en__field--validationFailed {
+  &[class*="validationFail"] {
     margin-bottom: calc(
       var(--fields_spacing-block) * 2
     ); // Give a little breathing room when a field has an error
@@ -474,7 +511,7 @@
     height: 90px;
     position: relative;
     z-index: 1;
-    // background-color: #fff;
+    background-color: #fff;
   }
 
   .navbar-header {
@@ -620,6 +657,40 @@
     }
   }
 
+  &[data-engrid-page-background-color="dark"] {
+    &[data-engrid-layout*="1col"] {
+      @media only screen and (min-width: $one_col_content-column_min-width) {
+        .body-title {
+          background: transparent;
+        }
+
+        .body-title h1 {
+          color: white;
+        }
+      }
+    }
+    &[data-engrid-layout="centercenter2col"] {
+      @media only screen and (min-width: $two_col_content-column_min-width) {
+        .body-title {
+          background: transparent;
+        }
+
+        .body-title h1 {
+          color: white;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: $two_col_content-column_min-width) {
+    &[data-engrid-layout="centercenter2col"],
+    &[data-engrid-layout*="1col"] {
+      .nav-spacer {
+        display: none;
+      }
+    }
+  }
+
   .en__component--premiumgiftblock,
   .en__pg,
   .en__pgHeader {
@@ -730,7 +801,7 @@
     }
   }
 
-  @media screen and (max-width: 980px) {
+  @media screen and (max-width: $two_col_content-column_min-width) {
     .navbar-brand {
       position: absolute;
       top: 25px;
@@ -738,10 +809,6 @@
       transform: translate(-50%, -50%);
       -webkit-transform: translate(-50%, -50%);
       z-index: 100;
-    }
-
-    .nav-spacer {
-      display: none;
     }
 
     #main-nav {
@@ -1029,7 +1096,6 @@
     overflow: hidden;
     margin: auto;
     width: 100%;
-    margin-bottom: 30px;
 
     div {
       position: relative;
@@ -1042,6 +1108,7 @@
       img {
         width: 20%;
         float: left;
+        min-width: initial;
       }
     }
   }
@@ -1180,7 +1247,7 @@
         margin-top: 0px;
         margin-left: 25px;
 
-        @media screen and (max-width: 980px) {
+        @media screen and (max-width: $two_col_content-column_min-width) {
           top: 53px;
           margin-left: 0px;
           position: relative;
@@ -1237,7 +1304,7 @@
     margin-top: -33px;
   }
 
-  @media screen and (max-width: 980px) {
+  @media screen and (max-width: $two_col_content-column_min-width) {
     #main-nav {
       margin-bottom: 1rem;
       height: 82px;
@@ -1269,7 +1336,7 @@
     margin-top: -33px;
   }
 
-  @media screen and (max-width: 980px) {
+  @media screen and (max-width: $two_col_content-column_min-width) {
     #main-nav {
       margin-bottom: 1rem;
       height: 82px;

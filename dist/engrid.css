@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, January 13, 2022 @ 17:15:00 ET
- *  By: fe
+ *  Date: Friday, January 14, 2022 @ 01:21:37 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.8.1
  *  ENGrid scripts: v0.8.2
  *
@@ -3110,11 +3110,11 @@ body:not(#en__pagebuilder):not([data-engrid-debug]) .i1-hide-label .en__field:fi
 .i1-show-hidden-radio-input .en__field:first-of-type .en__field__element--radio .en__field__item:nth-last-child(2),.i2-show-hidden-radio-input .en__field:nth-of-type(2) .en__field__element--radio .en__field__item:nth-last-child(2),.i3-show-hidden-radio-input .en__field:nth-of-type(3) .en__field__element--radio .en__field__item:nth-last-child(2),.i4-show-hidden-radio-input .en__field:nth-of-type(4) .en__field__element--radio .en__field__item:nth-last-child(2),.i5-show-hidden-radio-input .en__field:nth-of-type(5) .en__field__element--radio .en__field__item:nth-last-child(2),.i6-show-hidden-radio-input .en__field:nth-of-type(6) .en__field__element--radio .en__field__item:nth-last-child(2),.i7-show-hidden-radio-input .en__field:nth-of-type(7) .en__field__element--radio .en__field__item:nth-last-child(2),.i8-show-hidden-radio-input .en__field:nth-of-type(8) .en__field__element--radio .en__field__item:nth-last-child(2),.i9-show-hidden-radio-input .en__field:nth-of-type(9) .en__field__element--radio .en__field__item:nth-last-child(2),.i10-show-hidden-radio-input .en__field:nth-of-type(10) .en__field__element--radio .en__field__item:nth-last-child(2),.i11-show-hidden-radio-input .en__field:nth-of-type(11) .en__field__element--radio .en__field__item:nth-last-child(2){
   display:none !important;
 }
-.i1-show-hidden-radio-input.i1-center .en__field:first-of-type.en__field--validationFailed .en__field__element--radio,.i2-show-hidden-radio-input.i2-center .en__field:nth-of-type(2).en__field--validationFailed .en__field__element--radio,.i3-show-hidden-radio-input.i3-center .en__field:nth-of-type(3).en__field--validationFailed .en__field__element--radio,.i4-show-hidden-radio-input.i4-center .en__field:nth-of-type(4).en__field--validationFailed .en__field__element--radio,.i5-show-hidden-radio-input.i5-center .en__field:nth-of-type(5).en__field--validationFailed .en__field__element--radio,.i6-show-hidden-radio-input.i6-center .en__field:nth-of-type(6).en__field--validationFailed .en__field__element--radio,.i7-show-hidden-radio-input.i7-center .en__field:nth-of-type(7).en__field--validationFailed .en__field__element--radio,.i8-show-hidden-radio-input.i8-center .en__field:nth-of-type(8).en__field--validationFailed .en__field__element--radio,.i9-show-hidden-radio-input.i9-center .en__field:nth-of-type(9).en__field--validationFailed .en__field__element--radio,.i10-show-hidden-radio-input.i10-center .en__field:nth-of-type(10).en__field--validationFailed .en__field__element--radio,.i11-show-hidden-radio-input.i11-center .en__field:nth-of-type(11).en__field--validationFailed .en__field__element--radio{
+.i1-show-hidden-radio-input.i1-center .en__field:first-of-type[class*=validationFail] .en__field__element--radio,.i2-show-hidden-radio-input.i2-center .en__field:nth-of-type(2)[class*=validationFail] .en__field__element--radio,.i3-show-hidden-radio-input.i3-center .en__field:nth-of-type(3)[class*=validationFail] .en__field__element--radio,.i4-show-hidden-radio-input.i4-center .en__field:nth-of-type(4)[class*=validationFail] .en__field__element--radio,.i5-show-hidden-radio-input.i5-center .en__field:nth-of-type(5)[class*=validationFail] .en__field__element--radio,.i6-show-hidden-radio-input.i6-center .en__field:nth-of-type(6)[class*=validationFail] .en__field__element--radio,.i7-show-hidden-radio-input.i7-center .en__field:nth-of-type(7)[class*=validationFail] .en__field__element--radio,.i8-show-hidden-radio-input.i8-center .en__field:nth-of-type(8)[class*=validationFail] .en__field__element--radio,.i9-show-hidden-radio-input.i9-center .en__field:nth-of-type(9)[class*=validationFail] .en__field__element--radio,.i10-show-hidden-radio-input.i10-center .en__field:nth-of-type(10)[class*=validationFail] .en__field__element--radio,.i11-show-hidden-radio-input.i11-center .en__field:nth-of-type(11)[class*=validationFail] .en__field__element--radio{
   border-radius:.3rem !important;
   margin-bottom:.5rem;
 }
-.i1-show-hidden-radio-input.i1-center .en__field:first-of-type.en__field--validationFailed .en__field__error,.i2-show-hidden-radio-input.i2-center .en__field:nth-of-type(2).en__field--validationFailed .en__field__error,.i3-show-hidden-radio-input.i3-center .en__field:nth-of-type(3).en__field--validationFailed .en__field__error,.i4-show-hidden-radio-input.i4-center .en__field:nth-of-type(4).en__field--validationFailed .en__field__error,.i5-show-hidden-radio-input.i5-center .en__field:nth-of-type(5).en__field--validationFailed .en__field__error,.i6-show-hidden-radio-input.i6-center .en__field:nth-of-type(6).en__field--validationFailed .en__field__error,.i7-show-hidden-radio-input.i7-center .en__field:nth-of-type(7).en__field--validationFailed .en__field__error,.i8-show-hidden-radio-input.i8-center .en__field:nth-of-type(8).en__field--validationFailed .en__field__error,.i9-show-hidden-radio-input.i9-center .en__field:nth-of-type(9).en__field--validationFailed .en__field__error,.i10-show-hidden-radio-input.i9-center .en__field:nth-of-type(10).en__field--validationFailed .en__field__error,.i11-show-hidden-radio-input.i9-center .en__field:nth-of-type(11).en__field--validationFailed .en__field__error{
+.i1-show-hidden-radio-input.i1-center .en__field:first-of-type[class*=validationFail] .en__field__error,.i2-show-hidden-radio-input.i2-center .en__field:nth-of-type(2)[class*=validationFail] .en__field__error,.i3-show-hidden-radio-input.i3-center .en__field:nth-of-type(3)[class*=validationFail] .en__field__error,.i4-show-hidden-radio-input.i4-center .en__field:nth-of-type(4)[class*=validationFail] .en__field__error,.i5-show-hidden-radio-input.i5-center .en__field:nth-of-type(5)[class*=validationFail] .en__field__error,.i6-show-hidden-radio-input.i6-center .en__field:nth-of-type(6)[class*=validationFail] .en__field__error,.i7-show-hidden-radio-input.i7-center .en__field:nth-of-type(7)[class*=validationFail] .en__field__error,.i8-show-hidden-radio-input.i8-center .en__field:nth-of-type(8)[class*=validationFail] .en__field__error,.i9-show-hidden-radio-input.i9-center .en__field:nth-of-type(9)[class*=validationFail] .en__field__error,.i10-show-hidden-radio-input.i9-center .en__field:nth-of-type(10)[class*=validationFail] .en__field__error,.i11-show-hidden-radio-input.i9-center .en__field:nth-of-type(11)[class*=validationFail] .en__field__error{
   border-radius:.3rem !important;
 }
 
@@ -3679,32 +3679,32 @@ body:not[data-engrid-show-ecard-options] .show-if-ecard{
   font-size:max(75%, 10px);
   order:3;
 }
-.en__field--validationFailed:not(.has-focus):not(.has-value){
+[class*=validationFail]:not(.has-focus):not(.has-value){
   --input_placeholder-color:var(--error__color);
 }
 body.error-jump-assist .en__component .en__field__error{
   order:1;
 }
 
-.en__field--validationFailed label{
+[class*=validationFail] label{
   color:var(--error__color);
 }
 
-.en__field--validationFailed:not(.has-value):not(.has-focus) [type],.en__field--validationFailed:not(.has-value):not(.has-focus) select,.en__field--validationFailed:not(.has-value):not(.has-focus) textarea{
+[class*=validationFail]:not(.has-value):not(.has-focus) [type],[class*=validationFail]:not(.has-value):not(.has-focus) select,[class*=validationFail]:not(.has-value):not(.has-focus) textarea{
   background-color:var(--error__color_faded);
   border-color:var(--error__color);
 }
 
-.en__field--radio.en__field--validationFailed .en__field--checkbox.en__field--validationFailed{
+.en__field--radio[class*=validationFail] .en__field--checkbox[class*=validationFail]{
   border-color:var(--error__color);
 }
 
-.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--withOther.en__field--validationFailed .en__field__element--radio{
+.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--withOther[class*=validationFail] .en__field__element--radio{
   border-radius:var(--donation-amount__button_border-radius);
   margin-bottom:.5rem;
 }
 
-.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--withOther.en__field--validationFailed .en__field__error{
+.radio-to-buttons_donationAmt .en__field--donationAmt.en__field--withOther[class*=validationFail] .en__field__error{
   border-radius:var(--donation-amount__button_border-radius);
 }
 
@@ -3842,7 +3842,7 @@ button.en__eventOccurrence__select>label{
   order:3;
   padding:.25rem .5rem;
 }
-[data-engrid-errors=fancy] .en__field--calendar .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--checkbox .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--imgselect .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--radio .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--rating .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--select.en__field--withOther .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--splitselect .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--splittext .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--tripleselec .en__field--validationFailed.has-value,[data-engrid-errors=fancy] .en__field--tripletext .en__field--validationFailed.has-value{
+[data-engrid-errors=fancy] .en__field--calendar [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--checkbox [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--imgselect [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--radio [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--rating [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--select.en__field--withOther [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--splitselect [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--splittext [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--tripleselec [class*=validationFail].has-value,[data-engrid-errors=fancy] .en__field--tripletext [class*=validationFail].has-value{
   background-color:var(--error__color_grayscale);
   border-color:var(--error__color_grayscale);
   color:var(--color_white);
@@ -4693,6 +4693,23 @@ body:not(#en__pagebuilder):not([data-engrid-debug]) [class*=showifamount].animat
 }
 body:not(#en__pagebuilder):not([data-engrid-debug]) [class*=showifamount].animate-vertical-slide.engrid-open{
   max-height:100%;
+}
+
+[data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__column{
+  width:100%;
+}
+[data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__buttons .en__submit:first-child{
+  margin-right:1rem;
+}
+[data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__buttons .en__submit:last-child{
+  margin-left:1rem;
+}
+[data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__buttons .en__submit:first-child:last-child{
+  margin-left:0;
+  margin-right:0;
+}
+[data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__validationFail .en__field__element{
+  border:none;
 }
 [data-engrid-theme]{
   --engrid__page_padding:0px;
@@ -6639,13 +6656,24 @@ body:not([data-engrid-debug]) #debug-bar{
   --media-attribution__color:#ffffffe6;
   --media-attribution__font-weight:400;
   --engrid__content-footer_margin:40px 0 0 0;
+  --engrid__content-header_background-color:#0000;
+  --engrid__content-footer_background-color:#fff;
   --fields_spacing-inline:0.25rem;
 }
 [data-engrid-theme=nwf] .body-bannerOverlay,[data-engrid-theme=nwf] .body-bottom,[data-engrid-theme=nwf] .body-footer,[data-engrid-theme=nwf] .body-footerOutside,[data-engrid-theme=nwf] .body-headerOutside,[data-engrid-theme=nwf] .content-preFooter,[data-engrid-theme=nwf] .page-alert,[data-engrid-theme=nwf] .page-backgroundImageOverlay{
   display:none !important;
 }
+[data-engrid-theme=nwf] .body-main,[data-engrid-theme=nwf] .body-main>:first-child,[data-engrid-theme=nwf] .body-main>:first-child>:first-child,[data-engrid-theme=nwf] .body-main>:first-child>:first-child>:first-child,[data-engrid-theme=nwf] .body-main>:first-child>:first-child>:first-child>:first-child,[data-engrid-theme=nwf] .body-top,[data-engrid-theme=nwf] .body-top>:first-child,[data-engrid-theme=nwf] .body-top>:first-child>:first-child,[data-engrid-theme=nwf] .body-top>:first-child>:first-child>:first-child,[data-engrid-theme=nwf] .body-top>:first-child>:first-child>:first-child>:first-child{
+  margin-top:0;
+}
+[data-engrid-theme=nwf] .body-main,[data-engrid-theme=nwf] .body-main>:last-child,[data-engrid-theme=nwf] .body-main>:last-child>:last-child,[data-engrid-theme=nwf] .body-main>:last-child>:last-child>:last-child,[data-engrid-theme=nwf] .body-main>:last-child>:last-child>:last-child>:last-child,[data-engrid-theme=nwf] .body-top,[data-engrid-theme=nwf] .body-top>:last-child,[data-engrid-theme=nwf] .body-top>:last-child>:last-child,[data-engrid-theme=nwf] .body-top>:last-child>:last-child>:last-child,[data-engrid-theme=nwf] .body-top>:last-child>:last-child>:last-child>:last-child{
+  margin-bottom:0;
+}
+[data-engrid-theme=nwf] .body-main,[data-engrid-theme=nwf] .body-top{
+  padding-bottom:calc(var(--spacing_lg)/2);
+  padding-top:calc(var(--spacing_lg)/2);
+}
 [data-engrid-theme=nwf][data-engrid-layout*="1col"]{
-  --engrid__page_background-color:#e0e9ea;
   --engrid__content_background-color:#fff;
   --engrid__body_background-color:#fff;
 }
@@ -6680,7 +6708,7 @@ body:not([data-engrid-debug]) #debug-bar{
   padding:var(--button_padding);
   text-align:center;
 }
-[data-engrid-theme=nwf].en__field--validationFailed{
+[data-engrid-theme=nwf][class*=validationFail]{
   margin-bottom:calc(var(--fields_spacing-block)*2);
 }
 [data-engrid-theme=nwf] .en__field--survey .en__field__label.en__field__label--positionabove{
@@ -6726,6 +6754,7 @@ body:not([data-engrid-debug]) #debug-bar{
   color:#000;
 }
 [data-engrid-theme=nwf] .nav-spacer{
+  background-color:#fff;
   height:90px;
   position:relative;
   z-index:1;
@@ -6794,6 +6823,27 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 [data-engrid-theme=nwf] .body-title h1:last-child{
   margin-bottom:2rem;
+}
+@media only screen and (min-width:700px){
+  [data-engrid-theme=nwf][data-engrid-page-background-color=dark][data-engrid-layout*="1col"] .body-title{
+    background:#0000;
+  }
+  [data-engrid-theme=nwf][data-engrid-page-background-color=dark][data-engrid-layout*="1col"] .body-title h1{
+    color:#fff;
+  }
+}
+@media only screen and (min-width:900px){
+  [data-engrid-theme=nwf][data-engrid-page-background-color=dark][data-engrid-layout=centercenter2col] .body-title{
+    background:#0000;
+  }
+  [data-engrid-theme=nwf][data-engrid-page-background-color=dark][data-engrid-layout=centercenter2col] .body-title h1{
+    color:#fff;
+  }
+}
+@media only screen and (max-width:900px){
+  [data-engrid-theme=nwf][data-engrid-layout*="1col"] .nav-spacer,[data-engrid-theme=nwf][data-engrid-layout=centercenter2col] .nav-spacer{
+    display:none;
+  }
 }
 [data-engrid-theme=nwf] .en__component--premiumgiftblock,[data-engrid-theme=nwf] .en__pg,[data-engrid-theme=nwf] .en__pgHeader{
   border:0;
@@ -6871,7 +6921,7 @@ body:not([data-engrid-debug]) #debug-bar{
     text-align:center;
   }
 }
-@media screen and (max-width:980px){
+@media screen and (max-width:900px){
   [data-engrid-theme=nwf] .navbar-brand{
     left:50%;
     position:absolute;
@@ -6879,9 +6929,6 @@ body:not([data-engrid-debug]) #debug-bar{
     transform:translate(-50%, -50%);
     -webkit-transform:translate(-50%, -50%);
     z-index:100;
-  }
-  [data-engrid-theme=nwf] .nav-spacer{
-    display:none;
   }
   [data-engrid-theme=nwf] #main-nav{
     margin-bottom:4rem;
@@ -7039,7 +7086,7 @@ body:not([data-engrid-debug]) #debug-bar{
   }
 }
 [data-engrid-theme=nwf] div#slider{
-  margin:auto auto 30px;
+  margin:auto;
   overflow:hidden;
   width:100%;
 }
@@ -7053,6 +7100,7 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 [data-engrid-theme=nwf] div#slider div img{
   float:left;
+  min-width:auto;
   width:20%;
 }
 @keyframes slider{
@@ -7263,7 +7311,7 @@ body:not([data-engrid-debug]) #debug-bar{
   margin-left:25px;
   margin-top:0;
 }
-@media screen and (max-width:980px){
+@media screen and (max-width:900px){
   [data-engrid-subtheme=hecho] .content-header .navbar-brand>img{
     margin-left:0;
     position:relative;
@@ -7401,7 +7449,7 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-subtheme=action-fund] .navbar-brand>img{
   margin-top:-33px;
 }
-@media screen and (max-width:980px){
+@media screen and (max-width:900px){
   [data-engrid-subtheme=action-fund] #main-nav{
     height:82px;
     margin-bottom:1rem;
@@ -7428,7 +7476,7 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-subtheme=garden-for-wildlife] .navbar-brand>img{
   margin-top:-33px;
 }
-@media screen and (max-width:980px){
+@media screen and (max-width:900px){
   [data-engrid-subtheme=garden-for-wildlife] #main-nav{
     height:82px;
     margin-bottom:1rem;
