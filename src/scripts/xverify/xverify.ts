@@ -44,9 +44,6 @@ export class XVerify {
       this.xvDate = ENGrid.createHiddenInput(this.options.dateField);
     }
     this.init();
-    this.form.onValidate.subscribe(
-      () => (this.form.validate = this.validateSubmit())
-    );
     if (ENGrid.debug) console.log("Engrid Xverify: LOADED", this.emailField);
   }
   public static getInstance(options: {
@@ -65,6 +62,9 @@ export class XVerify {
         console.log("Engrid Xverify: E-mail Field Not Found", this.emailField);
       return;
     }
+    this.form.onValidate.subscribe(
+      () => (this.form.validate = this.validateSubmit())
+    );
     "change paste".split(" ").forEach((e) => {
       this.emailField.addEventListener(e, (event) => {
         // Run after 50ms

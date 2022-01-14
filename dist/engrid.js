@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, January 14, 2022 @ 01:21:37 ET
- *  By: bryancasler
+ *  Date: Friday, January 14, 2022 @ 12:30:36 ET
+ *  By: fe
  *  ENGrid styles: v0.8.1
  *  ENGrid scripts: v0.8.2
  *
@@ -14065,7 +14065,6 @@ class XVerify {
     }
 
     this.init();
-    this.form.onValidate.subscribe(() => this.form.validate = this.validateSubmit());
     if (engrid_ENGrid.debug) console.log("Engrid Xverify: LOADED", this.emailField);
   }
 
@@ -14083,6 +14082,7 @@ class XVerify {
       return;
     }
 
+    this.form.onValidate.subscribe(() => this.form.validate = this.validateSubmit());
     "change paste".split(" ").forEach(e => {
       this.emailField.addEventListener(e, event => {
         // Run after 50ms
