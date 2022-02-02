@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, January 17, 2022 @ 11:57:53 ET
- *  By: bryancasler
- *  ENGrid styles: v0.8.1
- *  ENGrid scripts: v0.8.2
+ *  Date: Tuesday, February 1, 2022 @ 20:59:28 ET
+ *  By: fernando
+ *  ENGrid styles: v0.8.3
+ *  ENGrid scripts: v0.8.6
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11491,6 +11491,10 @@ class LiveVariables {
     }
     loadingSubmitButton() {
         const submit = document.querySelector(".en__submit button");
+        // Don't add the Loading element if the button is from an Ajax form (like the supporter hub)
+        if (submit.hasAttribute("data-action")) {
+            return true;
+        }
         let submitButtonOriginalHTML = submit.innerHTML;
         let submitButtonProcessingHTML = "<span class='loader-wrapper'><span class='loader loader-quart'></span><span class='submit-button-text-wrapper'>" +
             submitButtonOriginalHTML +
@@ -13466,22 +13470,24 @@ class ShowIfAmount {
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/other-amount.js
 // This class automatically select other radio input when an amount is entered into it.
+
 class OtherAmount {
     constructor() {
-        "focus input".split(" ").forEach((e) => {
+        this.logger = new EngridLogger("OtherAmount", "green", "black", "💰");
+        "focusin input".split(" ").forEach((e) => {
             var _a;
             // We're attaching this event to the body because sometimes the other amount input is not in the DOM yet and comes via AJAX.
             (_a = document.querySelector("body")) === null || _a === void 0 ? void 0 : _a.addEventListener(e, (event) => {
                 const target = event.target;
                 if (target.classList.contains("en__field__input--other")) {
-                    console.log("Other Amount Field Focused");
+                    this.logger.log("Other Amount Field Focused");
                     this.setRadioInput();
                 }
             });
         });
     }
     setRadioInput() {
-        const target = document.querySelector(".en__field__input--other");
+        const target = document.querySelector(".en__field--donationAmt .en__field__input--other");
         if (target && target.parentNode && target.parentNode.parentNode) {
             const targetWrapper = target.parentNode;
             targetWrapper.classList.remove("en__field__item--hidden");
