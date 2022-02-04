@@ -4,12 +4,47 @@ export const customScript = function () {
   console.log("ENGrid client scripts are executing");
   // Add your client scripts here
 
-  // Add placeholder to the "other" giving amount field
-  let enFieldOtherAmt = document.querySelectorAll(
-    ".radio-to-buttons_donationAmt .en__field--radio.en__field--donationAmt .en__field__input--other"
-  )[0];
-  if (enFieldOtherAmt) {
-    enFieldOtherAmt.placeholder = "Other";
+  // Adjust placeholders on Phone Numbers
+  const enAddInputPlaceholder = document.querySelector(
+    "[data-engrid-add-input-placeholders]"
+  );
+  let enFieldPhoneNumber = document.querySelector(
+    "input#en__field_supporter_phoneNumber"
+  );
+  let enFieldPhoneNumberRequired = document.querySelector(
+    ".en__mandatory > * > input#en__field_supporter_phoneNumber"
+  );
+  let enFieldPhoneNumber2 = document.querySelector(
+    "input#en__field_supporter_phoneNumber2"
+  );
+  let enFieldPhoneNumber2Required = document.querySelector(
+    ".en__mandatory > * > input#en__field_supporter_phoneNumber2"
+  );
+  if (
+    enAddInputPlaceholder &&
+    enFieldPhoneNumber &&
+    enFieldPhoneNumberRequired
+  ) {
+    enFieldPhoneNumber.placeholder = "ex. +17035559555";
+  } else if (
+    enAddInputPlaceholder &&
+    enFieldPhoneNumber &&
+    !enFieldPhoneNumberRequired
+  ) {
+    enFieldPhoneNumber.placeholder = "ex. +17035559555 (Optional)";
+  }
+  if (
+    enAddInputPlaceholder &&
+    enFieldPhoneNumber2 &&
+    enFieldPhoneNumber2Required
+  ) {
+    enFieldPhoneNumber2.placeholder = "ex. +17035559555";
+  } else if (
+    enAddInputPlaceholder &&
+    enFieldPhoneNumber2 &&
+    !enFieldPhoneNumber2Required
+  ) {
+    enFieldPhoneNumber2.placeholder = "ex. +17035559555 (Optional)";
   }
 
   // Add "Why is this required?" markup to the Title field
