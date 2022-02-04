@@ -1139,6 +1139,17 @@
       left: -300%;
     }
   }
+
+  .en__component--callcontactblock {
+    .en__component--callcontactblock__noContacts {
+      text-align: center;
+    }
+
+    .en__contact.en__contact--call {
+      // Prevents over spacing things horizontally
+      max-width: 500px;
+    }
+  }
 }
 
 #enModal h1 {
