@@ -1148,6 +1148,8 @@
     .en__contact.en__contact--call {
       // Prevents over spacing things horizontally
       max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }

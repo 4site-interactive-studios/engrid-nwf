@@ -19,9 +19,9 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, February 4, 2022 @ 17:27:42 ET
+ *  Date: Monday, February 7, 2022 @ 11:14:48 ET
  *  By: bryancasler
- *  ENGrid styles: v0.8.8
+ *  ENGrid styles: v0.8.9
  *  ENGrid scripts: v0.8.8
  *
  *  Created by 4Site Studios
@@ -4511,6 +4511,14 @@ body:not(#en__pagebuilder) .simple_country_select:not(.country-select-visible) .
   border-radius:var(--engrid__body_border-radius);
 }
 
+.en__shares{
+  grid-gap:calc(var(--fields_spacing-inline)*2);
+  gap:calc(var(--fields_spacing-inline)*2);
+}
+.en__shares .en__share.en__share--facebook,.en__shares .en__share.en__share--twitter{
+  flex-basis:50px;
+}
+
 .enWidget__bar .enWidget__progress{
   min-width:auto;
 }
@@ -7141,6 +7149,8 @@ body:not([data-engrid-debug]) #debug-bar{
   text-align:center;
 }
 [data-engrid-theme=nwf] .en__component--callcontactblock .en__contact.en__contact--call{
+  margin-left:auto;
+  margin-right:auto;
   max-width:500px;
 }
 
