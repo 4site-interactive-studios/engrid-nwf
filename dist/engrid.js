@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, February 10, 2022 @ 23:07:04 ET
+ *  Date: Thursday, February 10, 2022 @ 16:27:20 ET
  *  By: fernando
  *  ENGrid styles: v0.8.9
- *  ENGrid scripts: v0.8.13
+ *  ENGrid scripts: v0.8.14
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10265,10 +10265,10 @@ class AmountLabel {
     // Fix Amount Labels
     fixAmountLabels() {
         let amounts = document.querySelectorAll(".en__field--donationAmt label");
+        const currencySymbol = engrid_ENGrid.getOption("CurrencySymbol") || "";
         amounts.forEach((element) => {
             if (!isNaN(element.innerText)) {
-                element.innerText =
-                    engrid_ENGrid.getOption("CurrencySymbol") + element.innerText;
+                element.innerText = currencySymbol + element.innerText;
             }
         });
     }
@@ -14298,7 +14298,7 @@ const options = {
   applePay: false,
   CapitalizeFields: true,
   ClickToExpand: true,
-  CurrencySymbol: "$",
+  CurrencySymbol: "",
   DecimalSeparator: ".",
   // AutoYear: true,
   MediaAttribution: true,
