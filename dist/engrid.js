@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, February 7, 2022 @ 11:14:48 ET
- *  By: bryancasler
+ *  Date: Thursday, February 10, 2022 @ 23:07:04 ET
+ *  By: fernando
  *  ENGrid styles: v0.8.9
- *  ENGrid scripts: v0.8.8
+ *  ENGrid scripts: v0.8.13
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -9355,16 +9355,20 @@ class DonationAmount {
         // Watch Radios Inputs for Changes
         document.addEventListener("change", (e) => {
             const element = e.target;
-            if (element && element.name == radios) {
-                element.value = this.removeCommas(element.value);
-                this.amount = parseFloat(element.value);
+            if (element) {
+                if (element.name == radios) {
+                    this.amount = parseFloat(element.value);
+                }
+                else if (element.name == other) {
+                    element.value = this.preformatFloat(element.value);
+                    this.amount = parseFloat(element.value);
+                }
             }
         });
         // Watch Other Amount Field
         const otherField = document.querySelector(`[name='${this._other}']`);
         if (otherField) {
             otherField.addEventListener("keyup", (e) => {
-                otherField.value = this.removeCommas(otherField.value);
                 this.amount = parseFloat(otherField.value);
             });
         }
@@ -9436,17 +9440,26 @@ class DonationAmount {
         const otherWrapper = otherField.parentNode;
         otherWrapper.classList.add("en__field__item--hidden");
     }
-    // Remove commas
-    removeCommas(v) {
-        // replace 5,00 with 5.00
-        if (v.length > 3 && v.charAt(v.length - 3) == ",") {
-            v = v.substr(0, v.length - 3) + "." + v.substr(v.length - 2, 2);
+    preformatFloat(float) {
+        if (!float) {
+            return "";
         }
-        else if (v.length > 2 && v.charAt(v.length - 2) == ",") {
-            v = v.substr(0, v.length - 2) + "." + v.substr(v.length - 1, 1);
+        //Index of first comma
+        const posC = float.indexOf(",");
+        if (posC === -1) {
+            //No commas found, treat as float
+            return float;
         }
-        // replace any remaining commas
-        return v.replace(/,/g, "");
+        //Index of first full stop
+        const posFS = float.indexOf(".");
+        if (posFS === -1) {
+            //Uses commas and not full stops - swap them (e.g. 1,23 --> 1.23)
+            return float.replace(/\,/g, ".");
+        }
+        //Uses both commas and full stops - ensure correct order and remove 1000s separators
+        return posC < posFS
+            ? float.replace(/\,/g, "")
+            : float.replace(/\./g, "").replace(",", ".");
     }
 }
 
@@ -9958,7 +9971,6 @@ class App extends engrid_ENGrid {
         preventAutocomplete();
         watchInmemField();
         watchGiveBySelectField();
-        SetEnFieldOtherAmountRadioStepValue();
         simpleUnsubscribe();
         contactDetailLabels();
         easyEdit();
@@ -10869,7 +10881,7 @@ const inputPlaceholder = () => {
     let enFieldBillingPostcode = document.querySelector("input#en__field_supporter_billingPostcode");
     // CHANGE FIELD INPUT TYPES
     if (enFieldDonationAmt) {
-        enFieldDonationAmt.setAttribute("inputmode", "numeric");
+        enFieldDonationAmt.setAttribute("inputmode", "decimal");
     }
     // ADD FIELD PLACEHOLDERS
     const enAddInputPlaceholder = document.querySelector("[data-engrid-add-input-placeholders]");
@@ -11150,19 +11162,6 @@ let field_expiration_parts = document.querySelectorAll(".en__field--ccexpire .en
 const field_country = document.getElementById("en__field_supporter_country");
 let field_expiration_month = field_expiration_parts[0];
 let field_expiration_year = field_expiration_parts[1];
-/* The Donation Other Giving Amount is a "Number" type input field.
-   It also has its step value set to .01 so it increments up/down by once whole cent.
-   This step also client-side prevents users from entering a fraction of a penny.
-   And it has a min set to 5 so nothing less can be submitted
-*/
-const SetEnFieldOtherAmountRadioStepValue = () => {
-    const enFieldOtherAmountRadio = document.querySelector(".en__field--donationAmt .en__field__input--other");
-    if (enFieldOtherAmountRadio) {
-        enFieldOtherAmountRadio.setAttribute("step", ".01");
-        enFieldOtherAmountRadio.setAttribute("type", "number");
-        enFieldOtherAmountRadio.setAttribute("min", "5");
-    }
-};
 /*
  * Helpers
  */
@@ -11688,11 +11687,11 @@ class UpsellLightbox {
         this._amount = DonationAmount.getInstance();
         this._fees = ProcessingFees.getInstance();
         this._frequency = DonationFrequency.getInstance();
+        this.logger = new EngridLogger("UpsellLightbox", "black", "pink", "🪟");
         let options = "EngridUpsell" in window ? window.EngridUpsell : {};
         this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
         if (!this.shouldRun()) {
-            if (engrid_ENGrid.debug)
-                console.log("Upsell script should NOT run");
+            this.logger.log("Upsell script should NOT run");
             // If we're not on a Donation Page, get out
             return;
         }
@@ -11789,8 +11788,7 @@ class UpsellLightbox {
         if (otherField) {
             otherField.addEventListener("keyup", this.popupOtherField.bind(this));
         }
-        if (engrid_ENGrid.debug)
-            console.log("Upsell script rendered");
+        this.logger.log("Upsell script rendered");
     }
     // Should we run the script?
     shouldRun() {
@@ -11839,6 +11837,8 @@ class UpsellLightbox {
             let val = this.options.amountRange[i];
             if (upsellAmount == 0 && amount <= val.max) {
                 upsellAmount = val.suggestion;
+                if (upsellAmount === 0)
+                    return 0;
                 if (typeof upsellAmount !== "number") {
                     const suggestionMath = upsellAmount.replace("amount", amount.toFixed(2));
                     upsellAmount = parseFloat(Function('"use strict";return (' + suggestionMath + ")")());
@@ -11860,18 +11860,15 @@ class UpsellLightbox {
         if (freq == "onetime" &&
             !this.overlay.classList.contains("is-submitting") &&
             upsellAmount > 0) {
-            if (engrid_ENGrid.debug) {
-                console.log("Upsell Frequency", this._frequency.frequency);
-                console.log("Upsell Amount", this._amount.amount);
-                console.log("Upsell Suggested Amount", upsellAmount);
-            }
+            this.logger.log("Upsell Frequency " + this._frequency.frequency);
+            this.logger.log("Upsell Amount " + this._amount.amount);
+            this.logger.log("Upsell Suggested Amount " + upsellAmount);
             return true;
         }
         return false;
     }
     open() {
-        if (engrid_ENGrid.debug)
-            console.log("Upsell Script Triggered");
+        this.logger.log("Upsell script opened");
         if (!this.shouldOpen()) {
             // In the circumstance when the form fails to validate via server-side validation, the page will reload
             // When that happens, we should place the original amount saved in sessionStorage into the upsell original amount field
@@ -11922,8 +11919,7 @@ class UpsellLightbox {
         e.preventDefault();
         if (e.target instanceof Element &&
             ((_a = document.querySelector("#upsellYesButton")) === null || _a === void 0 ? void 0 : _a.contains(e.target))) {
-            if (engrid_ENGrid.debug)
-                console.log("Upsold");
+            this.logger.success("Upsold");
             this.setOriginalAmount(this._amount.amount.toString());
             const upsoldAmount = this.getUpsellAmount();
             this._frequency.setFrequency("monthly");
