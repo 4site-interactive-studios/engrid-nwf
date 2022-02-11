@@ -19,9 +19,9 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, February 10, 2022 @ 16:27:20 ET
- *  By: fernando
- *  ENGrid styles: v0.8.9
+ *  Date: Friday, February 11, 2022 @ 12:33:15 ET
+ *  By: bryancasler
+ *  ENGrid styles: v0.8.15
  *  ENGrid scripts: v0.8.14
  *
  *  Created by 4Site Studios
@@ -808,7 +808,7 @@ body[data-engrid-debug]:before{
 }
 
 .en__share{
-  margin-right:1.125rem;
+  margin-right:0;
 }
 
 .en__share--facebook.en__share--small{
@@ -6671,7 +6671,6 @@ body:not([data-engrid-debug]) #debug-bar{
   --media-attribution__text-shadow:1px 1px 3px #969696;
   --media-attribution__color:#ffffffe6;
   --media-attribution__font-weight:400;
-  --engrid__content-footer_margin:40px 0 0 0;
   --engrid__content-header_background-color:#0000;
   --engrid__content-footer_background-color:#fff;
   --fields_spacing-inline:0.25rem;
@@ -6685,16 +6684,24 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-theme=nwf] .body-main,[data-engrid-theme=nwf] .body-main>:last-child,[data-engrid-theme=nwf] .body-main>:last-child>:last-child,[data-engrid-theme=nwf] .body-main>:last-child>:last-child>:last-child,[data-engrid-theme=nwf] .body-main>:last-child>:last-child>:last-child>:last-child,[data-engrid-theme=nwf] .body-top,[data-engrid-theme=nwf] .body-top>:last-child,[data-engrid-theme=nwf] .body-top>:last-child>:last-child,[data-engrid-theme=nwf] .body-top>:last-child>:last-child>:last-child,[data-engrid-theme=nwf] .body-top>:last-child>:last-child>:last-child>:last-child{
   margin-bottom:0;
 }
-[data-engrid-theme=nwf] .body-main,[data-engrid-theme=nwf] .body-top{
-  padding-bottom:calc(var(--spacing_lg)/2);
-  padding-top:calc(var(--spacing_lg)/2);
-}
 [data-engrid-theme=nwf][data-engrid-layout*="1col"]{
+  --engrid__page_background-color:var(--color_secondary);
   --engrid__content_background-color:#fff;
   --engrid__body_background-color:#fff;
 }
+[data-engrid-theme=nwf][data-engrid-layout*="1col"] .body-main,[data-engrid-theme=nwf][data-engrid-layout*="1col"] .body-top{
+  padding-bottom:40px;
+  padding-top:calc(var(--spacing_lg)/2);
+}
+[data-engrid-theme=nwf][data-engrid-layout*="2col"]{
+  --engrid__content-footer_margin:40px 0 0 0;
+}
 [data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-top{
   --engrid__body-top_background-color:var(--color_secondary);
+}
+[data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-main,[data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-top{
+  padding-bottom:calc(var(--spacing_lg)/2);
+  padding-top:calc(var(--spacing_lg)/2);
 }
 [data-engrid-theme=nwf] .en__field--donationAmt label,[data-engrid-theme=nwf] .en__field--recurrfreq label,[data-engrid-theme=nwf] .give-by-select label{
   outline:none !important;
@@ -6826,19 +6833,18 @@ body:not([data-engrid-debug]) #debug-bar{
   align-items:flex-start;
   flex-direction:column;
 }
-[data-engrid-theme=nwf] .body-title{
+[data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-title{
   grid-column:bc !important;
   grid-row:body-headerOutside;
-  padding:0;
 }
 [data-engrid-theme=nwf] .body-title h1{
   margin:0 0 1rem;
 }
 [data-engrid-theme=nwf] .body-title h1:first-child{
-  margin-top:1rem;
+  margin-top:1.5rem;
 }
 [data-engrid-theme=nwf] .body-title h1:last-child{
-  margin-bottom:2rem;
+  margin-bottom:1.5rem;
 }
 @media only screen and (min-width:700px){
   [data-engrid-theme=nwf][data-engrid-page-background-color=dark][data-engrid-layout*="1col"] .body-title{
@@ -7476,7 +7482,7 @@ body:not([data-engrid-debug]) #debug-bar{
 @media screen and (max-width:900px){
   [data-engrid-subtheme=action-fund] #main-nav{
     height:82px;
-    margin-bottom:1rem;
+    margin-bottom:0;
   }
   [data-engrid-subtheme=action-fund] #main-nav .navbar-brand>img{
     height:72px;
@@ -7503,7 +7509,7 @@ body:not([data-engrid-debug]) #debug-bar{
 @media screen and (max-width:900px){
   [data-engrid-subtheme=garden-for-wildlife] #main-nav{
     height:82px;
-    margin-bottom:1rem;
+    margin-bottom:0;
   }
   [data-engrid-subtheme=garden-for-wildlife] #main-nav .navbar-brand>img{
     height:72px;

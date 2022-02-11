@@ -160,9 +160,10 @@
   --media-attribution__color: hsl(0deg 0% 100% / 90%);
   --media-attribution__font-weight: 400;
 
-  --engrid__content-footer_margin: 40px 0 0 0;
   --engrid__content-header_background-color: transparent;
   --engrid__content-footer_background-color: #ffffff;
+
+  --fields_spacing-inline: 0.25rem;
 }
 
 @mixin simple-footer {
@@ -377,26 +378,33 @@
     margin-bottom: 0;
   }
 
-  // Add back in spacing to the top and bottom of body top/main
-  .body-top,
-  .body-main {
-    padding-top: calc(var(--spacing_lg) / 2);
-    padding-bottom: calc(var(--spacing_lg) / 2);
-  }
-
   &[data-engrid-layout*="1col"] {
-    // --engrid__page_background-color: #e0e9ea;
+    --engrid__page_background-color: var(--color_secondary);
     --engrid__content_background-color: #ffffff;
     --engrid__body_background-color: #ffffff;
+
+    // Add back in spacing to the top and bottom of body top/main
+    .body-top,
+    .body-main {
+      padding-top: calc(var(--spacing_lg) / 2);
+      padding-bottom: 40px;
+    }
   }
 
   &[data-engrid-layout*="2col"] {
     .body-top {
       --engrid__body-top_background-color: var(--color_secondary);
     }
-  }
 
-  --fields_spacing-inline: 0.25rem;
+    // Add back in spacing to the top and bottom of body top/main
+    .body-top,
+    .body-main {
+      padding-top: calc(var(--spacing_lg) / 2);
+      padding-bottom: calc(var(--spacing_lg) / 2);
+    }
+
+    --engrid__content-footer_margin: 40px 0 0 0;
+  }
 
   .en__field--recurrfreq,
   .give-by-select,
@@ -639,21 +647,24 @@
   //   margin: 0 0 2rem 0;
   // }
 
-  .body-title {
-    padding: 0;
-    grid-row: body-headerOutside;
-    grid-column: bc !important;
+  &[data-engrid-layout*="2col"] {
+    .body-title {
+      grid-row: body-headerOutside;
+      grid-column: bc !important;
+    }
+  }
 
+  .body-title {
     h1 {
       margin: 0 0 1rem 0;
     }
 
     h1:first-child {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
     }
 
     h1:last-child {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -1319,7 +1330,7 @@
 
   @media screen and (max-width: $two_col_content-column_min-width) {
     #main-nav {
-      margin-bottom: 1rem;
+      margin-bottom: 0rem;
       height: 82px;
       .navbar-brand > img {
         margin-top: 30px;
@@ -1351,7 +1362,7 @@
 
   @media screen and (max-width: $two_col_content-column_min-width) {
     #main-nav {
-      margin-bottom: 1rem;
+      margin-bottom: 0rem;
       height: 82px;
       .navbar-brand > img {
         margin-top: 30px;
