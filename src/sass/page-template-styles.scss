@@ -1246,7 +1246,7 @@
   }
 
   .content-header {
-    padding-bottom: 28px;
+    // padding-bottom: 28px;
 
     #main-nav {
       background-color: transparent;
@@ -1281,8 +1281,10 @@
     }
   }
 
-  .body-top {
-    --engrid__body-top_background-color: #d7d4e4;
+  &[data-engrid-layout*="2col"] {
+    .body-top {
+      --engrid__body-top_background-color: #d7d4e4;
+    }
   }
 
   --submit__button_background-color: #ea7200;
