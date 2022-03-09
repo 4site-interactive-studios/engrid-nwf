@@ -9,7 +9,6 @@ const options: Options = {
   applePay: false,
   CapitalizeFields: true,
   ClickToExpand: true,
-  CurrencySymbol: "",
   DecimalSeparator: ".",
   // AutoYear: true,
   MediaAttribution: true,
