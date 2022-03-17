@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, March 8, 2022 @ 16:16:04 ET
+ *  Date: Thursday, March 17, 2022 @ 17:25:24 ET
  *  By: fernando
- *  ENGrid styles: v0.10.10
- *  ENGrid scripts: v0.10.11
+ *  ENGrid styles: v0.10.12
+ *  ENGrid scripts: v0.10.19
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10793,6 +10793,9 @@ class engrid_ENGrid {
                 case "supporterhub":
                     return "SUPPORTERHUB";
                     break;
+                case "unsubscribe":
+                    return "UNSUBSCRIBE";
+                    break;
                 default:
                     return "DONATION";
             }
@@ -13310,11 +13313,14 @@ class UpsellLightbox {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/show-hide-radio-checkboxes.js
+
 class ShowHideRadioCheckboxes {
     constructor(elements, classes) {
+        this.logger = new EngridLogger("ShowHideRadioCheckboxes", "black", "lightblue", "👁");
         this.elements = document.getElementsByName(elements);
         this.classes = classes;
         this.hideAll();
+        this.logger.log("New:", this.classes, this.elements);
         for (let i = 0; i < this.elements.length; i++) {
             let element = this.elements[i];
             if (element.checked) {
@@ -13338,8 +13344,10 @@ class ShowHideRadioCheckboxes {
         let inputValue = item.value.replace(/\s/g, "");
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
-            if (el instanceof HTMLElement)
+            if (el instanceof HTMLElement) {
                 el.style.display = "none";
+                this.logger.log("Hiding", el);
+            }
         });
     }
     // Show Single Element Div
@@ -13347,8 +13355,10 @@ class ShowHideRadioCheckboxes {
         let inputValue = item.value.replace(/\s/g, "");
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
-            if (el instanceof HTMLElement)
+            if (el instanceof HTMLElement) {
                 el.style.display = "";
+                this.logger.log("Showing", el);
+            }
         });
         if (item.type == "checkbox" && !item.checked) {
             this.hide(item);
@@ -14244,10 +14254,14 @@ class NeverBounce {
         this.emailWrapper = document.querySelector(".en__field--emailAddress");
         this.nbDate = null;
         this.nbStatus = null;
+        this.logger = new EngridLogger("NeverBounce", "#039bc4", "#dfdfdf", "📧");
+        this.shouldRun = true;
+        this.nbLoaded = false;
+        this.emailField = document.getElementById("en__field_supporter_emailAddress");
         window._NBSettings = {
             apiKey: this.apiKey,
             autoFieldHookup: false,
-            inputLatency: 500,
+            inputLatency: 1500,
             displayPoweredBy: false,
             loadingMessage: "Validating...",
             softRejectMessage: "Invalid email",
@@ -14255,27 +14269,41 @@ class NeverBounce {
             feedback: false,
         };
         engrid_ENGrid.loadJS("https://cdn.neverbounce.com/widget/dist/NeverBounce.js");
-        this.init();
+        if (this.emailField) {
+            if (this.emailField.value)
+                this.shouldRun = false;
+            this.emailField.addEventListener("change", (e) => {
+                var _a;
+                if (!this.nbLoaded) {
+                    this.shouldRun = true;
+                    this.init();
+                    if ((_a = this.emailField) === null || _a === void 0 ? void 0 : _a.value) {
+                        setTimeout(function () {
+                            window._nb.fields
+                                .get(document.querySelector("[data-nb-id]"))[0]
+                                .forceUpdate();
+                        }, 100);
+                    }
+                }
+            });
+            window.setTimeout(() => {
+                this.init();
+            }, 1000);
+        }
         this.form.onValidate.subscribe(() => (this.form.validate = this.validate()));
     }
     init() {
-        this.emailField = document.getElementById("en__field_supporter_emailAddress");
+        if (this.nbLoaded || !this.shouldRun)
+            return;
+        this.logger.log("Init Function");
         if (this.dateField && document.getElementsByName(this.dateField).length)
             this.nbDate = document.querySelector("[name='" + this.dateField + "']");
         if (this.statusField && document.getElementsByName(this.statusField).length)
             this.nbStatus = document.querySelector("[name='" + this.statusField + "']");
         if (!this.emailField) {
-            if (engrid_ENGrid.debug)
-                console.log("Engrid Neverbounce: E-mail Field Not Found");
+            this.logger.log("E-mail Field Not Found");
             return;
         }
-        if (!this.emailField) {
-            if (engrid_ENGrid.debug)
-                console.log("Engrid Neverbounce: E-mail Field Not Found", this.emailField);
-            return;
-        }
-        if (engrid_ENGrid.debug)
-            console.log("Engrid Neverbounce External Script Loaded");
         this.wrap(this.emailField, document.createElement("div"));
         const parentNode = this.emailField.parentNode;
         parentNode.id = "nb-wrapper";
@@ -14285,67 +14313,57 @@ class NeverBounce {
             '<div id="nb-feedback" class="en__field__error nb-hidden">Enter a valid email.</div>';
         this.insertAfter(nbCustomMessageHTML, this.emailField);
         const NBClass = this;
-        window.addEventListener("load", function () {
-            document
-                .getElementsByTagName("body")[0]
-                .addEventListener("nb:registered", function (event) {
-                const field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
-                field.addEventListener("nb:loading", function (e) {
-                    engrid_ENGrid.disableSubmit("Validating Your Email");
-                });
-                // Never Bounce: Do work when input changes or when API responds with an error
-                field.addEventListener("nb:clear", function (e) {
-                    NBClass.setEmailStatus("clear");
-                    engrid_ENGrid.enableSubmit();
-                    if (NBClass.nbDate)
-                        NBClass.nbDate.value = "";
-                    if (NBClass.nbStatus)
-                        NBClass.nbStatus.value = "";
-                });
-                // Never Bounce: Do work when results have an input that does not look like an email (i.e. missing @ or no .com/.net/etc...)
-                field.addEventListener("nb:soft-result", function (e) {
-                    NBClass.setEmailStatus("soft-result");
-                    if (NBClass.nbDate)
-                        NBClass.nbDate.value = "";
-                    if (NBClass.nbStatus)
-                        NBClass.nbStatus.value = "";
-                    engrid_ENGrid.enableSubmit();
-                });
-                // Never Bounce: When results have been received
-                field.addEventListener("nb:result", function (e) {
-                    if (e.detail.result.is(window._nb.settings.getAcceptedStatusCodes())) {
-                        NBClass.setEmailStatus("valid");
-                        if (NBClass.nbDate)
-                            NBClass.nbDate.value = engrid_ENGrid.formatDate(new Date(), NBClass.dateFormat);
-                        if (NBClass.nbStatus)
-                            NBClass.nbStatus.value = (e).detail.result.response.result;
-                    }
-                    else {
-                        NBClass.setEmailStatus("invalid");
-                        if (NBClass.nbDate)
-                            NBClass.nbDate.value = "";
-                        if (NBClass.nbStatus)
-                            NBClass.nbStatus.value = "";
-                    }
-                    engrid_ENGrid.enableSubmit();
-                });
-                if (field.value) {
-                    console.log(field);
-                    setTimeout(function () {
-                        window._nb.fields
-                            .get(document.querySelector("[data-nb-id]"))[0]
-                            .forceUpdate();
-                    }, 100);
-                }
+        document
+            .getElementsByTagName("body")[0]
+            .addEventListener("nb:registered", function (event) {
+            const field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
+            field.addEventListener("nb:loading", function (e) {
+                engrid_ENGrid.disableSubmit("Validating Your Email");
             });
-            // Never Bounce: Register field with the widget and broadcast nb:registration event
-            window._nb.fields.registerListener(NBClass.emailField, true);
+            // Never Bounce: Do work when input changes or when API responds with an error
+            field.addEventListener("nb:clear", function (e) {
+                NBClass.setEmailStatus("clear");
+                engrid_ENGrid.enableSubmit();
+                if (NBClass.nbDate)
+                    NBClass.nbDate.value = "";
+                if (NBClass.nbStatus)
+                    NBClass.nbStatus.value = "";
+            });
+            // Never Bounce: Do work when results have an input that does not look like an email (i.e. missing @ or no .com/.net/etc...)
+            field.addEventListener("nb:soft-result", function (e) {
+                NBClass.setEmailStatus("soft-result");
+                if (NBClass.nbDate)
+                    NBClass.nbDate.value = "";
+                if (NBClass.nbStatus)
+                    NBClass.nbStatus.value = "";
+                engrid_ENGrid.enableSubmit();
+            });
+            // Never Bounce: When results have been received
+            field.addEventListener("nb:result", function (e) {
+                if (e.detail.result.is(window._nb.settings.getAcceptedStatusCodes())) {
+                    NBClass.setEmailStatus("valid");
+                    if (NBClass.nbDate)
+                        NBClass.nbDate.value = engrid_ENGrid.formatDate(new Date(), NBClass.dateFormat);
+                    if (NBClass.nbStatus)
+                        NBClass.nbStatus.value = (e).detail.result.response.result;
+                }
+                else {
+                    NBClass.setEmailStatus("invalid");
+                    if (NBClass.nbDate)
+                        NBClass.nbDate.value = "";
+                    if (NBClass.nbStatus)
+                        NBClass.nbStatus.value = "";
+                }
+                engrid_ENGrid.enableSubmit();
+            });
         });
+        // Never Bounce: Register field with the widget and broadcast nb:registration event
+        window._nb.fields.registerListener(NBClass.emailField, true);
+        this.nbLoaded = true;
     }
     clearStatus() {
         if (!this.emailField) {
-            if (engrid_ENGrid.debug)
-                console.log("Engrid Neverbounce: E-mail Field Not Found");
+            this.logger.log("E-mail Field Not Found");
             return;
         }
         this.emailField.classList.remove("rm-error");
@@ -14364,11 +14382,9 @@ class NeverBounce {
             errorField.remove();
     }
     setEmailStatus(status) {
-        if (engrid_ENGrid.debug)
-            console.log("Neverbounce Status:", status);
+        this.logger.log("Status:", status);
         if (!this.emailField) {
-            if (engrid_ENGrid.debug)
-                console.log("Engrid Neverbounce: E-mail Field Not Found");
+            this.logger.log("E-mail Field Not Found");
             return;
         }
         // Search page for the NB Wrapper div and set as variable
@@ -14433,11 +14449,6 @@ class NeverBounce {
         var _a;
         (_a = referenceNode === null || referenceNode === void 0 ? void 0 : referenceNode.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(el, referenceNode.nextSibling);
     }
-    //  to insert HTML before a DIV
-    insertBefore(el, referenceNode) {
-        var _a;
-        (_a = referenceNode === null || referenceNode === void 0 ? void 0 : referenceNode.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(el, referenceNode);
-    }
     //  to Wrap HTML around a DIV
     wrap(el, wrapper) {
         var _a;
@@ -14446,9 +14457,8 @@ class NeverBounce {
     }
     validate() {
         var _a;
-        if (!this.emailField) {
-            if (engrid_ENGrid.debug)
-                console.log("Engrid Neverbounce validate(): E-mail Field Not Found. Returning true.");
+        if (!this.emailField || !this.shouldRun || !this.nbLoaded) {
+            this.logger.log("validate(): Should Not Run. Returning true.");
             return true;
         }
         if (this.nbStatus) {
