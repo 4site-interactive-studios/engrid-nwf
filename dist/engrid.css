@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 17, 2022 @ 17:25:24 ET
+ *  Date: Thursday, March 17, 2022 @ 20:27:30 ET
  *  By: fernando
  *  ENGrid styles: v0.10.12
  *  ENGrid scripts: v0.10.19
@@ -6868,7 +6868,7 @@ body:not([data-engrid-debug]) #debug-bar{
   font-family:Patua One;
   font-style:normal;
   font-weight:400;
-  src:url(https://fonts.gstatic.com/s/patuaone/v11/ZXuke1cDvLCKLDcimxB44_luFgxbuQ.woff2) format("woff2");
+  src:url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/ZXuke1cDvLCKLDcimxB44_luFgxbuQ.woff2) format("woff2");
   unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 @font-face{
@@ -6876,7 +6876,7 @@ body:not([data-engrid-debug]) #debug-bar{
   font-family:Fira Sans;
   font-style:normal;
   font-weight:400;
-  src:url(https://fonts.gstatic.com/s/firasans/v11/va9E4kDNxMZdWfMOD5Vvl4jLazX3dA.woff2) format("woff2");
+  src:url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/va9E4kDNxMZdWfMOD5Vvl4jLazX3dA.woff2) format("woff2");
   unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 @font-face{
@@ -6884,7 +6884,7 @@ body:not([data-engrid-debug]) #debug-bar{
   font-family:Fira Sans;
   font-style:bold;
   font-weight:700;
-  src:url(https://fonts.gstatic.com/s/firasans/v11/va9B4kDNxMZdWfMOD5VnLK3eRhf6Xl7Glw.woff2) format("woff2");
+  src:url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/va9B4kDNxMZdWfMOD5VnLK3eRhf6Xl7Glw.woff2) format("woff2");
   unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 [data-engrid-theme=nwf]{
