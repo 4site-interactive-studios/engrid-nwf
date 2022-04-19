@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, April 19, 2022 @ 11:53:38 ET
+ *  Date: Tuesday, April 19, 2022 @ 15:55:34 ET
  *  By: ryanoliver
  *  ENGrid styles: v0.10.12
  *  ENGrid scripts: v0.10.19
@@ -17845,7 +17845,8 @@ const options_OptionsDefaults = {
   AutoYear: false,
   TranslateFields: true,
   Debug: false,
-  RememberMe: false
+  RememberMe: false,
+  RegionLongFormat: ""
 };
 ;// CONCATENATED MODULE: ../engrid-scripts/packages/common/dist/interfaces/upsell-options.js
 const upsell_options_UpsellOptionsDefaults = {
@@ -18912,9 +18913,7 @@ class App extends engrid_ENGrid {
     }
 
     if (this.options.Debug || App.getUrlParameter("debug") == "true") // Enable debug if available is the first thing
-      App.setBodyData("debug", ""); // Page Background
-
-    new page_background_PageBackground(); // TODO: Abstract everything to the App class so we can remove custom-methods
+      App.setBodyData("debug", ""); // TODO: Abstract everything to the App class so we can remove custom-methods
 
     inputPlaceholder();
     preventAutocomplete();
@@ -19038,7 +19037,9 @@ class App extends engrid_ENGrid {
     new other_amount_OtherAmount();
     new min_max_amount_MinMaxAmount();
     new ticker_Ticker();
-    new ExpandRegionName();
+    new ExpandRegionName(); // Page Background
+
+    new page_background_PageBackground();
     this.setDataAttributes();
     engrid_ENGrid.setBodyData("data-engrid-scripts-js-loading", "finished");
   }
@@ -23652,7 +23653,7 @@ class ticker_Ticker {
     let ticker = document.createElement("div");
     ticker.classList.add("en__component");
     ticker.classList.add("en__component--ticker");
-    let str = `<div class="ticker">`;
+    let str = '<div class="ticker">';
 
     for (let i = 0; i < items.length; i++) {
       str += '<div class="ticker__item">' + items[i] + "</div>";
@@ -23662,12 +23663,6 @@ class ticker_Ticker {
     ticker.innerHTML = str;
     (_b = (_a = this.tickerElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.insertBefore(ticker, this.tickerElement);
     (_c = this.tickerElement) === null || _c === void 0 ? void 0 : _c.remove();
-    let tickerSelect = document.querySelector(".ticker");
-    console.log(tickerSelect);
-    let tickerWidth = tickerSelect ? getComputedStyle(tickerSelect).width : '1000';
-    tickerWidth = Math.round(parseInt(tickerWidth)).toString();
-    console.log(tickerWidth);
-    ticker.style.setProperty("--ticker-size", tickerWidth.toString());
   }
 
 }
@@ -23689,7 +23684,11 @@ class DataReplace {
   }
 
   searchElements() {
-    const enElements = document.querySelectorAll(".en__component--copyblock, .en__field");
+    const enElements = document.querySelectorAll(`
+      .en__component--copyblock,
+      .en__component--codeblock,
+      .en__field
+      `);
 
     if (enElements.length > 0) {
       enElements.forEach(item => {
@@ -23810,25 +23809,25 @@ class ExpandRegionName {
   }
 
   shouldRun() {
-    const region = document.querySelector('[name="supporter.NOT_TAGGED_132"]');
-    return region !== null;
+    return engrid_ENGrid.getOption("RegionLongFormat") !== "";
   }
 
   expandRegion() {
     const userRegion = document.querySelector('[name="supporter.region"]'); // User entered region on the page
 
-    const hiddenRegion = document.querySelector('[name="supporter.NOT_TAGGED_132"]'); // Hidden region long form field
+    const expandedRegionField = engrid_ENGrid.getOption("RegionLongFormat");
+    const hiddenRegion = document.querySelector(expandedRegionField); // Hidden region long form field
 
     if (!userRegion) {
       if (engrid_ENGrid.debug) console.log("No region field to populate the hidden region field with");
       return; // Don't populate hidden region field if user region field isn't on page
     }
 
-    if (userRegion.tagName === "SELECT" && "options" in userRegion && hiddenRegion) {
+    if (userRegion.tagName === "SELECT" && "options" in userRegion && hiddenRegion && "value" in hiddenRegion) {
       const regionValue = userRegion.options[userRegion.selectedIndex].innerText;
       hiddenRegion.value = regionValue;
       if (engrid_ENGrid.debug) console.log("Populated 'Region Long Format' field", hiddenRegion.value);
-    } else if (userRegion.tagName === "INPUT" && hiddenRegion) {
+    } else if (userRegion.tagName === "INPUT" && hiddenRegion && "value" in hiddenRegion) {
       const regionValue = userRegion.value;
       hiddenRegion.value = regionValue;
       if (engrid_ENGrid.debug) console.log("Populated 'Region Long Format' field", hiddenRegion.value);
@@ -29189,6 +29188,7 @@ const options = {
   SrcDefer: true,
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
+  RegionLongFormat: '[name="supporter.NOT_TAGGED_132"]',
   onLoad: () => {
     console.log("Starter Theme Loaded");
     customScript();
