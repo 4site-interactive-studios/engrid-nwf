@@ -16,6 +16,7 @@ const options: Options = {
   SrcDefer: true,
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
+  RegionLongFormat: '[name="supporter.NOT_TAGGED_132"]',
   onLoad: () => {
     console.log("Starter Theme Loaded");
     customScript();
