@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, April 21, 2022 @ 17:28:17 ET
+ *  Date: Monday, April 25, 2022 @ 14:50:08 ET
  *  By: fernando
  *  ENGrid styles: v0.11.9
- *  ENGrid scripts: v0.11.13
+ *  ENGrid scripts: v0.11.14
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -15339,7 +15339,14 @@ class AddNameToMessage {
 class ExpandRegionName {
     constructor() {
         this._form = EnForm.getInstance();
+        this.logger = new EngridLogger("ExpandRegionName", "#333333", "#00eb65", "🌍");
         if (this.shouldRun()) {
+            const expandedRegionField = engrid_ENGrid.getOption("RegionLongFormat");
+            const hiddenRegion = document.querySelector(`[name="${expandedRegionField}"]`);
+            if (!hiddenRegion) {
+                this.logger.log(`CREATED field ${expandedRegionField}`);
+                engrid_ENGrid.createHiddenInput(expandedRegionField);
+            }
             this._form.onSubmit.subscribe(() => this.expandRegion());
         }
     }
@@ -15349,30 +15356,27 @@ class ExpandRegionName {
     expandRegion() {
         const userRegion = document.querySelector('[name="supporter.region"]'); // User entered region on the page
         const expandedRegionField = engrid_ENGrid.getOption("RegionLongFormat");
-        const hiddenRegion = document.querySelector(expandedRegionField); // Hidden region long form field
+        const hiddenRegion = document.querySelector(`[name="${expandedRegionField}"]`); // Hidden region long form field
         if (!userRegion) {
-            if (engrid_ENGrid.debug)
-                console.log("No region field to populate the hidden region field with");
+            this.logger.log("No region field to populate the hidden region field with");
             return; // Don't populate hidden region field if user region field isn't on page
         }
-        if (userRegion.tagName === "SELECT" && "options" in userRegion && hiddenRegion && "value" in hiddenRegion) {
+        if (userRegion.tagName === "SELECT" && "options" in userRegion) {
             const regionValue = userRegion.options[userRegion.selectedIndex].innerText;
             hiddenRegion.value = regionValue;
-            if (engrid_ENGrid.debug)
-                console.log("Populated 'Region Long Format' field", hiddenRegion.value);
+            this.logger.log("Populated field", hiddenRegion.value);
         }
-        else if (userRegion.tagName === "INPUT" && hiddenRegion && "value" in hiddenRegion) {
+        else if (userRegion.tagName === "INPUT") {
             const regionValue = userRegion.value;
             hiddenRegion.value = regionValue;
-            if (engrid_ENGrid.debug)
-                console.log("Populated 'Region Long Format' field", hiddenRegion.value);
+            this.logger.log("Populated field", hiddenRegion.value);
         }
-        return;
+        return true;
     }
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.11.13";
+const AppVersion = "0.11.14";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
@@ -16015,7 +16019,7 @@ const options = {
   SrcDefer: true,
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
-  RegionLongFormat: '[name="supporter.NOT_TAGGED_132"]',
+  RegionLongFormat: "supporter.NOT_TAGGED_132",
   onLoad: () => {
     console.log("Starter Theme Loaded");
     customScript();

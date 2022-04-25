@@ -1,4 +1,4 @@
-import { Options, App, ENGrid } from "@4site/engrid-common"; // Uses ENGrid via NPM
+import { Options, App } from "@4site/engrid-common"; // Uses ENGrid via NPM
 // import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
@@ -16,7 +16,7 @@ const options: Options = {
   SrcDefer: true,
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
-  RegionLongFormat: '[name="supporter.NOT_TAGGED_132"]',
+  RegionLongFormat: "supporter.NOT_TAGGED_132",
   onLoad: () => {
     console.log("Starter Theme Loaded");
     customScript();
