@@ -17,6 +17,13 @@ const options: Options = {
   // ProgressBar: true,
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   RegionLongFormat: "supporter.NOT_TAGGED_132",
+  TidyContact: {
+    cid: 2,
+    record_field: "supporter.NOT_TAGGED_133",
+    date_field: "supporter.NOT_TAGGED_134",
+    status_field: "supporter.NOT_TAGGED_135",
+    countries: ["us"],
+  },
   onLoad: () => {
     console.log("Starter Theme Loaded");
     customScript();
