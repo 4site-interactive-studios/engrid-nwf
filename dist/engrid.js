@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, May 20, 2022 @ 18:12:24 ET
+ *  Date: Tuesday, May 24, 2022 @ 12:40:01 ET
  *  By: fernando
  *  ENGrid styles: v0.12.0
- *  ENGrid scripts: v0.12.0
+ *  ENGrid scripts: v0.12.1
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10499,7 +10499,9 @@ class EnForm {
         this._onValidate = new dist/* SignalDispatcher */.nz();
         this._onError = new dist/* SignalDispatcher */.nz();
         this.submit = true;
+        this.submitPromise = false;
         this.validate = true;
+        this.validatePromise = false;
     }
     static getInstance() {
         if (!EnForm.instance) {
@@ -11272,16 +11274,26 @@ class App extends engrid_ENGrid {
         this._form.onError.subscribe((s) => this.logger.danger("Error: " + s));
         window.enOnSubmit = () => {
             this._form.submit = true;
+            this._form.submitPromise = false;
             this._form.dispatchSubmit();
-            return this._form.submit;
+            if (!this._form.submit)
+                return false;
+            if (this._form.submitPromise)
+                return this._form.submitPromise;
+            return true;
         };
         window.enOnError = () => {
             this._form.dispatchError();
         };
         window.enOnValidate = () => {
             this._form.validate = true;
+            this._form.validatePromise = false;
             this._form.dispatchValidate();
-            return this._form.validate;
+            if (!this._form.validate)
+                return false;
+            if (this._form.validatePromise)
+                return this._form.validatePromise;
+            return true;
         };
         // iFrame Logic
         new iFrame();
@@ -15756,6 +15768,10 @@ class TidyContact {
             return;
         if (!this.isDirty || this.wasCalled)
             return;
+        if (!this._form.submit) {
+            this.logger.log("Form Submission Interrupted by Other Component");
+            return;
+        }
         const recordField = engrid_ENGrid.getField(this.options.record_field);
         const dateField = engrid_ENGrid.getField(this.options.date_field);
         const statusField = engrid_ENGrid.getField(this.options.status_field);
@@ -15848,13 +15864,13 @@ class TidyContact {
             // network error or json parsing error
             this.writeError(error);
         });
-        this._form.submit = ret;
+        this._form.submitPromise = ret;
         return ret;
     }
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.12.0";
+const AppVersion = "0.12.1";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
