@@ -459,12 +459,12 @@
       flex-wrap: wrap;
     }
 
-    input[type="checkbox"] + label {
-      flex-wrap: wrap;
-      br {
-        display: none;
-      }
-    }
+    // input[type="checkbox"] + label {
+    //   flex-wrap: wrap;
+    //   br {
+    //     display: none;
+    //   }
+    // }
   }
 
   .en__submit button {
