@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, May 25, 2022 @ 12:55:29 ET
- *  By: bryancasler
+ *  Date: Wednesday, May 25, 2022 @ 16:53:08 ET
+ *  By: fernando
  *  ENGrid styles: v0.12.0
- *  ENGrid scripts: v0.12.1
+ *  ENGrid scripts: v0.12.2
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -15502,7 +15502,12 @@ class RequiredIfVisible {
         return this.requiredIfVisibleElements.length > 0;
     }
     validate() {
-        this.requiredIfVisibleElements.forEach((field) => {
+        // We're converting the NodeListOf<HTMLElement> to an Array<HTMLElement>
+        // because we need to reverse the order of the elements so the last error
+        // is the highest element to get focus()
+        Array.from(this.requiredIfVisibleElements)
+            .reverse()
+            .forEach((field) => {
             engrid_ENGrid.removeError(field);
             if (engrid_ENGrid.isVisible(field)) {
                 this.logger.log(`${field.getAttribute("class")} is visible`);
@@ -15518,6 +15523,7 @@ class RequiredIfVisible {
                         this.logger.log(`${fieldElement.getAttribute("name")} is required`);
                         engrid_ENGrid.setError(field, `This field is required`);
                     }
+                    fieldElement.focus();
                     this._form.validate = false;
                 }
             }
@@ -15538,7 +15544,7 @@ var tidycontact_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 
 class TidyContact {
     constructor() {
-        var _a, _b;
+        var _a, _b, _c, _d;
         this.logger = new EngridLogger("TidyContact", "#FFFFFF", "#4d9068", "📧");
         this.endpoint = "https://api.tidycontact.io";
         this.wasCalled = false; // True if the API endpoint was called
@@ -15550,11 +15556,15 @@ class TidyContact {
         if (this.options === false)
             return;
         this.loadOptions();
+        if (!engrid_ENGrid.getField((_b = (_a = this.options) === null || _a === void 0 ? void 0 : _a.address_fields) === null || _b === void 0 ? void 0 : _b.country)) {
+            this.logger.log("Country field not found");
+            return;
+        }
         this.createFields();
         this.addEventListeners();
         if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "checkSubmissionFailed") &&
             !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed() &&
-            engrid_ENGrid.getFieldValue((_b = (_a = this.options) === null || _a === void 0 ? void 0 : _a.address_fields) === null || _b === void 0 ? void 0 : _b.address1) !=
+            engrid_ENGrid.getFieldValue((_d = (_c = this.options) === null || _c === void 0 ? void 0 : _c.address_fields) === null || _d === void 0 ? void 0 : _d.address1) !=
                 "") {
             this.logger.log("Address Field is not empty");
             this.isDirty = true;
@@ -15851,7 +15861,7 @@ class TidyContact {
                     dateField.value = this.todaysDate();
                 }
                 if (statusField) {
-                    statusField.value = data.error;
+                    statusField.value = `Error: ` + data.error;
                 }
             }
         }))
@@ -15870,7 +15880,7 @@ class TidyContact {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.12.1";
+const AppVersion = "0.12.2";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
