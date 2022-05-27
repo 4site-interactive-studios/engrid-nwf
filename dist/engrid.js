@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, May 27, 2022 @ 11:22:34 ET
- *  By: bryancasler
+ *  Date: Friday, May 27, 2022 @ 15:27:26 ET
+ *  By: fernando
  *  ENGrid styles: v0.12.0
- *  ENGrid scripts: v0.12.4
+ *  ENGrid scripts: v0.12.5
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -13376,6 +13376,7 @@ class ShowHideRadioCheckboxes {
         this.logger = new EngridLogger("ShowHideRadioCheckboxes", "black", "lightblue", "👁");
         this.elements = document.getElementsByName(elements);
         this.classes = classes;
+        this.createDataAttributes();
         this.hideAll();
         for (let i = 0; i < this.elements.length; i++) {
             let element = this.elements[i];
@@ -13387,6 +13388,35 @@ class ShowHideRadioCheckboxes {
                 this.show(element);
             });
         }
+    }
+    // Create default data attributes on all fields
+    createDataAttributes() {
+        this.elements.forEach((item) => {
+            if (item instanceof HTMLInputElement) {
+                let inputValue = item.value.replace(/\s/g, "");
+                document
+                    .querySelectorAll("." + this.classes + inputValue)
+                    .forEach((el) => {
+                    // Consider toggling "hide" class so these fields can be displayed when in a debug state
+                    if (el instanceof HTMLElement) {
+                        const fields = el.querySelectorAll("input, select, textarea");
+                        if (fields.length > 0) {
+                            fields.forEach((field) => {
+                                if (field instanceof HTMLInputElement ||
+                                    field instanceof HTMLSelectElement) {
+                                    if (!field.hasAttribute("data-original-value")) {
+                                        field.setAttribute("data-original-value", field.value);
+                                    }
+                                    if (!field.hasAttribute("data-value")) {
+                                        field.setAttribute("data-value", field.value);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
     }
     // Hide All Divs
     hideAll() {
@@ -13424,6 +13454,9 @@ class ShowHideRadioCheckboxes {
     }
     // Take the field values and add to a data attribute on the field
     toggleValue(item, type) {
+        if (type == "hide" && !engrid_ENGrid.isVisible(item))
+            return;
+        this.logger.log(`toggleValue: ${type}`);
         const fields = item.querySelectorAll("input, select, textarea");
         if (fields.length > 0) {
             fields.forEach((field) => {
@@ -13432,17 +13465,13 @@ class ShowHideRadioCheckboxes {
                     field instanceof HTMLSelectElement) {
                     if (field.name) {
                         const fieldValue = engrid_ENGrid.getFieldValue(field.name);
-                        if (!field.hasAttribute("data-original-value")) {
-                            field.setAttribute("data-original-value", fieldValue);
-                        }
                         const originalValue = field.getAttribute("data-original-value");
                         const dataValue = (_a = field.getAttribute("data-value")) !== null && _a !== void 0 ? _a : "";
-                        if (type === "hide" && engrid_ENGrid.isVisible(field)) {
+                        if (type === "hide") {
                             field.setAttribute("data-value", fieldValue);
                             engrid_ENGrid.setFieldValue(field.name, originalValue);
                         }
-                        if (type === "show" && !engrid_ENGrid.isVisible(field)) {
-                            field.setAttribute("data-value", "");
+                        else {
                             engrid_ENGrid.setFieldValue(field.name, dataValue);
                         }
                     }
@@ -15905,7 +15934,7 @@ class TidyContact {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.12.4";
+const AppVersion = "0.12.5";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
