@@ -24,6 +24,7 @@ const options: Options = {
     date_field: "supporter.NOT_TAGGED_134",
     status_field: "supporter.NOT_TAGGED_135",
     countries: ["us"],
+    country_fallback: "us",
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
