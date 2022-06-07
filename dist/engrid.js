@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, June 7, 2022 @ 15:04:41 ET
+ *  Date: Tuesday, June 7, 2022 @ 16:54:26 ET
  *  By: fernando
  *  ENGrid styles: v0.12.0
- *  ENGrid scripts: v0.12.9
+ *  ENGrid scripts: v0.12.10
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -16009,7 +16009,7 @@ class TidyContact {
                 }
                 if (statusField) {
                     statusField.value =
-                        "error" in data ? `ERROR: ` + data.error : "INVALID ADDRESS";
+                        "error" in data ? `ERROR: ` + data.error : "INVALIDADDRESS";
                 }
             }
         }))
@@ -16028,7 +16028,7 @@ class TidyContact {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.12.9";
+const AppVersion = "0.12.10";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
