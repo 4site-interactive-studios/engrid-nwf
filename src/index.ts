@@ -25,6 +25,10 @@ const options: Options = {
     status_field: "supporter.NOT_TAGGED_135",
     countries: ["us"],
     country_fallback: "us",
+    phone_enable: true,
+    phone_record_field: "supporter.NOT_TAGGED_138",
+    phone_date_field: "supporter.NOT_TAGGED_139",
+    phone_status_field: "supporter.NOT_TAGGED_140",
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
