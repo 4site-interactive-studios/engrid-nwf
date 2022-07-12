@@ -29,6 +29,7 @@ const options: Options = {
     phone_record_field: "supporter.NOT_TAGGED_138",
     phone_date_field: "supporter.NOT_TAGGED_139",
     phone_status_field: "supporter.NOT_TAGGED_140",
+    phone_preferred_countries: ["us", "ca", "gb"],
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");

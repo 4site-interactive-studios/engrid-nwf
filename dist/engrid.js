@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, July 11, 2022 @ 13:21:35 ET
- *  By: fernando
+ *  Date: Tuesday, July 12, 2022 @ 15:39:01 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.13.0
  *  ENGrid scripts: v0.13.3
  *
@@ -16933,24 +16933,22 @@ const main_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 
 const customScript = function () {
   console.log("ENGrid client scripts are executing"); // Add your client scripts here
-  // Adjust placeholders on Phone Numbers
 
-  const enAddInputPlaceholder = document.querySelector("[data-engrid-add-input-placeholders]");
-  let enFieldPhoneNumber = document.querySelector("input#en__field_supporter_phoneNumber");
-  let enFieldPhoneNumberRequired = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber");
-  let enFieldPhoneNumber2 = document.querySelector("input#en__field_supporter_phoneNumber2");
-  let enFieldPhoneNumber2Required = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber2");
+  const enAddInputPlaceholder = document.querySelector("[data-engrid-add-input-placeholders]"); // Add (Optional) to the PhoneNumber field label if the field is not required
 
-  if (enAddInputPlaceholder && enFieldPhoneNumber && enFieldPhoneNumberRequired) {
-    enFieldPhoneNumber.placeholder = "ex. +17035559555";
-  } else if (enAddInputPlaceholder && enFieldPhoneNumber && !enFieldPhoneNumberRequired) {
-    enFieldPhoneNumber.placeholder = "ex. +17035559555 (Optional)";
-  }
+  const enFieldPhoneNumberLabel = document.querySelector("label[for='en__field_supporter_phoneNumber']");
+  const enFieldPhoneNumberRequired = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber");
 
-  if (enAddInputPlaceholder && enFieldPhoneNumber2 && enFieldPhoneNumber2Required) {
-    enFieldPhoneNumber2.placeholder = "ex. +17035559555";
-  } else if (enAddInputPlaceholder && enFieldPhoneNumber2 && !enFieldPhoneNumber2Required) {
-    enFieldPhoneNumber2.placeholder = "ex. +17035559555 (Optional)";
+  if (enFieldPhoneNumberLabel && !enFieldPhoneNumberRequired) {
+    enFieldPhoneNumberLabel.insertAdjacentHTML("beforeend", " (Optional");
+  } // Add (Optional) to the PhoneNumber2 field label if the field is not required
+
+
+  const enFieldPhoneNumber2Label = document.querySelector("label[for='en__field_supporter_phoneNumber2']");
+  const enFieldPhoneNumber2Required = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber2");
+
+  if (enFieldPhoneNumber2Label && !enFieldPhoneNumber2Required) {
+    enFieldPhoneNumber2Label.insertAdjacentHTML("beforeend", " (Optional)");
   } // Add "Why is this required?" markup to the Title field
   // Only show it if the Title field is marked as required
 
@@ -17533,7 +17531,8 @@ const options = {
     phone_enable: true,
     phone_record_field: "supporter.NOT_TAGGED_138",
     phone_date_field: "supporter.NOT_TAGGED_139",
-    phone_status_field: "supporter.NOT_TAGGED_140"
+    phone_status_field: "supporter.NOT_TAGGED_140",
+    phone_preferred_countries: ["us", "ca", "gb"]
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");

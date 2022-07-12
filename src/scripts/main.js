@@ -4,47 +4,34 @@ export const customScript = function () {
   console.log("ENGrid client scripts are executing");
   // Add your client scripts here
 
-  // Adjust placeholders on Phone Numbers
   const enAddInputPlaceholder = document.querySelector(
     "[data-engrid-add-input-placeholders]"
   );
-  let enFieldPhoneNumber = document.querySelector(
-    "input#en__field_supporter_phoneNumber"
+
+  // Add (Optional) to the PhoneNumber field label if the field is not required
+  const enFieldPhoneNumberLabel = document.querySelector(
+    "label[for='en__field_supporter_phoneNumber']"
   );
-  let enFieldPhoneNumberRequired = document.querySelector(
+
+  const enFieldPhoneNumberRequired = document.querySelector(
     ".en__mandatory > * > input#en__field_supporter_phoneNumber"
   );
-  let enFieldPhoneNumber2 = document.querySelector(
-    "input#en__field_supporter_phoneNumber2"
+
+  if (enFieldPhoneNumberLabel && !enFieldPhoneNumberRequired) {
+    enFieldPhoneNumberLabel.insertAdjacentHTML("beforeend", " (Optional");
+  }
+
+  // Add (Optional) to the PhoneNumber2 field label if the field is not required
+  const enFieldPhoneNumber2Label = document.querySelector(
+    "label[for='en__field_supporter_phoneNumber2']"
   );
-  let enFieldPhoneNumber2Required = document.querySelector(
+
+  const enFieldPhoneNumber2Required = document.querySelector(
     ".en__mandatory > * > input#en__field_supporter_phoneNumber2"
   );
-  if (
-    enAddInputPlaceholder &&
-    enFieldPhoneNumber &&
-    enFieldPhoneNumberRequired
-  ) {
-    enFieldPhoneNumber.placeholder = "ex. +17035559555";
-  } else if (
-    enAddInputPlaceholder &&
-    enFieldPhoneNumber &&
-    !enFieldPhoneNumberRequired
-  ) {
-    enFieldPhoneNumber.placeholder = "ex. +17035559555 (Optional)";
-  }
-  if (
-    enAddInputPlaceholder &&
-    enFieldPhoneNumber2 &&
-    enFieldPhoneNumber2Required
-  ) {
-    enFieldPhoneNumber2.placeholder = "ex. +17035559555";
-  } else if (
-    enAddInputPlaceholder &&
-    enFieldPhoneNumber2 &&
-    !enFieldPhoneNumber2Required
-  ) {
-    enFieldPhoneNumber2.placeholder = "ex. +17035559555 (Optional)";
+
+  if (enFieldPhoneNumber2Label && !enFieldPhoneNumber2Required) {
+    enFieldPhoneNumber2Label.insertAdjacentHTML("beforeend", " (Optional)");
   }
 
   // Add "Why is this required?" markup to the Title field
