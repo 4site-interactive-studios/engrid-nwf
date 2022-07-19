@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, July 11, 2022 @ 13:21:35 ET
- *  By: fernando
+ *  Date: Tuesday, July 19, 2022 @ 13:49:10 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.13.0
- *  ENGrid scripts: v0.13.3
+ *  ENGrid scripts: v0.13.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10552,6 +10552,7 @@ class EnForm {
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/events/donation-amount.js
 
+
 class DonationAmount {
     constructor(radios = "transaction.donationAmt", other = "transaction.donationAmt.other") {
         this._onAmountChange = new dist/* SimpleEventDispatcher */.FK();
@@ -10569,8 +10570,9 @@ class DonationAmount {
                     this.amount = parseFloat(element.value);
                 }
                 else if (element.name == other) {
-                    element.value = this.preformatFloat(element.value);
-                    this.amount = parseFloat(element.value);
+                    const cleanedAmount = engrid_ENGrid.cleanAmount(element.value);
+                    element.value = cleanedAmount.toString();
+                    this.amount = cleanedAmount;
                 }
             }
         });
@@ -10578,7 +10580,7 @@ class DonationAmount {
         const otherField = document.querySelector(`[name='${this._other}']`);
         if (otherField) {
             otherField.addEventListener("keyup", (e) => {
-                this.amount = parseFloat(otherField.value);
+                this.amount = engrid_ENGrid.cleanAmount(otherField.value);
             });
         }
     }
@@ -10610,8 +10612,8 @@ class DonationAmount {
             }
             else {
                 const otherField = document.querySelector('input[name="' + this._other + '"]');
-                currentAmountValue = parseFloat(otherField.value);
-                this.amount = parseFloat(otherField.value);
+                currentAmountValue = engrid_ENGrid.cleanAmount(otherField.value);
+                this.amount = currentAmountValue;
             }
         }
     }
@@ -10648,27 +10650,6 @@ class DonationAmount {
         otherField.value = "";
         const otherWrapper = otherField.parentNode;
         otherWrapper.classList.add("en__field__item--hidden");
-    }
-    preformatFloat(float) {
-        if (!float) {
-            return "";
-        }
-        //Index of first comma
-        const posC = float.indexOf(",");
-        if (posC === -1) {
-            //No commas found, treat as float
-            return float;
-        }
-        //Index of first full stop
-        const posFS = float.indexOf(".");
-        if (posFS === -1) {
-            //Uses commas and not full stops - swap them (e.g. 1,23 --> 1.23)
-            return float.replace(/\,/g, ".");
-        }
-        //Uses both commas and full stops - ensure correct order and remove 1000s separators
-        return posC < posFS
-            ? float.replace(/\,/g, "")
-            : float.replace(/\./g, "").replace(",", ".");
     }
 }
 
@@ -10944,7 +10925,7 @@ class engrid_ENGrid {
         if (valueArray[valueArray.length - 1].length <= 2) {
             const cents = valueArray.pop() || "00";
             return parseInt(cents) > 0
-                ? Number(parseInt(valueArray.join("")) + "." + cents).toFixed(2)
+                ? parseFloat(Number(parseInt(valueArray.join("")) + "." + cents).toFixed(2))
                 : parseInt(valueArray.join(""));
         }
         return parseInt(valueArray.join(""));
@@ -12931,6 +12912,7 @@ class iFrame {
   <figure class="media-with-attribution"><img src="https://via.placeholder.com/300x300" data-src="https://via.placeholder.com/300x300" data-attribution-source="Jane Doe 1"><figattribution class="attribution-bottomright">Jane Doe 1</figattribution></figure>
 */
 
+const tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 class MediaAttribution {
     constructor() {
         // Find all images with attribution but not with the "data-attribution-hide-overlay" attribute
@@ -12960,6 +12942,19 @@ class MediaAttribution {
                     }
                     else {
                         mediaWithAttributionElement.insertAdjacentHTML("afterend", "<figattribution>" + attributionSource + "</figure>");
+                    }
+                    const attributionSourceTooltip = "attributionSourceTooltip" in mediaWithAttributionElement.dataset
+                        ? mediaWithAttributionElement.dataset.attributionSourceTooltip
+                        : false;
+                    if (attributionSourceTooltip) {
+                        tippy(".media-with-attribution figattribution", {
+                            content: attributionSourceTooltip,
+                            arrow: true,
+                            arrowType: "default",
+                            placement: "left",
+                            trigger: "click mouseenter focus",
+                            interactive: true,
+                        });
                     }
                 }
             }
@@ -14703,7 +14698,7 @@ class ProgressBar {
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/remember-me.js
 
 
-const tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
+const remember_me_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 class RememberMe {
     constructor(options) {
         this._form = EnForm.getInstance();
@@ -14895,7 +14890,7 @@ class RememberMe {
                         }
                     });
                 }
-                tippy("#rememberme-learn-more-toggle", { content: rememberMeInfo });
+                remember_me_tippy("#rememberme-learn-more-toggle", { content: rememberMeInfo });
             }
         }
         else if (this.rememberMeOptIn) {
@@ -15169,6 +15164,7 @@ class OtherAmount {
                             otherAmountTransformation: `${amount} => ${cleanAmount}`,
                         });
                     }
+                    target.value = cleanAmount.toString();
                 }
             });
         }
@@ -15318,11 +15314,13 @@ class MinMaxAmount {
     }
     // Disable Submit Button if the amount is not valid
     liveValidate() {
-        if (this._amount.amount < this.minAmount) {
+        const amount = engrid_ENGrid.cleanAmount(this._amount.amount.toString());
+        this.logger.log(`Amount: ${amount}`);
+        if (amount < this.minAmount) {
             this.logger.log("Amount is less than min amount: " + this.minAmount);
             engrid_ENGrid.setError(".en__field--withOther", this.minAmountMessage || "Invalid Amount");
         }
-        else if (this._amount.amount > this.maxAmount) {
+        else if (amount > this.maxAmount) {
             this.logger.log("Amount is greater than max amount: " + this.maxAmount);
             engrid_ENGrid.setError(".en__field--withOther", this.maxAmountMessage || "Invalid Amount");
         }
@@ -16877,7 +16875,7 @@ class TidyContact {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.3";
+const AppVersion = "0.13.7";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
