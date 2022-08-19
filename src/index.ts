@@ -26,6 +26,7 @@ const options: Options = {
     countries: ["us"],
     country_fallback: "us",
     phone_enable: true,
+    phone_preferred_countries: ["us", "ca", "gb"],
     phone_record_field: "supporter.NOT_TAGGED_138",
     phone_date_field: "supporter.NOT_TAGGED_139",
     phone_status_field: "supporter.NOT_TAGGED_140",
