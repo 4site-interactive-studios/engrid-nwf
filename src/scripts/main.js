@@ -4,6 +4,19 @@ export const customScript = function () {
   console.log("ENGrid client scripts are executing");
   // Add your client scripts here
 
+  // Add "(Optional)" to the PhoneNumber2 field label if the field is not required
+  const enFieldPhoneNumber2Label = document.querySelector(
+    "label[for='en__field_supporter_phoneNumber2']"
+  );
+
+  const enFieldPhoneNumber2Required = document.querySelector(
+    ".en__mandatory > * > input#en__field_supporter_phoneNumber2"
+  );
+
+  if (enFieldPhoneNumber2Label && !enFieldPhoneNumber2Required) {
+    enFieldPhoneNumber2Label.insertAdjacentHTML("beforeend", " (Optional)");
+  }
+
   // Add "Why is this required?" markup to the Title field
   // Only show it if the Title field is marked as required
   let titleLabel = document.querySelectorAll(

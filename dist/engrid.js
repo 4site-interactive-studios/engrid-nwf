@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, August 18, 2022 @ 21:00:56 ET
- *  By: fernando
- *  ENGrid styles: v0.13.13
- *  ENGrid scripts: v0.13.14
+ *  Date: Monday, August 29, 2022 @ 14:36:51 ET
+ *  By: bryancasler
+ *  ENGrid styles: v0.13.0
+ *  ENGrid scripts: v0.13.3
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10291,7 +10291,6 @@ const OptionsDefaults = {
     CapitalizeFields: false,
     ClickToExpand: true,
     CurrencySymbol: "$",
-    CurrencyCode: "USD",
     AddCurrencySymbol: true,
     ThousandsSeparator: "",
     DecimalSeparator: ".",
@@ -10553,7 +10552,6 @@ class EnForm {
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/events/donation-amount.js
 
-
 class DonationAmount {
     constructor(radios = "transaction.donationAmt", other = "transaction.donationAmt.other") {
         this._onAmountChange = new dist/* SimpleEventDispatcher */.FK();
@@ -10571,9 +10569,8 @@ class DonationAmount {
                     this.amount = parseFloat(element.value);
                 }
                 else if (element.name == other) {
-                    const cleanedAmount = engrid_ENGrid.cleanAmount(element.value);
-                    element.value = cleanedAmount.toString();
-                    this.amount = cleanedAmount;
+                    element.value = this.preformatFloat(element.value);
+                    this.amount = parseFloat(element.value);
                 }
             }
         });
@@ -10581,7 +10578,7 @@ class DonationAmount {
         const otherField = document.querySelector(`[name='${this._other}']`);
         if (otherField) {
             otherField.addEventListener("keyup", (e) => {
-                this.amount = engrid_ENGrid.cleanAmount(otherField.value);
+                this.amount = parseFloat(otherField.value);
             });
         }
     }
@@ -10613,8 +10610,8 @@ class DonationAmount {
             }
             else {
                 const otherField = document.querySelector('input[name="' + this._other + '"]');
-                currentAmountValue = engrid_ENGrid.cleanAmount(otherField.value);
-                this.amount = currentAmountValue;
+                currentAmountValue = parseFloat(otherField.value);
+                this.amount = parseFloat(otherField.value);
             }
         }
     }
@@ -10651,6 +10648,27 @@ class DonationAmount {
         otherField.value = "";
         const otherWrapper = otherField.parentNode;
         otherWrapper.classList.add("en__field__item--hidden");
+    }
+    preformatFloat(float) {
+        if (!float) {
+            return "";
+        }
+        //Index of first comma
+        const posC = float.indexOf(",");
+        if (posC === -1) {
+            //No commas found, treat as float
+            return float;
+        }
+        //Index of first full stop
+        const posFS = float.indexOf(".");
+        if (posFS === -1) {
+            //Uses commas and not full stops - swap them (e.g. 1,23 --> 1.23)
+            return float.replace(/\,/g, ".");
+        }
+        //Uses both commas and full stops - ensure correct order and remove 1000s separators
+        return posC < posFS
+            ? float.replace(/\,/g, "")
+            : float.replace(/\./g, "").replace(",", ".");
     }
 }
 
@@ -10855,11 +10873,6 @@ class engrid_ENGrid {
         const body = document.querySelector("body");
         return body.getAttribute(`data-engrid-${dataName}`);
     }
-    // Check if body has engrid data attributes
-    static hasBodyData(dataName) {
-        const body = document.querySelector("body");
-        return body.hasAttribute(`data-engrid-${dataName}`);
-    }
     // Return the option value
     static getOption(key) {
         return window.EngridOptions[key] || null;
@@ -10931,7 +10944,7 @@ class engrid_ENGrid {
         if (valueArray[valueArray.length - 1].length <= 2) {
             const cents = valueArray.pop() || "00";
             return parseInt(cents) > 0
-                ? parseFloat(Number(parseInt(valueArray.join("")) + "." + cents).toFixed(2))
+                ? Number(parseInt(valueArray.join("")) + "." + cents).toFixed(2)
                 : parseInt(valueArray.join(""));
         }
         return parseInt(valueArray.join(""));
@@ -11018,28 +11031,6 @@ class engrid_ENGrid {
         return !!(element.offsetWidth ||
             element.offsetHeight ||
             element.getClientRects().length);
-    }
-    static getCurrencySymbol() {
-        const currencyField = engrid_ENGrid.getField("transaction.paycurrency");
-        if (currencyField) {
-            const currencyArray = {
-                USD: "$",
-                EUR: "€",
-                GBP: "£",
-                AUD: "$",
-                CAD: "$",
-                JPY: "¥",
-            };
-            return currencyArray[currencyField.value] || "$";
-        }
-        return engrid_ENGrid.getOption("CurrencySymbol") || "$";
-    }
-    static getCurrencyCode() {
-        const currencyField = engrid_ENGrid.getField("transaction.paycurrency");
-        if (currencyField) {
-            return currencyField.value || "USD";
-        }
-        return engrid_ENGrid.getOption("CurrencyCode") || "USD";
     }
 }
 
@@ -11372,8 +11363,6 @@ class App extends engrid_ENGrid {
                 return this._form.validatePromise;
             return true;
         };
-        // Live Currency
-        new LiveCurrency();
         // iFrame Logic
         new iFrame();
         // Live Variables
@@ -11444,8 +11433,6 @@ class App extends engrid_ENGrid {
         // Translate Fields
         if (this.options.TranslateFields)
             new TranslateFields();
-        // Data Layer Events
-        new DataLayer();
         this.setDataAttributes();
         engrid_ENGrid.setBodyData("data-engrid-scripts-js-loading", "finished");
         window.EngridVersion = AppVersion;
@@ -11573,10 +11560,6 @@ class App extends engrid_ENGrid {
                 App.setBodyData("country", countrySelect.value);
             });
         }
-        const otherAmountDiv = document.querySelector(".en__field--donationAmt .en__field__item--other");
-        if (otherAmountDiv) {
-            otherAmountDiv.setAttribute("data-currency-symbol", App.getCurrencySymbol());
-        }
     }
 }
 
@@ -11602,7 +11585,7 @@ class AmountLabel {
     // Fix Amount Labels
     fixAmountLabels() {
         let amounts = document.querySelectorAll(".en__field--donationAmt label");
-        const currencySymbol = engrid_ENGrid.getCurrencySymbol() || "";
+        const currencySymbol = engrid_ENGrid.getOption("CurrencySymbol") || "";
         amounts.forEach((element) => {
             if (!isNaN(element.innerText)) {
                 element.innerText = currencySymbol + element.innerText;
@@ -11873,8 +11856,6 @@ class Autocomplete {
         this.autoCompleteField('[name="supporter.city"]', "address-level2");
         this.autoCompleteField('[name="supporter.region"]', "address-level1");
         this.autoCompleteField('[name="supporter.postcode"]', "postal-code");
-        // Ignore Autocomplete on the Recipient Email Field
-        this.autoCompleteField('[name="transaction.infemail"]', "none");
     }
     autoCompleteField(querySelector, autoCompleteValue) {
         let field = document.querySelector(querySelector);
@@ -11893,48 +11874,9 @@ class Autocomplete {
 class Ecard {
     constructor() {
         this._form = EnForm.getInstance();
-        this.logger = new EngridLogger("Ecard", "red", "#f5f5f5", "🪪");
-        if (!this.shouldRun())
-            return;
-        this._form.onValidate.subscribe(() => this.checkRecipientFields());
-        const schedule = engrid_ENGrid.getUrlParameter("engrid_ecard.schedule");
-        const scheduleField = engrid_ENGrid.getField("ecard.schedule");
-        const name = engrid_ENGrid.getUrlParameter("engrid_ecard.name");
-        const nameField = document.querySelector(".en__ecardrecipients__name input");
-        const email = engrid_ENGrid.getUrlParameter("engrid_ecard.email");
-        const emailField = document.querySelector(".en__ecardrecipients__email input");
-        if (schedule && scheduleField) {
-            // Check if chedule date is in the past
-            const scheduleDate = new Date(schedule.toString());
-            const today = new Date();
-            if (scheduleDate.setHours(0, 0, 0, 0) < today.setHours(0, 0, 0, 0)) {
-                // If it is, set the schedule to today
-                scheduleField.value = engrid_ENGrid.formatDate(today, "YYYY-MM-DD");
-            }
-            else {
-                // Otherwise, set the schedule to the date provided
-                scheduleField.value = schedule.toString();
-            }
-            this.logger.log("Schedule set to " + scheduleField.value);
+        if (engrid_ENGrid.getPageType() === "ECARD") {
+            this._form.onValidate.subscribe(() => this.checkRecipientFields());
         }
-        if (name && nameField) {
-            nameField.value = name.toString();
-            this.logger.log("Name set to " + nameField.value);
-        }
-        if (email && emailField) {
-            emailField.value = email.toString();
-            this.logger.log("Email set to " + emailField.value);
-        }
-        // Replace the Future Delivery Label with a H2
-        const futureDeliveryLabel = document.querySelector(".en__ecardrecipients__futureDelivery label");
-        if (futureDeliveryLabel) {
-            const futureDeliveryH2 = document.createElement("h2");
-            futureDeliveryH2.innerText = futureDeliveryLabel.innerText;
-            futureDeliveryLabel.replaceWith(futureDeliveryH2);
-        }
-    }
-    shouldRun() {
-        return engrid_ENGrid.getPageType() === "ECARD";
     }
     checkRecipientFields() {
         const addRecipientButton = document.querySelector(".en__ecarditems__addrecipient");
@@ -12489,8 +12431,6 @@ const watchGiveBySelectField = () => {
             }
             enFieldPaymentType.value = "applepay";
         }
-        const event = new Event("change");
-        enFieldPaymentType.dispatchEvent(event);
     };
     // Check Giving Frequency on page load
     if (enFieldGiveBySelect) {
@@ -12991,7 +12931,6 @@ class iFrame {
   <figure class="media-with-attribution"><img src="https://via.placeholder.com/300x300" data-src="https://via.placeholder.com/300x300" data-attribution-source="Jane Doe 1"><figattribution class="attribution-bottomright">Jane Doe 1</figattribution></figure>
 */
 
-const tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 class MediaAttribution {
     constructor() {
         // Find all images with attribution but not with the "data-attribution-hide-overlay" attribute
@@ -13021,19 +12960,6 @@ class MediaAttribution {
                     }
                     else {
                         mediaWithAttributionElement.insertAdjacentHTML("afterend", "<figattribution>" + attributionSource + "</figure>");
-                    }
-                    const attributionSourceTooltip = "attributionSourceTooltip" in mediaWithAttributionElement.dataset
-                        ? mediaWithAttributionElement.dataset.attributionSourceTooltip
-                        : false;
-                    if (attributionSourceTooltip) {
-                        tippy(".media-with-attribution figattribution", {
-                            content: attributionSourceTooltip,
-                            arrow: true,
-                            arrowType: "default",
-                            placement: "left",
-                            trigger: "click mouseenter focus",
-                            interactive: true,
-                        });
                     }
                 }
             }
@@ -13083,7 +13009,7 @@ class LiveVariables {
     }
     getAmountTxt(amount = 0) {
         var _a, _b, _c, _d;
-        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
+        const symbol = (_a = this.options.CurrencySymbol) !== null && _a !== void 0 ? _a : "$";
         const dec_separator = (_b = this.options.DecimalSeparator) !== null && _b !== void 0 ? _b : ".";
         const thousands_separator = (_c = this.options.ThousandsSeparator) !== null && _c !== void 0 ? _c : "";
         const dec_places = amount % 1 == 0 ? 0 : (_d = this.options.DecimalPlaces) !== null && _d !== void 0 ? _d : 2;
@@ -13092,7 +13018,7 @@ class LiveVariables {
     }
     getUpsellAmountTxt(amount = 0) {
         var _a, _b, _c, _d;
-        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
+        const symbol = (_a = this.options.CurrencySymbol) !== null && _a !== void 0 ? _a : "$";
         const dec_separator = (_b = this.options.DecimalSeparator) !== null && _b !== void 0 ? _b : ".";
         const thousands_separator = (_c = this.options.ThousandsSeparator) !== null && _c !== void 0 ? _c : "";
         const dec_places = amount % 1 == 0 ? 0 : (_d = this.options.DecimalPlaces) !== null && _d !== void 0 ? _d : 2;
@@ -13491,7 +13417,7 @@ class UpsellLightbox {
     }
     getAmountTxt(amount = 0) {
         var _a, _b, _c, _d;
-        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
+        const symbol = (_a = engrid_ENGrid.getOption("CurrencySymbol")) !== null && _a !== void 0 ? _a : "$";
         const dec_separator = (_b = engrid_ENGrid.getOption("DecimalSeparator")) !== null && _b !== void 0 ? _b : ".";
         const thousands_separator = (_c = engrid_ENGrid.getOption("ThousandsSeparator")) !== null && _c !== void 0 ? _c : "";
         const dec_places = amount % 1 == 0 ? 0 : (_d = engrid_ENGrid.getOption("DecimalPlaces")) !== null && _d !== void 0 ? _d : 2;
@@ -13535,7 +13461,7 @@ class ShowHideRadioCheckboxes {
     createDataAttributes() {
         this.elements.forEach((item) => {
             if (item instanceof HTMLInputElement) {
-                let inputValue = item.value.replace(/\W/g, "");
+                let inputValue = item.value.replace(/\s/g, "");
                 document
                     .querySelectorAll("." + this.classes + inputValue)
                     .forEach((el) => {
@@ -13569,7 +13495,7 @@ class ShowHideRadioCheckboxes {
     }
     // Hide Single Element Div
     hide(item) {
-        let inputValue = item.value.replace(/\W/g, "");
+        let inputValue = item.value.replace(/\s/g, "");
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
             if (el instanceof HTMLElement) {
@@ -13581,7 +13507,7 @@ class ShowHideRadioCheckboxes {
     }
     // Show Single Element Div
     show(item) {
-        let inputValue = item.value.replace(/\W/g, "");
+        let inputValue = item.value.replace(/\s/g, "");
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
             if (el instanceof HTMLElement) {
@@ -14777,7 +14703,7 @@ class ProgressBar {
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/remember-me.js
 
 
-const remember_me_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
+const tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 class RememberMe {
     constructor(options) {
         this._form = EnForm.getInstance();
@@ -14969,7 +14895,7 @@ class RememberMe {
                         }
                     });
                 }
-                remember_me_tippy("#rememberme-learn-more-toggle", { content: rememberMeInfo });
+                tippy("#rememberme-learn-more-toggle", { content: rememberMeInfo });
             }
         }
         else if (this.rememberMeOptIn) {
@@ -15243,7 +15169,6 @@ class OtherAmount {
                             otherAmountTransformation: `${amount} => ${cleanAmount}`,
                         });
                     }
-                    target.value = cleanAmount.toString();
                 }
             });
         }
@@ -15348,7 +15273,7 @@ class EngridLogger {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/min-max-amount.js
-// This script adds an erros message to the page if the amount is greater than the max amount or less than the min amount.
+// This script checks if the donations amounts are numbers and if they are, appends the correct currency symbol
 
 class MinMaxAmount {
     constructor() {
@@ -15393,13 +15318,11 @@ class MinMaxAmount {
     }
     // Disable Submit Button if the amount is not valid
     liveValidate() {
-        const amount = engrid_ENGrid.cleanAmount(this._amount.amount.toString());
-        this.logger.log(`Amount: ${amount}`);
-        if (amount < this.minAmount) {
+        if (this._amount.amount < this.minAmount) {
             this.logger.log("Amount is less than min amount: " + this.minAmount);
             engrid_ENGrid.setError(".en__field--withOther", this.minAmountMessage || "Invalid Amount");
         }
-        else if (amount > this.maxAmount) {
+        else if (this._amount.amount > this.maxAmount) {
             this.logger.log("Amount is greater than max amount: " + this.maxAmount);
             engrid_ENGrid.setError(".en__field--withOther", this.maxAmountMessage || "Invalid Amount");
         }
@@ -15474,48 +15397,6 @@ class Ticker {
         ticker.style.setProperty("--ticker-size", tickerWidth);
         this.logger.log("Ticker Size: " + ticker.style.getPropertyValue("--ticker-size"));
         this.logger.log("Ticker Width: " + tickerWidth);
-    }
-}
-
-;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/data-layer.js
-// This class automatically select other radio input when an amount is entered into it.
-
-class DataLayer {
-    constructor() {
-        this.logger = new EngridLogger("DataLayer", "#f1e5bc", "#009cdc", "📊");
-        this.dataLayer = window.dataLayer || [];
-        this._form = EnForm.getInstance();
-        this.onLoad();
-        this._form.onSubmit.subscribe(() => this.onSubmit());
-    }
-    onLoad() {
-        if (engrid_ENGrid.getGiftProcess()) {
-            this.logger.log("EN_SUCCESSFUL_DONATION");
-            this.dataLayer.push({
-                event: "EN_SUCCESSFUL_DONATION",
-            });
-        }
-        else {
-            this.logger.log("EN_PAGE_VIEW");
-            this.dataLayer.push({
-                event: "EN_PAGE_VIEW",
-            });
-        }
-    }
-    onSubmit() {
-        const optIn = document.querySelector(".en__field__item:not(.en__field--question) input[name^='supporter.questions'][type='checkbox']:checked");
-        if (optIn) {
-            this.logger.log("EN_SUBMISSION_WITH_EMAIL_OPTIN");
-            this.dataLayer.push({
-                event: "EN_SUBMISSION_WITH_EMAIL_OPTIN",
-            });
-        }
-        else {
-            this.logger.log("EN_SUBMISSION_WITHOUT_EMAIL_OPTIN");
-            this.dataLayer.push({
-                event: "EN_SUBMISSION_WITHOUT_EMAIL_OPTIN",
-            });
-        }
     }
 }
 
@@ -16995,93 +16876,11 @@ class TidyContact {
     }
 }
 
-;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/live-currency.js
-// This script enables live currency symbol and code to the page.
-
-class LiveCurrency {
-    constructor() {
-        this.logger = new EngridLogger("LiveCurrency", "#1901b1", "#feb47a", "💲");
-        this.elementsFound = false;
-        this._amount = DonationAmount.getInstance();
-        this._frequency = DonationFrequency.getInstance();
-        this.searchElements();
-        if (!this.shouldRun())
-            return;
-        this.updateCurrency();
-        this.addEventListeners();
-    }
-    searchElements() {
-        const enElements = document.querySelectorAll(`
-      .en__component--copyblock,
-      .en__component--codeblock,
-      .en__field label,
-      .en__submit
-      `);
-        if (enElements.length > 0) {
-            this.elementsFound = true;
-            const currency = engrid_ENGrid.getCurrencySymbol();
-            const currencyCode = engrid_ENGrid.getCurrencyCode();
-            const currencyElement = `<span class="engrid-currency-symbol">${currency}</span>`;
-            const currencyCodeElement = `<span class="engrid-currency-code">${currencyCode}</span>`;
-            enElements.forEach((item) => {
-                if (item instanceof HTMLElement &&
-                    (item.innerHTML.includes("[$]") || item.innerHTML.includes("[$$$]"))) {
-                    this.logger.log("Old Value:", item.innerHTML);
-                    const currencyRegex = /\[\$\]/g;
-                    const currencyCodeRegex = /\[\$\$\$\]/g;
-                    item.innerHTML = item.innerHTML.replace(currencyCodeRegex, currencyCodeElement);
-                    item.innerHTML = item.innerHTML.replace(currencyRegex, currencyElement);
-                    this.logger.log("New Value:", item.innerHTML);
-                }
-            });
-        }
-    }
-    shouldRun() {
-        return this.elementsFound;
-    }
-    addEventListeners() {
-        this._amount.onAmountChange.subscribe(() => {
-            setTimeout(() => {
-                this.updateCurrency();
-            }, 10);
-        });
-        this._frequency.onFrequencyChange.subscribe(() => {
-            setTimeout(() => {
-                this.searchElements();
-                this.updateCurrency();
-            }, 10);
-        });
-        const currencyField = engrid_ENGrid.getField("transaction.paycurrency");
-        if (currencyField) {
-            currencyField.addEventListener("change", () => {
-                setTimeout(() => {
-                    this.updateCurrency();
-                    this._amount.load();
-                    const otherAmountDiv = document.querySelector(".en__field--donationAmt .en__field__item--other");
-                    if (otherAmountDiv) {
-                        otherAmountDiv.setAttribute("data-currency-symbol", engrid_ENGrid.getCurrencySymbol());
-                    }
-                }, 10);
-            });
-        }
-    }
-    updateCurrency() {
-        document.querySelectorAll(".engrid-currency-symbol").forEach((item) => {
-            item.innerHTML = engrid_ENGrid.getCurrencySymbol();
-        });
-        document.querySelectorAll(".engrid-currency-code").forEach((item) => {
-            item.innerHTML = engrid_ENGrid.getCurrencyCode();
-        });
-    }
-}
-
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.14";
+const AppVersion = "0.13.3";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
-
-
 
 
 
@@ -17134,8 +16933,16 @@ const main_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 
 const customScript = function () {
   console.log("ENGrid client scripts are executing"); // Add your client scripts here
-  // Add "Why is this required?" markup to the Title field
+  // Add "(Optional)" to the PhoneNumber2 field label if the field is not required
+
+  const enFieldPhoneNumber2Label = document.querySelector("label[for='en__field_supporter_phoneNumber2']");
+  const enFieldPhoneNumber2Required = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber2");
+
+  if (enFieldPhoneNumber2Label && !enFieldPhoneNumber2Required) {
+    enFieldPhoneNumber2Label.insertAdjacentHTML("beforeend", " (Optional)");
+  } // Add "Why is this required?" markup to the Title field
   // Only show it if the Title field is marked as required
+
 
   let titleLabel = document.querySelectorAll(".en__field--title.en__mandatory > label")[0];
   let pageType;
