@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, September 6, 2022 @ 16:02:15 ET
- *  By: bryancasler
+ *  Date: Monday, December 5, 2022 @ 16:10:44 ET
+ *  By: michaelwdc
  *  ENGrid styles: v0.13.19
  *  ENGrid scripts: v0.13.21
  *
@@ -17780,7 +17780,7 @@ const options = {
   RegionLongFormat: "supporter.NOT_TAGGED_132",
   TidyContact: {
     cid: 2,
-    us_zip_divider: "-",
+    us_zip_divider: "",
     record_field: "supporter.NOT_TAGGED_133",
     date_field: "supporter.NOT_TAGGED_134",
     status_field: "supporter.NOT_TAGGED_135",
