@@ -6,65 +6,7 @@ import { FormSwitch } from "./scripts/form-switch/form-switch";
 import { XVerify } from "./scripts/xverify/xverify";
 
 const options: Options = {
-  applePay: false,
-  CapitalizeFields: true,
-  ClickToExpand: true,
-  DecimalSeparator: ".",
-  // AutoYear: true,
-  MediaAttribution: true,
-  SkipToMainContentLink: true,
-  SrcDefer: true,
-  // ProgressBar: true,
-  Debug: App.getUrlParameter("debug") == "true" ? true : false,
-  RegionLongFormat: "supporter.NOT_TAGGED_132",
-  TidyContact: {
-    cid: 2,
-    us_zip_divider: "-",
-    record_field: "supporter.NOT_TAGGED_133",
-    date_field: "supporter.NOT_TAGGED_134",
-    status_field: "supporter.NOT_TAGGED_135",
-    countries: ["us"],
-    country_fallback: "us",
-    phone_enable: true,
-    phone_preferred_countries: ["us", "ca", "gb"],
-    phone_record_field: "supporter.NOT_TAGGED_138",
-    phone_date_field: "supporter.NOT_TAGGED_139",
-    phone_status_field: "supporter.NOT_TAGGED_140",
-  },
-  onLoad: () => {
-    console.log("Starter Theme Loaded");
-    customScript();
-    if (window.hasOwnProperty("XVerifyOptions")) {
-      (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
-    }
-    (<any>window).validateXverify = XVerify.validateXverify;
-  },
-  onResize: () => console.log("Starter Theme Window Resized"),
-  onSubmit: () => {
-    const premiumGift = <HTMLInputElement>(
-      document.querySelector('[name="en__pg"]:checked')
-    );
-    let excludePremiumGift: boolean | HTMLInputElement = false;
-    if (premiumGift) {
-      excludePremiumGift =
-        premiumGift.value === "0"
-          ? <HTMLInputElement>(
-              document.querySelector(
-                '[name="supporter.questions.100077"][value="Y"]'
-              )
-            )
-          : <HTMLInputElement>(
-              document.querySelector(
-                '[name="supporter.questions.100077"][value="N"]'
-              )
-            );
-      if (excludePremiumGift) {
-        excludePremiumGift.checked = true;
-        console.log("Excluding Premium Gift", excludePremiumGift);
-      }
-    }
-    return true;
-  },
+
 };
 new App(options);
 
