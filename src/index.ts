@@ -19,7 +19,7 @@ const options: Options = {
   RegionLongFormat: "supporter.NOT_TAGGED_132",
   TidyContact: {
     cid: 2,
-    us_zip_divider: "-",
+    us_zip_divider: "",
     record_field: "supporter.NOT_TAGGED_133",
     date_field: "supporter.NOT_TAGGED_134",
     status_field: "supporter.NOT_TAGGED_135",
