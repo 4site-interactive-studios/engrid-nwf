@@ -68,4 +68,4 @@ const options: Options = {
 };
 new App(options);
 
-(<any>window).FormSwitch = FormSwitch;
+//(<any>window).FormSwitch = FormSwitch;
