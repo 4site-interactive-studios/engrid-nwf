@@ -17,6 +17,16 @@ export const customScript = function () {
     enFieldPhoneNumber2Label.insertAdjacentHTML("beforeend", " (Optional)");
   }
 
+  // Remove (Optional) from the Home Phone field placeholder
+  const enFieldHomePhonePlaceholder = document.querySelector(
+    '[name="supporter.phoneNumber"]'
+  );
+
+  if (enFieldHomePhonePlaceholder) {
+    enFieldHomePhonePlaceholder.placeholder =
+      enFieldHomePhonePlaceholder.placeholder.replace("(Optional)", "").trim();
+  }
+
   // Add "Why is this required?" markup to the Title field
   // Only show it if the Title field is marked as required
   let titleLabel = document.querySelectorAll(
