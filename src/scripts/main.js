@@ -23,7 +23,7 @@ export const customScript = function () {
   );
 
   if (enFieldHomePhonePlaceholder) {
-    enFieldHomePhonePlaceholder.placeholder = "Required for ECheck";
+    enFieldHomePhonePlaceholder.placeholder = "Phone Number";
   }
 
   // Add "Why is this required?" markup to the Title field

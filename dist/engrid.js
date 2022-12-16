@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, December 7, 2022 @ 13:05:46 ET
+ *  Date: Friday, December 16, 2022 @ 22:06:44 ET
  *  By: fernando
  *  ENGrid styles: v0.13.19
  *  ENGrid scripts: v0.13.31
@@ -17308,7 +17308,7 @@ const customScript = function () {
   const enFieldHomePhonePlaceholder = document.querySelector('[name="supporter.phoneNumber"]');
 
   if (enFieldHomePhonePlaceholder) {
-    enFieldHomePhonePlaceholder.placeholder = "Required for ECheck";
+    enFieldHomePhonePlaceholder.placeholder = "Phone Number";
   } // Add "Why is this required?" markup to the Title field
   // Only show it if the Title field is marked as required
 
