@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, February 6, 2023 @ 16:12:31 ET
+ *  Date: Monday, February 6, 2023 @ 16:13:47 ET
  *  By: fernando
  *  ENGrid styles: v0.13.34
  *  ENGrid scripts: v0.13.35
@@ -17829,7 +17829,9 @@ class XVerify {
     xv.emailField.dataset.xverifyDate = engrid_ENGrid.formatDate(new Date(), xv.xvDateFormat);
 
     if (!["accept_all", "unknown", "valid", "risky"].includes(data.email.status)) {
-      xv.emailField?.focus();
+      var _xv$emailField;
+
+      (_xv$emailField = xv.emailField) === null || _xv$emailField === void 0 ? void 0 : _xv$emailField.focus();
       if (engrid_ENGrid.debug) console.log("Engrid XVerify validateXverify():", "INVALID");
       xv.invalid(data.email.message);
       return false;
