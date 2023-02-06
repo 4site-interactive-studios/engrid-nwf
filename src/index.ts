@@ -18,7 +18,7 @@ const options: Options = {
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   RegionLongFormat: "supporter.NOT_TAGGED_132",
   TidyContact: {
-    cid: 2,
+    cid: "bef8ae72-076f-4188-9e29-45432964af49",
     us_zip_divider: "",
     record_field: "supporter.NOT_TAGGED_133",
     date_field: "supporter.NOT_TAGGED_134",
