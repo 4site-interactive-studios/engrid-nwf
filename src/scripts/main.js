@@ -56,4 +56,22 @@ export const customScript = function () {
   if (document.querySelector(".en__component--hubgadget")) {
     document.body.classList.add("radio-to-buttons_donationAmt");
   }
+
+  //NWF2 theme scripts
+  if (document.body.dataset.engridTheme === 'nwf2') {
+    //tooltip for the background image
+    const bgImageTooltip = document.querySelector(
+      ".page-backgroundImage figattribution"
+    );
+
+    if (bgImageTooltip) {
+      const tippyInstance = bgImageTooltip._tippy;
+      if (tippyInstance) {
+        tippyInstance.setProps({
+          arrow: false,
+          allowHTML: true
+        })
+      }
+    }
+  }
 };

@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 6, 2023 @ 10:56:33 ET
+ *  Date: Friday, September 8, 2023 @ 14:07:41 ET
  *  By: michael
  *  ENGrid styles: v0.15.0
  *  ENGrid scripts: v0.15.2
@@ -19301,6 +19301,23 @@ const customScript = function () {
 
   if (document.querySelector(".en__component--hubgadget")) {
     document.body.classList.add("radio-to-buttons_donationAmt");
+  } //NWF2 theme scripts
+
+
+  if (document.body.dataset.engridTheme === 'nwf2') {
+    //tooltip for the background image
+    const bgImageTooltip = document.querySelector(".page-backgroundImage figattribution");
+
+    if (bgImageTooltip) {
+      const tippyInstance = bgImageTooltip._tippy;
+
+      if (tippyInstance) {
+        tippyInstance.setProps({
+          arrow: false,
+          allowHTML: true
+        });
+      }
+    }
   }
 };
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js
