@@ -1,5 +1,5 @@
 import { Options, App } from "@4site/engrid-common"; // Uses ENGrid via NPM
-// import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+//import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
@@ -66,6 +66,29 @@ const options: Options = {
     return true;
   },
 };
+
+if (document.body.dataset.engridTheme === 'nwf2') {
+  options.RememberMe = {
+    checked: true,
+    //remoteUrl: "https://www.ran.org/wp-content/themes/ran-2020/data-remember.html",
+    fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--email",
+    fieldOptInSelectorTargetLocation: "after",
+    fieldClearSelectorTarget: "div.en__field--email div",
+    fieldClearSelectorTargetLocation: "after",
+    fieldNames: [
+      "supporter.firstName",
+      "supporter.lastName",
+      "supporter.address1",
+      "supporter.address2",
+      "supporter.city",
+      "supporter.country",
+      "supporter.region",
+      "supporter.postcode",
+      "supporter.emailAddress",
+    ],
+  };
+}
+
 new App(options);
 
 (<any>window).FormSwitch = FormSwitch;

@@ -73,5 +73,17 @@ export const customScript = function () {
         })
       }
     }
+
+    // Position monthly upsell after the recurring frequency field
+    let inlineMonthlyUpsell = document.querySelector(
+      ".move-after--transaction-recurrfreq"
+    );
+    let recurrFrequencyField = document.querySelector(".en__field--recurrfreq");
+    if (inlineMonthlyUpsell && recurrFrequencyField) {
+      recurrFrequencyField.insertAdjacentElement(
+        "beforeend",
+        inlineMonthlyUpsell
+      );
+    }
   }
 };

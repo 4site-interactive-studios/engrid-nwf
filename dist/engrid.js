@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, September 8, 2023 @ 14:07:41 ET
+ *  Date: Saturday, September 9, 2023 @ 17:45:23 ET
  *  By: michael
  *  ENGrid styles: v0.15.0
  *  ENGrid scripts: v0.15.2
@@ -19317,6 +19317,14 @@ const customScript = function () {
           allowHTML: true
         });
       }
+    } // Position monthly upsell after the recurring frequency field
+
+
+    let inlineMonthlyUpsell = document.querySelector(".move-after--transaction-recurrfreq");
+    let recurrFrequencyField = document.querySelector(".en__field--recurrfreq");
+
+    if (inlineMonthlyUpsell && recurrFrequencyField) {
+      recurrFrequencyField.insertAdjacentElement("beforeend", inlineMonthlyUpsell);
     }
   }
 };
@@ -19843,7 +19851,7 @@ class XVerify {
 _defineProperty(XVerify, "instance", void 0);
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM
-// import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+//import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 
 
 
@@ -19902,6 +19910,19 @@ const options = {
     return true;
   }
 };
+
+if (document.body.dataset.engridTheme === 'nwf2') {
+  options.RememberMe = {
+    checked: true,
+    //remoteUrl: "https://www.ran.org/wp-content/themes/ran-2020/data-remember.html",
+    fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--email",
+    fieldOptInSelectorTargetLocation: "after",
+    fieldClearSelectorTarget: "div.en__field--email div",
+    fieldClearSelectorTargetLocation: "after",
+    fieldNames: ["supporter.firstName", "supporter.lastName", "supporter.address1", "supporter.address2", "supporter.city", "supporter.country", "supporter.region", "supporter.postcode", "supporter.emailAddress"]
+  };
+}
+
 new App(options);
 window.FormSwitch = FormSwitch;
 })();

@@ -12,6 +12,7 @@
   --engrid__content-footer_background-color: #ffffff;
   --engrid__body_box-shadow: none;
   --engrid__body_padding: 0 123px;
+  --engrid__content-footer_padding: 70px 123px;
 
   //Typography: default
   --default_font-family: "Fira Sans", -apple-system, BlinkMacSystemFont,
@@ -32,6 +33,7 @@
 
   //Click to expand
   --click-to-expand__copy-area_height: 170px;
+  --click-to-expand__cta-image_url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M5.53857 13.5385L11.077 7.99999L5.53857 2.46153' stroke='%23132A44' stroke-width='2'/%3E%3C/svg%3E");;
 
   //Inputs
   --input_color: var(--color_primary);
@@ -124,9 +126,59 @@
   --submit__button_border-color: var(--color_orange);
   --submit__button_border-color_hover: #af421e;
 
+  -webkit-font-smoothing: antialiased;
+
+  //Hide unused page sections in page builder
+  &#en__pagebuilder .en__component--advrow {
+    .page-alert,
+    .body-headerOutside,
+    .body-header,
+    .body-bannerOverlay,
+    .body-footer,
+    .body-footerOutside,
+    .content-footerSpacer,
+    .content-preFooter,
+    .page-backgroundImageOverlay {
+      display: none;
+    }
+  }
+
   .content-header,
   .content-footer {
     grid-column: bc;
+  }
+
+  &[data-engrid-layout="centercenter2col"] {
+    --engrid__body-header_padding: 0;
+    --engrid__body_padding: 0 2rem;
+    --engrid__body-top_padding: 0 2rem;
+    --engrid__body-main_padding: 1rem 2rem;
+    --engrid__body-footer_padding: 0;
+    --engrid__body-title_padding: 1rem 2rem;
+    --donation-amount__button_count: 2;
+
+    .content-header,
+    .content-footer {
+      grid-column: pc;
+    }
+
+    .en__component--premiumgiftblock {
+      .en__pg__body {
+        grid-template-columns: min-content auto;
+        grid-template-areas:
+          "en__pg__select en__pg__detail"
+          ". en__pg__display";
+        row-gap: 20px;
+      }
+    }
+
+    .payment-information-header {
+      flex-direction: column;
+      align-items: flex-start;
+      h2 {
+        margin-bottom: 5px;
+      }
+    }
   }
 
   @media screen and (min-width: $one_col_body-column_max-width) {
@@ -156,8 +208,22 @@
           right: $one_col_body-column_max-width;
           width: calc(100% - $one_col_body-column_max-width);
           background-position: center !important;
+
+          figattribution {
+            left: 10px;
+          }
         }
       }
+    }
+  }
+
+  // Reducing padding on the offset 1 col layouts to account for content column space
+  &[data-engrid-layout="centerleft1col"],
+  &[data-engrid-layout="centerright1col"],
+  &[data-engrid-layout="centercenter1col"] {
+    @media screen and (min-width: $one_col_content-column_min-width) and (max-width: 930px) {
+      --engrid__body_padding: 0 80px;
+      --engrid__content-footer_padding: 70px 80px;
     }
   }
 
@@ -400,6 +466,321 @@
 
     &:hover {
       transform: translateY(-2px);
+    }
+  }
+
+  //Place errors above background image
+  .en__errorList {
+    z-index: 6;
+    position: relative;
+  }
+
+  // If the PayPal One Touch / Venmo option is enabled, hide Vanilla Paypal when a one-time gift is selected so only one PayPal option is ever visible at a time
+  &[data-engrid-transaction-recurring="n"][data-engrid-payment-type-option-paypal-one-touch="true"] .en__field--give-by-select .en__field__item.paypal {
+    display: none;
+  }
+
+  .charity-logos-wrapper {
+    border-top: 2px solid var(--color_primary);
+    margin: 20px 0 85px;
+    p {
+      text-align: center;
+      max-width: 409px;
+      width: 100%;
+      margin: 1rem auto;
+    }
+    img {
+      margin: 25px 0 8px;
+    }
+  }
+
+  // Page Footer
+  .nwf2-page-footer {
+    font-size: 20px;
+    text-align: center;
+    color: #000000;
+    max-width: 530px;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 1.2;
+
+    .footer-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+
+      .nwf_logo_footer {
+        width: 90px;
+        height: 90px;
+        margin: 0 10px 0 0;
+      }
+
+      h4 {
+        font-size: 22px;
+      }
+    }
+
+    .footer-head + p {
+      font-size: 25px;
+      font-style: italic;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0;
+    }
+
+    .social-media-links {
+      width: 280px;
+      margin: 0 auto;
+      padding: 0;
+      li {
+        width: 40px;
+      }
+    }
+
+    .f-btn {
+      display: block;
+      margin: 50px auto;
+      max-width: 250px;
+      border-radius: 16px;
+      transition: transform .1s linear;
+      background-color: var(--submit__button_background-color);
+      border-color: var(--submit__button_border-color);
+      color: var(--submit__button_color);
+      font-size: 20px;
+      text-decoration: none;
+      padding: 20px 40px;
+      font-weight: 500;
+
+      &:hover {
+        transform: translateY(-2px);
+        background-color: var(--submit__button_background-color_hover);
+        border-color: var(--submit__button_border-color_hover);
+      }
+    }
+  }
+
+  .page-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 82px;
+      margin-right: 18px;
+    }
+
+    span {
+      font-family: var(--h1_font-family);
+      font-size: 22px;
+    }
+  }
+
+  // Click to expand
+  &:not(#en__pagebuilder) .click-to-expand {
+    margin-bottom: 50px;
+
+    &:not(.expanded) {
+      padding-bottom: 10px;
+
+      .click-to-expand-cta {
+        margin-left: 0;
+        width: auto;
+        background-position: left;
+        height: 24px;
+
+        &:after {
+          content: "Learn More";
+          position: relative;
+          left: 20px;
+          font-size: 20px;
+          font-weight: 600;
+          top: -2px;
+        }
+      }
+    }
+  }
+
+  //Monthly upsell
+  .monthly-upsell {
+    img {
+      width: 56px;
+    }
+    .text-nudge {
+      font-family: "Fuzzy Bubbles", cursive;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+    p:not(.text-nudge) {
+      margin: 0;
+    }
+  }
+
+  .payment-information-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 13px;
+
+    h2 {
+      margin: 0;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 18px;
+
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  // Thank you page
+  .en__component--dd360confirmation {
+    margin: 30px 0;
+    #dd-container .dtd-plugin button,
+    #dd-container .dtd-plugin a[class*=-button]{
+      font-size: 20px;
+    }
+  }
+
+  .social-sharing p {
+    text-align: center;
+  }
+
+  .cards-container {
+    margin-bottom: 80px;
+    .cards-title {
+      text-align: center;
+      margin: 0 0 20px;
+    }
+
+    article.block a {
+      display: flex;
+      text-decoration: none;
+      img {
+        max-width: 169px;
+        margin-right: 15px;
+      }
+      margin-bottom: 25px;
+    }
+  }
+
+  #goMonthly {
+    --submit__button_font-size: 1.2rem;
+    --submit__button_padding-top: 15px;
+    --submit__button_padding-bottom: 15px;
+    --button_font-size: 1.2rem;
+    --h1_font-size: 2.5rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    --engrid__body_padding: 0 80px;
+    --engrid__content-footer_padding: 70px 80px;
+
+    @include engrid_replace-banner-with-background("leftleft1col");
+    @include engrid_replace-banner-with-background("rightright1col");
+    @include engrid_replace-banner-with-background("centerright1col");
+    @include engrid_replace-banner-with-background("centerleft1col");
+    @include engrid_replace-banner-with-background("centercenter1col");
+    @include engrid_replace-banner-with-background("centercenter2col");
+
+    &[data-replace-banner-with-background="if-banner-empty"][data-engrid-body-banner="empty"][data-engrid-page-background="image"] {
+      [class*="page-backgroundImage"] {
+        grid-row: body-banner !important;
+        min-height: var(--banner-image-height);
+        margin: 15px 0 30px;
+
+        figure {
+          // Change from absolute positioning so that it will have height
+          position: relative !important;
+          max-height: var(--banner-image-height, 250px);
+          display: flex;
+          align-items: center;
+          aspect-ratio: initial;
+        }
+
+        figattribution {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    --engrid__body_padding: 0 20px;
+    --engrid__content-footer_padding: 70px 20px;
+    --donation-amount__button_count: 2;
+    --h1_font-size: 2.5rem;
+    --h2_font-size: 1.75rem;
+    --button_font-size: 1.5rem;
+    --donation-amount__button_font-size: 1.5rem;
+    --input_font-size: 20px;
+
+    .page-header span {
+      margin-left: 15px;
+    }
+
+    .monthly-upsell .text-nudge {
+      font-size: 16px;
+    }
+
+    .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other input {
+      font-size: 1.5rem;
+      padding: 14px 52px 14px 40px;
+    }
+
+    .en__component--premiumgiftblock {
+      .en__pg__body {
+        grid-template-columns: min-content auto;
+        grid-template-areas:
+          "en__pg__select en__pg__detail"
+          ". en__pg__display";
+        row-gap: 20px;
+      }
+    }
+
+    .payment-information-header {
+      flex-direction: column;
+
+      h2 {
+        margin-bottom: 5px;
+      }
+    }
+
+    .nwf2-page-footer {
+      .footer-head {
+        text-align: left;
+      }
+
+      .footer-head + p {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        row-gap: 15px;
+      }
     }
   }
 }
