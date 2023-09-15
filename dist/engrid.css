@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Saturday, September 9, 2023 @ 17:45:23 ET
+ *  Date: Friday, September 15, 2023 @ 13:25:11 ET
  *  By: michael
  *  ENGrid styles: v0.15.0
  *  ENGrid scripts: v0.15.2
@@ -8672,7 +8672,12 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio .en__field__element .en__field__item:last-of-type label{
   border-radius:0 var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0;
+  overflow:hidden;
   position:relative;
+}
+[data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio .en__field__element .en__field__item:last-of-type label svg{
+  left:-15px;
+  position:absolute;
 }
 [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio .en__field__element .en__field__item:last-of-type input:not(:checked)+label{
   border-left:none;
@@ -8756,7 +8761,7 @@ body[data-engrid-debug]:before{
   bottom:10px;
   color:#fff;
   font-size:16px;
-  max-width:100vw !important;
+  max-width:calc(100vw - 54px) !important;
   padding:8px;
   width:400px;
 }
@@ -8959,17 +8964,17 @@ body[data-engrid-debug]:before{
   position:relative;
   top:-2px;
 }
-[data-engrid-theme=nwf2] .monthly-upsell img{
+[data-engrid-theme=nwf2] .monthly-upsell-msg img{
   width:56px;
 }
-[data-engrid-theme=nwf2] .monthly-upsell .text-nudge{
-  font-family:Fuzzy Bubbles,cursive;
+[data-engrid-theme=nwf2] .monthly-upsell-msg .text-nudge{
+  font-family:Fuzzy Bubbles,sans-serif;
   font-size:20px;
   font-weight:700;
   margin-top:10px;
   text-align:center;
 }
-[data-engrid-theme=nwf2] .monthly-upsell p:not(.text-nudge){
+[data-engrid-theme=nwf2] .monthly-upsell-msg p:not(.text-nudge){
   margin:0;
 }
 [data-engrid-theme=nwf2] .payment-information-header{
@@ -9183,6 +9188,7 @@ body[data-engrid-debug]:before{
     grid-row:body-banner !important;
     margin:15px 0 30px;
     min-height:var(--banner-image-height);
+    z-index:auto !important;
   }
   [data-engrid-theme=nwf2][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] [class*=page-backgroundImage] figure{
     align-items:center;
@@ -9191,11 +9197,8 @@ body[data-engrid-debug]:before{
     max-height:var(--banner-image-height, 250px);
     position:relative !important;
   }
-  [data-engrid-theme=nwf2][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] [class*=page-backgroundImage] figattribution{
-    display:none;
-  }
 }
-@media screen and (max-width:600px){
+@media screen and (max-width:599px){
   [data-engrid-theme=nwf2]{
     --engrid__body_padding:0 20px;
     --engrid__content-footer_padding:70px 20px;
@@ -9205,11 +9208,13 @@ body[data-engrid-debug]:before{
     --button_font-size:1.5rem;
     --donation-amount__button_font-size:1.5rem;
     --input_font-size:20px;
+    --recurring-frequency__button_padding:1rem;
+    --recurring-frequency__button_font-size:1.3rem;
   }
   [data-engrid-theme=nwf2] .page-header span{
     margin-left:15px;
   }
-  [data-engrid-theme=nwf2] .monthly-upsell .text-nudge{
+  [data-engrid-theme=nwf2] .monthly-upsell-msg .text-nudge{
     font-size:16px;
   }
   [data-engrid-theme=nwf2] .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other input{
@@ -9218,12 +9223,15 @@ body[data-engrid-debug]:before{
   }
   [data-engrid-theme=nwf2] .en__component--premiumgiftblock .en__pg__body{
     grid-row-gap:20px;
-    grid-template-areas:"en__pg__select en__pg__detail" ". en__pg__display";
+    grid-template-areas:"en__pg__select en__pg__detail" "en__pg__display en__pg__display";
     grid-template-columns:min-content auto;
     row-gap:20px;
   }
   [data-engrid-theme=nwf2] .payment-information-header{
     flex-direction:column;
+  }
+  [data-engrid-theme=nwf2] .payment-information-header div{
+    display:none;
   }
   [data-engrid-theme=nwf2] .payment-information-header h2{
     margin-bottom:5px;
@@ -9241,6 +9249,17 @@ body[data-engrid-debug]:before{
     grid-row-gap:15px;
     flex-direction:column;
     row-gap:15px;
+  }
+}
+@media screen and (max-width:400px){
+  [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field__item:last-of-type svg{
+    height:57px !important;
+    width:180px !important;
+  }
+}
+@media screen and (max-width:359px){
+  [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field__item:last-of-type svg{
+    left:-25px !important;
   }
 }
 body{

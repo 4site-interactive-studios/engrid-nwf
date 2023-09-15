@@ -243,8 +243,15 @@
       &:last-of-type {
         padding-left: 0;
         label {
+          overflow: hidden;
           position: relative;
           border-radius: 0 var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0;
+          svg {
+            position: absolute;
+            left: -15px;
+            //width: 273px!important;
+            //height: 87px!important;
+          }
         }
         input:not(:checked) + label {
           border-left: none;
@@ -355,7 +362,7 @@
     font-size: 16px;
     bottom: 10px;
     width: 400px;
-    max-width: 100vw!important;
+    max-width: calc(100vw - 54px)!important;
 
     .tippy-content {
       padding: 0;
@@ -611,12 +618,12 @@
   }
 
   //Monthly upsell
-  .monthly-upsell {
+  .monthly-upsell-msg {
     img {
       width: 56px;
     }
     .text-nudge {
-      font-family: "Fuzzy Bubbles", cursive;
+      font-family: "Fuzzy Bubbles", sans-serif;
       text-align: center;
       font-weight: bold;
       margin-top: 10px;
@@ -706,6 +713,7 @@
         grid-row: body-banner !important;
         min-height: var(--banner-image-height);
         margin: 15px 0 30px;
+        z-index: auto!important;
 
         figure {
           // Change from absolute positioning so that it will have height
@@ -715,15 +723,11 @@
           align-items: center;
           aspect-ratio: initial;
         }
-
-        figattribution {
-          display: none;
-        }
       }
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 599px) {
     --engrid__body_padding: 0 20px;
     --engrid__content-footer_padding: 70px 20px;
     --donation-amount__button_count: 2;
@@ -732,12 +736,14 @@
     --button_font-size: 1.5rem;
     --donation-amount__button_font-size: 1.5rem;
     --input_font-size: 20px;
+    --recurring-frequency__button_padding: 1rem;
+    --recurring-frequency__button_font-size: 1.3rem;
 
     .page-header span {
       margin-left: 15px;
     }
 
-    .monthly-upsell .text-nudge {
+    .monthly-upsell-msg .text-nudge {
       font-size: 16px;
     }
 
@@ -751,13 +757,17 @@
         grid-template-columns: min-content auto;
         grid-template-areas:
           "en__pg__select en__pg__detail"
-          ". en__pg__display";
+          "en__pg__display en__pg__display";
         row-gap: 20px;
       }
     }
 
     .payment-information-header {
       flex-direction: column;
+
+      div {
+        display: none;
+      }
 
       h2 {
         margin-bottom: 5px;
@@ -780,6 +790,23 @@
       .footer-links {
         flex-direction: column;
         row-gap: 15px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .radio-to-buttons_recurrfreq .en__field__item:last-of-type {
+      svg {
+        width: 180px!important;
+        height: 57px!important;
+      }
+    }
+  }
+
+  @media screen and (max-width: 359px) {
+    .radio-to-buttons_recurrfreq .en__field__item:last-of-type {
+      svg {
+        left: -25px!important;
       }
     }
   }
