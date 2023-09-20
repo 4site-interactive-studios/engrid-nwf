@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 13, 2023 @ 11:44:01 ET
+ *  Date: Wednesday, September 20, 2023 @ 06:55:35 ET
  *  By: michael
  *  ENGrid styles: v0.15.0
  *  ENGrid scripts: v0.15.2
@@ -24355,7 +24355,7 @@ class data_layer_DataLayer {
     this.logger = new logger_EngridLogger("DataLayer", "#f1e5bc", "#009cdc", "📊");
     this.dataLayer = window.dataLayer || [];
     this._form = en_form_EnForm.getInstance();
-    this.endOfGiftProcessStorageKey = 'ENGRID_END_OF_GIFT_PROCESS_EVENTS';
+    this.endOfGiftProcessStorageKey = "ENGRID_END_OF_GIFT_PROCESS_EVENTS";
     this.excludedFields = [// Credit Card
     "transaction.ccnumber", "transaction.ccexpire.delimiter", "transaction.ccexpire", "transaction.ccvv", "supporter.creditCardHolderName", // Bank Account
     "supporter.bankAccountNumber", "supporter.bankAccountType", "transaction.bankname", "supporter.bankRoutingNumber"];
@@ -24423,7 +24423,7 @@ class data_layer_DataLayer {
         }
 
         this.dataLayer.push({
-          event: 'EN_PAGEJSON_' + property.toUpperCase(),
+          event: "EN_PAGEJSON_" + property.toUpperCase(),
           eventValue: pageJson[property]
         });
       }
@@ -24553,9 +24553,9 @@ class data_layer_DataLayer {
   }
 
   addEndOfGiftProcessVariable(variableName) {
-    let variableValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    let variableValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
     this.storeEndOfGiftProcessData({
-      [`${variableName.toUpperCase()}`]: variableValue
+      [`'${variableName.toUpperCase()}'`]: variableValue
     });
   }
 
