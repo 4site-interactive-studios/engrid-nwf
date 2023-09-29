@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, September 15, 2023 @ 13:25:11 ET
+ *  Date: Friday, September 29, 2023 @ 15:57:03 ET
  *  By: michael
  *  ENGrid styles: v0.15.0
  *  ENGrid scripts: v0.15.2
@@ -40118,7 +40118,7 @@ const options = {
 if (document.body.dataset.engridTheme === 'nwf2') {
   options.RememberMe = {
     checked: true,
-    //remoteUrl: "https://www.ran.org/wp-content/themes/ran-2020/data-remember.html",
+    remoteUrl: "https://www.nwf.org/remember_me/",
     fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--email div",

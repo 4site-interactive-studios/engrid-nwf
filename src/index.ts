@@ -70,7 +70,7 @@ const options: Options = {
 if (document.body.dataset.engridTheme === 'nwf2') {
   options.RememberMe = {
     checked: true,
-    //remoteUrl: "https://www.ran.org/wp-content/themes/ran-2020/data-remember.html",
+    remoteUrl: "https://www.nwf.org/remember_me/",
     fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--email div",
