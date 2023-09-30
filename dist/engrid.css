@@ -19,9 +19,9 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, September 29, 2023 @ 15:57:03 ET
- *  By: michael
- *  ENGrid styles: v0.15.0
+ *  Date: Friday, September 29, 2023 @ 21:19:11 ET
+ *  By: fernando
+ *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.2
  *
  *  Created by 4Site Studios
@@ -3275,6 +3275,9 @@ body:not(#en__pagebuilder):not([data-engrid-debug]) .hide-labels .en__field:not(
 }
 [data-engrid-theme]:not(#en__pagebuilder):not([data-engrid-debug])[data-conditonally-hide-show-digital-wallet-elements][data-engrid-payment-type=paypaltouch] .hideif-paypaltouch-selected,[data-engrid-theme]:not(#en__pagebuilder):not([data-engrid-debug])[data-conditonally-hide-show-digital-wallet-elements][data-engrid-payment-type=stripedigitalwallet] .hideif-stripedigitalwallet-selected,[data-engrid-theme]:not(#en__pagebuilder):not([data-engrid-debug])[data-conditonally-hide-show-digital-wallet-elements][data-engrid-transaction-recurring=n][data-engrid-payment-type-option-paypal-one-touch=true] .en__field--giveBySelect.paypal,[data-engrid-theme]:not(#en__pagebuilder):not([data-engrid-debug])[data-conditonally-hide-show-digital-wallet-elements][data-engrid-transaction-recurring=y] .en__field--giveBySelect.paypaltouch{
   display:none;
+}
+[data-engrid-theme] iframe.plaid-link-iframe,[data-engrid-theme] iframe[id^=plaid-link-iframe]{
+  background-color:#909090fa;
 }
 
 [data-engrid-theme]{

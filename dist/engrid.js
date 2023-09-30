@@ -17,9 +17,9 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, September 29, 2023 @ 15:57:03 ET
- *  By: michael
- *  ENGrid styles: v0.15.0
+ *  Date: Friday, September 29, 2023 @ 21:19:11 ET
+ *  By: fernando
+ *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.2
  *
  *  Created by 4Site Studios
@@ -40097,6 +40097,24 @@ const options = {
 
     window.validateXverify = XVerify.validateXverify;
   },
+  onValidate: () => {
+    const paymentType = App.getPaymentType();
+    const phoneContainer = document.querySelector(".en__field--phoneNumber");
+    const form = EnForm.getInstance();
+    form.validate = true;
+
+    if (phoneContainer && paymentType === "ACH") {
+      // Check if phone number is empty
+      const phoneInput = phoneContainer.querySelector("input");
+
+      if (phoneInput && !phoneInput.value) {
+        App.setError(phoneContainer, "Phone Number is required for the Bank Account payment method");
+        form.validate = false;
+      } else {
+        App.removeError(phoneContainer);
+      }
+    }
+  },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
     const premiumGift = document.querySelector('[name="en__pg"]:checked');
@@ -40115,7 +40133,7 @@ const options = {
   }
 };
 
-if (document.body.dataset.engridTheme === 'nwf2') {
+if (document.body.dataset.engridTheme === "nwf2") {
   options.RememberMe = {
     checked: true,
     remoteUrl: "https://www.nwf.org/remember_me/",
