@@ -136,6 +136,11 @@
 
   -webkit-font-smoothing: antialiased;
 
+  // Remove Remember Me Outline
+  .rememberme-wrapper label {
+    outline: none !important;
+  }
+
   //Hide unused page sections in page builder
   &#en__pagebuilder .en__component--advrow {
     .page-alert,
@@ -190,6 +195,9 @@
   }
 
   @media screen and (min-width: $one_col_body-column_max-width) {
+    &:not(#en__pagebuilder) .content-footer {
+      z-index: 5;
+    }
     &:not(#en__pagebuilder)[data-engrid-layout="leftleft1col"] {
       .page-backgroundImage {
         z-index: 5;
@@ -776,12 +784,12 @@
     }
 
     .en__component--premiumgiftblock {
+      margin: 35px 0 10px;
       .en__pg__body {
         grid-template-columns: min-content auto;
-        grid-template-areas:
-          "en__pg__select en__pg__detail"
-          "en__pg__display en__pg__display";
+        grid-template-areas: "en__pg__select en__pg__detail en__pg__display";
         row-gap: 20px;
+        margin-bottom: 1rem;
       }
     }
 
