@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, September 29, 2023 @ 21:19:11 ET
+ *  Date: Monday, October 2, 2023 @ 09:27:51 ET
  *  By: fernando
  *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.2
@@ -40025,6 +40025,8 @@ class XVerify {
   }
 
   validateSubmit() {
+    if (this.form.validate === false) return false;
+
     if (!!["accept_all", "unknown", "valid", "risky"].includes(this.emailField.dataset.xverifyStatus || "")) {
       this.valid();
       return true;

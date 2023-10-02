@@ -143,6 +143,7 @@ export class XVerify {
     return true;
   }
   public validateSubmit() {
+    if (this.form.validate === false) return false;
     if (
       !!["accept_all", "unknown", "valid", "risky"].includes(
         this.emailField.dataset.xverifyStatus || ""
