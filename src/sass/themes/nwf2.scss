@@ -1,9 +1,9 @@
 //noinspection SassScssResolvedByNameOnly
 [data-engrid-theme="nwf2"] {
   //Colors
-  --color_primary: #132A44;
-  --color_cyan: #A3D3D6;
-  --color_orange: #CC4B24;
+  --color_primary: #132a44;
+  --color_cyan: #a3d3d6;
+  --color_orange: #cc4b24;
 
   //Layout
   --engrid__body_background-color: #f4f4f4;
@@ -16,7 +16,7 @@
 
   //Typography: default
   --default_font-family: "Fira Sans", -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Helvetica, Arial, sans-serif;
+    "Segoe UI", Helvetica, Arial, sans-serif;
   --default_color: var(--color_primary);
   --default_font-size: var(--root_font-size);
   --default_line-height: 1.4;
@@ -33,7 +33,7 @@
 
   //Click to expand
   --click-to-expand__copy-area_height: 170px;
-  --click-to-expand__cta-image_url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M5.53857 13.5385L11.077 7.99999L5.53857 2.46153' stroke='%23132A44' stroke-width='2'/%3E%3C/svg%3E");;
+  --click-to-expand__cta-image_url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M5.53857 13.5385L11.077 7.99999L5.53857 2.46153' stroke='%23132A44' stroke-width='2'/%3E%3C/svg%3E");
 
   //Inputs
   --input_color: var(--color_primary);
@@ -42,7 +42,7 @@
   --input_border-color: var(--color_primary);
   --input_border-radius: 8px;
   --input_font-size: 24px;
-  --input_placeholder-color: rgba(19, 42, 68, .7);
+  --input_placeholder-color: rgba(19, 42, 68, 0.7);
   --input_placeholder-font-weight: 300;
   --input_box-shadow: 0;
   --input_placeholder-font-size: 24px;
@@ -101,13 +101,19 @@
   --recurring-frequency__button_count: 2;
   --recurring-frequency__button_padding: 1.5rem 1rem;
   --recurring-frequency__button_border-radius: 16px;
-  --recurring-frequency__button_background-color_checked: var(--button_background-color_checked);
-  --recurring-frequency__button_border-color_checked: var(--button_border-color);
+  --recurring-frequency__button_background-color_checked: var(
+    --button_background-color_checked
+  );
+  --recurring-frequency__button_border-color_checked: var(
+    --button_border-color
+  );
 
   //Donation amount buttons
   --donation-amount__button_count: 3;
   --donation-amount__button_font-size: 2.5rem;
-  --donation-amount__button_background-color_checked: var(--button_background-color_checked);
+  --donation-amount__button_background-color_checked: var(
+    --button_background-color_checked
+  );
   --donation-amount__button_border-color_checked: var(--button_border-color);
 
   //Premiums
@@ -115,7 +121,9 @@
 
   //Give by select
   --give-by-select__button_count: 1;
-  --give-by-select__button_background-color_checked: var(--button_background-color_checked);
+  --give-by-select__button_background-color_checked: var(
+    --button_background-color_checked
+  );
   --give-by-select__button_border-color_checked: var(--button_border-color);
 
   //Submit button
@@ -233,7 +241,8 @@
       &:first-of-type {
         padding-right: 0;
         label {
-          border-radius: var(--recurring-frequency__button_border-radius) 0 0 var(--recurring-frequency__button_border-radius);
+          border-radius: var(--recurring-frequency__button_border-radius) 0 0
+            var(--recurring-frequency__button_border-radius);
         }
         input:not(:checked) + label {
           border-right: none;
@@ -245,7 +254,8 @@
         label {
           overflow: hidden;
           position: relative;
-          border-radius: 0 var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0;
+          border-radius: 0 var(--recurring-frequency__button_border-radius)
+            var(--recurring-frequency__button_border-radius) 0;
           svg {
             position: absolute;
             left: -15px;
@@ -261,7 +271,8 @@
   }
 
   //Other amount input
-  .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other {
+  .en__field--withOther.en__field--radio.en__field--donationAmt
+    .en__field__item--other {
     flex-basis: 100%;
     position: relative;
 
@@ -322,7 +333,7 @@
   }
 
   //Making tick bold without making label text bold
-  input[type=checkbox] + label:before {
+  input[type="checkbox"] + label:before {
     font-weight: 700;
     font-size: 18px;
     padding-top: 3px;
@@ -362,14 +373,14 @@
     font-size: 16px;
     bottom: 10px;
     width: 400px;
-    max-width: calc(100vw - 54px)!important;
+    max-width: calc(100vw - 54px) !important;
 
     .tippy-content {
       padding: 0;
 
       > :first-child {
         font-family: var(--h1_font-family);
-        margin-top: 0!important;
+        margin-top: 0 !important;
         font-size: 24px;
         line-height: 1.2;
         margin-bottom: 0;
@@ -447,7 +458,7 @@
       }
     }
 
-    .check input[type=radio] + label {
+    .check input[type="radio"] + label {
       padding: 11px 1rem;
       font-size: 31px;
     }
@@ -483,7 +494,9 @@
   }
 
   // If the PayPal One Touch / Venmo option is enabled, hide Vanilla Paypal when a one-time gift is selected so only one PayPal option is ever visible at a time
-  &[data-engrid-transaction-recurring="n"][data-engrid-payment-type-option-paypal-one-touch="true"] .en__field--give-by-select .en__field__item.paypal {
+  &[data-engrid-transaction-recurring="n"][data-engrid-payment-type-option-paypal-one-touch="true"]
+    .en__field--give-by-select
+    .en__field__item.paypal {
     display: none;
   }
 
@@ -559,7 +572,7 @@
       margin: 50px auto;
       max-width: 250px;
       border-radius: 16px;
-      transition: transform .1s linear;
+      transition: transform 0.1s linear;
       background-color: var(--submit__button_background-color);
       border-color: var(--submit__button_border-color);
       color: var(--submit__button_color);
@@ -662,7 +675,7 @@
   .en__component--dd360confirmation {
     margin: 30px 0;
     #dd-container .dtd-plugin button,
-    #dd-container .dtd-plugin a[class*=-button]{
+    #dd-container .dtd-plugin a[class*="-button"] {
       font-size: 20px;
     }
   }
@@ -697,6 +710,12 @@
     --h1_font-size: 2.5rem;
   }
 
+  // Capitalize the Live Giving Frequency on the submit button
+  // REF: https://www.bugherd.com/projects/360839/tasks/14
+  .en__submit button .live-variable-frequency {
+    text-transform: uppercase;
+  }
+
   @media screen and (max-width: 800px) {
     --engrid__body_padding: 0 80px;
     --engrid__content-footer_padding: 70px 80px;
@@ -713,7 +732,7 @@
         grid-row: body-banner !important;
         min-height: var(--banner-image-height);
         margin: 15px 0 30px;
-        z-index: auto!important;
+        z-index: auto !important;
 
         figure {
           // Change from absolute positioning so that it will have height
@@ -747,7 +766,9 @@
       font-size: 16px;
     }
 
-    .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other input {
+    .en__field--withOther.en__field--radio.en__field--donationAmt
+      .en__field__item--other
+      input {
       font-size: 1.5rem;
       padding: 14px 52px 14px 40px;
     }
@@ -797,8 +818,8 @@
   @media screen and (max-width: 400px) {
     .radio-to-buttons_recurrfreq .en__field__item:last-of-type {
       svg {
-        width: 180px!important;
-        height: 57px!important;
+        width: 180px !important;
+        height: 57px !important;
       }
     }
   }
@@ -806,7 +827,7 @@
   @media screen and (max-width: 359px) {
     .radio-to-buttons_recurrfreq .en__field__item:last-of-type {
       svg {
-        left: -25px!important;
+        left: -25px !important;
       }
     }
   }
