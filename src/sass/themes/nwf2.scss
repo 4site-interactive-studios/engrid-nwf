@@ -696,7 +696,9 @@
       text-decoration: none;
       img {
         max-width: 169px;
+        margin-top: calc(2rem * var(--scale-down_80pct));
         margin-right: 15px;
+        height: fit-content;
       }
       margin-bottom: 25px;
     }

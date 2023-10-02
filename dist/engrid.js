@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, October 2, 2023 @ 14:39:04 ET
+ *  Date: Monday, October 2, 2023 @ 15:57:19 ET
  *  By: bryancasler
  *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.2
@@ -40068,7 +40068,7 @@ const options = {
   CapitalizeFields: true,
   ClickToExpand: true,
   DecimalSeparator: ".",
-  // AutoYear: true,
+  AutoYear: true,
   MediaAttribution: true,
   SkipToMainContentLink: true,
   SrcDefer: true,

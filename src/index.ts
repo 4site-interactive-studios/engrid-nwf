@@ -10,7 +10,7 @@ const options: Options = {
   CapitalizeFields: true,
   ClickToExpand: true,
   DecimalSeparator: ".",
-  // AutoYear: true,
+  AutoYear: true,
   MediaAttribution: true,
   SkipToMainContentLink: true,
   SrcDefer: true,
