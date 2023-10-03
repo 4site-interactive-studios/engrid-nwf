@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, October 2, 2023 @ 18:09:16 ET
- *  By: fernando
+ *  Date: Tuesday, October 3, 2023 @ 09:56:33 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.5
  *
@@ -9036,7 +9036,7 @@ body[data-engrid-debug]:before{
   text-decoration:none;
 }
 [data-engrid-theme=nwf2] .cards-container article.block a img{
-  height:fit-content;
+  height:100%;
   margin-right:15px;
   margin-top:calc(2rem*var(--scale-down_80pct));
   max-width:169px;
