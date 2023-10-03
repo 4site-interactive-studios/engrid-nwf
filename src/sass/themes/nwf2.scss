@@ -726,6 +726,16 @@
     text-transform: uppercase;
   }
 
+  /* Temporary styles to make desktop background videos work on OC2 pages */
+  .page-backgroundImage video:not(.crop-on-right):not(.crop-on-left) {
+    min-width: initial;
+    max-width: calc(100vw - 800px);
+    right: 0;
+    transform: translate(0px);
+    left: initial;
+    top: 0;
+  }
+
   @media screen and (max-width: 800px) {
     --engrid__body_padding: 0 80px;
     --engrid__content-footer_padding: 70px 80px;
