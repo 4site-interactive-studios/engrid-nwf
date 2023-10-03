@@ -702,13 +702,23 @@
     article.block a {
       display: flex;
       text-decoration: none;
+      margin-bottom: 25px;
+
+      @media (max-width: 599px) {
+        flex-direction: column;
+      }
+
       img {
         max-width: 169px;
         margin-top: calc(2rem * var(--scale-down_80pct));
         margin-right: 15px;
         height: 100%;
+
+        @media (max-width: 599px) {
+          max-width: 100%;
+          height: auto;
+        }
       }
-      margin-bottom: 25px;
     }
   }
 
@@ -723,7 +733,7 @@
   // Capitalize the Live Giving Frequency on the submit button
   // REF: https://www.bugherd.com/projects/360839/tasks/14
   .en__submit button .live-variable-frequency {
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 
   /* Temporary styles to make desktop background videos work on OC2 pages */
