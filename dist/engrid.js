@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, October 3, 2023 @ 12:08:26 ET
+ *  Date: Tuesday, October 3, 2023 @ 13:21:39 ET
  *  By: fernando
  *  ENGrid styles: v0.15.3
- *  ENGrid scripts: v0.15.6
+ *  ENGrid scripts: v0.15.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -30943,6 +30943,10 @@ class DonationAmount {
         else {
             const otherField = document.querySelector('input[name="' + this._other + '"]');
             if (otherField) {
+                const enFieldOtherAmountRadio = document.querySelector('input[name="' + this._radios + '"][value="other" i]');
+                if (enFieldOtherAmountRadio) {
+                    enFieldOtherAmountRadio.checked = true;
+                }
                 otherField.value = parseFloat(amount.toString()).toFixed(2);
                 const otherWrapper = otherField.parentNode;
                 otherWrapper.classList.remove("en__field__item--hidden");
@@ -39442,7 +39446,7 @@ class ShowIfPresent {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.15.6";
+const AppVersion = "0.15.7";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
