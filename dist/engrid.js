@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, October 3, 2023 @ 17:02:16 ET
+ *  Date: Tuesday, October 3, 2023 @ 22:53:55 ET
  *  By: fernando
  *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.7
@@ -40046,7 +40046,12 @@ class XVerify {
       return;
     }
 
-    this.form.onValidate.subscribe(() => this.form.validate = this.validateSubmit());
+    this.form.onValidate.subscribe(() => {
+      if (this.form.validate) {
+        if (engrid_ENGrid.debug) console.log("Engrid Xverify: onValidate");
+        this.form.validate = this.validateSubmit();
+      }
+    });
     "change paste".split(" ").forEach(e => {
       this.emailField.addEventListener(e, event => {
         // Run after 50ms
@@ -40059,6 +40064,8 @@ class XVerify {
     if (this.emailField.value) {
       this.validateEmail(this.emailField.value);
     }
+
+    this.watchForRememberMe();
   }
 
   deleteENFieldError() {
@@ -40117,8 +40124,6 @@ class XVerify {
   }
 
   validateSubmit() {
-    if (this.form.validate === false) return false;
-
     if (!!["accept_all", "unknown", "valid", "risky"].includes(this.emailField.dataset.xverifyStatus || "")) {
       this.valid();
       return true;
@@ -40142,6 +40147,36 @@ class XVerify {
     emailError.classList.add("en__field__error");
     emailError.innerHTML = message;
     emailWrapper.prepend(emailError);
+  }
+  /**
+   * Watches for changes in the email field's parent element to detect when the "remember me" link is added.
+   * If the "remember me" link is added, validates the email field and logs a message to the console if debug mode is enabled.
+   */
+
+
+  watchForRememberMe() {
+    const emailWrapper = this.emailField.parentElement;
+
+    if (emailWrapper) {
+      const mutationCallback = (mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+          if (mutation.type === "childList") {
+            for (let addedNode of mutation.addedNodes) {
+              if (addedNode instanceof HTMLElement && addedNode.id === "clear-autofill-data") {
+                this.validateEmail(this.emailField.value);
+                if (engrid_ENGrid.debug) console.log("Engrid Xverify: REMEMBERME");
+              }
+            }
+          }
+        }
+      };
+
+      const observer = new MutationObserver(mutationCallback);
+      const config = {
+        childList: true
+      };
+      observer.observe(emailWrapper, config);
+    }
   }
 
 }
