@@ -38,7 +38,7 @@ const options: Options = {
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
-    customScript(DonationFrequency);
+    customScript(DonationFrequency, App);
     if (window.hasOwnProperty("XVerifyOptions")) {
       (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
     }

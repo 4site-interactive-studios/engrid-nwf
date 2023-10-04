@@ -1,8 +1,7 @@
 const tippy = require("tippy.js").default;
-import lottie from "lottie-web";
 const monthlyAnimationData = require('./monthly-animation.json');
 
-export const customScript = function (DonationFrequency) {
+export const customScript = function (DonationFrequency, App) {
   console.log("ENGrid client scripts are executing");
   // Add your client scripts here
 
@@ -88,21 +87,23 @@ export const customScript = function (DonationFrequency) {
       );
     }
 
-    const monthlyAnimation = lottie.loadAnimation({
-      container: document.querySelector('#en__field_transaction_recurrfreq1 + label'), // the dom element that will contain the animation
-      renderer: 'svg',
-      animationData: monthlyAnimationData,
-      autoplay: false,
-      loop: false,
-    });
+    App.loadJS('https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js', () => {
+      const monthlyAnimation = lottie.loadAnimation({
+        container: document.querySelector('#en__field_transaction_recurrfreq1 + label'), // the dom element that will contain the animation
+        renderer: 'svg',
+        animationData: monthlyAnimationData,
+        autoplay: false,
+        loop: false,
+      });
 
-    const freq = DonationFrequency.getInstance();
-    freq.onFrequencyChange.subscribe((frequency) => {
-      if (frequency === "monthly") {
-        monthlyAnimation.play();
-      } else {
-        monthlyAnimation.goToAndStop(0);
-      }
+      const freq = DonationFrequency.getInstance();
+      freq.onFrequencyChange.subscribe((frequency) => {
+        if (frequency === "monthly") {
+          monthlyAnimation.play();
+        } else {
+          monthlyAnimation.goToAndStop(0);
+        }
+      });
     });
   }
 };
