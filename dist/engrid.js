@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, October 3, 2023 @ 22:53:55 ET
- *  By: fernando
+ *  Date: Wednesday, October 4, 2023 @ 13:21:56 ET
+ *  By: michael
  *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.7
  *
@@ -40271,7 +40271,7 @@ if (document.body.dataset.engridTheme === "nwf2") {
   options.RememberMe = {
     checked: true,
     remoteUrl: "https://www.nwf.org/remember_me/",
-    fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--email",
+    fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--phoneNumber, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--email div",
     fieldClearSelectorTargetLocation: "after",

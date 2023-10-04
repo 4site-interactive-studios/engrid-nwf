@@ -746,6 +746,29 @@
     top: 0;
   }
 
+  /** Subscription Page - Opt In Styles **/
+  p.optin-description {
+    margin-bottom: -15px;
+    position: relative;
+    top: -35px;
+    right: -38px;
+  }
+
+  /* Advocacy Opt In Style */
+  label[for="en__field_supporter_questions_882501"] {
+    display: none !important;
+  }
+
+  .en__component--callsurveyblock .en__c2c__survey__rate {
+    flex-direction: column;
+  }
+
+  .enWidget--progressBar .enWidget__copy--below {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+  }
+
   @media screen and (max-width: 800px) {
     --engrid__body_padding: 0 80px;
     --engrid__content-footer_padding: 70px 80px;

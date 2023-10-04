@@ -98,7 +98,7 @@ if (document.body.dataset.engridTheme === "nwf2") {
     checked: true,
     remoteUrl: "https://www.nwf.org/remember_me/",
     fieldOptInSelectorTarget:
-      "div.en__field--phoneNumber2, div.en__field--email",
+      "div.en__field--phoneNumber2, div.en__field--phoneNumber, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--email div",
     fieldClearSelectorTargetLocation: "after",
