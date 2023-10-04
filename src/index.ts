@@ -1,5 +1,10 @@
-import { Options, App } from "@4site/engrid-common"; // Uses ENGrid via NPM
-// import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+import { Options, App, DonationFrequency, EnForm } from "@4site/engrid-common"; // Uses ENGrid via NPM
+// import {
+//   Options,
+//   App,
+//   DonationFrequency,
+//   EnForm,
+// } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
@@ -10,7 +15,7 @@ const options: Options = {
   CapitalizeFields: true,
   ClickToExpand: true,
   DecimalSeparator: ".",
-  // AutoYear: true,
+  AutoYear: true,
   MediaAttribution: true,
   SkipToMainContentLink: true,
   SrcDefer: true,
@@ -33,11 +38,32 @@ const options: Options = {
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
-    customScript();
+    customScript(DonationFrequency);
     if (window.hasOwnProperty("XVerifyOptions")) {
       (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
     }
     (<any>window).validateXverify = XVerify.validateXverify;
+  },
+  onValidate: () => {
+    const paymentType = App.getPaymentType();
+    const phoneContainer = document.querySelector(
+      ".en__field--phoneNumber"
+    ) as HTMLElement;
+    const form = EnForm.getInstance();
+    form.validate = true;
+    if (phoneContainer && paymentType === "ACH") {
+      // Check if phone number is empty
+      const phoneInput = phoneContainer.querySelector("input");
+      if (phoneInput && !phoneInput.value) {
+        App.setError(
+          phoneContainer,
+          "Phone Number is required for the Bank Account payment method"
+        );
+        form.validate = false;
+      } else {
+        App.removeError(phoneContainer);
+      }
+    }
   },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
@@ -66,6 +92,30 @@ const options: Options = {
     return true;
   },
 };
+
+if (document.body.dataset.engridTheme === "nwf2") {
+  options.RememberMe = {
+    checked: true,
+    remoteUrl: "https://www.nwf.org/remember_me/",
+    fieldOptInSelectorTarget:
+      "div.en__field--phoneNumber2, div.en__field--phoneNumber, div.en__field--email",
+    fieldOptInSelectorTargetLocation: "after",
+    fieldClearSelectorTarget: "div.en__field--email div",
+    fieldClearSelectorTargetLocation: "after",
+    fieldNames: [
+      "supporter.firstName",
+      "supporter.lastName",
+      "supporter.address1",
+      "supporter.address2",
+      "supporter.city",
+      "supporter.country",
+      "supporter.region",
+      "supporter.postcode",
+      "supporter.emailAddress",
+    ],
+  };
+}
+
 new App(options);
 
 (<any>window).FormSwitch = FormSwitch;

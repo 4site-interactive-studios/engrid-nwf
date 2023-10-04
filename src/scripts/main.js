@@ -1,6 +1,8 @@
 const tippy = require("tippy.js").default;
+import lottie from "lottie-web";
+const monthlyAnimationData = require('./monthly-animation.json');
 
-export const customScript = function () {
+export const customScript = function (DonationFrequency) {
   console.log("ENGrid client scripts are executing");
   // Add your client scripts here
 
@@ -55,5 +57,52 @@ export const customScript = function () {
   // In the support hub style donation amount radio selects like buttons
   if (document.querySelector(".en__component--hubgadget")) {
     document.body.classList.add("radio-to-buttons_donationAmt");
+  }
+
+  //NWF2 theme scripts
+  if (document.body.dataset.engridTheme === 'nwf2') {
+    //tooltip for the background image
+    const bgImageTooltip = document.querySelector(
+      ".page-backgroundImage figattribution"
+    );
+
+    if (bgImageTooltip) {
+      const tippyInstance = bgImageTooltip._tippy;
+      if (tippyInstance) {
+        tippyInstance.setProps({
+          arrow: false,
+          allowHTML: true
+        })
+      }
+    }
+
+    // Position monthly upsell after the recurring frequency field
+    let inlineMonthlyUpsell = document.querySelector(
+      ".move-after--transaction-recurrfreq"
+    );
+    let recurrFrequencyField = document.querySelector(".en__field--recurrfreq");
+    if (inlineMonthlyUpsell && recurrFrequencyField) {
+      recurrFrequencyField.insertAdjacentElement(
+        "beforeend",
+        inlineMonthlyUpsell
+      );
+    }
+
+    const monthlyAnimation = lottie.loadAnimation({
+      container: document.querySelector('#en__field_transaction_recurrfreq1 + label'), // the dom element that will contain the animation
+      renderer: 'svg',
+      animationData: monthlyAnimationData,
+      autoplay: false,
+      loop: false,
+    });
+
+    const freq = DonationFrequency.getInstance();
+    freq.onFrequencyChange.subscribe((frequency) => {
+      if (frequency === "monthly") {
+        monthlyAnimation.play();
+      } else {
+        monthlyAnimation.goToAndStop(0);
+      }
+    });
   }
 };

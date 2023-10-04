@@ -61,3 +61,93 @@
     U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
 }
+
+/* 300 */
+@font-face {
+  font-family: "Fira Sans";
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FiraSans-Light.ttf)
+  format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+  U+FEFF, U+FFFD;
+}
+
+/* 300 italic */
+@font-face {
+  font-family: "Fira Sans";
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FiraSans-LightItalic.ttf)
+  format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+  U+FEFF, U+FFFD;
+}
+
+/* 400 italic */
+@font-face {
+  font-family: "Fira Sans";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FiraSans-Italic.ttf)
+  format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+  U+FEFF, U+FFFD;
+}
+
+/* 500 */
+@font-face {
+  font-family: "Fira Sans";
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FiraSans-Medium.ttf)
+  format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+  U+FEFF, U+FFFD;
+}
+
+/* 500 Italic */
+@font-face {
+  font-family: "Fira Sans";
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FiraSans-MediumItalic.ttf)
+  format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+  U+FEFF, U+FFFD;
+}
+
+/* 700 Italic */
+@font-face {
+  font-family: "Fira Sans";
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FiraSans-BoldItalic.ttf)
+  format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+  U+FEFF, U+FFFD;
+}
+
+//Fuzzy Bubbles
+@font-face {
+  font-family: "Fuzzy Bubbles";
+  font-display: swap;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FuzzyBubbles-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Fuzzy Bubbles";
+  font-display: swap;
+  font-weight: 700;
+  src: url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/FuzzyBubbles-Bold.ttf) format("truetype");
+}

@@ -62,9 +62,12 @@ export class XVerify {
         console.log("Engrid Xverify: E-mail Field Not Found", this.emailField);
       return;
     }
-    this.form.onValidate.subscribe(
-      () => (this.form.validate = this.validateSubmit())
-    );
+    this.form.onValidate.subscribe(() => {
+      if (this.form.validate) {
+        if (ENGrid.debug) console.log("Engrid Xverify: onValidate");
+        this.form.validate = this.validateSubmit();
+      }
+    });
     "change paste".split(" ").forEach((e) => {
       this.emailField.addEventListener(e, (event) => {
         // Run after 50ms
@@ -76,6 +79,7 @@ export class XVerify {
     if (this.emailField.value) {
       this.validateEmail(this.emailField.value);
     }
+    this.watchForRememberMe();
   }
 
   private deleteENFieldError() {
@@ -166,5 +170,35 @@ export class XVerify {
     emailError.classList.add("en__field__error");
     emailError.innerHTML = message;
     emailWrapper.prepend(emailError);
+  }
+
+  /**
+   * Watches for changes in the email field's parent element to detect when the "remember me" link is added.
+   * If the "remember me" link is added, validates the email field and logs a message to the console if debug mode is enabled.
+   */
+  private watchForRememberMe() {
+    const emailWrapper = <HTMLDivElement>this.emailField.parentElement;
+
+    if (emailWrapper) {
+      const mutationCallback: MutationCallback = (mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+          if (mutation.type === "childList") {
+            for (let addedNode of mutation.addedNodes) {
+              if (
+                addedNode instanceof HTMLElement &&
+                addedNode.id === "clear-autofill-data"
+              ) {
+                this.validateEmail(this.emailField.value);
+                if (ENGrid.debug) console.log("Engrid Xverify: REMEMBERME");
+              }
+            }
+          }
+        }
+      };
+
+      const observer = new MutationObserver(mutationCallback);
+      const config: MutationObserverInit = { childList: true };
+      observer.observe(emailWrapper, config);
+    }
   }
 }
