@@ -60,20 +60,18 @@ export const customScript = function (DonationFrequency, App) {
 
   //NWF2 theme scripts
   if (document.body.dataset.engridTheme === 'nwf2') {
-    //tooltip for the background image
-    const bgImageTooltip = document.querySelector(
-      ".page-backgroundImage figattribution"
-    );
+    //adjust tippy props
+    const figAttributions = document.querySelectorAll(".media-with-attribution figattribution");
 
-    if (bgImageTooltip) {
-      const tippyInstance = bgImageTooltip._tippy;
+    figAttributions.forEach((figAttribution) => {
+      const tippyInstance = figAttribution._tippy;
       if (tippyInstance) {
         tippyInstance.setProps({
           arrow: false,
           allowHTML: true
         })
       }
-    }
+    });
 
     // Position monthly upsell after the recurring frequency field
     let inlineMonthlyUpsell = document.querySelector(

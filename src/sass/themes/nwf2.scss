@@ -156,6 +156,10 @@
     }
   }
 
+  div:not(.pboAdvancedRow__preview) .en__component--advcolumn.body-banner {
+    z-index: 5!important;
+  }
+
   .content-header,
   .content-footer {
     grid-column: bc;
@@ -400,6 +404,11 @@
       }
     }
   }
+
+  .body-banner .tippy-box {
+    width: auto;
+  }
+
 
   //Premiums
   .en__component--premiumgiftblock {

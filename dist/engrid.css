@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, October 4, 2023 @ 13:52:29 ET
+ *  Date: Thursday, October 5, 2023 @ 18:27:00 ET
  *  By: michael
  *  ENGrid styles: v0.15.3
  *  ENGrid scripts: v0.15.7
@@ -8613,6 +8613,9 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .body-bannerOverlay,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .body-footer,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .body-footerOutside,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .body-header,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .body-headerOutside,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .content-footerSpacer,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .content-preFooter,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .page-alert,[data-engrid-theme=nwf2]#en__pagebuilder .en__component--advrow .page-backgroundImageOverlay{
   display:none;
 }
+[data-engrid-theme=nwf2] div:not(.pboAdvancedRow__preview) .en__component--advcolumn.body-banner{
+  z-index:5 !important;
+}
 [data-engrid-theme=nwf2] .content-footer,[data-engrid-theme=nwf2] .content-header{
   grid-column:bc;
 }
@@ -8795,6 +8798,9 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf2] .tippy-box .tippy-content>:last-child{
   margin-bottom:0;
   margin-top:10px;
+}
+[data-engrid-theme=nwf2] .body-banner .tippy-box{
+  width:auto;
 }
 [data-engrid-theme=nwf2] .en__component--premiumgiftblock{
   margin:64px 0 7px;
