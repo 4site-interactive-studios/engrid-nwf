@@ -19,10 +19,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 5, 2023 @ 18:39:28 ET
- *  By: michael
+ *  Date: Wednesday, October 25, 2023 @ 15:58:03 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.15.3
- *  ENGrid scripts: v0.15.8
+ *  ENGrid scripts: v0.15.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -5793,7 +5793,7 @@ body:not(#en__pagebuilder)[data-engrid-no-body-bannerOverlay] .en__component--ad
 }
 @media screen and (min-width:800px){
   [data-engrid-layout=centercenter1col] #engrid>.en__component--advrow,[data-engrid-layout=centercenter1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 240px) [lcc-end bc-start lbc-start] minmax(250px, 400px) [lbc-end rbc-start] minmax(250px, 400px) [rbc-end bc-end rcc-start] minmax(0, 240px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 240px) [lcc-end bc-start lbc-start] minmax(400px, 400px) [lbc-end rbc-start] minmax(400px, 400px) [rbc-end bc-end rcc-start] minmax(0, 240px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centercenter1col] form>.en__component--advrow>*{
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 240px) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 240px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
@@ -5978,7 +5978,7 @@ body:not(#en__pagebuilder)[data-engrid-no-body-bannerOverlay] .en__component--ad
 }
 @media screen and (min-width:800px){
   [data-engrid-layout=centerleft1col] #engrid>.en__component--advrow,[data-engrid-layout=centerleft1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(250px, 400px) [lbc-end rbc-start] minmax(250px, 400px) [rbc-end bc-end rcc-start] minmax(0, 380px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(400px, 400px) [lbc-end rbc-start] minmax(400px, 400px) [rbc-end bc-end rcc-start] minmax(0, 380px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerleft1col] form>.en__component--advrow>*{
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 100px) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 380px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
@@ -6057,7 +6057,7 @@ body:not(#en__pagebuilder)[data-engrid-no-body-bannerOverlay] .en__component--ad
 }
 @media screen and (min-width:800px){
   [data-engrid-layout=centerright1col] #engrid>.en__component--advrow,[data-engrid-layout=centerright1col] form>.en__component--advrow{
-    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 380px) [lcc-end bc-start lbc-start] minmax(250px, 400px) [lbc-end rbc-start] minmax(250px, 400px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
+    grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 380px) [lcc-end bc-start lbc-start] minmax(400px, 400px) [lbc-end rbc-start] minmax(400px, 400px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
   }
   [data-engrid-layout=centerright1col] form>.en__component--advrow>*{
     grid-template-columns:[pc-start lpc-start] minmax(0, 1fr) [lpc-end cc-start lcc-start] minmax(0, 380px) [lcc-end bc-start lbc-start] minmax(0, 400px) [lbc-end rbc-start] minmax(0, 400px) [rbc-end bc-end rcc-start] minmax(0, 100px) [rcc-end cc-end rpc-start] minmax(0, 1fr) [rpc-end pc-end];
@@ -8588,11 +8588,12 @@ body[data-engrid-debug]:before{
     --button_border-color
   );
   --donation-amount__button_count:3;
-  --donation-amount__button_font-size:2.5rem;
+  --donation-amount__button_font-size:2.25rem;
   --donation-amount__button_background-color_checked:var(
     --button_background-color_checked
   );
   --donation-amount__button_border-color_checked:var(--button_border-color);
+  --donation-amount__button_padding:1rem 0.25rem;
   --premium__image_max-height:100px;
   --give-by-select__button_count:1;
   --give-by-select__button_background-color_checked:var(
@@ -9261,8 +9262,6 @@ body[data-engrid-debug]:before{
     max-height:var(--banner-image-height, 250px);
     position:relative !important;
   }
-}
-@media screen and (max-width:599px){
   [data-engrid-theme=nwf2]{
     --engrid__body_padding:0 20px;
     --engrid__content-footer_padding:70px 20px;
