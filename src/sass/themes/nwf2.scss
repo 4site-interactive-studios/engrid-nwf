@@ -110,11 +110,12 @@
 
   //Donation amount buttons
   --donation-amount__button_count: 3;
-  --donation-amount__button_font-size: 2.5rem;
+  --donation-amount__button_font-size: 2.25rem;
   --donation-amount__button_background-color_checked: var(
     --button_background-color_checked
   );
   --donation-amount__button_border-color_checked: var(--button_border-color);
+  --donation-amount__button_padding: 1rem 0.25rem;
 
   //Premiums
   --premium__image_max-height: 100px;
@@ -808,7 +809,7 @@
     }
   }
 
-  @media screen and (max-width: 599px) {
+  @media screen and (max-width: 800px) {
     --engrid__body_padding: 0 20px;
     --engrid__content-footer_padding: 70px 20px;
     --donation-amount__button_count: 2;
