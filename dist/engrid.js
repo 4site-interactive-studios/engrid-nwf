@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, October 25, 2023 @ 15:58:03 ET
- *  By: bryancasler
+ *  Date: Thursday, October 26, 2023 @ 18:06:29 ET
+ *  By: fernando
  *  ENGrid styles: v0.15.3
- *  ENGrid scripts: v0.15.7
+ *  ENGrid scripts: v0.15.8
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -12966,7 +12966,7 @@ class InputPlaceholders {
 /*
   Looks for specially crafted <img> links and will transform its markup to display an attribution overlay on top of the image
   Depends on "_engrid-media-attribution.scss" for styling
-  
+
   Example Image Input
   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAADUlEQVR42mO8/5+BAQAGgwHgbKwW2QAAAABJRU5ErkJggg==" data-src="https://via.placeholder.com/300x300" data-attribution-source="© Jane Doe 1">
   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAADUlEQVR42mO8/5+BAQAGgwHgbKwW2QAAAABJRU5ErkJggg==" data-src="https://via.placeholder.com/300x300" data-attribution-source="© John Doe 2" data-attribution-source-link="https://www.google.com/">
@@ -13015,7 +13015,7 @@ class MediaAttribution {
                         ? mediaWithAttributionElement.dataset.attributionSourceTooltip
                         : false;
                     if (attributionSourceTooltip) {
-                        tippy(".media-with-attribution figattribution", {
+                        tippy(mediaWithAttributionElement.nextSibling, {
                             content: attributionSourceTooltip,
                             arrow: true,
                             arrowType: "default",
@@ -19274,7 +19274,7 @@ class ShowIfPresent {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.15.7";
+const AppVersion = "0.15.8";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
