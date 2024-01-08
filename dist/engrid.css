@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, January 8, 2024 @ 07:14:00 ET
+ *  Date: Monday, January 8, 2024 @ 08:31:23 ET
  *  By: michael
  *  ENGrid styles: v0.16.4
  *  ENGrid scripts: v0.16.10
@@ -8552,8 +8552,8 @@ body[data-engrid-debug]:before{
   --default_font-size:var(--root_font-size);
   --default_line-height:1.4;
   --h1_font-family:"Patua One", serif;
-  --h1_font-size:4.2rem;
-  --h1_line-height:1.1;
+  --h1_font-size:3.6rem;
+  --h1_line-height:1;
   --h2_font-size:2.5rem;
   --p_font-size:var(--root_font-size);
   --p_line-height:1.6;
@@ -9291,7 +9291,7 @@ body[data-engrid-debug]:before{
     --engrid__body_padding:0 20px;
     --engrid__content-footer_padding:70px 20px;
     --donation-amount__button_count:2;
-    --h1_font-size:2.5rem;
+    --h1_font-size:2.25rem;
     --h2_font-size:1.75rem;
     --button_font-size:1.5rem;
     --donation-amount__button_font-size:1.5rem;
