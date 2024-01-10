@@ -613,8 +613,10 @@
     align-items: center;
 
     img {
-      width: 82px;
       margin-right: 18px;
+      height: 100%;
+      max-height: 82px;
+      width: auto;
     }
 
     span {
