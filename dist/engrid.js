@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, January 12, 2024 @ 09:24:17 ET
+ *  Date: Friday, January 12, 2024 @ 09:32:24 ET
  *  By: michael
  *  ENGrid styles: v0.16.4
  *  ENGrid scripts: v0.16.10
@@ -20466,7 +20466,7 @@ class loader_Loader {
       default:
         this.logger.log("LOADING EXTERNAL");
         engrid_js_url = `https://s3.amazonaws.com/engrid-dev.4sitestudios.com/${engrid_repo}/${assets}/engrid.js`;
-        engrid_js_url = `https://s3.amazonaws.com/engrid-dev.4sitestudios.com/${engrid_repo}/${assets}/engrid.css`;
+        engrid_css_url = `https://s3.amazonaws.com/engrid-dev.4sitestudios.com/${engrid_repo}/${assets}/engrid.css`;
     }
 
     if (shouldSkipCss && this.cssElement) {
