@@ -96,7 +96,7 @@ const options: Options = {
 if (document.body.dataset.engridTheme === "nwf2") {
   options.RememberMe = {
     checked: true,
-    remoteUrl: "https://www.nwf.org/remember_me/",
+    remoteUrl: "https://rememberme.nwf.org/index.html",
     fieldOptInSelectorTarget:
       "div.en__field--phoneNumber2, div.en__field--phoneNumber, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",

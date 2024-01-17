@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, January 17, 2024 @ 15:29:34 ET
+ *  Date: Wednesday, January 17, 2024 @ 16:22:33 ET
  *  By: fernando
  *  ENGrid styles: v0.16.4
  *  ENGrid scripts: v0.16.10
@@ -21781,7 +21781,7 @@ const options = {
 if (document.body.dataset.engridTheme === "nwf2") {
   options.RememberMe = {
     checked: true,
-    remoteUrl: "https://www.nwf.org/remember_me/",
+    remoteUrl: "https://rememberme.nwf.org/index.html",
     fieldOptInSelectorTarget: "div.en__field--phoneNumber2, div.en__field--phoneNumber, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--email div",
