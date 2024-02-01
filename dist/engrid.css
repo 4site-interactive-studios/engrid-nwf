@@ -19,9 +19,9 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, February 1, 2024 @ 07:53:05 ET
+ *  Date: Thursday, February 1, 2024 @ 08:19:36 ET
  *  By: michael
- *  ENGrid styles: v0.17.3
+ *  ENGrid styles: v0.17.5
  *  ENGrid scripts: v0.17.4
  *
  *  Created by 4Site Studios
@@ -2078,9 +2078,11 @@ input.en__field__input:focus,input.en__field__input:hover,input:focus,input:hove
 }
 
 .en__field__input--vgs{
+  transition:box-shadow .25s,border-color .25s ease-in-out;
   width:100%;
 }
-.en__field__input--vgs.vgs-collect-container__focused{
+.en__field__input--vgs.vgs-collect-container__focused,.en__field__input--vgs:hover{
+  background-color:var(--input_background-color_hover);
   border-color:var(--input_border-color_hover);
   border-bottom-color:var(--input_border-bottom-color_hover);
 }
