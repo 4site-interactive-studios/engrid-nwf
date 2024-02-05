@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, February 1, 2024 @ 08:19:36 ET
+ *  Date: Monday, February 5, 2024 @ 07:03:43 ET
  *  By: michael
- *  ENGrid styles: v0.17.5
- *  ENGrid scripts: v0.17.4
+ *  ENGrid styles: v0.17.6
+ *  ENGrid scripts: v0.17.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -21161,11 +21161,7 @@ class VGS {
         this.options = engrid_ENGrid.getOption("VGS");
         if (!this.shouldRun())
             return;
-        const paymentTypeField = document.querySelector("#en__field_transaction_paymenttype");
-        if (paymentTypeField) {
-            // The VGS iFrame Communication doesn't change the value of the payment type field, so we have to do it manually
-            paymentTypeField.value = "visa";
-        }
+        this.setPaymentType();
         this.setDefaults();
         this.dumpGlobalVar();
     }
@@ -21199,6 +21195,20 @@ class VGS {
         this.options = Object.assign(Object.assign({}, defaultOptions), options);
         this.logger.log("Theme Options", options);
         this.logger.log("Merged Options", this.options);
+    }
+    setPaymentType() {
+        // Because the VGS iFrame Communication doesn't change the value of the payment type field, we have to set it to Visa by default
+        const paymentTypeField = document.querySelector("#en__field_transaction_paymenttype");
+        if (paymentTypeField) {
+            // Loop through the payment type field options and set the visa card as the default
+            for (let i = 0; i < paymentTypeField.options.length; i++) {
+                if (paymentTypeField.options[i].value.toLowerCase() === "visa" ||
+                    paymentTypeField.options[i].value.toLowerCase() === "vi") {
+                    paymentTypeField.selectedIndex = i;
+                    break;
+                }
+            }
+        }
     }
     dumpGlobalVar() {
         // Dump the global variable for the VGS options
@@ -21238,7 +21248,7 @@ class VGS {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.17.4";
+const AppVersion = "0.17.7";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
