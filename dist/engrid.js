@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, February 5, 2024 @ 07:09:56 ET
+ *  Date: Wednesday, February 28, 2024 @ 10:48:38 ET
  *  By: michael
- *  ENGrid styles: v0.17.6
- *  ENGrid scripts: v0.17.7
+ *  ENGrid styles: v0.17.16
+ *  ENGrid scripts: v0.17.16
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11394,6 +11394,8 @@ const OptionsDefaults = {
     CustomCurrency: false,
     VGS: false,
     PostalCodeValidator: false,
+    CountryRedirect: false,
+    WelcomeBack: false,
     PageLayouts: [
         "leftleft1col",
         "centerleft1col",
@@ -11495,7 +11497,7 @@ const ExitIntentOptionsDefaults = {
     triggers: {
         visibilityState: true,
         mousePosition: true,
-    }
+    },
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/loader.js
@@ -12229,6 +12231,15 @@ class engrid_ENGrid {
         }
         return true;
     }
+    // Deep merge two objects
+    static deepMerge(target, source) {
+        for (const key in source) {
+            if (source[key] instanceof Object)
+                Object.assign(source[key], engrid_ENGrid.deepMerge(target[key], source[key]));
+        }
+        Object.assign(target || {}, source);
+        return target;
+    }
     static setError(element, errorMessage) {
         const errorElement = typeof element === "string" ? document.querySelector(element) : element;
         if (errorElement) {
@@ -12634,7 +12645,52 @@ class RememberMeEvents {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/events/country.js
+
+
+class Country {
+    constructor() {
+        this._onCountryChange = new dist/* SimpleEventDispatcher */.FK();
+        this._country = "";
+        this._field = null;
+        // Run only if it is a Page with a Country field
+        this._field = document.getElementById("en__field_supporter_country");
+        if (!this._field) {
+            return;
+        }
+        document.addEventListener("change", (e) => {
+            const element = e.target;
+            if (element && element.name == "supporter.country") {
+                this.country = element.value;
+            }
+        });
+        // Set the country to the current value on the field
+        this.country = engrid_ENGrid.getFieldValue("supporter.country");
+    }
+    static getInstance() {
+        if (!Country.instance) {
+            Country.instance = new Country();
+        }
+        return Country.instance;
+    }
+    get countryField() {
+        return this._field;
+    }
+    get onCountryChange() {
+        return this._onCountryChange.asEvent();
+    }
+    get country() {
+        return this._country;
+    }
+    // Every time we set a country, trigger the onCountryChange event
+    set country(value) {
+        this._country = value;
+        this._onCountryChange.dispatch(this._country);
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/events/index.js
+
 
 
 
@@ -12652,6 +12708,7 @@ class App extends engrid_ENGrid {
         this._fees = ProcessingFees.getInstance();
         this._amount = DonationAmount.getInstance("transaction.donationAmt", "transaction.donationAmt.other");
         this._frequency = DonationFrequency.getInstance();
+        this._country = Country.getInstance();
         this.logger = new EngridLogger("App", "black", "white", "🍏");
         const loader = new Loader();
         this.options = Object.assign(Object.assign({}, OptionsDefaults), options);
@@ -12735,6 +12792,7 @@ class App extends engrid_ENGrid {
         });
         this._form.onSubmit.subscribe((s) => this.logger.success("Submit: " + JSON.stringify(s)));
         this._form.onError.subscribe((s) => this.logger.danger("Error: " + JSON.stringify(s)));
+        this._country.onCountryChange.subscribe((s) => this.logger.success(`Country: ${s}`));
         window.enOnSubmit = () => {
             this._form.submit = true;
             this._form.submitPromise = false;
@@ -12764,6 +12822,8 @@ class App extends engrid_ENGrid {
             this.logger.success("Validation Passed");
             return true;
         };
+        // Country Redirect
+        new CountryRedirect();
         // iFrame Logic
         new iFrame();
         // Live Variables
@@ -12897,6 +12957,7 @@ class App extends engrid_ENGrid {
         new PostalCodeValidator();
         // Very Good Security
         new VGS();
+        new WelcomeBack();
         //Debug panel
         let showDebugPanel = this.options.Debug;
         try {
@@ -13729,6 +13790,7 @@ class Advocacy {
 
 class DataAttributes {
     constructor() {
+        this._country = Country.getInstance();
         this.setDataAttributes();
     }
     setDataAttributes() {
@@ -13815,11 +13877,10 @@ class DataAttributes {
             engrid_ENGrid.setBodyData("no-page-customCode", "");
         }
         // Add a country data attribute
-        const countrySelect = document.querySelector("#en__field_supporter_country");
-        if (countrySelect) {
-            engrid_ENGrid.setBodyData("country", countrySelect.value);
-            countrySelect.addEventListener("change", () => {
-                engrid_ENGrid.setBodyData("country", countrySelect.value);
+        if (this._country.country) {
+            engrid_ENGrid.setBodyData("country", this._country.country);
+            this._country.onCountryChange.subscribe((country) => {
+                engrid_ENGrid.setBodyData("country", country);
             });
         }
         const otherAmountDiv = document.querySelector(".en__field--donationAmt .en__field__item--other");
@@ -14443,7 +14504,7 @@ class UpsellLightbox {
         this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
         //Disable for "applepay" via Vantiv payment method. Adding it to the array like this so it persists
         //even if the client provides custom options.
-        this.options.disablePaymentMethods.push('applepay');
+        this.options.disablePaymentMethods.push("applepay");
         if (!this.shouldRun()) {
             this.logger.log("Upsell script should NOT run");
             // If we're not on a Donation Page, get out
@@ -15511,8 +15572,10 @@ class TranslateFields {
 
 class AutoCountrySelect {
     constructor() {
+        this._countryEvent = Country.getInstance();
         this.countryWrapper = document.querySelector(".simple_country_select");
-        this.countrySelect = document.querySelector("select#en__field_supporter_country");
+        this.countrySelect = this._countryEvent
+            .countryField;
         this.country = null;
         const engridAutofill = get("engrid-autofill");
         const submissionFailed = !!(engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "checkSubmissionFailed") && window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed());
@@ -17502,7 +17565,8 @@ class AddNameToMessage {
         let addedFirstName = false;
         let addedLastName = false;
         if (message) {
-            if (message.value.includes("{user_data~First Name") || message.value.includes("{user_data~Last Name")) {
+            if (message.value.includes("{user_data~First Name") ||
+                message.value.includes("{user_data~Last Name")) {
                 return;
             }
             else {
@@ -19055,7 +19119,7 @@ class CustomCurrency {
     constructor() {
         this.logger = new EngridLogger("CustomCurrency", "#1901b1", "#00cc95", "🤑");
         this.currencyElement = document.querySelector("[name='transaction.paycurrency']");
-        this.countryElement = document.getElementById("en__field_supporter_country");
+        this._country = Country.getInstance();
         if (!this.shouldRun())
             return;
         this.addEventListeners();
@@ -19069,9 +19133,9 @@ class CustomCurrency {
         return true;
     }
     addEventListeners() {
-        if (this.countryElement) {
-            this.countryElement.addEventListener("change", (e) => {
-                this.loadCurrencies(e.target.value);
+        if (this._country.countryField) {
+            this._country.onCountryChange.subscribe((country) => {
+                this.loadCurrencies(country);
             });
         }
     }
@@ -19139,16 +19203,14 @@ class EventTickets {
             const ticketCurrencyElement = ticketCostElement.getElementsByClassName("en__ticket__currency")[0];
             const formatterOptions = {
                 style: "currency",
-                currency: ticketCurrencyElement.innerText
+                currency: ticketCurrencyElement.innerText,
             };
-            let ticketAmountAsCurrency = Intl.NumberFormat(undefined, formatterOptions)
-                .format(Number(ticketAmountElement.innerText));
-            if (ticketAmountAsCurrency.slice(-3) === '.00') {
+            let ticketAmountAsCurrency = Intl.NumberFormat(undefined, formatterOptions).format(Number(ticketAmountElement.innerText));
+            if (ticketAmountAsCurrency.slice(-3) === ".00") {
                 ticketAmountAsCurrency = ticketAmountAsCurrency.slice(0, -3);
             }
             ticketAmountElement.innerText = ticketAmountAsCurrency;
         }
-        ;
     }
 }
 
@@ -21159,11 +21221,20 @@ class VGS {
         this.logger = new EngridLogger("VGS", "black", "pink", "💳");
         this.vgsField = document.querySelector(".en__field--vgs");
         this.options = engrid_ENGrid.getOption("VGS");
+        this.paymentTypeField = document.querySelector("#en__field_transaction_paymenttype");
+        this._form = EnForm.getInstance();
         if (!this.shouldRun())
             return;
         this.setPaymentType();
         this.setDefaults();
         this.dumpGlobalVar();
+        this._form.onValidate.subscribe(() => {
+            if (this._form.validate) {
+                const isValid = this.validate();
+                this.logger.log(`Form Validation: ${isValid}`);
+                this._form.validate = isValid;
+            }
+        });
     }
     shouldRun() {
         // Only run if the vgs field is present
@@ -21172,6 +21243,11 @@ class VGS {
         return true;
     }
     setDefaults() {
+        const placeholderStyles = {
+            color: getComputedStyle(document.body).getPropertyValue("--input_placeholder-color") || "#a9a9a9",
+            opacity: getComputedStyle(document.body).getPropertyValue("--input_placeholder-opacity") || "1",
+            fontWeight: getComputedStyle(document.body).getPropertyValue("--input_placeholder-font-weight") || "normal",
+        };
         const options = this.options;
         const defaultOptions = {
             "transaction.ccnumber": {
@@ -21180,8 +21256,12 @@ class VGS {
                 icons: {
                     cardPlaceholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB8ElEQVR4nO2c4W3CMBBGz1H/NyNkAzoCo2SDrkI3YJSOABt0g9IJXBnOqUkMyifUqkrek04RlvMjT2c7sc6EGKPBfBpcaSBMBGEiCBNBmAjCRBAmgjARhIkgTARhIggTQZhK2q0Yh5l1ZrYzs0PqsrI4+LN3VTeThkvntUm6Fbuxn2E/LITQmtm7mW08Sb/MbO9tpxhjui6WEMLWzJKDdO3N7Nmf9ZjaYoyn8y8X1o6GXxLV1lJyDeE+9oWPQ/ZRG4b9WkVVpqe+8LLLo7ErM6t248qllZnWBc+uV5+zumGsQjm3f/ic9tb4JGeeXcga4U723rptilVx0avgg2Q3m/JNn+y6zeAm+GSWUi/c7L5yfB77RJhACOHs6WnuLfmGpTI3YditEEGYCMJEECaCMJHZqySvHRfIMBGEiSBMBGEiCBNBmAjCRBAmgjARhIkgTGT2t+R/59EdYXZcfwmEiSBMBGEiCBNZzCr5VzvCZJjIIMxrPKFC6abMsHbaFcZuGq8StqKwDqZkN8emKBbrvawHCtxJ7y1nVxQF34lxUXBupOy8EtWy88jBhknUDjbkPhyd+Xn2l9lHZ8rgcNZVTA5nTYRFjv/dPf7HvzuJ8C0pgjARhIkgTARhIggTQZgIwkQQJoIwEYSJIEwEYQpm9g2Ro5zhLcuLBwAAAABJRU5ErkJggg==",
                 },
+                css: {
+                    "&::placeholder": placeholderStyles,
+                },
                 // Autocomplete is not customizable
                 autoComplete: "cc-number",
+                validations: ["required", "validCardNumber"],
             },
             "transaction.ccvv": {
                 showCardIcon: false,
@@ -21189,22 +21269,25 @@ class VGS {
                 hideValue: false,
                 // Autocomplete is not customizable
                 autoComplete: "cc-csc",
+                validations: ["required", "validCardSecurityCode"],
+                css: {
+                    "&::placeholder": placeholderStyles,
+                },
             },
         };
-        // Merge the default options with the options set in the theme
-        this.options = Object.assign(Object.assign({}, defaultOptions), options);
+        // Deep merge the default options with the options set in the theme
+        this.options = engrid_ENGrid.deepMerge(defaultOptions, options);
         this.logger.log("Theme Options", options);
         this.logger.log("Merged Options", this.options);
     }
     setPaymentType() {
         // Because the VGS iFrame Communication doesn't change the value of the payment type field, we have to set it to Visa by default
-        const paymentTypeField = document.querySelector("#en__field_transaction_paymenttype");
-        if (paymentTypeField) {
+        if (this.paymentTypeField) {
             // Loop through the payment type field options and set the visa card as the default
-            for (let i = 0; i < paymentTypeField.options.length; i++) {
-                if (paymentTypeField.options[i].value.toLowerCase() === "visa" ||
-                    paymentTypeField.options[i].value.toLowerCase() === "vi") {
-                    paymentTypeField.selectedIndex = i;
+            for (let i = 0; i < this.paymentTypeField.options.length; i++) {
+                if (this.paymentTypeField.options[i].value.toLowerCase() === "visa" ||
+                    this.paymentTypeField.options[i].value.toLowerCase() === "vi") {
+                    this.paymentTypeField.selectedIndex = i;
                     break;
                 }
             }
@@ -21221,7 +21304,9 @@ class VGS {
                 // Create a mutation observer that cleans the VGS Elements before anything is rendered
                 const observer = new MutationObserver((mutations) => {
                     mutations.forEach((mutation) => {
-                        if (mutation.type === "childList" && mutation.addedNodes.length > 0)
+                        var _a;
+                        if (mutation.type === "childList" &&
+                            mutation.addedNodes.length > 0) {
                             mutation.addedNodes.forEach((node) => {
                                 if (node.nodeName === "IFRAME" &&
                                     mutation.previousSibling &&
@@ -21230,11 +21315,25 @@ class VGS {
                                     mutation.previousSibling.remove();
                                 }
                             });
+                        }
+                        // Check if the VGS Element is valid, and remove any validation classes and errors
+                        if (mutation.type === "attributes" &&
+                            mutation.attributeName === "class") {
+                            const target = mutation.target;
+                            if (target.classList.contains("vgs-collect-container__valid")) {
+                                const fieldWrapper = target.closest(".en__field--vgs");
+                                fieldWrapper === null || fieldWrapper === void 0 ? void 0 : fieldWrapper.classList.remove("en__field--validationFailed");
+                                (_a = fieldWrapper === null || fieldWrapper === void 0 ? void 0 : fieldWrapper.querySelector(".en__field__error")) === null || _a === void 0 ? void 0 : _a.remove();
+                            }
+                        }
                     });
                 });
                 // Observe the VGS Elements
                 vgsIElements.forEach((vgsIElement) => {
-                    observer.observe(vgsIElement, { childList: true });
+                    observer.observe(vgsIElement, {
+                        childList: true,
+                        attributeFilter: ["class"],
+                    });
                 });
                 if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "vgs")) {
                     window.EngagingNetworks.require._defined.enjs.vgs.init();
@@ -21245,13 +21344,218 @@ class VGS {
             }
         }, 1000);
     }
+    validate() {
+        if (this.paymentTypeField.value.toLowerCase() === "visa" ||
+            this.paymentTypeField.value.toLowerCase() === "vi") {
+            const cardContainer = document.querySelector(".en__field--vgs.en__field--ccnumber");
+            const cardEmpty = cardContainer.querySelector(".vgs-collect-container__empty");
+            const cvvContainer = document.querySelector(".en__field--vgs.en__field--ccvv");
+            const cvvEmpty = cvvContainer.querySelector(".vgs-collect-container__empty");
+            if (cardContainer && cardEmpty) {
+                window.setTimeout(() => {
+                    engrid_ENGrid.setError(cardContainer, "Please enter a valid card number");
+                    // Scroll to the error
+                    cardContainer.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+                return false;
+            }
+            if (cvvContainer && cvvEmpty) {
+                window.setTimeout(() => {
+                    engrid_ENGrid.setError(cvvContainer, "Please enter a valid CVV");
+                    // Scroll to the error
+                    cvvContainer.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/country-redirect.js
+// This component allows you to redirect the user to a different page based on their country.
+// It works by checking the country field on the page and comparing it to the list of countries in the CountryRedirect option.
+// If the country matches one of the countries in the list, the user is redirected to the specified URL only if the URL is not the same as the current page.
+// The CountryRedirect option is an object with the country as the key and the URL as the value.
+// Example:
+//
+// CountryRedirect: {
+//   US: "https://example.com/us",
+//   CA: "https://example.com/ca",
+//   GB: "https://example.com/gb",
+// },
+// The country codes must match the country codes in the country field
+// The CountryRedirect component can also be set at the page level. Useful for Regional Pages, with a Code Block like this:
+//
+// <script>
+//   window.EngridPageOptions = window.EngridPageOptions || [];
+//   window.EngridPageOptions.CountryRedirect = {
+//     US: "https://example.com/us",
+//     CA: "https://example.com/ca",
+//     GB: "https://example.com/gb",
+//   };
+// </script>
+//
+// This will override the default CountryRedirect options for that page.
+//
+
+class CountryRedirect {
+    constructor() {
+        this.logger = new EngridLogger("CountryRedirect", "white", "brown", "🛫");
+        this._country = Country.getInstance();
+        if (!this.shouldRun())
+            return;
+        this._country.onCountryChange.subscribe((country) => {
+            this.checkRedirect(country);
+        });
+        this.checkRedirect(this._country.country); // This will check the redirect when the page loads
+    }
+    shouldRun() {
+        // Only run if the CountryRedirect option is not false and the country field is present
+        if (!engrid_ENGrid.getOption("CountryRedirect") || !this._country.countryField) {
+            return false;
+        }
+        return true;
+    }
+    checkRedirect(country) {
+        const countryRedirect = engrid_ENGrid.getOption("CountryRedirect");
+        // Check if the country is in the list and if the current URL is not the same as the redirect URL
+        // We are using includes because the URL might have query parameters
+        if (countryRedirect &&
+            country in countryRedirect &&
+            window.location.href.includes(countryRedirect[country]) === false) {
+            this.logger.log(`${country}: Redirecting to ${countryRedirect[country]}`);
+            let redirectUrl = new URL(countryRedirect[country]);
+            // If the redirect URL doesn't contain "?chain", add it
+            if (!redirectUrl.search.includes("chain")) {
+                redirectUrl.search += (redirectUrl.search ? "&" : "?") + "chain";
+            }
+            window.location.href = redirectUrl.href;
+        }
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/welcome-back.js
+/**
+ * This component adds a welcome back message and a personal details summary to the page.
+ * It depends on the "fast-personal-details" functionality from the FastFormFill component.
+ * The component will only run, when the "WelcomeBack" option is set,
+ * if the "fast-personal-details" class is present on the page and the FastFormFill conditions
+ * are met (all mandatory inputs in that block are filled).
+ *
+ * All the text content and positioning is configurable through the "WelcomeBack" option.
+ */
+
+
+class WelcomeBack {
+    constructor() {
+        var _a;
+        this.supporterDetails = {};
+        this.options = (_a = engrid_ENGrid.getOption("WelcomeBack")) !== null && _a !== void 0 ? _a : false;
+        if (this.shouldRun()) {
+            this.supporterDetails = {
+                firstName: engrid_ENGrid.getFieldValue("supporter.firstName"),
+                lastName: engrid_ENGrid.getFieldValue("supporter.lastName"),
+                emailAddress: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
+                address1: engrid_ENGrid.getFieldValue("supporter.address1"),
+                address2: engrid_ENGrid.getFieldValue("supporter.address2"),
+                city: engrid_ENGrid.getFieldValue("supporter.city"),
+                region: engrid_ENGrid.getFieldValue("supporter.region"),
+                postcode: engrid_ENGrid.getFieldValue("supporter.postcode"),
+                country: engrid_ENGrid.getFieldValue("supporter.country"),
+            };
+            this.addWelcomeBack();
+            this.addPersonalDetailsSummary();
+            this.addEventListeners();
+        }
+    }
+    shouldRun() {
+        return (!!document.querySelector(".fast-personal-details") &&
+            this.options !== false);
+    }
+    addWelcomeBack() {
+        var _a;
+        if (typeof this.options !== "object" ||
+            !this.options.welcomeBackMessage.display)
+            return;
+        const options = this.options.welcomeBackMessage;
+        const welcomeBack = document.createElement("div");
+        welcomeBack.classList.add("engrid-welcome-back", "showif-fast-personal-details");
+        const title = options.title.replace("{firstName}", this.supporterDetails["firstName"]);
+        welcomeBack.innerHTML = `<p>
+      ${title}
+      <span class="engrid-reset-welcome-back">${options.editText}</span>
+    </p>`;
+        (_a = document
+            .querySelector(options.anchor)) === null || _a === void 0 ? void 0 : _a.insertAdjacentElement(options.placement, welcomeBack);
+    }
+    resetWelcomeBack() {
+        const inputs = document.querySelectorAll(".fast-personal-details .en__field__input");
+        inputs.forEach((input) => {
+            if (input.type === "checkbox" || input.type === "radio") {
+                input.checked = false;
+            }
+            else {
+                input.value = "";
+            }
+        });
+        this.supporterDetails = {};
+        engrid_ENGrid.setBodyData("hide-fast-personal-details", false);
+        remove("engrid-autofill");
+    }
+    addPersonalDetailsSummary() {
+        var _a;
+        if (typeof this.options !== "object" ||
+            !this.options.personalDetailsSummary.display)
+            return;
+        let options = this.options.personalDetailsSummary;
+        const personalDetailsSummary = document.createElement("div");
+        personalDetailsSummary.classList.add("engrid-personal-details-summary", "showif-fast-personal-details");
+        personalDetailsSummary.innerHTML = `<h3>${options.title}</h3>`;
+        personalDetailsSummary.insertAdjacentHTML("beforeend", `
+     <p>
+        ${this.supporterDetails["firstName"]} ${this.supporterDetails["lastName"]}
+        <br>
+        ${this.supporterDetails["emailAddress"]}
+     </p>
+    `);
+        if (this.supporterDetails["address1"] &&
+            this.supporterDetails["city"] &&
+            this.supporterDetails["region"] &&
+            this.supporterDetails["postcode"]) {
+            personalDetailsSummary.insertAdjacentHTML("beforeend", `
+        <p>
+          ${this.supporterDetails["address1"]} ${this.supporterDetails["address2"]}
+          <br>
+          ${this.supporterDetails["city"]}, ${this.supporterDetails["region"]} 
+          ${this.supporterDetails["postcode"]}
+        </p>
+      `);
+        }
+        personalDetailsSummary.insertAdjacentHTML("beforeend", `
+      <p class="engrid-welcome-back-clear setattr--data-engrid-hide-fast-personal-details--false">${options.editText}<svg viewbox="0 0 528.899 528.899" xmlns="http://www.w3.org/2000/svg"> <g> <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981 c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611 C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069 L27.473,390.597L0.3,512.69z"></path></g></svg></p>
+    `);
+        (_a = document
+            .querySelector(options.anchor)) === null || _a === void 0 ? void 0 : _a.insertAdjacentElement(options.placement, personalDetailsSummary);
+    }
+    addEventListeners() {
+        document
+            .querySelectorAll(".engrid-reset-welcome-back")
+            .forEach((element) => {
+            element.addEventListener("click", () => {
+                this.resetWelcomeBack();
+            });
+        });
+    }
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.17.7";
+const AppVersion = "0.17.16";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
 
 
 
