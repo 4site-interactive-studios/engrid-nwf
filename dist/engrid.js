@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, March 12, 2024 @ 13:10:56 ET
+ *  Date: Tuesday, March 12, 2024 @ 13:40:03 ET
  *  By: fernando
  *  ENGrid styles: v0.17.19
  *  ENGrid scripts: v0.17.20
@@ -22261,10 +22261,10 @@ class XVerify {
     });
     "change paste".split(" ").forEach(e => {
       this.emailField.addEventListener(e, event => {
-        // Run after 50ms
+        // Run after 100ms
         setTimeout(() => {
           this.validateEmail(this.emailField.value);
-        }, 50);
+        }, 100);
       });
     });
 

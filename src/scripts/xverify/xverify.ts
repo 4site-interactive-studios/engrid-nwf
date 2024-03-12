@@ -75,10 +75,10 @@ export class XVerify {
     });
     "change paste".split(" ").forEach((e) => {
       this.emailField.addEventListener(e, (event) => {
-        // Run after 50ms
+        // Run after 100ms
         setTimeout(() => {
           this.validateEmail(this.emailField.value);
-        }, 50);
+        }, 100);
       });
     });
     if (this.emailField.value) {
