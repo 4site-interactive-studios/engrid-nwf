@@ -1,4 +1,4 @@
-import { EnForm, ENGrid } from "@4site/engrid-common";
+import { EnForm, ENGrid, EngridLogger } from "@4site/engrid-common";
 // import { EnForm, ENGrid } from "../../../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 
 export class XVerify {
@@ -17,6 +17,12 @@ export class XVerify {
     dateFormat?: string;
   };
   private static instance: XVerify;
+  private logger: EngridLogger = new EngridLogger(
+    "XVerify",
+    "blueviolet",
+    "aliceblue",
+    "🔍"
+  );
   constructor(options: {
     statusField?: string;
     dateField?: string;
@@ -44,7 +50,7 @@ export class XVerify {
       this.xvDate = ENGrid.createHiddenInput(this.options.dateField);
     }
     this.init();
-    if (ENGrid.debug) console.log("Engrid Xverify: LOADED", this.emailField);
+    this.logger.log("LOADED", this.emailField);
   }
   public static getInstance(options: {
     statusField?: string;
@@ -58,13 +64,12 @@ export class XVerify {
   }
   private init() {
     if (!this.emailField) {
-      if (ENGrid.debug)
-        console.log("Engrid Xverify: E-mail Field Not Found", this.emailField);
+      this.logger.log("E-mail Field Not Found", this.emailField);
       return;
     }
     this.form.onValidate.subscribe(() => {
       if (this.form.validate) {
-        if (ENGrid.debug) console.log("Engrid Xverify: onValidate");
+        this.logger.log("onValidate");
         this.form.validate = this.validateSubmit();
       }
     });
@@ -91,17 +96,25 @@ export class XVerify {
     if (errorField) errorField.remove();
   }
 
-  private validateEmail(email: string) {
+  private validateEmail(email: string, force: boolean = false) {
+    const submit = document.querySelector(
+      ".en__submit button"
+    ) as HTMLButtonElement;
+    // If the submit button is disabled and force is false, return
+    if (submit && submit.disabled && !force) {
+      this.logger.log("Submit Button Disabled");
+      return true;
+    }
     if (!this.emailField) {
-      if (ENGrid.debug)
-        console.log(
-          "Engrid XVerify validate(): E-mail Field Not Found. Returning true."
-        );
+      this.logger.log("E-mail Field Not Found. Returning true.");
       return true;
     }
     ENGrid.disableSubmit("Validating Your Email");
     ENGrid.loadJS(this.apiURL + "&email=" + email, () => {
       ENGrid.enableSubmit();
+      if (force) {
+        this.form.submitForm();
+      }
     });
   }
   public static validateXverify(data: any) {
@@ -148,6 +161,15 @@ export class XVerify {
   }
   public validateSubmit() {
     if (
+      this.emailField &&
+      this.emailField.value !== "" &&
+      !this.emailField.dataset.hasOwnProperty("xverifyStatus")
+    ) {
+      this.logger.log("XVerify Status Not Found. Force Validating Email");
+      this.validateEmail(this.emailField.value, true);
+      return false;
+    }
+    if (
       !!["accept_all", "unknown", "valid", "risky"].includes(
         this.emailField.dataset.xverifyStatus || ""
       )
@@ -180,7 +202,7 @@ export class XVerify {
     const emailWrapper = <HTMLDivElement>this.emailField.parentElement;
 
     if (emailWrapper) {
-      const mutationCallback: MutationCallback = (mutationsList, observer) => {
+      const mutationCallback: MutationCallback = (mutationsList, obs) => {
         for (let mutation of mutationsList) {
           if (mutation.type === "childList") {
             for (let addedNode of mutation.addedNodes) {
@@ -188,8 +210,10 @@ export class XVerify {
                 addedNode instanceof HTMLElement &&
                 addedNode.id === "clear-autofill-data"
               ) {
-                this.validateEmail(this.emailField.value);
-                if (ENGrid.debug) console.log("Engrid Xverify: REMEMBERME");
+                window.setTimeout(() => {
+                  this.validateEmail(this.emailField.value);
+                  this.logger.log("REMEMBERME");
+                }, 100);
               }
             }
           }

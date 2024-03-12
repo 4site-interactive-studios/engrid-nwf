@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, February 28, 2024 @ 10:48:38 ET
- *  By: michael
- *  ENGrid styles: v0.17.16
- *  ENGrid scripts: v0.17.16
+ *  Date: Tuesday, March 12, 2024 @ 13:10:56 ET
+ *  By: fernando
+ *  ENGrid styles: v0.17.19
+ *  ENGrid scripts: v0.17.20
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -12958,6 +12958,7 @@ class App extends engrid_ENGrid {
         // Very Good Security
         new VGS();
         new WelcomeBack();
+        new EcardToTarget();
         //Debug panel
         let showDebugPanel = this.options.Debug;
         try {
@@ -13613,10 +13614,10 @@ class Autocomplete {
         this.logger = new EngridLogger("Autocomplete", "#330033", "#f0f0f0", "📇");
         this.autoCompleteField('[name="supporter.firstName"]', "given-name");
         this.autoCompleteField('[name="supporter.lastName"]', "family-name");
-        this.autoCompleteField('[name="transaction.ccnumber"]', "cc-number");
+        // this.autoCompleteField('[name="transaction.ccnumber"]', "cc-number");
         this.autoCompleteField("#en__field_transaction_ccexpire", "cc-exp-month");
         this.autoCompleteField('[name="transaction.ccexpire"]:not(#en__field_transaction_ccexpire)', "cc-exp-year");
-        this.autoCompleteField('[name="transaction.ccvv"]', "cc-csc");
+        // this.autoCompleteField('[name="transaction.ccvv"]', "cc-csc");
         this.autoCompleteField('[name="supporter.emailAddress"]', "email");
         this.autoCompleteField('[name="supporter.phoneNumber"]', "tel");
         this.autoCompleteField('[name="supporter.country"]', "country");
@@ -18035,32 +18036,33 @@ class TidyContact {
         }
     }
     loadOptions() {
-        var _a, _b, _c;
-        if (this.options && !this.options.address_fields) {
-            this.options.address_fields = {
-                address1: "supporter.address1",
-                address2: "supporter.address2",
-                address3: "supporter.address3",
-                city: "supporter.city",
-                region: "supporter.region",
-                postalCode: "supporter.postcode",
-                country: "supporter.country",
-                phone: "supporter.phoneNumber2", // Phone field
-            };
-        }
-        if (this.options && this.options.phone_enable) {
-            this.options.phone_flags = (_a = this.options.phone_flags) !== null && _a !== void 0 ? _a : true;
-            this.options.phone_country_from_ip =
-                (_b = this.options.phone_country_from_ip) !== null && _b !== void 0 ? _b : true;
-            this.options.phone_preferred_countries =
-                (_c = this.options.phone_preferred_countries) !== null && _c !== void 0 ? _c : [];
+        var _a, _b, _c, _d;
+        if (this.options) {
+            if (!this.options.address_fields) {
+                this.options.address_fields = {
+                    address1: "supporter.address1",
+                    address2: "supporter.address2",
+                    address3: "supporter.address3",
+                    city: "supporter.city",
+                    region: "supporter.region",
+                    postalCode: "supporter.postcode",
+                    country: "supporter.country",
+                    phone: "supporter.phoneNumber2", // Phone field
+                };
+            }
+            this.options.address_enable = (_a = this.options.address_enable) !== null && _a !== void 0 ? _a : true;
+            if (this.options.phone_enable) {
+                this.options.phone_flags = (_b = this.options.phone_flags) !== null && _b !== void 0 ? _b : true;
+                this.options.phone_country_from_ip =
+                    (_c = this.options.phone_country_from_ip) !== null && _c !== void 0 ? _c : true;
+                this.options.phone_preferred_countries =
+                    (_d = this.options.phone_preferred_countries) !== null && _d !== void 0 ? _d : [];
+            }
         }
     }
     createFields() {
         var _a, _b, _c, _d, _e, _f;
-        if (!this.options)
-            return;
-        if (!this.hasAddressFields())
+        if (!this.options || !this.hasAddressFields())
             return;
         // Creating Latitude and Longitude fields
         const latitudeField = engrid_ENGrid.getField("supporter.geo.latitude");
@@ -18190,6 +18192,10 @@ class TidyContact {
         var _a;
         if (!this.options)
             return false;
+        // If the country list is empty, allow all countries
+        if (!this.options.countries || this.options.countries.length === 0) {
+            return true;
+        }
         return !!((_a = this.options.countries) === null || _a === void 0 ? void 0 : _a.includes(country.toLowerCase()));
     }
     fetchTimeOut(url, params) {
@@ -18251,7 +18257,7 @@ class TidyContact {
     }
     setFields(data) {
         var _a, _b, _c, _d, _e;
-        if (!this.options)
+        if (!this.options || !this.options.address_enable)
             return {};
         let response = {};
         const country = this.getCountry();
@@ -18301,7 +18307,7 @@ class TidyContact {
     }
     hasAddressFields() {
         var _a, _b, _c, _d, _e, _f;
-        if (!this.options)
+        if (!this.options || !this.options.address_enable)
             return false;
         const address1 = engrid_ENGrid.getField((_a = this.options.address_fields) === null || _a === void 0 ? void 0 : _a.address1);
         const address2 = engrid_ENGrid.getField((_b = this.options.address_fields) === null || _b === void 0 ? void 0 : _b.address2);
@@ -18313,7 +18319,7 @@ class TidyContact {
     }
     canUseAPI() {
         var _a, _b, _c, _d;
-        if (!this.options)
+        if (!this.options || !this.hasAddressFields())
             return false;
         const country = !!this.getCountry();
         const address1 = !!engrid_ENGrid.getFieldValue((_a = this.options.address_fields) === null || _a === void 0 ? void 0 : _a.address1);
@@ -21243,10 +21249,21 @@ class VGS {
         return true;
     }
     setDefaults() {
-        const placeholderStyles = {
-            color: getComputedStyle(document.body).getPropertyValue("--input_placeholder-color") || "#a9a9a9",
-            opacity: getComputedStyle(document.body).getPropertyValue("--input_placeholder-opacity") || "1",
-            fontWeight: getComputedStyle(document.body).getPropertyValue("--input_placeholder-font-weight") || "normal",
+        //EN attempts to define a few default styles for VGS fields based on our text field styling
+        //This does not always work, so we will provide our own defaults
+        const bodyStyles = getComputedStyle(document.body);
+        const styles = {
+            fontFamily: bodyStyles.getPropertyValue("--input_font-family") ||
+                "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
+            fontSize: bodyStyles.getPropertyValue("--input_font-size") || "16px",
+            color: bodyStyles.getPropertyValue("--input_color") || "#000",
+            padding: bodyStyles.getPropertyValue("--input_padding") || "10px",
+            "&::placeholder": {
+                color: bodyStyles.getPropertyValue("--input_placeholder-color") || "#a9a9a9",
+                opacity: bodyStyles.getPropertyValue("--input_placeholder-opacity") || "1",
+                fontWeight: bodyStyles.getPropertyValue("--input_placeholder-font-weight") ||
+                    "normal",
+            },
         };
         const options = this.options;
         const defaultOptions = {
@@ -21256,9 +21273,7 @@ class VGS {
                 icons: {
                     cardPlaceholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB8ElEQVR4nO2c4W3CMBBGz1H/NyNkAzoCo2SDrkI3YJSOABt0g9IJXBnOqUkMyifUqkrek04RlvMjT2c7sc6EGKPBfBpcaSBMBGEiCBNBmAjCRBAmgjARhIkgTARhIggTQZhK2q0Yh5l1ZrYzs0PqsrI4+LN3VTeThkvntUm6Fbuxn2E/LITQmtm7mW08Sb/MbO9tpxhjui6WEMLWzJKDdO3N7Nmf9ZjaYoyn8y8X1o6GXxLV1lJyDeE+9oWPQ/ZRG4b9WkVVpqe+8LLLo7ErM6t248qllZnWBc+uV5+zumGsQjm3f/ic9tb4JGeeXcga4U723rptilVx0avgg2Q3m/JNn+y6zeAm+GSWUi/c7L5yfB77RJhACOHs6WnuLfmGpTI3YditEEGYCMJEECaCMJHZqySvHRfIMBGEiSBMBGEiCBNBmAjCRBAmgjARhIkgTGT2t+R/59EdYXZcfwmEiSBMBGEiCBNZzCr5VzvCZJjIIMxrPKFC6abMsHbaFcZuGq8StqKwDqZkN8emKBbrvawHCtxJ7y1nVxQF34lxUXBupOy8EtWy88jBhknUDjbkPhyd+Xn2l9lHZ8rgcNZVTA5nTYRFjv/dPf7HvzuJ8C0pgjARhIkgTARhIggTQZgIwkQQJoIwEYSJIEwEYQpm9g2Ro5zhLcuLBwAAAABJRU5ErkJggg==",
                 },
-                css: {
-                    "&::placeholder": placeholderStyles,
-                },
+                css: styles,
                 // Autocomplete is not customizable
                 autoComplete: "cc-number",
                 validations: ["required", "validCardNumber"],
@@ -21270,9 +21285,7 @@ class VGS {
                 // Autocomplete is not customizable
                 autoComplete: "cc-csc",
                 validations: ["required", "validCardSecurityCode"],
-                css: {
-                    "&::placeholder": placeholderStyles,
-                },
+                css: styles,
             },
         };
         // Deep merge the default options with the options set in the theme
@@ -21549,11 +21562,97 @@ class WelcomeBack {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/interfaces/ecard-to-target-options.js
+const EcardToTargetOptionsDefaults = {
+    targetName: "",
+    targetEmail: "",
+    hideSendDate: true,
+    hideTarget: true,
+    hideMessage: true,
+    addSupporterNameToMessage: false,
+};
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/ecard-to-target.js
+/**
+ * This component adjusts an ecard form to target a specific recipient,
+ * defined in a code block
+ */
+
+
+
+
+class EcardToTarget {
+    constructor() {
+        this.options = EcardToTargetOptionsDefaults;
+        this.logger = new EngridLogger("EcardToTarget", "DarkBlue", "Azure", "📧");
+        this._form = EnForm.getInstance();
+        this.supporterNameAddedToMessage = false;
+        if (!this.shouldRun())
+            return;
+        this.options = Object.assign(Object.assign({}, this.options), window.EngridEcardToTarget);
+        this.logger.log("EcardToTarget running. Options:", this.options);
+        this.setTarget();
+        this.hideElements();
+        this.addSupporterNameToMessage();
+    }
+    shouldRun() {
+        return (window.hasOwnProperty("EngridEcardToTarget") &&
+            typeof window.EngridEcardToTarget === "object" &&
+            window.EngridEcardToTarget.hasOwnProperty("targetName") &&
+            window.EngridEcardToTarget.hasOwnProperty("targetEmail"));
+    }
+    setTarget() {
+        const targetNameField = document.querySelector(".en__ecardrecipients__name input");
+        const targetEmailField = document.querySelector(".en__ecardrecipients__email input");
+        const addRecipientButton = document.querySelector(".en__ecarditems__addrecipient");
+        if (!targetNameField || !targetEmailField || !addRecipientButton) {
+            this.logger.error("Could not add recipient. Required elements not found.");
+            return;
+        }
+        targetNameField.value = this.options.targetName;
+        targetEmailField.value = this.options.targetEmail;
+        addRecipientButton === null || addRecipientButton === void 0 ? void 0 : addRecipientButton.click();
+        this.logger.log("Added recipient", this.options.targetName, this.options.targetEmail);
+    }
+    hideElements() {
+        const messageBlock = document.querySelector(".en__ecardmessage");
+        const sendDateBlock = document.querySelector(".en__ecardrecipients__futureDelivery");
+        const targetBlock = document.querySelector(".en__ecardrecipients");
+        if (this.options.hideMessage && messageBlock) {
+            messageBlock.classList.add("hide");
+        }
+        if (this.options.hideSendDate && sendDateBlock) {
+            sendDateBlock.classList.add("hide");
+        }
+        if (this.options.hideTarget && targetBlock) {
+            targetBlock.classList.add("hide");
+        }
+    }
+    addSupporterNameToMessage() {
+        if (!this.options.addSupporterNameToMessage)
+            return;
+        this._form.onSubmit.subscribe(() => {
+            if (!this._form.submit)
+                return;
+            if (!this.supporterNameAddedToMessage) {
+                this.supporterNameAddedToMessage = true;
+                const supporterName = `${engrid_ENGrid.getFieldValue("supporter.firstName")} ${engrid_ENGrid.getFieldValue("supporter.lastName")}`;
+                const messageField = document.querySelector("[name='transaction.comments']");
+                if (!messageField)
+                    return;
+                messageField.value = `${messageField.value}\n${supporterName}`;
+                this.logger.log("Added supporter name to personalized message", supporterName);
+            }
+        });
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.17.16";
+const AppVersion = "0.17.20";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
@@ -22119,6 +22218,8 @@ class XVerify {
 
     _defineProperty(this, "options", void 0);
 
+    _defineProperty(this, "logger", new EngridLogger("XVerify", "blueviolet", "aliceblue", "🔍"));
+
     this.emailField = document.querySelector("#en__field_supporter_emailAddress");
     this.options = options;
     this.xvStatus = this.options.statusField ? document.querySelector(`[name="${this.options.statusField}"]`) : null;
@@ -22135,7 +22236,7 @@ class XVerify {
     }
 
     this.init();
-    if (engrid_ENGrid.debug) console.log("Engrid Xverify: LOADED", this.emailField);
+    this.logger.log("LOADED", this.emailField);
   }
 
   static getInstance(options) {
@@ -22148,13 +22249,13 @@ class XVerify {
 
   init() {
     if (!this.emailField) {
-      if (engrid_ENGrid.debug) console.log("Engrid Xverify: E-mail Field Not Found", this.emailField);
+      this.logger.log("E-mail Field Not Found", this.emailField);
       return;
     }
 
     this.form.onValidate.subscribe(() => {
       if (this.form.validate) {
-        if (engrid_ENGrid.debug) console.log("Engrid Xverify: onValidate");
+        this.logger.log("onValidate");
         this.form.validate = this.validateSubmit();
       }
     });
@@ -22182,14 +22283,26 @@ class XVerify {
   }
 
   validateEmail(email) {
+    let force = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    const submit = document.querySelector(".en__submit button"); // If the submit button is disabled and force is false, return
+
+    if (submit && submit.disabled && !force) {
+      this.logger.log("Submit Button Disabled");
+      return true;
+    }
+
     if (!this.emailField) {
-      if (engrid_ENGrid.debug) console.log("Engrid XVerify validate(): E-mail Field Not Found. Returning true.");
+      this.logger.log("E-mail Field Not Found. Returning true.");
       return true;
     }
 
     engrid_ENGrid.disableSubmit("Validating Your Email");
     engrid_ENGrid.loadJS(this.apiURL + "&email=" + email, () => {
       engrid_ENGrid.enableSubmit();
+
+      if (force) {
+        this.form.submitForm();
+      }
     });
   }
 
@@ -22230,6 +22343,12 @@ class XVerify {
   }
 
   validateSubmit() {
+    if (this.emailField && this.emailField.value !== "" && !this.emailField.dataset.hasOwnProperty("xverifyStatus")) {
+      this.logger.log("XVerify Status Not Found. Force Validating Email");
+      this.validateEmail(this.emailField.value, true);
+      return false;
+    }
+
     if (!!["accept_all", "unknown", "valid", "risky"].includes(this.emailField.dataset.xverifyStatus || "")) {
       this.valid();
       return true;
@@ -22264,13 +22383,15 @@ class XVerify {
     const emailWrapper = this.emailField.parentElement;
 
     if (emailWrapper) {
-      const mutationCallback = (mutationsList, observer) => {
+      const mutationCallback = (mutationsList, obs) => {
         for (let mutation of mutationsList) {
           if (mutation.type === "childList") {
             for (let addedNode of mutation.addedNodes) {
               if (addedNode instanceof HTMLElement && addedNode.id === "clear-autofill-data") {
-                this.validateEmail(this.emailField.value);
-                if (engrid_ENGrid.debug) console.log("Engrid Xverify: REMEMBERME");
+                window.setTimeout(() => {
+                  this.validateEmail(this.emailField.value);
+                  this.logger.log("REMEMBERME");
+                }, 100);
               }
             }
           }
