@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 28, 2024 @ 14:07:04 ET
+ *  Date: Thursday, March 28, 2024 @ 14:20:10 ET
  *  By: bryancasler
  *  ENGrid styles: v0.17.19
  *  ENGrid scripts: v0.17.20
@@ -9380,13 +9380,28 @@ body[data-engrid-debug]:before{
   --recurring-frequency__button_border-radius:0;
   flex-direction:row-reverse;
   flex-wrap:nowrap;
-  padding-left:calc(19px + .5ch);
+  padding-left:calc(19px + 1.5ch);
   padding-right:0;
   position:relative;
+}
+@media only screen and (max-width:800px){
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) label{
+    padding-left:calc(19px + 1ch);
+  }
+}
+@media only screen and (max-width:600px){
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) label{
+    padding-left:calc(19px + .5ch);
+  }
 }
 [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
   margin-left:-1ch;
   position:absolute;
+}
+@media only screen and (min-width:800px){
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
+    transform:scale(1.3) !important;
+  }
 }
 @media only screen and (max-width:500px){
   [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
