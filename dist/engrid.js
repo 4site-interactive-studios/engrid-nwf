@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, April 2, 2024 @ 17:20:41 ET
+ *  Date: Wednesday, April 3, 2024 @ 20:48:41 ET
  *  By: fernando
  *  ENGrid styles: v0.18.1
- *  ENGrid scripts: v0.18.4
+ *  ENGrid scripts: v0.18.5
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10375,6 +10375,7 @@ const UpsellOptionsDefaults = {
     annual: false,
     disablePaymentMethods: [],
     skipUpsell: false,
+    conversionField: "",
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/interfaces/translate-options.js
@@ -11787,7 +11788,7 @@ class App extends engrid_ENGrid {
         // about 20% of the time and we get a race condition if the client is also using the SwapAmounts feature
         window.setTimeout(() => {
             this._frequency.load();
-        }, 150);
+        }, 1000);
         // Fast Form Fill
         new FastFormFill();
         // Currency Related Components
@@ -13156,6 +13157,7 @@ class UpsellLightbox {
         this._fees = ProcessingFees.getInstance();
         this._frequency = DonationFrequency.getInstance();
         this._dataLayer = DataLayer.getInstance();
+        this._suggestAmount = 0;
         this.logger = new EngridLogger("UpsellLightbox", "black", "pink", "🪟");
         let options = "EngridUpsell" in window ? window.EngridUpsell : {};
         this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
@@ -13268,7 +13270,6 @@ class UpsellLightbox {
     }
     // Should we run the script?
     shouldRun() {
-        // const hideModal = cookie.get("hideUpsell"); // Get cookie
         // if it's a first page of a Donation page
         return (
         // !hideModal &&
@@ -13340,6 +13341,7 @@ class UpsellLightbox {
     shouldOpen() {
         const upsellAmount = this.getUpsellAmount();
         const paymenttype = engrid_ENGrid.getFieldValue("transaction.paymenttype") || "";
+        this._suggestAmount = upsellAmount;
         // If frequency is not onetime or
         // the modal is already opened or
         // there's no suggestion for this donation amount,
@@ -13434,22 +13436,24 @@ class UpsellLightbox {
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL", true);
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_ORIGINAL_AMOUNT", originalAmount);
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "MONTHLY");
+            this.renderConversionField("upsellSuccess", "onetime", originalAmount, "monthly", this._suggestAmount, "monthly", upsoldAmount);
         }
         else {
             this.setOriginalAmount("");
             window.sessionStorage.removeItem("original");
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL", false);
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "ONE-TIME");
+            this.renderConversionField("upsellFail", this._frequency.frequency, this._amount.amount, "monthly", this._suggestAmount, this._frequency.frequency, this._amount.amount);
         }
         this._form.submitForm();
     }
-    // Close the lightbox (no cookies)
+    // Close the lightbox
     close(e) {
         e.preventDefault();
-        // cookie.set("hideUpsell", "1", { expires: 1 }); // Create one day cookie
         this.overlay.classList.add("is-hidden");
         engrid_ENGrid.setBodyData("has-lightbox", false);
         if (this.options.submitOnClose) {
+            this.renderConversionField("upsellFail", this._frequency.frequency, this._amount.amount, "monthly", this._suggestAmount, this._frequency.frequency, this._amount.amount);
             this._form.submitForm();
         }
         else {
@@ -13484,6 +13488,26 @@ class UpsellLightbox {
                 otherInput.classList.add("is-invalid");
             }
         }
+    }
+    renderConversionField(event, // The event that triggered the conversion
+    freq, // The frequency of the donation (onetime, monthly, annual)
+    amt, // The original amount of the donation (before the upsell)
+    sugFreq, // The suggested frequency of the upsell (monthly)
+    sugAmt, // The suggested amount of the upsell
+    subFreq, // The submitted frequency of the upsell (onetime, monthly, annual)
+    subAmt // The submitted amount of the upsell
+    ) {
+        if (this.options.conversionField === "")
+            return;
+        const conversionField = document.querySelector("input[name='" + this.options.conversionField + "']") ||
+            engrid_ENGrid.createHiddenInput(this.options.conversionField);
+        if (!conversionField) {
+            this.logger.error("Could not find or create the conversion field");
+            return;
+        }
+        const conversionValue = `event:${event},freq:${freq},amt:${amt},sugFreq:${sugFreq},sugAmt:${sugAmt},subFreq:${subFreq},subAmt:${subAmt}`;
+        conversionField.value = conversionValue;
+        this.logger.log(`Conversion Field ${event}`, conversionValue);
     }
 }
 
@@ -20403,7 +20427,7 @@ class EcardToTarget {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.18.4";
+const AppVersion = "0.18.5";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
@@ -21145,7 +21169,7 @@ class XVerify {
                 window.setTimeout(() => {
                   this.validateEmail(this.emailField.value);
                   this.logger.log("REMEMBERME");
-                }, 100);
+                }, 1500);
               }
             }
           }
