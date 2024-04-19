@@ -213,7 +213,7 @@ export class XVerify {
                 window.setTimeout(() => {
                   this.validateEmail(this.emailField.value);
                   this.logger.log("REMEMBERME");
-                }, 100);
+                }, 1500);
               }
             }
           }
