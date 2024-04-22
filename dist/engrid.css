@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, April 3, 2024 @ 20:48:41 ET
- *  By: fernando
+ *  Date: Monday, April 22, 2024 @ 07:25:08 ET
+ *  By: michael
  *  ENGrid styles: v0.18.1
  *  ENGrid scripts: v0.18.5
  *
@@ -9425,6 +9425,12 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(3) label{
   border-left:0;
+}
+[data-engrid-theme=nwf2] .en__mandatory:before{
+  content:"*";
+  font-weight:700;
+  left:-3px;
+  position:absolute;
 }
 @media screen and (max-width:800px){
   [data-engrid-theme=nwf2]{

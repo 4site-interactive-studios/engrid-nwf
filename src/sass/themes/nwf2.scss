@@ -858,6 +858,13 @@
     }
   }
 
+  .en__mandatory:before {
+    content: "*";
+    position: absolute;
+    left: -3px;
+    font-weight: bold;
+  }
+
   @media screen and (max-width: 800px) {
     --engrid__body_padding: 0 80px;
     --engrid__content-footer_padding: 70px 80px;
