@@ -858,10 +858,14 @@
     }
   }
 
-  .en__mandatory:before {
+  .en__field--survey > label.en__field__label {
+    position: relative;
+  }
+
+  .en__mandatory > label.en__field__label:before {
     content: "*";
     position: absolute;
-    left: -3px;
+    left: -10px;
     font-weight: bold;
   }
 
