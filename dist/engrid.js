@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, May 9, 2024 @ 13:03:10 ET
+ *  Date: Thursday, May 9, 2024 @ 13:14:56 ET
  *  By: fernando
  *  ENGrid styles: v0.18.8
  *  ENGrid scripts: v0.18.10
@@ -21470,9 +21470,7 @@ class XVerify {
     xv.emailField.dataset.xverifyDate = engrid_ENGrid.formatDate(new Date(), xv.xvDateFormat);
 
     if (!["accept_all", "unknown", "valid", "risky"].includes(data.email.status)) {
-      var _xv$emailField;
-
-      (_xv$emailField = xv.emailField) === null || _xv$emailField === void 0 ? void 0 : _xv$emailField.focus();
+      xv.emailField?.focus();
       if (engrid_ENGrid.debug) console.log("Engrid XVerify validateXverify():", "INVALID");
       xv.invalid(data.email.message);
       return false;
