@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, May 9, 2024 @ 13:14:56 ET
- *  By: fernando
+ *  Date: Tuesday, June 25, 2024 @ 07:19:21 ET
+ *  By: michael
  *  ENGrid styles: v0.18.8
  *  ENGrid scripts: v0.18.10
  *
@@ -9677,6 +9677,14 @@ body[data-engrid-debug]:before{
 @media screen and (max-width:359px){
   [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field__item:last-of-type svg{
     left:-25px !important;
+  }
+}
+[data-engrid-theme=nwf2][data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container{
+  width:570px;
+}
+@media screen and (max-width:600px){
+  [data-engrid-theme=nwf2][data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container{
+    width:100%;
   }
 }
 body{
