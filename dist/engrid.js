@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, June 27, 2024 @ 15:20:00 ET
+ *  Date: Tuesday, July 2, 2024 @ 16:35:11 ET
  *  By: fernando
- *  ENGrid styles: v0.18.14
- *  ENGrid scripts: v0.18.15
+ *  ENGrid styles: v0.18.17
+ *  ENGrid scripts: v0.18.17
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -19381,8 +19381,10 @@ class GiveBySelect {
         this.logger = new EngridLogger("GiveBySelect", "#FFF", "#333", "🐇");
         this.transactionGiveBySelect = document.getElementsByName("transaction.giveBySelect");
         this.paymentTypeField = document.querySelector("select[name='transaction.paymenttype']");
+        this._frequency = DonationFrequency.getInstance();
         if (!this.transactionGiveBySelect)
             return;
+        this._frequency.onFrequencyChange.subscribe(() => this.checkPaymentTypeVisibility());
         this.transactionGiveBySelect.forEach((giveBySelect) => {
             giveBySelect.addEventListener("change", () => {
                 this.logger.log("Changed to " + giveBySelect.value);
@@ -19417,6 +19419,42 @@ class GiveBySelect {
                 }
             });
         }
+    }
+    // Returns true if the selected payment type is visible
+    // Returns false if the selected payment type is not visible
+    isSelectedPaymentVisible() {
+        let visible = true;
+        this.transactionGiveBySelect.forEach((giveBySelect) => {
+            const container = giveBySelect.parentElement;
+            if (giveBySelect.checked && !engrid_ENGrid.isVisible(container)) {
+                this.logger.log(`Selected Payment Type is not visible: ${giveBySelect.value}`);
+                visible = false;
+            }
+        });
+        return visible;
+    }
+    // Checks if the selected payment type is visible
+    // If the selected payment type is not visible, it sets the payment type to the first visible option
+    checkPaymentTypeVisibility() {
+        window.setTimeout(() => {
+            var _a;
+            if (!this.isSelectedPaymentVisible()) {
+                this.logger.log("Setting payment type to first visible option");
+                const firstVisible = Array.from(this.transactionGiveBySelect).find((giveBySelect) => {
+                    const container = giveBySelect.parentElement;
+                    return engrid_ENGrid.isVisible(container);
+                });
+                if (firstVisible) {
+                    this.logger.log("Setting payment type to ", firstVisible.value);
+                    const container = firstVisible.parentElement;
+                    (_a = container.querySelector("label")) === null || _a === void 0 ? void 0 : _a.click();
+                    engrid_ENGrid.setPaymentType(firstVisible.value);
+                }
+            }
+            else {
+                this.logger.log("Selected Payment Type is visible");
+            }
+        }, 300);
     }
 }
 
@@ -20878,7 +20916,7 @@ class ThankYouPageConditionalContent {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.18.15";
+const AppVersion = "0.18.17";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
