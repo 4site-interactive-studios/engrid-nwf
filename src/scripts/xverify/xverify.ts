@@ -63,6 +63,10 @@ export class XVerify {
     return XVerify.instance;
   }
   private init() {
+    if ([64320].includes(ENGrid.getPageID())) {
+      this.logger.log(`XVerify is Disabled for Page ID: ${ENGrid.getPageID()}`);
+      return;
+    }
     if (!this.emailField) {
       this.logger.log("E-mail Field Not Found", this.emailField);
       return;

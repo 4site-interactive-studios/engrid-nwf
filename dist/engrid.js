@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 31, 2024 @ 11:47:37 ET
+ *  Date: Wednesday, July 31, 2024 @ 13:07:52 ET
  *  By: michael
  *  ENGrid styles: v0.18.18
  *  ENGrid scripts: v0.18.18
@@ -21524,6 +21524,11 @@ class XVerify {
   }
 
   init() {
+    if ([64320].includes(engrid_ENGrid.getPageID())) {
+      this.logger.log(`XVerify is Disabled for Page ID: ${engrid_ENGrid.getPageID()}`);
+      return;
+    }
+
     if (!this.emailField) {
       this.logger.log("E-mail Field Not Found", this.emailField);
       return;
@@ -21772,20 +21777,7 @@ const options = {
     }
 
     return true;
-  } // onError: () => {
-  //   console.log('validation error');
-  //   // Optional email field on specific pages
-  //   if ([64320].includes(App.getPageID())) {
-  //     console.log('validation error');
-  //
-  //     if (App.getFieldValue('supporter.emailAddress') === '') {
-  //       console.log('validation error');
-  //
-  //       App.setFieldValue('supporter.emailAddress', 'test@test.com');
-  //     }
-  //   }
-  // }
-
+  }
 };
 
 if (document.body.dataset.engridTheme === "nwf2") {
