@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, July 15, 2024 @ 14:28:43 ET
- *  By: fernando
+ *  Date: Wednesday, July 31, 2024 @ 11:47:37 ET
+ *  By: michael
  *  ENGrid styles: v0.18.18
  *  ENGrid scripts: v0.18.18
  *
@@ -21748,6 +21748,13 @@ const options = {
       } else {
         App.removeError(phoneContainer);
       }
+    } // Optional email field on specific pages
+
+
+    if ([64320].includes(App.getPageID())) {
+      if (App.getFieldValue('supporter.emailAddress') === '') {
+        App.setFieldValue('supporter.emailAddress', 'placeholder@noaddress.ea');
+      }
     }
   },
   onResize: () => console.log("Starter Theme Window Resized"),
@@ -21765,7 +21772,20 @@ const options = {
     }
 
     return true;
-  }
+  } // onError: () => {
+  //   console.log('validation error');
+  //   // Optional email field on specific pages
+  //   if ([64320].includes(App.getPageID())) {
+  //     console.log('validation error');
+  //
+  //     if (App.getFieldValue('supporter.emailAddress') === '') {
+  //       console.log('validation error');
+  //
+  //       App.setFieldValue('supporter.emailAddress', 'test@test.com');
+  //     }
+  //   }
+  // }
+
 };
 
 if (document.body.dataset.engridTheme === "nwf2") {
