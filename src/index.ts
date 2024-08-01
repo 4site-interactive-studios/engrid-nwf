@@ -64,6 +64,14 @@ const options: Options = {
         App.removeError(phoneContainer);
       }
     }
+
+    // Optional email field on specific pages
+    if ([64320].includes(App.getPageID())) {
+      if (App.getFieldValue('supporter.emailAddress') === '') {
+        const email = `${App.getFieldValue('supporter.firstName')}${App.getFieldValue('supporter.lastName')}${Date.now()}-autofilled@noaddress.ea`
+        App.setFieldValue('supporter.emailAddress', email);
+      }
+    }
   },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
