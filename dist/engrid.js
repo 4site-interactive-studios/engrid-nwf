@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 31, 2024 @ 13:07:52 ET
+ *  Date: Thursday, August 1, 2024 @ 06:43:59 ET
  *  By: michael
  *  ENGrid styles: v0.18.18
  *  ENGrid scripts: v0.18.18
@@ -21758,7 +21758,8 @@ const options = {
 
     if ([64320].includes(App.getPageID())) {
       if (App.getFieldValue('supporter.emailAddress') === '') {
-        App.setFieldValue('supporter.emailAddress', 'placeholder@noaddress.ea');
+        const email = `${App.getFieldValue('supporter.firstName')}${App.getFieldValue('supporter.lastName')}${Date.now()}-autofilled@noaddress.ea`;
+        App.setFieldValue('supporter.emailAddress', email);
       }
     }
   },

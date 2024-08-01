@@ -68,7 +68,8 @@ const options: Options = {
     // Optional email field on specific pages
     if ([64320].includes(App.getPageID())) {
       if (App.getFieldValue('supporter.emailAddress') === '') {
-        App.setFieldValue('supporter.emailAddress', 'placeholder@noaddress.ea');
+        const email = `${App.getFieldValue('supporter.firstName')}${App.getFieldValue('supporter.lastName')}${Date.now()}-autofilled@noaddress.ea`
+        App.setFieldValue('supporter.emailAddress', email);
       }
     }
   },
