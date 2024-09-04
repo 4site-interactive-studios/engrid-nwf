@@ -1,10 +1,10 @@
-import { Options, App, DonationFrequency, EnForm } from "@4site/engrid-common"; // Uses ENGrid via NPM
+import { Options, App, DonationFrequency, EnForm } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
 // import {
 //   Options,
 //   App,
 //   DonationFrequency,
 //   EnForm,
-// } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+// } from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
@@ -67,9 +67,13 @@ const options: Options = {
 
     // Optional email field on specific pages
     if ([64320].includes(App.getPageID())) {
-      if (App.getFieldValue('supporter.emailAddress') === '') {
-        const email = `${App.getFieldValue('supporter.firstName')}${App.getFieldValue('supporter.lastName')}${Date.now()}-autofilled@noaddress.ea`
-        App.setFieldValue('supporter.emailAddress', email);
+      if (App.getFieldValue("supporter.emailAddress") === "") {
+        const email = `${App.getFieldValue(
+          "supporter.firstName"
+        )}${App.getFieldValue(
+          "supporter.lastName"
+        )}${Date.now()}-autofilled@noaddress.ea`;
+        App.setFieldValue("supporter.emailAddress", email);
       }
     }
   },
