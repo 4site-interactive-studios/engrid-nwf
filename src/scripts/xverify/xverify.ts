@@ -1,5 +1,5 @@
-import { EnForm, ENGrid, EngridLogger } from "@4site/engrid-common";
-// import { EnForm, ENGrid } from "../../../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+import { EnForm, ENGrid, EngridLogger } from "@4site/engrid-scripts";
+// import { EnForm, ENGrid } from "../../../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
 
 export class XVerify {
   public form: EnForm = EnForm.getInstance();
