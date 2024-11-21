@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, November 21, 2024 @ 17:02:14 ET
+ *  Date: Thursday, November 21, 2024 @ 17:22:49 ET
  *  By: fernando
  *  ENGrid styles: v0.19.20
  *  ENGrid scripts: v0.19.22
@@ -21503,6 +21503,22 @@ const customScript = function (DonationFrequency, App) {
       }
     };
 
+    const selectPremiumFromSession = () => {
+      const selectedPremiumId = sessionStorage.getItem("selectedPremiumId");
+      const selectedVariantId = sessionStorage.getItem("selectedVariantId");
+
+      if (selectedPremiumId && selectedVariantId) {
+        const selectedGift = document.querySelector(`input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`);
+
+        if (selectedGift) {
+          selectedGift.click();
+          window.setTimeout(() => {
+            App.setFieldValue("transaction.selprodvariantid", selectedVariantId);
+          }, 100);
+        }
+      }
+    };
+
     const disablePremiumBlock = function () {
       let message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Gifts Disabled";
       const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
@@ -21556,6 +21572,10 @@ const customScript = function (DonationFrequency, App) {
 
     if (!window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()) {
       maxMyGift();
+    } else {
+      window.setTimeout(() => {
+        selectPremiumFromSession();
+      }, 1000);
     }
 
     if (App.getUrlParameter("premium") !== "international" && country) {
@@ -21602,6 +21622,12 @@ const customScript = function (DonationFrequency, App) {
             if (selectedGift) {
               selectedPremiumId = selectedGift.value;
               selectedVariantId = App.getFieldValue("transaction.selprodvariantid");
+
+              if (selectedPremiumId > 0) {
+                // Save the selected gift and variant id to the session storage
+                sessionStorage.setItem("selectedPremiumId", selectedPremiumId);
+                sessionStorage.setItem("selectedVariantId", selectedVariantId);
+              }
             }
           }, 250);
         });

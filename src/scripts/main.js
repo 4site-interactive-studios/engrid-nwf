@@ -27,6 +27,25 @@ export const customScript = function (DonationFrequency, App) {
       }
     };
 
+    const selectPremiumFromSession = () => {
+      const selectedPremiumId = sessionStorage.getItem("selectedPremiumId");
+      const selectedVariantId = sessionStorage.getItem("selectedVariantId");
+      if (selectedPremiumId && selectedVariantId) {
+        const selectedGift = document.querySelector(
+          `input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`
+        );
+        if (selectedGift) {
+          selectedGift.click();
+          window.setTimeout(() => {
+            App.setFieldValue(
+              "transaction.selprodvariantid",
+              selectedVariantId
+            );
+          }, 100);
+        }
+      }
+    };
+
     const disablePremiumBlock = (message = "Gifts Disabled") => {
       const premiumBlock = document.querySelector(
         ".en__component--premiumgiftblock"
@@ -88,6 +107,10 @@ export const customScript = function (DonationFrequency, App) {
       !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()
     ) {
       maxMyGift();
+    } else {
+      window.setTimeout(() => {
+        selectPremiumFromSession();
+      }, 1000);
     }
     if (App.getUrlParameter("premium") !== "international" && country) {
       if (country.value !== "US") {
@@ -135,6 +158,11 @@ export const customScript = function (DonationFrequency, App) {
               selectedVariantId = App.getFieldValue(
                 "transaction.selprodvariantid"
               );
+              if (selectedPremiumId > 0) {
+                // Save the selected gift and variant id to the session storage
+                sessionStorage.setItem("selectedPremiumId", selectedPremiumId);
+                sessionStorage.setItem("selectedVariantId", selectedVariantId);
+              }
             }
           }, 250);
         });
