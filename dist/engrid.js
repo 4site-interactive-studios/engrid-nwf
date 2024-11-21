@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 31, 2024 @ 11:21:36 ET
- *  By: bryancasler
- *  ENGrid styles: v0.19.9
- *  ENGrid scripts: v0.19.9
+ *  Date: Thursday, November 21, 2024 @ 17:02:14 ET
+ *  By: fernando
+ *  ENGrid styles: v0.19.20
+ *  ENGrid scripts: v0.19.22
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10376,6 +10376,7 @@ const UpsellOptionsDefaults = {
     disablePaymentMethods: [],
     skipUpsell: false,
     conversionField: "",
+    upsellCheckbox: false,
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/interfaces/translate-options.js
@@ -10762,6 +10763,12 @@ class DonationAmount {
         if (found.length) {
             const amountField = found[0];
             amountField.checked = true;
+            // Change Event
+            const event = new Event("change", {
+                bubbles: true,
+                cancelable: true,
+            });
+            amountField.dispatchEvent(event);
             // Clear OTHER text field
             this.clearOther();
         }
@@ -10773,6 +10780,12 @@ class DonationAmount {
                     enFieldOtherAmountRadio.checked = true;
                 }
                 otherField.value = parseFloat(amount.toString()).toFixed(2);
+                // Change Event
+                const event = new Event("change", {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                otherField.dispatchEvent(event);
                 const otherWrapper = otherField.parentNode;
                 otherWrapper.classList.remove("en__field__item--hidden");
             }
@@ -11713,6 +11726,8 @@ class App extends engrid_ENGrid {
         new Advocacy();
         new InputPlaceholders();
         new InputHasValueAndFocus();
+        // Give By Select
+        new GiveBySelect();
         new ShowHideRadioCheckboxes("transaction.giveBySelect", "giveBySelect-");
         new ShowHideRadioCheckboxes("transaction.inmem", "inmem-");
         new ShowHideRadioCheckboxes("transaction.recurrpay", "recurrpay-");
@@ -11787,6 +11802,8 @@ class App extends engrid_ENGrid {
         new LiveVariables(this.options);
         // Dynamically set Recurrency Frequency
         new setRecurrFreq();
+        // Upsell Checkbox
+        new UpsellCheckbox();
         // Upsell Lightbox
         new UpsellLightbox();
         // Amount Labels
@@ -11901,8 +11918,6 @@ class App extends engrid_ENGrid {
         // Plaid
         if (this.options.Plaid)
             new Plaid();
-        // Give By Select
-        new GiveBySelect();
         //Exit Intent Lightbox
         new ExitIntentLightbox();
         new UrlParamsToBodyAttrs();
@@ -12611,6 +12626,20 @@ class DataAttributes {
         if (!CSS.supports("selector(:has(*))")) {
             engrid_ENGrid.setBodyData("css-has-selector", "false");
         }
+        if (engrid_ENGrid.getPageType() === "DONATION") {
+            this.addFrequencyDataAttribute();
+        }
+    }
+    // Add a data attribute to the body tag with how many visible frequency options there are
+    addFrequencyDataAttribute() {
+        const frequencyOptions = document.querySelectorAll(".en__field--recurrfreq .en__field__item label.en__field__label");
+        let visibleFrequencyOptions = 0;
+        frequencyOptions.forEach((option) => {
+            if (engrid_ENGrid.isVisible(option)) {
+                visibleFrequencyOptions++;
+            }
+        });
+        engrid_ENGrid.setBodyData("visible-frequency", visibleFrequencyOptions.toString());
     }
 }
 
@@ -12691,6 +12720,10 @@ class iFrame {
                     : 0;
                 this.logger.log(`iFrame Event 'scrollTo' - Position of top of first error ${scrollTo} px`); // check the message is being sent correctly
                 window.parent.postMessage({ scrollTo }, "*");
+                // Send the height of the iFrame
+                window.setTimeout(() => {
+                    this.sendIframeHeight();
+                }, 100);
             });
         }
         else {
@@ -12708,6 +12741,12 @@ class iFrame {
                 if (iframe) {
                     if (event.data.hasOwnProperty("frameHeight")) {
                         iframe.style.height = event.data.frameHeight + "px";
+                        if (event.data.frameHeight > 0) {
+                            iframe.classList.add("loaded");
+                        }
+                        else {
+                            iframe.classList.remove("loaded");
+                        }
                     }
                     // Old scroll event logic "scroll", scrolls to correct iframe?
                     else if (event.data.hasOwnProperty("scroll") &&
@@ -12811,6 +12850,7 @@ class iFrame {
         const excludeClasses = [
             "giveBySelect-Card",
             "en__field--ccnumber",
+            "en__field--survey",
             "give-by-select",
             "give-by-select-header",
             "en__submit",
@@ -12954,8 +12994,10 @@ class InputPlaceholders {
             "input#en__field_supporter_emailAddress": "Email Address",
             "input#en__field_supporter_phoneNumber": "Phone Number (Optional)",
             ".en__mandatory input#en__field_supporter_phoneNumber": "Phone Number",
+            ".i-required input#en__field_supporter_phoneNumber": "Phone Number",
             "input#en__field_supporter_phoneNumber2": "000-000-0000 (Optional)",
             ".en__mandatory input#en__field_supporter_phoneNumber2": "000-000-0000",
+            ".i-required input#en__field_supporter_phoneNumber2": "000-000-0000",
             "input#en__field_supporter_country": "Country",
             "input#en__field_supporter_address1": "Street Address",
             "input#en__field_supporter_address2": "Apt., Ste., Bldg.",
@@ -13576,6 +13618,253 @@ class UpsellLightbox {
                 otherInput.classList.add("is-invalid");
             }
         }
+    }
+    renderConversionField(event, // The event that triggered the conversion
+    freq, // The frequency of the donation (onetime, monthly, annual)
+    amt, // The original amount of the donation (before the upsell)
+    sugFreq, // The suggested frequency of the upsell (monthly)
+    sugAmt, // The suggested amount of the upsell
+    subFreq, // The submitted frequency of the upsell (onetime, monthly, annual)
+    subAmt // The submitted amount of the upsell
+    ) {
+        if (this.options.conversionField === "")
+            return;
+        const conversionField = document.querySelector("input[name='" + this.options.conversionField + "']") ||
+            engrid_ENGrid.createHiddenInput(this.options.conversionField);
+        if (!conversionField) {
+            this.logger.error("Could not find or create the conversion field");
+            return;
+        }
+        const conversionValue = `event:${event},freq:${freq},amt:${amt},sugFreq:${sugFreq},sugAmt:${sugAmt},subFreq:${subFreq},subAmt:${subAmt}`;
+        conversionField.value = conversionValue;
+        this.logger.log(`Conversion Field ${event}`, conversionValue);
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/upsell-checkbox.js
+// This component will add a checkbox to the donation form that will allow the user to upgrade their donation to a monthly donation.
+
+
+class UpsellCheckbox {
+    constructor() {
+        this.checkboxOptions = false;
+        this.checkboxOptionsDefaults = {
+            label: "Make my gift a monthly gift of <strong>{new-amount}/mo</strong>",
+            location: "before .en__component .en__submit",
+            cssClass: "",
+        };
+        this._amount = DonationAmount.getInstance();
+        this._fees = ProcessingFees.getInstance();
+        this._frequency = DonationFrequency.getInstance();
+        this._dataLayer = DataLayer.getInstance();
+        this.checkboxContainer = null;
+        this.oldAmount = 0;
+        this.oldFrequency = "one-time";
+        this.resetCheckbox = false;
+        this.logger = new EngridLogger("UpsellCheckbox", "black", "LemonChiffon", "✅");
+        let options = "EngridUpsell" in window ? window.EngridUpsell : {};
+        this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
+        if (this.options.upsellCheckbox === false) {
+            this.logger.log("Skipped");
+            return;
+        }
+        // To avoid using both UpsellLightbox and UpsellCheckbox at the same time, set window.EngridUpsell.skipUpsell to true if there's an upsellCheckbox
+        if ("upsellCheckbox" in options && options.upsellCheckbox !== false) {
+            window.EngridUpsell.skipUpsell = true; // Skip the upsell lightbox
+        }
+        this.checkboxOptions = Object.assign(Object.assign({}, this.checkboxOptionsDefaults), this.options.upsellCheckbox);
+        if (!this.shouldRun()) {
+            this.logger.log("should NOT run");
+            // If we're not on a Donation Page, get out
+            return;
+        }
+        this.renderCheckbox();
+        this.updateLiveData();
+        this._frequency.onFrequencyChange.subscribe(() => this.updateLiveData());
+        this._frequency.onFrequencyChange.subscribe(() => this.resetUpsellCheckbox());
+        this._amount.onAmountChange.subscribe(() => this.updateLiveData());
+        this._amount.onAmountChange.subscribe(() => this.resetUpsellCheckbox());
+        this._fees.onFeeChange.subscribe(() => this.updateLiveData());
+    }
+    updateLiveData() {
+        this.liveAmounts();
+        this.liveFrequency();
+    }
+    resetUpsellCheckbox() {
+        var _a, _b;
+        // Only reset the upsell checkbox if it has been checked
+        if (!this.resetCheckbox)
+            return;
+        this.logger.log("Reset");
+        // Uncheck the upsell checkbox
+        const checkbox = (_a = this.checkboxContainer) === null || _a === void 0 ? void 0 : _a.querySelector("#upsellCheckbox");
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+        // Hide the upsell checkbox
+        (_b = this.checkboxContainer) === null || _b === void 0 ? void 0 : _b.classList.add("recurring-frequency-y-hide");
+        this.oldAmount = 0;
+        this.oldFrequency = "one-time";
+        this.resetCheckbox = false;
+    }
+    renderCheckbox() {
+        if (this.checkboxOptions === false)
+            return;
+        const label = this.checkboxOptions.label
+            .replace("{new-amount}", " <span class='upsell_suggestion'></span>")
+            .replace("{old-amount}", " <span class='upsell_amount'></span>")
+            .replace("{old-frequency}", " <span class='upsell_frequency'></span>");
+        const formBlock = document.createElement("div");
+        formBlock.classList.add("en__component", "en__component--formblock", "recurring-frequency-y-hide", "engrid-upsell-checkbox");
+        if (this.checkboxOptions.cssClass)
+            formBlock.classList.add(this.checkboxOptions.cssClass);
+        formBlock.innerHTML = `
+    <div class="en__field en__field--checkbox">
+      <div class="en__field__element en__field__element--checkbox">
+        <div class="en__field__item">
+            <input type="checkbox" class="en__field__input en__field__input--checkbox" name="upsellCheckbox" id="upsellCheckbox" value="Y">
+            <label class="en__field__label en__field__label--item" for="upsellCheckbox" style="gap: 0.5ch">${label}</label>
+        </div>
+      </div>
+    </div>`;
+        const checkbox = formBlock.querySelector("#upsellCheckbox");
+        if (checkbox)
+            checkbox.addEventListener("change", this.toggleCheck.bind(this));
+        const position = this.checkboxOptions.location.split(" ")[0];
+        // Location is everything after the first space
+        const location = this.checkboxOptions.location
+            .split(" ")
+            .slice(1)
+            .join(" ")
+            .trim();
+        const target = document.querySelector(location);
+        this.checkboxContainer = formBlock;
+        if (target) {
+            if (position === "before") {
+                this.logger.log("rendered before");
+                target.before(formBlock);
+            }
+            else {
+                this.logger.log("rendered after");
+                target.after(formBlock);
+            }
+        }
+        else {
+            this.logger.error("could not render - target not found");
+        }
+    }
+    // Should we run the script?
+    shouldRun() {
+        // if it's a first page of a Donation page
+        return engrid_ENGrid.getPageNumber() === 1 && engrid_ENGrid.getPageType() === "DONATION";
+    }
+    showCheckbox() {
+        if (this.checkboxContainer)
+            this.checkboxContainer.classList.remove("hide");
+    }
+    hideCheckbox() {
+        if (this.checkboxContainer)
+            this.checkboxContainer.classList.add("hide");
+    }
+    liveAmounts() {
+        // Only update live data if the current frequency is one-time
+        if (this._frequency.frequency !== "onetime")
+            return;
+        const live_upsell_amount = document.querySelectorAll(".upsell_suggestion");
+        const live_amount = document.querySelectorAll(".upsell_amount");
+        const upsellAmount = this.getUpsellAmount();
+        const suggestedAmount = upsellAmount + this._fees.calculateFees(upsellAmount);
+        if (suggestedAmount > 0) {
+            this.showCheckbox();
+        }
+        else {
+            this.hideCheckbox();
+        }
+        live_upsell_amount.forEach((elem) => (elem.innerHTML = this.getAmountTxt(suggestedAmount)));
+        live_amount.forEach((elem) => (elem.innerHTML = this.getAmountTxt(this._amount.amount + this._fees.fee)));
+    }
+    liveFrequency() {
+        const live_upsell_frequency = document.querySelectorAll(".upsell_frequency");
+        live_upsell_frequency.forEach((elem) => (elem.innerHTML = this.getFrequencyTxt()));
+    }
+    // Return the Suggested Upsell Amount
+    getUpsellAmount() {
+        const amount = this._amount.amount;
+        let upsellAmount = 0;
+        for (let i = 0; i < this.options.amountRange.length; i++) {
+            let val = this.options.amountRange[i];
+            if (upsellAmount == 0 && amount <= val.max) {
+                upsellAmount = val.suggestion;
+                if (upsellAmount === 0)
+                    return 0;
+                if (typeof upsellAmount !== "number") {
+                    const suggestionMath = upsellAmount.replace("amount", amount.toFixed(2));
+                    upsellAmount = parseFloat(Function('"use strict";return (' + suggestionMath + ")")());
+                }
+                break;
+            }
+        }
+        return upsellAmount > this.options.minAmount
+            ? upsellAmount
+            : this.options.minAmount;
+    }
+    // Proceed to the next page (upsold or not)
+    toggleCheck(e) {
+        var _a, _b;
+        e.preventDefault();
+        if (e.target.checked) {
+            this.logger.success("Upsold");
+            const upsoldAmount = this.getUpsellAmount();
+            const originalAmount = this._amount.amount;
+            this.oldAmount = originalAmount;
+            this.oldFrequency = this._frequency.frequency;
+            // If we're checking the upsell checkbox, remove the class that hides it on different frequencies
+            (_a = this.checkboxContainer) === null || _a === void 0 ? void 0 : _a.classList.remove("recurring-frequency-y-hide");
+            this._frequency.setFrequency("monthly");
+            this._amount.setAmount(upsoldAmount);
+            this._dataLayer.addEndOfGiftProcessEvent("ENGRID_UPSELL_CHECKBOX", {
+                eventValue: true,
+                originalAmount: originalAmount,
+                upsoldAmount: upsoldAmount,
+                frequency: "monthly",
+            });
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_CHECKBOX", true);
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_ORIGINAL_AMOUNT", originalAmount);
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "MONTHLY");
+            this.renderConversionField("upsellSuccess", "onetime", originalAmount, "monthly", upsoldAmount, "monthly", upsoldAmount);
+            // Set the resetCheckbox flag to true so it will reset if the user changes the amount or frequency
+            window.setTimeout(() => {
+                this.resetCheckbox = true;
+            }, 500);
+        }
+        else {
+            this.resetCheckbox = false;
+            this.logger.success("Not Upsold");
+            this._amount.setAmount(this.oldAmount);
+            this._frequency.setFrequency(this.oldFrequency);
+            (_b = this.checkboxContainer) === null || _b === void 0 ? void 0 : _b.classList.add("recurring-frequency-y-hide");
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_CHECKBOX", false);
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "ONE-TIME");
+            this.renderConversionField("upsellFail", this._frequency.frequency, this._amount.amount, "monthly", this._amount.amount, this._frequency.frequency, this._amount.amount);
+        }
+    }
+    getAmountTxt(amount = 0) {
+        var _a, _b, _c, _d;
+        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
+        const dec_separator = (_b = engrid_ENGrid.getOption("DecimalSeparator")) !== null && _b !== void 0 ? _b : ".";
+        const thousands_separator = (_c = engrid_ENGrid.getOption("ThousandsSeparator")) !== null && _c !== void 0 ? _c : "";
+        const dec_places = amount % 1 == 0 ? 0 : (_d = engrid_ENGrid.getOption("DecimalPlaces")) !== null && _d !== void 0 ? _d : 2;
+        const amountTxt = engrid_ENGrid.formatNumber(amount, dec_places, dec_separator, thousands_separator);
+        return amount > 0 ? symbol + amountTxt : "";
+    }
+    getFrequencyTxt() {
+        const freqTxt = {
+            onetime: "one-time",
+            monthly: "monthly",
+            annual: "annual",
+        };
+        const frequency = this._frequency.frequency;
+        return frequency in freqTxt ? freqTxt[frequency] : frequency;
     }
     renderConversionField(event, // The event that triggered the conversion
     freq, // The frequency of the donation (onetime, monthly, annual)
@@ -16541,7 +16830,8 @@ class UrlToForm {
         this.urlParams.forEach((value, key) => {
             const field = document.getElementsByName(key)[0];
             if (field) {
-                if (!["text", "textarea"].includes(field.type) || !field.value) {
+                if (!["text", "textarea", "email"].includes(field.type) ||
+                    !field.value) {
                     engrid_ENGrid.setFieldValue(key, value);
                     this.logger.log(`Set: ${key} to ${value}`);
                 }
@@ -18092,6 +18382,8 @@ class Autosubmit {
             !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed() &&
             engrid_ENGrid.getUrlParameter("autosubmit") === "Y") {
             this.logger.log("Autosubmitting Form");
+            // Fix EN ?chain parameter not working with email addresses with + in them
+            engrid_ENGrid.setFieldValue("supporter.emailAddress", engrid_ENGrid.getFieldValue("supporter.emailAddress").replace(/\s/g, "+"));
             this._form.submitForm();
         }
     }
@@ -20503,25 +20795,44 @@ class WelcomeBack {
         var _a;
         this.supporterDetails = {};
         this.options = (_a = engrid_ENGrid.getOption("WelcomeBack")) !== null && _a !== void 0 ? _a : false;
-        if (this.shouldRun()) {
-            this.supporterDetails = {
-                firstName: engrid_ENGrid.getFieldValue("supporter.firstName"),
-                lastName: engrid_ENGrid.getFieldValue("supporter.lastName"),
-                emailAddress: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
-                address1: engrid_ENGrid.getFieldValue("supporter.address1"),
-                address2: engrid_ENGrid.getFieldValue("supporter.address2"),
-                city: engrid_ENGrid.getFieldValue("supporter.city"),
-                region: engrid_ENGrid.getFieldValue("supporter.region"),
-                postcode: engrid_ENGrid.getFieldValue("supporter.postcode"),
-                country: engrid_ENGrid.getFieldValue("supporter.country"),
-            };
-            this.addWelcomeBack();
-            this.addPersonalDetailsSummary();
-            this.addEventListeners();
+        this.rememberMeEvents = RememberMeEvents.getInstance();
+        this.hasRun = false;
+        if (!this.shouldRun())
+            return;
+        if (engrid_ENGrid.getOption("RememberMe")) {
+            this.rememberMeEvents.onLoad.subscribe(() => {
+                this.run();
+            });
+            this.rememberMeEvents.onClear.subscribe(() => {
+                this.resetWelcomeBack();
+            });
         }
+        else {
+            this.run();
+        }
+    }
+    run() {
+        if (this.hasRun)
+            return;
+        this.hasRun = true;
+        this.supporterDetails = {
+            firstName: engrid_ENGrid.getFieldValue("supporter.firstName"),
+            lastName: engrid_ENGrid.getFieldValue("supporter.lastName"),
+            emailAddress: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
+            address1: engrid_ENGrid.getFieldValue("supporter.address1"),
+            address2: engrid_ENGrid.getFieldValue("supporter.address2"),
+            city: engrid_ENGrid.getFieldValue("supporter.city"),
+            region: engrid_ENGrid.getFieldValue("supporter.region"),
+            postcode: engrid_ENGrid.getFieldValue("supporter.postcode"),
+            country: engrid_ENGrid.getFieldValue("supporter.country"),
+        };
+        this.addWelcomeBack();
+        this.addPersonalDetailsSummary();
+        this.addEventListeners();
     }
     shouldRun() {
         return (!!document.querySelector(".fast-personal-details") &&
+            engrid_ENGrid.getBodyData("embedded") !== "thank-you-page-donation" &&
             this.options !== false);
     }
     addWelcomeBack() {
@@ -21076,10 +21387,11 @@ class CheckboxLabel {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/version.js
-const AppVersion = "0.19.9";
+const AppVersion = "0.19.22";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
@@ -21171,8 +21483,175 @@ const main_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 const monthlyAnimationData = __webpack_require__(7403);
 
 const customScript = function (DonationFrequency, App) {
-  console.log("ENGrid client scripts are executing"); // Add your client scripts here
+  App.log("ENGrid client scripts are executing"); // Add your client scripts here
+  // PREMIUMS SCRIPTS - START
+
+  const freq = DonationFrequency.getInstance();
+
+  if ("pageJson" in window && "pageType" in window.pageJson && window.pageJson.pageType === "premiumgift") {
+    const country = App.getField("supporter.country");
+
+    const maxMyGift = () => {
+      const maxRadio = document.querySelector(".en__pg:last-child input[type='radio'][name='en__pg'][value='0']");
+
+      if (maxRadio) {
+        maxRadio.checked = true;
+        maxRadio.click();
+        setTimeout(() => {
+          App.setFieldValue("transaction.selprodvariantid", "");
+        }, 150);
+      }
+    };
+
+    const disablePremiumBlock = function () {
+      let message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Gifts Disabled";
+      const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
+
+      if (!premiumBlock || premiumBlock.dataset.dataAnnualDisabled === "true") {
+        return;
+      }
+
+      if (!premiumBlock.hasAttribute("disabled")) {
+        // Keep the page scroll position when the premium block is disabled (hidden)
+        const scrollY = window.scrollY;
+        const premiumStyle = window.getComputedStyle(premiumBlock);
+        const premiumSize = parseInt(premiumStyle.height, 10) + parseInt(premiumStyle.marginTop.replace("px", "")) + parseInt(premiumStyle.marginBottom.replace("px", ""));
+        premiumBlock.setAttribute("disabled", "disabled");
+        premiumBlock.setAttribute("aria-disabled", "true");
+        premiumBlock.setAttribute("data-disabled-message", message);
+        window.scrollTo(0, scrollY - premiumSize);
+        console.log(premiumSize);
+      }
+    };
+
+    const enablePremiumBlock = () => {
+      const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
+
+      if (!premiumBlock || premiumBlock.dataset.dataAnnualDisabled === "true") {
+        return;
+      }
+
+      if (premiumBlock.hasAttribute("disabled")) {
+        // Keep the page scroll position when the premium block is enabled (shown)
+        const scrollY = window.scrollY;
+        const premiumStyle = window.getComputedStyle(premiumBlock);
+        premiumBlock.removeAttribute("disabled");
+        premiumBlock.removeAttribute("aria-disabled");
+        premiumBlock.removeAttribute("data-disabled-message");
+        const premiumSize = parseInt(premiumStyle.height, 10) + parseInt(premiumStyle.marginTop.replace("px", "")) + parseInt(premiumStyle.marginBottom.replace("px", ""));
+        window.scrollTo(0, scrollY + premiumSize);
+        console.log(premiumSize);
+      }
+    };
+
+    const addCountryNotice = () => {
+      if (!document.querySelector(".en__field--country .en__field__notice")) {
+        App.addHtml('<div class="en__field__notice"><strong>Note:</strong> We are unable to mail thank-you gifts to donors outside the United States and its territories and have selected the "Mazimize my gift" option for you.</div>', ".en__field--country .en__field__element", "after");
+      }
+    };
+
+    const removeCountryNotice = () => {
+      App.removeHtml(".en__field--country .en__field__notice");
+    };
+
+    if (!window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()) {
+      maxMyGift();
+    }
+
+    if (App.getUrlParameter("premium") !== "international" && country) {
+      if (country.value !== "US") {
+        const countryText = country.options[country.selectedIndex].text;
+        maxMyGift();
+        disablePremiumBlock(`Gifts Disabled in ${countryText}`);
+        addCountryNotice();
+      }
+
+      country.addEventListener("change", () => {
+        if (country.value !== "US") {
+          const countryText = country.options[country.selectedIndex].text;
+          maxMyGift();
+          disablePremiumBlock(`Gifts Disabled in ${countryText}`);
+          addCountryNotice();
+        } else {
+          enablePremiumBlock();
+          removeCountryNotice();
+        }
+      });
+      freq.onFrequencyChange.subscribe(s => {
+        if (country.value !== "US") {
+          const countryText = country.options[country.selectedIndex].text;
+          maxMyGift();
+          disablePremiumBlock(`Gifts Disabled in ${countryText}`);
+        } else {
+          enablePremiumBlock();
+        }
+      });
+    }
+
+    const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
+
+    if (premiumBlock) {
+      //listen for the change event of name "en__pg" using event delegation
+      let selectedPremiumId = null;
+      let selectedVariantId = null;
+      ["change", "click"].forEach(event => {
+        premiumBlock.addEventListener(event, e => {
+          setTimeout(() => {
+            const selectedGift = document.querySelector('[name="en__pg"]:checked');
+
+            if (selectedGift) {
+              selectedPremiumId = selectedGift.value;
+              selectedVariantId = App.getFieldValue("transaction.selprodvariantid");
+            }
+          }, 250);
+        });
+      }); // Mutation observer to check if the "Maximized Their Gift" radio button is present. If it is, hide it.
+
+      const observer = new MutationObserver(mutationsList => {
+        //loop over the mutations and if we're adding a radio with the "checked" attribute, remove that attribute so nothing gets re-selected
+        //when the premiums list is re-rendered
+        for (const mutation of mutationsList) {
+          if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+            mutation.addedNodes.forEach(node => {
+              if (typeof node.querySelector !== "function") return;
+              const preSelectedRadio = node.querySelector("input[checked]");
+
+              if (preSelectedRadio) {
+                preSelectedRadio.removeAttribute("checked");
+              }
+            });
+          }
+        }
+
+        if (mutationsList.some(mutation => mutation.type === "childList")) {
+          // Re-select the previously selected gift when gift list is re-rendered
+          // If gift no longer exists, choose maximize my gift
+          if (selectedPremiumId && selectedVariantId) {
+            const selectedGift = document.querySelector(`input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`);
+
+            if (selectedGift) {
+              selectedGift.click();
+              window.setTimeout(() => {
+                App.setFieldValue("transaction.selprodvariantid", selectedVariantId);
+              }, 100);
+            } else {
+              maxMyGift();
+            }
+          } else {
+            maxMyGift();
+          }
+        }
+      }); // Start observing the target node for configured mutations
+
+      observer.observe(premiumBlock, {
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+    }
+  } // PREMIUMS SCRIPTS - END
   // Add "(Optional)" to the PhoneNumber2 field label if the field is not required
+
 
   const enFieldPhoneNumber2Label = document.querySelector("label[for='en__field_supporter_phoneNumber2']");
   const enFieldPhoneNumber2Required = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber2");
@@ -21219,7 +21698,7 @@ const customScript = function (DonationFrequency, App) {
   } //NWF2 theme scripts
 
 
-  if (document.body.dataset.engridTheme === 'nwf2') {
+  if (document.body.dataset.engridTheme === "nwf2") {
     //adjust tippy props
     const figAttributions = document.querySelectorAll(".media-with-attribution figattribution");
     figAttributions.forEach(figAttribution => {
@@ -21240,11 +21719,11 @@ const customScript = function (DonationFrequency, App) {
       recurrFrequencyField.insertAdjacentElement("beforeend", inlineMonthlyUpsell);
     }
 
-    App.loadJS('https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js', () => {
+    App.loadJS("https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js", () => {
       const monthlyAnimation = lottie.loadAnimation({
-        container: document.querySelector('#en__field_transaction_recurrfreq1 + label'),
+        container: document.querySelector("#en__field_transaction_recurrfreq1 + label"),
         // the dom element that will contain the animation
-        renderer: 'svg',
+        renderer: "svg",
         animationData: monthlyAnimationData,
         autoplay: false,
         loop: false
@@ -21843,6 +22322,123 @@ class XVerify {
 }
 
 _defineProperty(XVerify, "instance", void 0);
+;// CONCATENATED MODULE: ./src/scripts/annual-limit.ts
+
+// This script hides the premium gift options for the annual frequency until the amount is
+// greater than the minimum amount for the one-time frequency.
+
+class AnnualLimit {
+  constructor() {
+    _defineProperty(this, "logger", new EngridLogger("AnnualLimit", "yellow", "darkblue", "📅"));
+
+    _defineProperty(this, "_amount", DonationAmount.getInstance());
+
+    _defineProperty(this, "_frequency", DonationFrequency.getInstance());
+
+    _defineProperty(this, "annualLimit", 0);
+
+    _defineProperty(this, "country", engrid_ENGrid.getField("supporter.country"));
+
+    _defineProperty(this, "maxMyGift", () => {
+      const maxRadio = document.querySelector(".en__pg:last-child input[type='radio'][name='en__pg'][value='0']");
+
+      if (maxRadio) {
+        maxRadio.checked = true;
+        maxRadio.click();
+        setTimeout(() => {
+          engrid_ENGrid.setFieldValue("transaction.selprodvariantid", "");
+        }, 150);
+      }
+    });
+
+    if (!this.shouldRun()) return;
+    this.loadAnnualLimit();
+
+    this._frequency.onFrequencyChange.subscribe(() => {
+      window.setTimeout(() => this.checkAnnualLimit(), 100);
+    });
+
+    this._amount.onAmountChange.subscribe(() => {
+      window.setTimeout(() => this.checkAnnualLimit(), 100);
+    });
+
+    this.checkAnnualLimit();
+    this.country.addEventListener("change", () => {
+      const premiumGiftContainer = document.querySelector(".en__component--premiumgiftblock");
+
+      if (premiumGiftContainer) {
+        premiumGiftContainer.removeAttribute("data-annual-disabled");
+        this.checkAnnualLimit();
+      }
+    });
+  }
+
+  checkAnnualLimit() {
+    if (this.annualLimit === 0 || this.country.value !== "US") return;
+    const amount = this._amount.amount;
+
+    if (this._frequency.frequency === "annual") {
+      if (amount < this.annualLimit) {
+        this.hidePremium();
+      } else {
+        this.showPremium();
+      }
+    } else {
+      this.showPremium();
+    }
+  }
+
+  showPremium() {
+    const premiumGiftContainer = document.querySelector(".en__component--premiumgiftblock");
+
+    if (premiumGiftContainer && !premiumGiftContainer.hasAttribute("data-disabled-message")) {
+      premiumGiftContainer.removeAttribute("disabled");
+      premiumGiftContainer.removeAttribute("data-annual-disabled");
+      this.logger.log("Premium Gift Container Show");
+    }
+  }
+
+  hidePremium() {
+    const premiumGiftContainer = document.querySelector(".en__component--premiumgiftblock");
+
+    if (premiumGiftContainer && !premiumGiftContainer.hasAttribute("disabled")) {
+      this.maxMyGift();
+      premiumGiftContainer.setAttribute("disabled", "disabled");
+      premiumGiftContainer.setAttribute("data-annual-disabled", "true");
+      this.logger.log("Premium Gift Container Hide");
+    }
+  }
+
+  shouldRun() {
+    const isPremiumGift = window.pageJson.pageType === "premiumgift";
+    const hasAnnualFrequency = document.querySelector("[name='transaction.recurrfreq'][value='annual' i]");
+    const hasPremiumGiftRules = engrid_ENGrid.checkNested(window.EngagingNetworks, "premiumGifts", "rules", "single", "ranges");
+    const hasMonthlyFrequency = document.querySelector("[name='transaction.recurrfreq'][value='monthly' i]");
+    return this.country && isPremiumGift && hasAnnualFrequency && hasMonthlyFrequency && hasPremiumGiftRules;
+  }
+
+  loadAnnualLimit() {
+    // Check if there's a global variable for the premium annual limit
+    if ("PremiumAnnualLimit" in window) {
+      this.annualLimit = +window.PremiumAnnualLimit;
+      this.logger.log("Annual Limit From Global Variable", this.annualLimit);
+      return;
+    }
+
+    const premiumGiftRules = window.EngagingNetworks.premiumGifts.rules;
+    let annualLimit = 0;
+
+    for (let range in premiumGiftRules.single.ranges) {
+      if ("productIds" in premiumGiftRules.single.ranges[range] && premiumGiftRules.single.ranges[range].productIds.length === 0) {
+        annualLimit = +premiumGiftRules.single.ranges[range].limit;
+      }
+    }
+
+    this.annualLimit = annualLimit;
+    this.logger.log("Annual Limit From Single", this.annualLimit);
+  }
+
+}
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM
 // import {
@@ -21851,6 +22447,7 @@ _defineProperty(XVerify, "instance", void 0);
 //   DonationFrequency,
 //   EnForm,
 // } from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
+
 
 
 
@@ -21891,6 +22488,7 @@ const options = {
     }
 
     window.validateXverify = XVerify.validateXverify;
+    new AnnualLimit();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();
