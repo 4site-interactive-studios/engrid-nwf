@@ -801,11 +801,7 @@
     .en__field__item label {
       --recurring-frequency__button_font-size: 24px;
 
-      @media only screen and (max-width: 500px) {
-        --recurring-frequency__button_font-size: 18px;
-      }
-
-      @media only screen and (max-width: 380px) {
+      @media only screen and (max-width: 540px) {
         --recurring-frequency__button_padding: 1rem 0;
         --recurring-frequency__button_font-size: 16px;
       }
@@ -844,26 +840,23 @@
 
       svg {
         position: absolute;
-        margin-left: -1ch;
+        margin-left: -1.5ch;
 
         @media only screen and (min-width: 800px) {
           transform: scale(1.3) !important;
         }
 
-        @media only screen and (max-width: 500px) {
+        @media only screen and (max-width: 799px) {
           transform: scale(1.1) !important;
+          margin-left: -2.5ch;
         }
 
-        @media only screen and (max-width: 380px) {
+        @media only screen and (max-width: 540px) {
           transform: scale(1) !important;
         }
 
-        @media only screen and (max-width: 600px) {
-          margin-left: -1.5ch;
-        }
-
-        @media only screen and (max-width: 380px) {
-          margin-left: -3ch;
+        @media only screen and (max-width: 440px) {
+          margin-left: -3.5ch;
         }
       }
     }
