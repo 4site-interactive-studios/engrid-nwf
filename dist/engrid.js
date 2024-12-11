@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 31, 2024 @ 11:21:36 ET
- *  By: bryancasler
+ *  Date: Wednesday, December 11, 2024 @ 11:03:39 ET
+ *  By: michael
  *  ENGrid styles: v0.19.9
  *  ENGrid scripts: v0.19.9
  *
@@ -21651,6 +21651,8 @@ class XVerify {
 
     _defineProperty(this, "logger", new EngridLogger("XVerify", "blueviolet", "aliceblue", "🔍"));
 
+    _defineProperty(this, "submissionFailed", !!(engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "checkSubmissionFailed") && window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()));
+
     this.emailField = document.querySelector("#en__field_supporter_emailAddress");
     this.options = options;
     this.xvStatus = this.options.statusField ? document.querySelector(`[name="${this.options.statusField}"]`) : null;
@@ -21686,6 +21688,11 @@ class XVerify {
 
     if (!this.emailField) {
       this.logger.log("E-mail Field Not Found", this.emailField);
+      return;
+    }
+
+    if (this.emailField.value !== "" && !this.submissionFailed) {
+      this.logger.log("X-Verify is Disabled for Autofilled Email Address");
       return;
     }
 
