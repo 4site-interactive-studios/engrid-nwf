@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, November 21, 2024 @ 17:22:49 ET
+ *  Date: Friday, December 13, 2024 @ 14:31:39 ET
  *  By: fernando
  *  ENGrid styles: v0.19.20
  *  ENGrid scripts: v0.19.22
@@ -9176,6 +9176,16 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=nwf2] .en__pgList[data-nogift] .en__pg:last-child{
   grid-row:1 /  2;
+}
+[data-engrid-theme=nwf2] .en__pgList[data-nogift] .en__pg:last-child .en__pg__detail:before{
+  content:"Maximize my donation";
+  display:block;
+  font-family:var(--default_font-family);
+  font-size:18px;
+  font-weight:700;
+  line-height:var(--h2_line-height);
+  margin-bottom:3px;
+  text-transform:var(--h2_text-transform);
 }
 [data-engrid-theme=nwf2] .en__pgList[data-nogift] .en__pg:last-child .en__pg__display{
   background-image:var(--maximize_my_donation_image);

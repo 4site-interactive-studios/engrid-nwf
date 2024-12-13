@@ -99,6 +99,17 @@
     .en__pg:last-child {
       grid-row: 1 / 2;
 
+      .en__pg__detail::before {
+        content: "Maximize my donation";
+        display: block;
+        font-family: var(--default_font-family);
+        text-transform: var(--h2_text-transform);
+        line-height: var(--h2_line-height);
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+
       .en__pg__display {
         background-image: var(--maximize_my_donation_image);
         background-size: contain;
