@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 31, 2024 @ 11:21:36 ET
- *  By: bryancasler
- *  ENGrid styles: v0.19.9
- *  ENGrid scripts: v0.19.9
+ *  Date: Thursday, December 19, 2024 @ 15:49:45 ET
+ *  By: fernando
+ *  ENGrid styles: v0.20.0
+ *  ENGrid scripts: v0.20.4
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10171,7 +10171,7 @@ tippy.setDefaultProps({
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"v":"5.7.4","fr":30,"ip":9,"op":60,"w":554,"h":184,"nm":"NWF Button","ddd":0,"assets":[{"id":"image_0","w":61,"h":56,"u":"","p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAA4CAYAAABOr/BaAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAAEDklEQVRogeWaQXLaSBSG/9cSs9YNRlNRpryLKIfZDt6lbKYKnyDxCcY+geEEwAnCnCCkxnG8s9aDXbB0VUhFOUGU5ZTUerOQ0GAsjACpFcy3lIT6fXrdTav1CCsyapqG/Fers0a2YPqZweb0HAHjEPjKTM5vl5/Gq947ra3A198Q43cC2SzYAMMAAGJymdhl4P2q7VHWC4cNq06McwD1bDcmF4AjKlq7Orhzs7YDAP8cPrcFcSdrWzFjYurtX37qL49tCcOGVRdMb2czuirEaO1fTtpZrr09sjoMnK7dFsgVFe3gsQe9UHrUNI3Q1883CWCOsVbRjxcFM2qahvT1d1gtu4vwOES79nHSTTsp0gPYM0O/MspRGADs0JfXo+aemXZS+vo18hEGAIMEOreH1nnayQfSkbC83qQ7L4LBpvSDd6Omacwevz2yOgDs3NsjtEZHv76eP/5AuijhGezQ15MM3PzxrJlzj7qHRNid7133pKNJpFBhAAADp9NAKBSdgpszpB+8nT2QTGSj5p4p/eBLwQH8D3OPBQ2Ica2kuRBn04ktyfT80ygcotcE/KmsOYFkSAkg+i9GfjNnVgzFbRqxZyQtmB7McEqIl5SqiFeU0Zi+aVjfVAdQEp5WCX4Rw4ZV3xFhADCCQLcF1I/lcmHYgoAXZcehEgF6IQCYZQeiEgbbOycNkCF2aBJLSH21fNqwuYPS5AoQvLLDUI0gpt2SJnYFE2+8VbtNcIjvAuCvZQeiFIIjQHDKjkMphLHQNOmUHYdKdD0Yi+rA9YAdyTbBqQ5cTwAAA+/LjkcFFNJfQLwi0ytBv9RoFCFCzQFi6aiLR0/hqUKgfvUq+qSULEOZuF9WQCoQUks+ICbStYuJgyc6oc1mGZh7y9KkfqI8IgXMZhmYk65e3blMyPQdeVuYzzKQ8j6t60E3riLYegjkzmcZSJGuDlwvJH4a3ZzRns8ysGDnpHYxcba9mxOov6j+ZOHOSe1i0sKWzuZR3Yl/tuj8o9tFWiU43rrxTfCE1A7id4pUHpWuDlxPSO1gq8Qln6SN41mWbgxWr+7cbRFnQvvlx8+DZddlLp4bvdozQ63wepS1YUI7noeWklka+HHFVxEGVpQGfjzxVYWBNb5wTMc4gNJ3UdcRBtbI9Cw3jWddMCkrlkkgeER0tv/38uLX9J9vyPDIOiWg6FqwBAK5knG8SWn1xtKAwnFOcLRAX/o/vPw2OTJsWK1pBU/uMPdeXn7OpZwyV2kgn/rwWQjkhsQn8c5OLuQuPSWXrDP3tJ9k67F19DoUJg1EY11qsgXwSsV5RWT3/v0VkLnLEzxmtGsf0ivy80KJ9JTbw+dvQDh/IE/wGOjpetDNuyunoVR6yrBh1eMK4LpK2Sn/AfEmumGq5phqAAAAAElFTkSuQmCC","e":1},{"id":"image_1","w":43,"h":40,"u":"","p":"data:image/png;base64,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","e":1},{"id":"image_2","w":52,"h":50,"u":"","p":"data:image/png;base64,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","e":1},{"id":"comp_0","layers":[{"ddd":0,"ind":1,"ty":2,"nm":"paw right dark.png","cl":"png","refId":"image_1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":20,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":22,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":32,"s":[50]},{"t":34,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[120.5,95.75,0],"ix":2,"l":2},"a":{"a":0,"k":[21.5,20,0],"ix":1,"l":2},"s":{"a":0,"k":[128.75,128.75,100],"ix":6,"l":2}},"ao":0,"ip":8,"op":608,"st":8,"bm":0},{"ddd":0,"ind":2,"ty":2,"nm":"paw left dark.png","cl":"png","refId":"image_2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":26,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":28,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":38,"s":[50]},{"t":40,"s":[0]}],"ix":11},"r":{"a":0,"k":22,"ix":10},"p":{"a":0,"k":[87,47,0],"ix":2,"l":2},"a":{"a":0,"k":[26,25,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":14,"op":614,"st":14,"bm":0},{"ddd":0,"ind":3,"ty":2,"nm":"paw right dark.png","cl":"png","refId":"image_1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":32,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":34,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":44,"s":[50]},{"t":46,"s":[0]}],"ix":11},"r":{"a":0,"k":31,"ix":10},"p":{"a":0,"k":[156,41,0],"ix":2,"l":2},"a":{"a":0,"k":[21.5,20,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":20,"op":620,"st":20,"bm":0},{"ddd":0,"ind":4,"ty":2,"nm":"paw left dark.png","cl":"png","refId":"image_2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":32,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":34,"s":[50]},{"t":44,"s":[0]}],"ix":11},"r":{"a":0,"k":22,"ix":10},"p":{"a":0,"k":[127.765,-3.956,0],"ix":2,"l":2},"a":{"a":0,"k":[26,25,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":26,"op":626,"st":26,"bm":0},{"ddd":0,"ind":5,"ty":2,"nm":"paw right dark.png","cl":"png","refId":"image_1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":38,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":40,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":50,"s":[50]},{"t":52,"s":[0]}],"ix":11},"r":{"a":0,"k":46,"ix":10},"p":{"a":0,"k":[208,7,0],"ix":2,"l":2},"a":{"a":0,"k":[21.5,20,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":32,"op":632,"st":32,"bm":0}]}],"layers":[{"ddd":0,"ind":2,"ty":2,"nm":"heart white.png","cl":"png","refId":"image_0","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"t":33,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0]},"t":38,"s":[100]},{"t":43,"s":[100]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"t":33,"s":[116,135,0],"to":[0,-7.167,0],"ti":[0,6.833,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":43,"s":[116,92,0],"to":[0,-6.833,0],"ti":[0,-0.333,0]},{"t":46,"s":[116,94,0]}],"ix":2,"l":2},"a":{"a":0,"k":[30.5,28,0],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,-0.45]},"t":33,"s":[38,38,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,3.244]},"o":{"x":[1,1,0.167],"y":[0,0,-2.244]},"t":43,"s":[100,100,100]},{"t":46,"s":[90,90,100]}],"ix":6,"l":2}},"ao":0,"ip":0,"op":600,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":0,"nm":"paws","refId":"comp_0","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[277,92,0],"ix":2,"l":2},"a":{"a":0,"k":[276,92,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"w":552,"h":184,"ip":0,"op":600,"st":0,"bm":0}],"markers":[]}');
+module.exports = JSON.parse('{"nm":"NWF Button","ddd":0,"h":184,"w":554,"meta":{"g":"@lottiefiles/toolkit-js 0.33.2"},"layers":[{"ty":2,"nm":"heart white.png","sr":1,"st":0,"op":600,"ip":0,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[30.5,28,0],"ix":1},"s":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.667,"y":1},"s":[38,38,100],"t":33},{"o":{"x":1,"y":0},"i":{"x":0.833,"y":0.833},"s":[100,100,100],"t":43},{"s":[90,90,100],"t":46}],"ix":6},"sk":{"a":0,"k":0},"p":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.667,"y":1},"s":[116,135,0],"t":33,"ti":[0,6.833,0],"to":[0,-7.167,0]},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[116,92,0],"t":43,"ti":[0,-0.333,0],"to":[0,-6.833,0]},{"s":[116,94,0],"t":46}],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.667,"y":1},"s":[0],"t":33},{"o":{"x":0.167,"y":0},"i":{"x":0.667,"y":1},"s":[100],"t":38},{"s":[100],"t":43}],"ix":11}},"ef":[],"refId":"image_0","ind":1},{"ty":0,"nm":"paws","sr":1,"st":0,"op":600,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[276,92,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[277,92,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"w":552,"h":184,"refId":"comp_0","ind":2}],"v":"5.7.4","fr":30,"op":60,"ip":9,"assets":[{"id":"image_0","u":"","e":1,"w":61,"h":56,"p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAA4CAYAAABOr/BaAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAACnUlEQVRogeWb4XHaQBCFv1UFuIJABSYd4AriDkw6cCoAV2A6iFxBkgogFZhUIFIBdPDyQydbFiggo7sz0jfDDIwY3j52V+hWh9EQSQNgAoyBT8CwdHgN/AXWZrZq+tk1WlPg2mkO3ANg4x6/gZ9mtj5X71AAE0lLnU4m6buk4Tu0hg21Cr1pm2azhgFUmTXQm52plekdX3QhPpD0eGYAJwfj9JYt6t03NTzU+dk9RKYa45KePeidVmHyZ7ggU36CKmvOPOodz7j8Gi54LOmNA+iN/2e4zR4+xsRpLgNoZWWfSbmsgWbNfx53zvgkgNZQ0rx4YcUTSctAARTsgBVwG1BvZGa7BPLfYsIahvzKKpThQm8Kr+V9F1A8Jl/AlbekLa/XtF3nKnGl3RfDALcJ4Xs5NuOEfNnWJ4YJb9fDfeC6j6YHJkmxowhNcvwt3aO3pnexgwjMro+mNwn52LZP7BLyOXWf+JOQr2n7xMqUD+m2sSMJyFViZsUEow+sXiYnwK+ooYTjCV6HCAMgo/vr6pGZbRIAV+Jdz3ZqZht4exmaRgklHE/FkxfT7n7yKkIwIViV75db+Ygb+Gd0j1FR2lBZZbkDD4ED8k1aNgyVTMPLmfyZbkxUNsBN1fTeetqdyb+Gick7D1XDUDNEcE3/zXNAvknNLD10YK+8y0j6Qdj7TW2x4UBZFxwzfYn9vQM+1xmGIzMy19835N/cpXCwjxsj//tQ2mJ+ttkLM96u4Qsw7sfwBzbu13DFuI/Nbk0JY7hifhHRcMidUHvG7yVtA5rN5PagRUXh+vxZ793h6wtJc4+GF7H91aL2s57pI5TzKaidrC9U2TH84VGe9bTT2a1Dp///Y6sYv70+kTStMb9V3g6XVcpNcJlPY5n9B3nuOBF6paLrAAAAAElFTkSuQmCC"},{"id":"image_1","u":"","e":1,"w":43,"h":40,"p":"data:image/png;base64,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"},{"id":"image_2","u":"","e":1,"w":52,"h":50,"p":"data:image/png;base64,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"},{"nm":"","id":"comp_0","layers":[{"ty":2,"nm":"paw right dark.png","sr":1,"st":8,"op":608,"ip":8,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[21.5,20,0],"ix":1},"s":{"a":0,"k":[128.75,128.75,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[120.5,95.75,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":20},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":22},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":32},{"s":[0],"t":34}],"ix":11}},"ef":[],"refId":"image_1","ind":1},{"ty":2,"nm":"paw left dark.png","sr":1,"st":14,"op":614,"ip":14,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[26,25,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[87,47,0],"ix":2},"r":{"a":0,"k":22,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":26},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":28},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":38},{"s":[0],"t":40}],"ix":11}},"ef":[],"refId":"image_2","ind":2},{"ty":2,"nm":"paw right dark.png","sr":1,"st":20,"op":620,"ip":20,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[21.5,20,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[156,41,0],"ix":2},"r":{"a":0,"k":31,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":32},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":34},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":44},{"s":[0],"t":46}],"ix":11}},"ef":[],"refId":"image_1","ind":3},{"ty":2,"nm":"paw left dark.png","sr":1,"st":26,"op":626,"ip":26,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[26,25,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[127.765,-3.956,0],"ix":2},"r":{"a":0,"k":22,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":32},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":34},{"s":[0],"t":44}],"ix":11}},"ef":[],"refId":"image_2","ind":4},{"ty":2,"nm":"paw right dark.png","sr":1,"st":32,"op":632,"ip":32,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[21.5,20,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[208,7,0],"ix":2},"r":{"a":0,"k":46,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":38},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":40},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":50},{"s":[0],"t":52}],"ix":11}},"ef":[],"refId":"image_1","ind":5}]}]}');
 
 /***/ })
 
@@ -10376,6 +10376,7 @@ const UpsellOptionsDefaults = {
     disablePaymentMethods: [],
     skipUpsell: false,
     conversionField: "",
+    upsellCheckbox: false,
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/interfaces/translate-options.js
@@ -10442,7 +10443,7 @@ const ExitIntentOptionsDefaults = {
 
 class Loader {
     constructor() {
-        this.logger = new EngridLogger("Loader", "gold", "black", "🔁");
+        this.logger = new logger_EngridLogger("Loader", "gold", "black", "🔁");
         this.cssElement = document.querySelector('link[href*="engrid."][rel="stylesheet"]');
         this.jsElement = document.querySelector('script[src*="engrid."]');
     }
@@ -10619,9 +10620,9 @@ var dist = __webpack_require__(291);
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/events/en-form.js
 
 
-class EnForm {
+class en_form_EnForm {
     constructor() {
-        this.logger = new EngridLogger("EnForm");
+        this.logger = new logger_EngridLogger("EnForm");
         this._onSubmit = new dist/* SignalDispatcher */.nz();
         this._onValidate = new dist/* SignalDispatcher */.nz();
         this._onError = new dist/* SignalDispatcher */.nz();
@@ -10631,10 +10632,10 @@ class EnForm {
         this.validatePromise = false;
     }
     static getInstance() {
-        if (!EnForm.instance) {
-            EnForm.instance = new EnForm();
+        if (!en_form_EnForm.instance) {
+            en_form_EnForm.instance = new en_form_EnForm();
         }
-        return EnForm.instance;
+        return en_form_EnForm.instance;
     }
     dispatchSubmit() {
         this._onSubmit.dispatch();
@@ -10762,6 +10763,12 @@ class DonationAmount {
         if (found.length) {
             const amountField = found[0];
             amountField.checked = true;
+            // Change Event
+            const event = new Event("change", {
+                bubbles: true,
+                cancelable: true,
+            });
+            amountField.dispatchEvent(event);
             // Clear OTHER text field
             this.clearOther();
         }
@@ -10773,6 +10780,12 @@ class DonationAmount {
                     enFieldOtherAmountRadio.checked = true;
                 }
                 otherField.value = parseFloat(amount.toString()).toFixed(2);
+                // Change Event
+                const event = new Event("change", {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                otherField.dispatchEvent(event);
                 const otherWrapper = otherField.parentNode;
                 otherWrapper.classList.remove("en__field__item--hidden");
             }
@@ -11465,7 +11478,7 @@ class ProcessingFees {
     constructor() {
         this._onFeeChange = new dist/* SimpleEventDispatcher */.FK();
         this._amount = DonationAmount.getInstance();
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._fee = 0;
         this._field = null;
         // console.log('%c Processing Fees Constructor', 'font-size: 30px; background-color: #000; color: #FF0');
@@ -11561,7 +11574,7 @@ class ProcessingFees {
 
 class RememberMeEvents {
     constructor() {
-        this.logger = new EngridLogger("RememberMeEvents");
+        this.logger = new logger_EngridLogger("RememberMeEvents");
         this._onLoad = new dist/* SimpleEventDispatcher */.FK();
         this._onClear = new dist/* SignalDispatcher */.nz();
         this.hasData = false;
@@ -11648,12 +11661,12 @@ class App extends engrid_ENGrid {
     constructor(options) {
         super();
         // Events
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._fees = ProcessingFees.getInstance();
         this._amount = DonationAmount.getInstance("transaction.donationAmt", "transaction.donationAmt.other");
         this._frequency = DonationFrequency.getInstance();
         this._country = Country.getInstance();
-        this.logger = new EngridLogger("App", "black", "white", "🍏");
+        this.logger = new logger_EngridLogger("App", "black", "white", "🍏");
         const loader = new Loader();
         this.options = Object.assign(Object.assign({}, OptionsDefaults), options);
         // Add Options to window
@@ -11713,6 +11726,8 @@ class App extends engrid_ENGrid {
         new Advocacy();
         new InputPlaceholders();
         new InputHasValueAndFocus();
+        // Give By Select
+        new GiveBySelect();
         new ShowHideRadioCheckboxes("transaction.giveBySelect", "giveBySelect-");
         new ShowHideRadioCheckboxes("transaction.inmem", "inmem-");
         new ShowHideRadioCheckboxes("transaction.recurrpay", "recurrpay-");
@@ -11787,6 +11802,8 @@ class App extends engrid_ENGrid {
         new LiveVariables(this.options);
         // Dynamically set Recurrency Frequency
         new setRecurrFreq();
+        // Upsell Checkbox
+        new UpsellCheckbox();
         // Upsell Lightbox
         new UpsellLightbox();
         // Amount Labels
@@ -11901,8 +11918,6 @@ class App extends engrid_ENGrid {
         // Plaid
         if (this.options.Plaid)
             new Plaid();
-        // Give By Select
-        new GiveBySelect();
         //Exit Intent Lightbox
         new ExitIntentLightbox();
         new UrlParamsToBodyAttrs();
@@ -11979,7 +11994,7 @@ class App extends engrid_ENGrid {
         }
     }
     static log(message) {
-        const logger = new EngridLogger("Client", "brown", "aliceblue", "🍪");
+        const logger = new logger_EngridLogger("Client", "brown", "aliceblue", "🍪");
         logger.log(message);
     }
 }
@@ -12045,7 +12060,7 @@ class ApplePay {
         this.applePay = document.querySelector('.en__field__input.en__field__input--radio[value="applepay"]');
         this._amount = DonationAmount.getInstance();
         this._fees = ProcessingFees.getInstance();
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this.checkApplePay();
     }
     checkApplePay() {
@@ -12241,7 +12256,7 @@ class A11y {
 
 class CapitalizeFields {
     constructor() {
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._form.onSubmit.subscribe(() => this.capitalizeFields("en__field_supporter_firstName", "en__field_supporter_lastName", "en__field_supporter_address1", "en__field_supporter_city"));
     }
     capitalizeFields(...fields) {
@@ -12301,7 +12316,7 @@ class AutoYear {
 
 class Autocomplete {
     constructor() {
-        this.logger = new EngridLogger("Autocomplete", "#330033", "#f0f0f0", "📇");
+        this.logger = new logger_EngridLogger("Autocomplete", "#330033", "#f0f0f0", "📇");
         this.autoCompleteField('[name="supporter.firstName"]', "given-name");
         this.autoCompleteField('[name="supporter.lastName"]', "family-name");
         this.autoCompleteField("#en__field_transaction_ccexpire", "cc-exp-month");
@@ -12339,8 +12354,8 @@ class Autocomplete {
 
 class Ecard {
     constructor() {
-        this._form = EnForm.getInstance();
-        this.logger = new EngridLogger("Ecard", "red", "#f5f5f5", "🪪");
+        this._form = en_form_EnForm.getInstance();
+        this.logger = new logger_EngridLogger("Ecard", "red", "#f5f5f5", "🪪");
         if (!this.shouldRun())
             return;
         this._form.onValidate.subscribe(() => this.checkRecipientFields());
@@ -12445,7 +12460,7 @@ class ClickToExpand {
 
 class Advocacy {
     constructor() {
-        this.logger = new EngridLogger("Advocacy", "#232323", "#f7b500", "👨‍⚖️");
+        this.logger = new logger_EngridLogger("Advocacy", "#232323", "#f7b500", "👨‍⚖️");
         if (!this.shoudRun())
             return;
         this.setClickableLabels();
@@ -12480,7 +12495,9 @@ class Advocacy {
 
 class DataAttributes {
     constructor() {
+        this.logger = new logger_EngridLogger("Data Attribute Changed", "#FFFFFF", "#4d9068", "🛠️");
         this._country = Country.getInstance();
+        this._frequency = DonationFrequency.getInstance();
         this.setDataAttributes();
     }
     setDataAttributes() {
@@ -12611,6 +12628,53 @@ class DataAttributes {
         if (!CSS.supports("selector(:has(*))")) {
             engrid_ENGrid.setBodyData("css-has-selector", "false");
         }
+        if (engrid_ENGrid.getPageType() === "DONATION") {
+            this.addFrequencyDataAttribute();
+            this.addGiftAmountDataAttribute();
+        }
+    }
+    // Add a data attribute to the body tag with how many visible frequency options there are
+    addFrequencyDataAttribute() {
+        const frequencyOptions = document.querySelectorAll(".en__field--recurrfreq .en__field__item label.en__field__label");
+        let visibleFrequencyOptions = 0;
+        frequencyOptions.forEach((option) => {
+            if (engrid_ENGrid.isVisible(option)) {
+                visibleFrequencyOptions++;
+            }
+        });
+        engrid_ENGrid.setBodyData("visible-frequency", visibleFrequencyOptions.toString());
+    }
+    // Add a data attribute to the body tag with how many visible gift amount options there are
+    addGiftAmountDataAttribute() {
+        const updateGiftAmountData = () => {
+            const giftAmountOptions = document.querySelectorAll(".en__field--donationAmt .en__field__element .en__field__item");
+            let visibleGiftAmountOptions = 0;
+            giftAmountOptions.forEach((option) => {
+                if (engrid_ENGrid.isVisible(option)) {
+                    visibleGiftAmountOptions++;
+                }
+            });
+            engrid_ENGrid.setBodyData("visible-gift-amount", visibleGiftAmountOptions.toString());
+            this.logger.log("Visible Gift Amount Changed to: " + visibleGiftAmountOptions.toString());
+        };
+        // Initial update
+        updateGiftAmountData();
+        // Observe changes in the donation amount section
+        const observer = new MutationObserver(updateGiftAmountData);
+        const targetNode = document.querySelector(".en__field--donationAmt");
+        if (targetNode) {
+            observer.observe(targetNode, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+            });
+        }
+        // Run update updateGiftAmountData when frequency changes
+        this._frequency.onFrequencyChange.subscribe(() => {
+            setTimeout(() => {
+                updateGiftAmountData();
+            }, 10);
+        });
     }
 }
 
@@ -12619,8 +12683,8 @@ class DataAttributes {
 
 class iFrame {
     constructor() {
-        this._form = EnForm.getInstance();
-        this.logger = new EngridLogger("iFrame", "brown", "gray", "📡");
+        this._form = en_form_EnForm.getInstance();
+        this.logger = new logger_EngridLogger("iFrame", "brown", "gray", "📡");
         if (this.inIframe()) {
             // Add the data-engrid-embedded attribute when inside an iFrame if it wasn't already added by a script in the Page Template
             engrid_ENGrid.setBodyData("embedded", "");
@@ -12691,6 +12755,10 @@ class iFrame {
                     : 0;
                 this.logger.log(`iFrame Event 'scrollTo' - Position of top of first error ${scrollTo} px`); // check the message is being sent correctly
                 window.parent.postMessage({ scrollTo }, "*");
+                // Send the height of the iFrame
+                window.setTimeout(() => {
+                    this.sendIframeHeight();
+                }, 100);
             });
         }
         else {
@@ -12708,6 +12776,12 @@ class iFrame {
                 if (iframe) {
                     if (event.data.hasOwnProperty("frameHeight")) {
                         iframe.style.height = event.data.frameHeight + "px";
+                        if (event.data.frameHeight > 0) {
+                            iframe.classList.add("loaded");
+                        }
+                        else {
+                            iframe.classList.remove("loaded");
+                        }
                     }
                     // Old scroll event logic "scroll", scrolls to correct iframe?
                     else if (event.data.hasOwnProperty("scroll") &&
@@ -12811,6 +12885,8 @@ class iFrame {
         const excludeClasses = [
             "giveBySelect-Card",
             "en__field--ccnumber",
+            "en__field--survey",
+            "en__component--ecardblock",
             "give-by-select",
             "give-by-select-header",
             "en__submit",
@@ -12821,7 +12897,7 @@ class iFrame {
             "radio-to-buttons_donationAmt",
         ];
         const excludeIds = ["en__digitalWallet"];
-        const components = Array.from(document.querySelectorAll(".body-main > div:not(:last-child)"));
+        const components = Array.from(document.querySelectorAll(".body-main:not(.force-visibility) > div:not(:last-child)"));
         components.forEach((component) => {
             const shouldExclude = excludeClasses.some((cls) => component.classList.contains(cls) ||
                 component.querySelector(`:scope > .${cls}`)) || excludeIds.some((id) => component.querySelector(`#${id}`));
@@ -12886,7 +12962,7 @@ class iFrame {
 
 class InputHasValueAndFocus {
     constructor() {
-        this.logger = new EngridLogger("InputHasValueAndFocus", "yellow", "#333", "🌈");
+        this.logger = new logger_EngridLogger("InputHasValueAndFocus", "yellow", "#333", "🌈");
         this.formInputs = document.querySelectorAll(".en__field--text, .en__field--email:not(.en__field--checkbox), .en__field--telephone, .en__field--number, .en__field--textarea, .en__field--select, .en__field--checkbox");
         if (this.shouldRun()) {
             this.run();
@@ -12954,8 +13030,10 @@ class InputPlaceholders {
             "input#en__field_supporter_emailAddress": "Email Address",
             "input#en__field_supporter_phoneNumber": "Phone Number (Optional)",
             ".en__mandatory input#en__field_supporter_phoneNumber": "Phone Number",
+            ".i-required input#en__field_supporter_phoneNumber": "Phone Number",
             "input#en__field_supporter_phoneNumber2": "000-000-0000 (Optional)",
             ".en__mandatory input#en__field_supporter_phoneNumber2": "000-000-0000",
+            ".i-required input#en__field_supporter_phoneNumber2": "000-000-0000",
             "input#en__field_supporter_country": "Country",
             "input#en__field_supporter_address1": "Street Address",
             "input#en__field_supporter_address2": "Apt., Ste., Bldg.",
@@ -13094,7 +13172,7 @@ class LiveVariables {
         this._amount = DonationAmount.getInstance();
         this._fees = ProcessingFees.getInstance();
         this._frequency = DonationFrequency.getInstance();
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this.multiplier = 1 / 12;
         this.options = Object.assign(Object.assign({}, OptionsDefaults), options);
         this.submitLabel =
@@ -13240,13 +13318,13 @@ class LiveVariables {
 class UpsellLightbox {
     constructor() {
         this.overlay = document.createElement("div");
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._amount = DonationAmount.getInstance();
         this._fees = ProcessingFees.getInstance();
         this._frequency = DonationFrequency.getInstance();
         this._dataLayer = DataLayer.getInstance();
         this._suggestAmount = 0;
-        this.logger = new EngridLogger("UpsellLightbox", "black", "pink", "🪟");
+        this.logger = new logger_EngridLogger("UpsellLightbox", "black", "pink", "🪟");
         let options = "EngridUpsell" in window ? window.EngridUpsell : {};
         this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
         //Disable for "applepay" via Vantiv payment method. Adding it to the array like this so it persists
@@ -13599,6 +13677,253 @@ class UpsellLightbox {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/upsell-checkbox.js
+// This component will add a checkbox to the donation form that will allow the user to upgrade their donation to a monthly donation.
+
+
+class UpsellCheckbox {
+    constructor() {
+        this.checkboxOptions = false;
+        this.checkboxOptionsDefaults = {
+            label: "Make my gift a monthly gift of <strong>{new-amount}/mo</strong>",
+            location: "before .en__component .en__submit",
+            cssClass: "",
+        };
+        this._amount = DonationAmount.getInstance();
+        this._fees = ProcessingFees.getInstance();
+        this._frequency = DonationFrequency.getInstance();
+        this._dataLayer = DataLayer.getInstance();
+        this.checkboxContainer = null;
+        this.oldAmount = 0;
+        this.oldFrequency = "one-time";
+        this.resetCheckbox = false;
+        this.logger = new logger_EngridLogger("UpsellCheckbox", "black", "LemonChiffon", "✅");
+        let options = "EngridUpsell" in window ? window.EngridUpsell : {};
+        this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
+        if (this.options.upsellCheckbox === false) {
+            this.logger.log("Skipped");
+            return;
+        }
+        // To avoid using both UpsellLightbox and UpsellCheckbox at the same time, set window.EngridUpsell.skipUpsell to true if there's an upsellCheckbox
+        if ("upsellCheckbox" in options && options.upsellCheckbox !== false) {
+            window.EngridUpsell.skipUpsell = true; // Skip the upsell lightbox
+        }
+        this.checkboxOptions = Object.assign(Object.assign({}, this.checkboxOptionsDefaults), this.options.upsellCheckbox);
+        if (!this.shouldRun()) {
+            this.logger.log("should NOT run");
+            // If we're not on a Donation Page, get out
+            return;
+        }
+        this.renderCheckbox();
+        this.updateLiveData();
+        this._frequency.onFrequencyChange.subscribe(() => this.updateLiveData());
+        this._frequency.onFrequencyChange.subscribe(() => this.resetUpsellCheckbox());
+        this._amount.onAmountChange.subscribe(() => this.updateLiveData());
+        this._amount.onAmountChange.subscribe(() => this.resetUpsellCheckbox());
+        this._fees.onFeeChange.subscribe(() => this.updateLiveData());
+    }
+    updateLiveData() {
+        this.liveAmounts();
+        this.liveFrequency();
+    }
+    resetUpsellCheckbox() {
+        var _a, _b;
+        // Only reset the upsell checkbox if it has been checked
+        if (!this.resetCheckbox)
+            return;
+        this.logger.log("Reset");
+        // Uncheck the upsell checkbox
+        const checkbox = (_a = this.checkboxContainer) === null || _a === void 0 ? void 0 : _a.querySelector("#upsellCheckbox");
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+        // Hide the upsell checkbox
+        (_b = this.checkboxContainer) === null || _b === void 0 ? void 0 : _b.classList.add("recurring-frequency-y-hide");
+        this.oldAmount = 0;
+        this.oldFrequency = "one-time";
+        this.resetCheckbox = false;
+    }
+    renderCheckbox() {
+        if (this.checkboxOptions === false)
+            return;
+        const label = this.checkboxOptions.label
+            .replace("{new-amount}", " <span class='upsell_suggestion'></span>")
+            .replace("{old-amount}", " <span class='upsell_amount'></span>")
+            .replace("{old-frequency}", " <span class='upsell_frequency'></span>");
+        const formBlock = document.createElement("div");
+        formBlock.classList.add("en__component", "en__component--formblock", "recurring-frequency-y-hide", "engrid-upsell-checkbox");
+        if (this.checkboxOptions.cssClass)
+            formBlock.classList.add(this.checkboxOptions.cssClass);
+        formBlock.innerHTML = `
+    <div class="en__field en__field--checkbox">
+      <div class="en__field__element en__field__element--checkbox">
+        <div class="en__field__item">
+            <input type="checkbox" class="en__field__input en__field__input--checkbox" name="upsellCheckbox" id="upsellCheckbox" value="Y">
+            <label class="en__field__label en__field__label--item" for="upsellCheckbox" style="gap: 0.5ch">${label}</label>
+        </div>
+      </div>
+    </div>`;
+        const checkbox = formBlock.querySelector("#upsellCheckbox");
+        if (checkbox)
+            checkbox.addEventListener("change", this.toggleCheck.bind(this));
+        const position = this.checkboxOptions.location.split(" ")[0];
+        // Location is everything after the first space
+        const location = this.checkboxOptions.location
+            .split(" ")
+            .slice(1)
+            .join(" ")
+            .trim();
+        const target = document.querySelector(location);
+        this.checkboxContainer = formBlock;
+        if (target) {
+            if (position === "before") {
+                this.logger.log("rendered before");
+                target.before(formBlock);
+            }
+            else {
+                this.logger.log("rendered after");
+                target.after(formBlock);
+            }
+        }
+        else {
+            this.logger.error("could not render - target not found");
+        }
+    }
+    // Should we run the script?
+    shouldRun() {
+        // if it's a first page of a Donation page
+        return engrid_ENGrid.getPageNumber() === 1 && engrid_ENGrid.getPageType() === "DONATION";
+    }
+    showCheckbox() {
+        if (this.checkboxContainer)
+            this.checkboxContainer.classList.remove("hide");
+    }
+    hideCheckbox() {
+        if (this.checkboxContainer)
+            this.checkboxContainer.classList.add("hide");
+    }
+    liveAmounts() {
+        // Only update live data if the current frequency is one-time
+        if (this._frequency.frequency !== "onetime")
+            return;
+        const live_upsell_amount = document.querySelectorAll(".upsell_suggestion");
+        const live_amount = document.querySelectorAll(".upsell_amount");
+        const upsellAmount = this.getUpsellAmount();
+        const suggestedAmount = upsellAmount + this._fees.calculateFees(upsellAmount);
+        if (suggestedAmount > 0) {
+            this.showCheckbox();
+        }
+        else {
+            this.hideCheckbox();
+        }
+        live_upsell_amount.forEach((elem) => (elem.innerHTML = this.getAmountTxt(suggestedAmount)));
+        live_amount.forEach((elem) => (elem.innerHTML = this.getAmountTxt(this._amount.amount + this._fees.fee)));
+    }
+    liveFrequency() {
+        const live_upsell_frequency = document.querySelectorAll(".upsell_frequency");
+        live_upsell_frequency.forEach((elem) => (elem.innerHTML = this.getFrequencyTxt()));
+    }
+    // Return the Suggested Upsell Amount
+    getUpsellAmount() {
+        const amount = this._amount.amount;
+        let upsellAmount = 0;
+        for (let i = 0; i < this.options.amountRange.length; i++) {
+            let val = this.options.amountRange[i];
+            if (upsellAmount == 0 && amount <= val.max) {
+                upsellAmount = val.suggestion;
+                if (upsellAmount === 0)
+                    return 0;
+                if (typeof upsellAmount !== "number") {
+                    const suggestionMath = upsellAmount.replace("amount", amount.toFixed(2));
+                    upsellAmount = parseFloat(Function('"use strict";return (' + suggestionMath + ")")());
+                }
+                break;
+            }
+        }
+        return upsellAmount > this.options.minAmount
+            ? upsellAmount
+            : this.options.minAmount;
+    }
+    // Proceed to the next page (upsold or not)
+    toggleCheck(e) {
+        var _a, _b;
+        e.preventDefault();
+        if (e.target.checked) {
+            this.logger.success("Upsold");
+            const upsoldAmount = this.getUpsellAmount();
+            const originalAmount = this._amount.amount;
+            this.oldAmount = originalAmount;
+            this.oldFrequency = this._frequency.frequency;
+            // If we're checking the upsell checkbox, remove the class that hides it on different frequencies
+            (_a = this.checkboxContainer) === null || _a === void 0 ? void 0 : _a.classList.remove("recurring-frequency-y-hide");
+            this._frequency.setFrequency("monthly");
+            this._amount.setAmount(upsoldAmount);
+            this._dataLayer.addEndOfGiftProcessEvent("ENGRID_UPSELL_CHECKBOX", {
+                eventValue: true,
+                originalAmount: originalAmount,
+                upsoldAmount: upsoldAmount,
+                frequency: "monthly",
+            });
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_CHECKBOX", true);
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_ORIGINAL_AMOUNT", originalAmount);
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "MONTHLY");
+            this.renderConversionField("upsellSuccess", "onetime", originalAmount, "monthly", upsoldAmount, "monthly", upsoldAmount);
+            // Set the resetCheckbox flag to true so it will reset if the user changes the amount or frequency
+            window.setTimeout(() => {
+                this.resetCheckbox = true;
+            }, 500);
+        }
+        else {
+            this.resetCheckbox = false;
+            this.logger.success("Not Upsold");
+            this._amount.setAmount(this.oldAmount);
+            this._frequency.setFrequency(this.oldFrequency);
+            (_b = this.checkboxContainer) === null || _b === void 0 ? void 0 : _b.classList.add("recurring-frequency-y-hide");
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_CHECKBOX", false);
+            this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "ONE-TIME");
+            this.renderConversionField("upsellFail", this._frequency.frequency, this._amount.amount, "monthly", this._amount.amount, this._frequency.frequency, this._amount.amount);
+        }
+    }
+    getAmountTxt(amount = 0) {
+        var _a, _b, _c, _d;
+        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
+        const dec_separator = (_b = engrid_ENGrid.getOption("DecimalSeparator")) !== null && _b !== void 0 ? _b : ".";
+        const thousands_separator = (_c = engrid_ENGrid.getOption("ThousandsSeparator")) !== null && _c !== void 0 ? _c : "";
+        const dec_places = amount % 1 == 0 ? 0 : (_d = engrid_ENGrid.getOption("DecimalPlaces")) !== null && _d !== void 0 ? _d : 2;
+        const amountTxt = engrid_ENGrid.formatNumber(amount, dec_places, dec_separator, thousands_separator);
+        return amount > 0 ? symbol + amountTxt : "";
+    }
+    getFrequencyTxt() {
+        const freqTxt = {
+            onetime: "one-time",
+            monthly: "monthly",
+            annual: "annual",
+        };
+        const frequency = this._frequency.frequency;
+        return frequency in freqTxt ? freqTxt[frequency] : frequency;
+    }
+    renderConversionField(event, // The event that triggered the conversion
+    freq, // The frequency of the donation (onetime, monthly, annual)
+    amt, // The original amount of the donation (before the upsell)
+    sugFreq, // The suggested frequency of the upsell (monthly)
+    sugAmt, // The suggested amount of the upsell
+    subFreq, // The submitted frequency of the upsell (onetime, monthly, annual)
+    subAmt // The submitted amount of the upsell
+    ) {
+        if (this.options.conversionField === "")
+            return;
+        const conversionField = document.querySelector("input[name='" + this.options.conversionField + "']") ||
+            engrid_ENGrid.createHiddenInput(this.options.conversionField);
+        if (!conversionField) {
+            this.logger.error("Could not find or create the conversion field");
+            return;
+        }
+        const conversionValue = `event:${event},freq:${freq},amt:${amt},sugFreq:${sugFreq},sugAmt:${sugAmt},subFreq:${subFreq},subAmt:${subAmt}`;
+        conversionField.value = conversionValue;
+        this.logger.log(`Conversion Field ${event}`, conversionValue);
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/show-hide-radio-checkboxes.js
 
 class ShowHideRadioCheckboxes {
@@ -13742,7 +14067,7 @@ class ShowHideRadioCheckboxes {
         window.sessionStorage.setItem(`engrid_ShowHideRadioCheckboxesState`, JSON.stringify(state));
     }
     constructor(elements, classes) {
-        this.logger = new EngridLogger("ShowHideRadioCheckboxes", "black", "lightblue", "👁");
+        this.logger = new logger_EngridLogger("ShowHideRadioCheckboxes", "black", "lightblue", "👁");
         this.elements = document.getElementsByName(elements);
         this.classes = classes;
         this.createDataAttributes();
@@ -14705,12 +15030,12 @@ class NeverBounce {
         this.dateField = dateField;
         this.statusField = statusField;
         this.dateFormat = dateFormat;
-        this.form = EnForm.getInstance();
+        this.form = en_form_EnForm.getInstance();
         this.emailField = null;
         this.emailWrapper = document.querySelector(".en__field--emailAddress");
         this.nbDate = null;
         this.nbStatus = null;
-        this.logger = new EngridLogger("NeverBounce", "#039bc4", "#dfdfdf", "📧");
+        this.logger = new logger_EngridLogger("NeverBounce", "#039bc4", "#dfdfdf", "📧");
         this.shouldRun = true;
         this.nbLoaded = false;
         this.emailField = document.getElementById("en__field_supporter_emailAddress");
@@ -14954,13 +15279,13 @@ class NeverBounce {
 
 class FreshAddress {
     constructor() {
-        this.form = EnForm.getInstance();
+        this.form = en_form_EnForm.getInstance();
         this.emailField = null;
         this.emailWrapper = document.querySelector(".en__field--emailAddress");
         this.faDate = null;
         this.faStatus = null;
         this.faMessage = null;
-        this.logger = new EngridLogger("FreshAddress", "#039bc4", "#dfdfdf", "📧");
+        this.logger = new logger_EngridLogger("FreshAddress", "#039bc4", "#dfdfdf", "📧");
         this.shouldRun = true;
         this.options = engrid_ENGrid.getOption("FreshAddress");
         if (this.options === false || !window.FreshAddress)
@@ -15196,7 +15521,7 @@ class ProgressBar {
 const remember_me_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 class RememberMe {
     constructor(options) {
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._events = RememberMeEvents.getInstance();
         this.iframe = null;
         this.remoteUrl = options.remoteUrl ? options.remoteUrl : null;
@@ -15556,7 +15881,7 @@ class RememberMe {
 class ShowIfAmount {
     constructor() {
         this._amount = DonationAmount.getInstance();
-        this.logger = new EngridLogger("ShowIfAmount", "yellow", "black", "👀");
+        this.logger = new logger_EngridLogger("ShowIfAmount", "yellow", "black", "👀");
         this._elements = document.querySelectorAll('[class*="showifamount"]');
         if (this._elements.length > 0) {
             this._amount.onAmountChange.subscribe(() => this.init());
@@ -15674,7 +15999,7 @@ class ShowIfAmount {
 
 class OtherAmount {
     constructor() {
-        this.logger = new EngridLogger("OtherAmount", "green", "black", "💰");
+        this.logger = new logger_EngridLogger("OtherAmount", "green", "black", "💰");
         this._amount = DonationAmount.getInstance();
         "focusin input".split(" ").forEach((e) => {
             var _a;
@@ -15746,7 +16071,7 @@ class OtherAmount {
 /**
  * A better logger. It only works if debug is enabled.
  */
-class EngridLogger {
+class logger_EngridLogger {
     constructor(prefix, color, background, emoji) {
         this.prefix = "";
         this.color = "black";
@@ -15833,13 +16158,13 @@ class EngridLogger {
 class MinMaxAmount {
     constructor() {
         var _a, _b;
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._amount = DonationAmount.getInstance();
         this.minAmount = (_a = engrid_ENGrid.getOption("MinAmount")) !== null && _a !== void 0 ? _a : 1;
         this.maxAmount = (_b = engrid_ENGrid.getOption("MaxAmount")) !== null && _b !== void 0 ? _b : 100000;
         this.minAmountMessage = engrid_ENGrid.getOption("MinAmountMessage");
         this.maxAmountMessage = engrid_ENGrid.getOption("MaxAmountMessage");
-        this.logger = new EngridLogger("MinMaxAmount", "white", "purple", "🔢");
+        this.logger = new logger_EngridLogger("MinMaxAmount", "white", "purple", "🔢");
         if (!this.shouldRun()) {
             // If we're not on a Donation Page, get out
             return;
@@ -15907,7 +16232,7 @@ class Ticker {
         this.shuffleSeed = __webpack_require__(7650);
         this.items = [];
         this.tickerElement = document.querySelector(".engrid-ticker");
-        this.logger = new EngridLogger("Ticker", "black", "beige", "🔁");
+        this.logger = new logger_EngridLogger("Ticker", "black", "beige", "🔁");
         if (!this.shouldRun()) {
             this.logger.log("Not running");
             // If we don't find a ticker, get out
@@ -15993,9 +16318,9 @@ class Ticker {
 
 class DataLayer {
     constructor() {
-        this.logger = new EngridLogger("DataLayer", "#f1e5bc", "#009cdc", "📊");
+        this.logger = new logger_EngridLogger("DataLayer", "#f1e5bc", "#009cdc", "📊");
         this.dataLayer = window.dataLayer || [];
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this.endOfGiftProcessStorageKey = "ENGRID_END_OF_GIFT_PROCESS_EVENTS";
         this.excludedFields = [
             // Credit Card
@@ -16293,7 +16618,7 @@ class DataLayer {
 
 class DataReplace {
     constructor() {
-        this.logger = new EngridLogger("DataReplace", "#333333", "#00f3ff", "⤵️");
+        this.logger = new logger_EngridLogger("DataReplace", "#333333", "#00f3ff", "⤵️");
         this.enElements = new Array();
         this.searchElements();
         if (!this.shouldRun())
@@ -16370,7 +16695,7 @@ class DataReplace {
 
 class DataHide {
     constructor() {
-        this.logger = new EngridLogger("DataHide", "#333333", "#f0f0f0", "🙈");
+        this.logger = new logger_EngridLogger("DataHide", "#333333", "#f0f0f0", "🙈");
         this.enElements = new Array();
         this.logger.log("Constructor");
         this.enElements = engrid_ENGrid.getUrlParameter("engrid_hide[]");
@@ -16485,8 +16810,8 @@ class AddNameToMessage {
 
 class ExpandRegionName {
     constructor() {
-        this._form = EnForm.getInstance();
-        this.logger = new EngridLogger("ExpandRegionName", "#333333", "#00eb65", "🌍");
+        this._form = en_form_EnForm.getInstance();
+        this.logger = new logger_EngridLogger("ExpandRegionName", "#333333", "#00eb65", "🌍");
         if (this.shouldRun()) {
             const expandedRegionField = engrid_ENGrid.getOption("RegionLongFormat");
             console.log("expandedRegionField", expandedRegionField);
@@ -16534,14 +16859,15 @@ class ExpandRegionName {
 
 class UrlToForm {
     constructor() {
-        this.logger = new EngridLogger("UrlToForm", "white", "magenta", "🔗");
+        this.logger = new logger_EngridLogger("UrlToForm", "white", "magenta", "🔗");
         this.urlParams = new URLSearchParams(document.location.search);
         if (!this.shouldRun())
             return;
         this.urlParams.forEach((value, key) => {
             const field = document.getElementsByName(key)[0];
             if (field) {
-                if (!["text", "textarea"].includes(field.type) || !field.value) {
+                if (!["text", "textarea", "email"].includes(field.type) ||
+                    !field.value) {
                     engrid_ENGrid.setFieldValue(key, value);
                     this.logger.log(`Set: ${key} to ${value}`);
                 }
@@ -16563,8 +16889,8 @@ class UrlToForm {
 
 class RequiredIfVisible {
     constructor() {
-        this.logger = new EngridLogger("RequiredIfVisible", "#FFFFFF", "#811212", "🚥");
-        this._form = EnForm.getInstance();
+        this.logger = new logger_EngridLogger("RequiredIfVisible", "#FFFFFF", "#811212", "🚥");
+        this._form = en_form_EnForm.getInstance();
         this.requiredIfVisibleElements = document.querySelectorAll(`
     .i-required .en__field,
     .i1-required .en__field:nth-of-type(1),
@@ -16635,13 +16961,13 @@ var tidycontact_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 class TidyContact {
     constructor() {
         var _a, _b, _c, _d, _e;
-        this.logger = new EngridLogger("TidyContact", "#FFFFFF", "#4d9068", "📧");
+        this.logger = new logger_EngridLogger("TidyContact", "#FFFFFF", "#4d9068", "📧");
         this.endpoint = "https://api.tidycontact.io";
         this.wasCalled = false; // True if the API endpoint was called
         this.httpStatus = 0;
         this.timeout = 5; // Seconds to API Timeout
         this.isDirty = false; // True if the address was changed by the user
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this.countries_list = [
             ["Afghanistan", "af", "93", "070 123 4567"],
             ["Albania", "al", "355", "067 212 3456"],
@@ -17830,7 +18156,7 @@ class TidyContact {
 
 class LiveCurrency {
     constructor() {
-        this.logger = new EngridLogger("LiveCurrency", "#1901b1", "#feb47a", "💲");
+        this.logger = new logger_EngridLogger("LiveCurrency", "#1901b1", "#feb47a", "💲");
         this.elementsFound = false;
         this.isUpdating = false;
         this._amount = DonationAmount.getInstance();
@@ -18026,7 +18352,7 @@ class LiveCurrency {
 
 class CustomCurrency {
     constructor() {
-        this.logger = new EngridLogger("CustomCurrency", "#1901b1", "#00cc95", "🤑");
+        this.logger = new logger_EngridLogger("CustomCurrency", "#1901b1", "#00cc95", "🤑");
         this.currencyElement = document.querySelector("[name='transaction.paycurrency']");
         this._country = Country.getInstance();
         if (!this.shouldRun())
@@ -18086,12 +18412,14 @@ class CustomCurrency {
 
 class Autosubmit {
     constructor() {
-        this.logger = new EngridLogger("Autosubmit", "#f0f0f0", "#ff0000", "🚀");
-        this._form = EnForm.getInstance();
+        this.logger = new logger_EngridLogger("Autosubmit", "#f0f0f0", "#ff0000", "🚀");
+        this._form = en_form_EnForm.getInstance();
         if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "checkSubmissionFailed") &&
             !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed() &&
             engrid_ENGrid.getUrlParameter("autosubmit") === "Y") {
             this.logger.log("Autosubmitting Form");
+            // Fix EN ?chain parameter not working with email addresses with + in them
+            engrid_ENGrid.setFieldValue("supporter.emailAddress", engrid_ENGrid.getFieldValue("supporter.emailAddress").replace(/\s/g, "+"));
             this._form.submitForm();
         }
     }
@@ -18154,7 +18482,7 @@ class EventTickets {
 
 class SwapAmounts {
     constructor() {
-        this.logger = new EngridLogger("SwapAmounts", "purple", "white", "💰");
+        this.logger = new logger_EngridLogger("SwapAmounts", "purple", "white", "💰");
         this._amount = DonationAmount.getInstance();
         this._frequency = DonationFrequency.getInstance();
         this.defaultChange = false;
@@ -18211,7 +18539,7 @@ class SwapAmounts {
 class DebugPanel {
     constructor(pageLayouts) {
         var _a, _b;
-        this.logger = new EngridLogger("Debug Panel", "#f0f0f0", "#ff0000", "💥");
+        this.logger = new logger_EngridLogger("Debug Panel", "#f0f0f0", "#ff0000", "💥");
         this.brandingHtml = new BrandingHtml();
         this.element = null;
         this.currentTimestamp = this.getCurrentTimestamp();
@@ -18721,7 +19049,7 @@ DebugPanel.debugSessionStorageKey = "engrid_debug_panel";
 
 class DebugHiddenFields {
     constructor() {
-        this.logger = new EngridLogger("Debug hidden fields", "#f0f0f0", "#ff0000", "🫣");
+        this.logger = new logger_EngridLogger("Debug hidden fields", "#f0f0f0", "#ff0000", "🫣");
         // Query all hidden input elements within the specified selectors
         const fields = document.querySelectorAll(".en__component--row [type='hidden'][class*='en_'], .engrid-added-input[type='hidden']");
         // Check if there are any hidden fields
@@ -18837,7 +19165,7 @@ class BrandingHtml {
 
 class CountryDisable {
     constructor() {
-        this.logger = new EngridLogger("CountryDisable", "#f0f0f0", "#333333", "🌎");
+        this.logger = new logger_EngridLogger("CountryDisable", "#f0f0f0", "#333333", "🌎");
         const countries = document.querySelectorAll('select[name="supporter.country"], select[name="transaction.shipcountry"], select[name="supporter.billingCountry"], select[name="transaction.infcountry"]');
         const CountryDisable = engrid_ENGrid.getOption("CountryDisable");
         // Remove the countries from the dropdown list
@@ -18865,7 +19193,7 @@ class CountryDisable {
 
 class PremiumGift {
     constructor() {
-        this.logger = new EngridLogger("PremiumGift", "#232323", "#f7b500", "🎁");
+        this.logger = new logger_EngridLogger("PremiumGift", "#232323", "#f7b500", "🎁");
         this.enElements = new Array();
         if (!this.shoudRun())
             return;
@@ -19198,7 +19526,7 @@ class MobileCTA {
 
 class LiveFrequency {
     constructor() {
-        this.logger = new EngridLogger("LiveFrequency", "#00ff00", "#000000", "🧾");
+        this.logger = new logger_EngridLogger("LiveFrequency", "#00ff00", "#000000", "🧾");
         this.elementsFound = false;
         this._amount = DonationAmount.getInstance();
         this._frequency = DonationFrequency.getInstance();
@@ -19315,7 +19643,7 @@ class LiveFrequency {
 
 class UniversalOptIn {
     constructor() {
-        this.logger = new EngridLogger("UniversalOptIn", "#f0f0f0", "#d2691e", "🪞");
+        this.logger = new logger_EngridLogger("UniversalOptIn", "#f0f0f0", "#d2691e", "🪞");
         this._elements = document.querySelectorAll(".universal-opt-in, .universal-opt-in_null");
         if (!this.shouldRun())
             return;
@@ -19401,8 +19729,8 @@ class UniversalOptIn {
 
 class Plaid {
     constructor() {
-        this.logger = new EngridLogger("Plaid", "peru", "yellow", "🔗");
-        this._form = EnForm.getInstance();
+        this.logger = new logger_EngridLogger("Plaid", "peru", "yellow", "🔗");
+        this._form = en_form_EnForm.getInstance();
         this.logger.log("Enabled");
         this._form.onSubmit.subscribe(() => this.submit());
     }
@@ -19450,7 +19778,7 @@ class Plaid {
 
 class GiveBySelect {
     constructor() {
-        this.logger = new EngridLogger("GiveBySelect", "#FFF", "#333", "🐇");
+        this.logger = new logger_EngridLogger("GiveBySelect", "#FFF", "#333", "🐇");
         this.transactionGiveBySelect = document.getElementsByName("transaction.giveBySelect");
         this._frequency = DonationFrequency.getInstance();
         if (!this.transactionGiveBySelect)
@@ -19534,7 +19862,7 @@ class GiveBySelect {
 
 class UrlParamsToBodyAttrs {
     constructor() {
-        this.logger = new EngridLogger("UrlParamsToBodyAttrs", "white", "magenta", "📌");
+        this.logger = new logger_EngridLogger("UrlParamsToBodyAttrs", "white", "magenta", "📌");
         this.urlParams = new URLSearchParams(document.location.search);
         this.urlParams.forEach((value, key) => {
             if (key.startsWith("data-engrid-")) {
@@ -19552,7 +19880,7 @@ class ExitIntentLightbox {
     constructor() {
         this.opened = false;
         this.dataLayer = window.dataLayer || [];
-        this.logger = new EngridLogger("ExitIntentLightbox", "yellow", "black", "🚪");
+        this.logger = new logger_EngridLogger("ExitIntentLightbox", "yellow", "black", "🚪");
         this.triggerDelay = 1000; // Don't run the exit intent lightbox until at least 1 second has passed after page load
         this.triggerTimeout = null;
         let options = "EngridExitIntent" in window ? window.EngridExitIntent : {};
@@ -19697,8 +20025,8 @@ class ExitIntentLightbox {
 
 class SupporterHub {
     constructor() {
-        this.logger = new EngridLogger("SupporterHub", "black", "pink", "🛖");
-        this._form = EnForm.getInstance();
+        this.logger = new logger_EngridLogger("SupporterHub", "black", "pink", "🛖");
+        this._form = en_form_EnForm.getInstance();
         if (!this.shoudRun())
             return;
         this.logger.log("Enabled");
@@ -19780,7 +20108,7 @@ class SupporterHub {
 
 class FastFormFill {
     constructor() {
-        this.logger = new EngridLogger("FastFormFill", "white", "magenta", "📌");
+        this.logger = new logger_EngridLogger("FastFormFill", "white", "magenta", "📌");
         this.rememberMeEvents = RememberMeEvents.getInstance();
         if (engrid_ENGrid.getOption("RememberMe")) {
             this.rememberMeEvents.onLoad.subscribe((hasData) => {
@@ -19855,7 +20183,7 @@ class FastFormFill {
 
 class SetAttr {
     constructor() {
-        this.logger = new EngridLogger("SetAttr", "black", "yellow", "📌");
+        this.logger = new logger_EngridLogger("SetAttr", "black", "yellow", "📌");
         const enGrid = document.getElementById("engrid");
         if (enGrid) {
             enGrid.addEventListener("click", (e) => {
@@ -19901,7 +20229,7 @@ class SetAttr {
 
 class ShowIfPresent {
     constructor() {
-        this.logger = new EngridLogger("ShowIfPresent", "yellow", "black", "👀");
+        this.logger = new logger_EngridLogger("ShowIfPresent", "yellow", "black", "👀");
         this.elements = [];
         if (this.shouldRun()) {
             this.run();
@@ -19968,9 +20296,9 @@ class ShowIfPresent {
 
 class ENValidators {
     constructor() {
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this._enElements = null;
-        this.logger = new EngridLogger("ENValidators", "white", "darkolivegreen", "🧐");
+        this.logger = new logger_EngridLogger("ENValidators", "white", "darkolivegreen", "🧐");
         if (!this.loadValidators()) {
             // This is an error to flag a racing condition. If the script is loaded before the validators are loaded, it will not work.
             this.logger.error("Not Loaded");
@@ -20063,8 +20391,8 @@ class PostalCodeValidator {
     constructor() {
         var _a, _b;
         this.postalCodeField = engrid_ENGrid.getField("supporter.postcode");
-        this._form = EnForm.getInstance();
-        this.logger = new EngridLogger("Postal Code Validator", "white", "red", "📬");
+        this._form = en_form_EnForm.getInstance();
+        this.logger = new logger_EngridLogger("Postal Code Validator", "white", "red", "📬");
         this.supportedSeparators = ["+", "-", " "];
         this.separator = this.getSeparator();
         this.regexSeparator = this.getRegexSeparator(this.separator);
@@ -20198,11 +20526,11 @@ class PostalCodeValidator {
 
 class VGS {
     constructor() {
-        this.logger = new EngridLogger("VGS", "black", "pink", "💳");
+        this.logger = new logger_EngridLogger("VGS", "black", "pink", "💳");
         this.vgsField = document.querySelector(".en__field--vgs");
         this.options = engrid_ENGrid.getOption("VGS");
         this.paymentTypeField = document.querySelector("#en__field_transaction_paymenttype");
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this.field_expiration_month = null;
         this.field_expiration_year = null;
         this.handleExpUpdate = (e) => {
@@ -20452,7 +20780,7 @@ class VGS {
 
 class CountryRedirect {
     constructor() {
-        this.logger = new EngridLogger("CountryRedirect", "white", "brown", "🛫");
+        this.logger = new logger_EngridLogger("CountryRedirect", "white", "brown", "🛫");
         this._country = Country.getInstance();
         if (!this.shouldRun())
             return;
@@ -20503,25 +20831,44 @@ class WelcomeBack {
         var _a;
         this.supporterDetails = {};
         this.options = (_a = engrid_ENGrid.getOption("WelcomeBack")) !== null && _a !== void 0 ? _a : false;
-        if (this.shouldRun()) {
-            this.supporterDetails = {
-                firstName: engrid_ENGrid.getFieldValue("supporter.firstName"),
-                lastName: engrid_ENGrid.getFieldValue("supporter.lastName"),
-                emailAddress: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
-                address1: engrid_ENGrid.getFieldValue("supporter.address1"),
-                address2: engrid_ENGrid.getFieldValue("supporter.address2"),
-                city: engrid_ENGrid.getFieldValue("supporter.city"),
-                region: engrid_ENGrid.getFieldValue("supporter.region"),
-                postcode: engrid_ENGrid.getFieldValue("supporter.postcode"),
-                country: engrid_ENGrid.getFieldValue("supporter.country"),
-            };
-            this.addWelcomeBack();
-            this.addPersonalDetailsSummary();
-            this.addEventListeners();
+        this.rememberMeEvents = RememberMeEvents.getInstance();
+        this.hasRun = false;
+        if (!this.shouldRun())
+            return;
+        if (engrid_ENGrid.getOption("RememberMe")) {
+            this.rememberMeEvents.onLoad.subscribe(() => {
+                this.run();
+            });
+            this.rememberMeEvents.onClear.subscribe(() => {
+                this.resetWelcomeBack();
+            });
         }
+        else {
+            this.run();
+        }
+    }
+    run() {
+        if (this.hasRun)
+            return;
+        this.hasRun = true;
+        this.supporterDetails = {
+            firstName: engrid_ENGrid.getFieldValue("supporter.firstName"),
+            lastName: engrid_ENGrid.getFieldValue("supporter.lastName"),
+            emailAddress: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
+            address1: engrid_ENGrid.getFieldValue("supporter.address1"),
+            address2: engrid_ENGrid.getFieldValue("supporter.address2"),
+            city: engrid_ENGrid.getFieldValue("supporter.city"),
+            region: engrid_ENGrid.getFieldValue("supporter.region"),
+            postcode: engrid_ENGrid.getFieldValue("supporter.postcode"),
+            country: engrid_ENGrid.getFieldValue("supporter.country"),
+        };
+        this.addWelcomeBack();
+        this.addPersonalDetailsSummary();
+        this.addEventListeners();
     }
     shouldRun() {
         return (!!document.querySelector(".fast-personal-details") &&
+            engrid_ENGrid.getBodyData("embedded") !== "thank-you-page-donation" &&
             this.options !== false);
     }
     addWelcomeBack() {
@@ -20622,8 +20969,8 @@ const EcardToTargetOptionsDefaults = {
 class EcardToTarget {
     constructor() {
         this.options = EcardToTargetOptionsDefaults;
-        this.logger = new EngridLogger("EcardToTarget", "DarkBlue", "Azure", "📧");
-        this._form = EnForm.getInstance();
+        this.logger = new logger_EngridLogger("EcardToTarget", "DarkBlue", "Azure", "📧");
+        this._form = en_form_EnForm.getInstance();
         this.supporterNameAddedToMessage = false;
         if (!this.shouldRun())
             return;
@@ -20705,9 +21052,9 @@ const EmbeddedEcardOptionsDefaults = {
 
 class EmbeddedEcard {
     constructor() {
-        this.logger = new EngridLogger("Embedded Ecard", "#D95D39", "#0E1428", "📧");
+        this.logger = new logger_EngridLogger("Embedded Ecard", "#D95D39", "#0E1428", "📧");
         this.options = EmbeddedEcardOptionsDefaults;
-        this._form = EnForm.getInstance();
+        this._form = en_form_EnForm.getInstance();
         this.isSubmitting = false;
         // For the page hosting the embedded ecard
         if (this.onHostPage()) {
@@ -20922,7 +21269,7 @@ class EmbeddedEcard {
                         recipientEmail.value = recipient.email;
                         addRecipientButton === null || addRecipientButton === void 0 ? void 0 : addRecipientButton.click();
                     });
-                    const form = EnForm.getInstance();
+                    const form = en_form_EnForm.getInstance();
                     form.submitForm();
                     sessionStorage.removeItem("engrid-embedded-ecard");
                     sessionStorage.removeItem("engrid-send-embedded-ecard");
@@ -20999,7 +21346,7 @@ class UsOnlyForm {
 
 class ThankYouPageConditionalContent {
     constructor() {
-        this.logger = new EngridLogger("ThankYouPageConditionalContent");
+        this.logger = new logger_EngridLogger("ThankYouPageConditionalContent");
         if (!this.shouldRun())
             return;
         this.applyShowHideRadioCheckboxesState();
@@ -21050,7 +21397,7 @@ class ThankYouPageConditionalContent {
 
 class CheckboxLabel {
     constructor() {
-        this.logger = new EngridLogger("CheckboxLabel", "#00CC95", "#2C3E50", "✅");
+        this.logger = new logger_EngridLogger("CheckboxLabel", "#00CC95", "#2C3E50", "✅");
         this.checkBoxesLabels = document.querySelectorAll(".checkbox-label");
         if (!this.shoudRun())
             return;
@@ -21075,11 +21422,233 @@ class CheckboxLabel {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/optin-ladder.js
+// This component is responsible for showing a ladder of checkboxes, one at a time, to the user.
+// If the page is not embedded in an iframe, and there are EN's Opt-In fields on the page, we will store the values to sessionStorage upon Form Submit.
+// If the page is embedded in an iframe and on a Thank You Page, we will look for .optin-ladder elements, compare the values to sessionStorage, and show the next checkbox in the ladder, removing all but the first match.
+// If the page is embedded in an iframe and on a Thank You Page, and the child iFrame is also a Thank You Page, we will look for a sessionStorage that has the current ladder step and the total number of steps.
+// If the current step is less than the total number of steps, we will redirect to the first page. If the current step is equal to the total number of steps, we will show the Thank You Page.
+
+class OptInLadder {
+    constructor() {
+        this.logger = new EngridLogger("OptInLadder", "lightgreen", "darkgreen", "✔");
+        this._form = EnForm.getInstance();
+        if (!this.inIframe()) {
+            this.runAsParent();
+        }
+        else if (ENGrid.getPageNumber() === 1) {
+            this.runAsChildRegular();
+        }
+        else {
+            this.runAsChildThankYou();
+        }
+    }
+    runAsParent() {
+        // Grab all the checkboxes with the name starting with "supporter.questions"
+        const checkboxes = document.querySelectorAll('input[name^="supporter.questions"]');
+        if (checkboxes.length === 0) {
+            this.logger.log("No checkboxes found");
+            return;
+        }
+        this._form.onSubmit.subscribe(() => {
+            // Save the checkbox values to sessionStorage
+            this.saveOptInsToSessionStorage("parent");
+        });
+        this.logger.log("Running as Parent");
+        if (ENGrid.getPageNumber() === 1) {
+            // Delete items from sessionStorage
+            this.clearSessionStorage();
+        }
+    }
+    runAsChildRegular() {
+        if (!this.isEmbeddedThankYouPage()) {
+            this.logger.log("Not Embedded on a Thank You Page");
+            return;
+        }
+        const optInHeaders = document.querySelectorAll(".en__component--copyblock.optin-ladder");
+        const optInFormBlocks = document.querySelectorAll(".en__component--formblock.optin-ladder");
+        if (optInHeaders.length === 0 && optInFormBlocks.length === 0) {
+            this.logger.log("No optin-ladder elements found");
+            return;
+        }
+        // Check if the e-mail field exist and is not empty
+        const emailField = ENGrid.getField("supporter.emailAddress");
+        if (!emailField || !emailField.value) {
+            this.logger.log("Email field is empty");
+            // Since this is a OptInLadder page with no e-mail address, hide the page
+            this.hidePage();
+            return;
+        }
+        const sessionStorageCheckboxValues = JSON.parse(sessionStorage.getItem("engrid.supporter.questions") || "{}");
+        let currentStep = 0;
+        let totalSteps = optInHeaders.length;
+        let currentHeader = null;
+        let currentFormBlock = null;
+        for (let i = 0; i < optInHeaders.length; i++) {
+            const header = optInHeaders[i];
+            // Get the optin number from the .optin-ladder-XXXX class
+            const optInNumber = header.className.match(/optin-ladder-(\d+)/);
+            if (!optInNumber) {
+                this.logger.error(`No optin number found in ${header.innerText.trim()}`);
+                return;
+            }
+            const optInIndex = optInNumber[1];
+            // Get the checkbox FormBlock
+            const formBlock = document.querySelector(`.en__component--formblock.optin-ladder:has(.en__field--${optInIndex})`);
+            if (!formBlock) {
+                this.logger.log(`No form block found for ${header.innerText.trim()}`);
+                // Remove the header if there is no form block
+                header.remove();
+                // Increment the current step
+                currentStep++;
+                continue;
+            }
+            // Check if the optInIndex is in sessionStorage
+            if (sessionStorageCheckboxValues[optInIndex] === "Y") {
+                // If the checkbox is checked, remove the header and form block
+                header.remove();
+                formBlock.remove();
+                // Increment the current step
+                currentStep++;
+                continue;
+            }
+            // If there's a header and a form block, end the loop
+            currentHeader = header;
+            currentFormBlock = formBlock;
+            currentStep++;
+            break;
+        }
+        if (!currentHeader || !currentFormBlock) {
+            this.logger.log("No optin-ladder elements found");
+            // Set the current step to the total steps to avoid redirecting to the first page
+            currentStep = totalSteps;
+            this.saveStepToSessionStorage(currentStep, totalSteps);
+            // hide the page
+            this.hidePage();
+            return;
+        }
+        // Show the current header and form block, while removing the rest
+        optInHeaders.forEach((header) => {
+            if (header !== currentHeader) {
+                header.remove();
+            }
+            else {
+                header.style.display = "block";
+            }
+        });
+        optInFormBlocks.forEach((formBlock) => {
+            if (formBlock !== currentFormBlock) {
+                formBlock.remove();
+            }
+            else {
+                formBlock.style.display = "block";
+            }
+        });
+        // Save the current step to sessionStorage
+        this.saveStepToSessionStorage(currentStep, totalSteps);
+        // On form submit, save the checkbox values to sessionStorage
+        this._form.onSubmit.subscribe(() => {
+            this.saveOptInsToSessionStorage("child");
+            // Save the current step to sessionStorage
+            currentStep++;
+            this.saveStepToSessionStorage(currentStep, totalSteps);
+        });
+    }
+    runAsChildThankYou() {
+        if (!this.isEmbeddedThankYouPage()) {
+            this.logger.log("Not Embedded on a Thank You Page");
+            return;
+        }
+        const hasOptInLadderStop = sessionStorage.getItem("engrid.optin-ladder-stop");
+        if (hasOptInLadderStop) {
+            this.logger.log("OptInLadder has been stopped");
+            return;
+        }
+        const sessionStorageOptInLadder = JSON.parse(sessionStorage.getItem("engrid.optin-ladder") || "{}");
+        const currentStep = sessionStorageOptInLadder.step || 0;
+        const totalSteps = sessionStorageOptInLadder.totalSteps || 0;
+        if (currentStep <= totalSteps) {
+            this.logger.log(`Current step ${currentStep} is less or equal to total steps ${totalSteps}`);
+            this.hidePage();
+            // Redirect to the first page
+            window.location.href = this.getFirstPageUrl();
+            return;
+        }
+        else {
+            this.logger.log(`Current step ${currentStep} is greater than total steps ${totalSteps}`);
+            // Remove the session storage
+            this.clearSessionStorage();
+        }
+    }
+    inIframe() {
+        try {
+            return window.self !== window.top;
+        }
+        catch (e) {
+            return true;
+        }
+    }
+    saveStepToSessionStorage(step, totalSteps) {
+        sessionStorage.setItem("engrid.optin-ladder", JSON.stringify({ step, totalSteps }));
+        this.logger.log(`Saved step ${step} of ${totalSteps} to sessionStorage`);
+    }
+    getFirstPageUrl() {
+        // Get the current URL and replace the last path with 1?chain
+        const url = new URL(window.location.href);
+        const path = url.pathname.split("/");
+        path.pop();
+        path.push("1");
+        return url.origin + path.join("/") + "?chain";
+    }
+    saveOptInsToSessionStorage(type = "parent") {
+        // Grab all the checkboxes with the name starting with "supporter.questions"
+        const checkboxes = document.querySelectorAll('input[name^="supporter.questions"]');
+        if (checkboxes.length === 0) {
+            this.logger.log("No checkboxes found");
+            return;
+        }
+        const sessionStorageCheckboxValues = JSON.parse(sessionStorage.getItem("engrid.supporter.questions") || "{}");
+        let hasDeny = false;
+        // Loop through all the checkboxes and store the value in sessionStorage
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const index = checkbox.name.split(".")[2];
+                sessionStorageCheckboxValues[index] = "Y";
+            }
+            else {
+                hasDeny = true;
+            }
+        });
+        sessionStorage.setItem("engrid.supporter.questions", JSON.stringify(sessionStorageCheckboxValues));
+        this.logger.log(`Saved checkbox values to sessionStorage: ${JSON.stringify(sessionStorageCheckboxValues)}`);
+        if (type === "child" && hasDeny) {
+            // Add a deny value to the sessionStorage to stop the ladder
+            sessionStorage.setItem("engrid.optin-ladder-stop", "Y");
+        }
+    }
+    isEmbeddedThankYouPage() {
+        return ENGrid.getBodyData("embedded") === "thank-you-page-donation";
+    }
+    hidePage() {
+        const engridPage = document.querySelector("#engrid");
+        if (engridPage) {
+            engridPage.classList.add("hide");
+        }
+    }
+    clearSessionStorage() {
+        sessionStorage.removeItem("engrid.supporter.questions");
+        sessionStorage.removeItem("engrid.optin-ladder");
+        sessionStorage.removeItem("engrid.optin-ladder-stop");
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/version.js
-const AppVersion = "0.19.9";
+const AppVersion = "0.20.4";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
 
 
 
@@ -21633,7 +22202,7 @@ function _defineProperty(obj, key, value) {
 
 class XVerify {
   constructor(options) {
-    _defineProperty(this, "form", EnForm.getInstance());
+    _defineProperty(this, "form", en_form_EnForm.getInstance());
 
     _defineProperty(this, "emailField", void 0);
 
@@ -21649,7 +22218,7 @@ class XVerify {
 
     _defineProperty(this, "options", void 0);
 
-    _defineProperty(this, "logger", new EngridLogger("XVerify", "blueviolet", "aliceblue", "🔍"));
+    _defineProperty(this, "logger", new logger_EngridLogger("XVerify", "blueviolet", "aliceblue", "🔍"));
 
     this.emailField = document.querySelector("#en__field_supporter_emailAddress");
     this.options = options;
@@ -21895,7 +22464,7 @@ const options = {
   onValidate: () => {
     const paymentType = App.getPaymentType();
     const phoneContainer = document.querySelector(".en__field--phoneNumber");
-    const form = EnForm.getInstance();
+    const form = en_form_EnForm.getInstance();
     form.validate = true;
 
     if (phoneContainer && paymentType === "ACH") {
