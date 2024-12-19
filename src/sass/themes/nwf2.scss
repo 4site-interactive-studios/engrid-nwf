@@ -1003,4 +1003,58 @@
       width: 100%;
     }
   }
+  /* Styles the iFrame of the embedded donation page that is displayed on the thank you page */
+  iframe.thank-you-page-donation {
+    outline: 5px dashed #00ad85;
+    margin: calc(1rem + 5px);
+    outline-offset: 1rem;
+    position: relative;
+    left: calc(((1rem + 5px) * -1));
+  }
+  /* This are temporary stylings that will be moved into the theme once complete */
+  &[data-engrid-embedded="thank-you-page-donation"] {
+    .highlight {
+      line-height: 1.5;
+      transform: translateY(-2px);
+    }
+    /* Hide the header and footer */
+    .content-header,
+    .body-headerOutside,
+    .content-footer {
+      display: none !important;
+    }
+    @media screen and (max-width: 600px) {
+      --donation-amount__button_count: 3;
+      --en-vgs-height: 58px;
+      --engrid__body_padding: 0;
+      --engrid__body-top_padding: 30px 0 0;
+      --engrid__body-main_padding: 0 0 85px;
+      .body-title,
+      .body-top {
+        > * > *:first-child {
+          margin-top: 0;
+        }
+      }
+      .body-top {
+        padding-top: 0;
+      }
+      .body-main {
+        padding-bottom: 0;
+      }
+      .en__submit button {
+        margin-bottom: 0;
+      }
+      .en__digitalWallet__container {
+        display: block !important;
+      }
+      .giveBySelect-Card {
+        margin-top: 1rem !important;
+      }
+      &[data-conditonally-hide-show-digital-wallet-elements] {
+        #en__digitalWallet .en__digitalWallet__container {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+  }
 }

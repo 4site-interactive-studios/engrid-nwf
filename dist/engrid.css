@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, December 19, 2024 @ 15:49:45 ET
+ *  Date: Thursday, December 19, 2024 @ 16:11:02 ET
  *  By: fernando
  *  ENGrid styles: v0.20.0
  *  ENGrid scripts: v0.20.4
@@ -9759,6 +9759,50 @@ body[data-engrid-debug]:before{
 @media screen and (max-width:600px){
   [data-engrid-theme=nwf2][data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container{
     width:100%;
+  }
+}
+[data-engrid-theme=nwf2] iframe.thank-you-page-donation{
+  left:calc(-1rem + -5px);
+  margin:calc(1rem + 5px);
+  outline:5px dashed #00ad85;
+  outline-offset:1rem;
+  position:relative;
+}
+[data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .highlight{
+  line-height:1.5;
+  transform:translateY(-2px);
+}
+[data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .body-headerOutside,[data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .content-footer,[data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .content-header{
+  display:none !important;
+}
+@media screen and (max-width:600px){
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation]{
+    --donation-amount__button_count:3;
+    --en-vgs-height:58px;
+    --engrid__body_padding:0;
+    --engrid__body-top_padding:30px 0 0;
+    --engrid__body-main_padding:0 0 85px;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .body-title>*>:first-child,[data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .body-top>*>:first-child{
+    margin-top:0;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .body-top{
+    padding-top:0;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .body-main{
+    padding-bottom:0;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .en__submit button{
+    margin-bottom:0;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .en__digitalWallet__container{
+    display:block !important;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation] .giveBySelect-Card{
+    margin-top:1rem !important;
+  }
+  [data-engrid-theme=nwf2][data-engrid-embedded=thank-you-page-donation][data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container{
+    margin-bottom:0 !important;
   }
 }
 body{
