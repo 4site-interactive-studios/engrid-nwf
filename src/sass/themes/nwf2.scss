@@ -907,72 +907,73 @@
       }
     }
   }
+  &:not([data-engrid-embedded]) {
+    @media screen and (max-width: 800px) {
+      --engrid__body_padding: 0 20px;
+      --engrid__content-footer_padding: 70px 20px;
+      --donation-amount__button_count: 2;
+      --h1_font-size: 2.25rem;
+      --h2_font-size: 1.75rem;
+      --button_font-size: 1.5rem;
+      --donation-amount__button_font-size: 1.5rem;
+      --input_font-size: 20px;
+      --recurring-frequency__button_padding: 1rem;
+      --recurring-frequency__button_font-size: 1.3rem;
 
-  @media screen and (max-width: 800px) {
-    --engrid__body_padding: 0 20px;
-    --engrid__content-footer_padding: 70px 20px;
-    --donation-amount__button_count: 2;
-    --h1_font-size: 2.25rem;
-    --h2_font-size: 1.75rem;
-    --button_font-size: 1.5rem;
-    --donation-amount__button_font-size: 1.5rem;
-    --input_font-size: 20px;
-    --recurring-frequency__button_padding: 1rem;
-    --recurring-frequency__button_font-size: 1.3rem;
-
-    .page-header span {
-      margin-left: 15px;
-    }
-
-    .monthly-upsell-msg .text-nudge {
-      font-size: 16px;
-    }
-
-    .en__field--withOther.en__field--radio.en__field--donationAmt
-      .en__field__item--other
-      input {
-      font-size: 1.5rem;
-      padding: 14px 52px 14px 40px;
-    }
-
-    .en__component--premiumgiftblock {
-      margin: 35px 0 10px;
-      .en__pg__body {
-        grid-template-columns: min-content auto;
-        grid-template-areas: "en__pg__select en__pg__detail en__pg__display";
-        row-gap: 20px;
-        margin-bottom: 1rem;
-      }
-    }
-
-    .payment-information-header {
-      flex-direction: column;
-
-      div {
-        display: none;
+      .page-header span {
+        margin-left: 15px;
       }
 
-      h2 {
-        margin-bottom: 5px;
-      }
-    }
-
-    .nwf2-page-footer {
-      .footer-head {
-        text-align: left;
+      .monthly-upsell-msg .text-nudge {
+        font-size: 16px;
       }
 
-      .footer-head + p {
-        font-size: 22px;
+      .en__field--withOther.en__field--radio.en__field--donationAmt
+        .en__field__item--other
+        input {
+        font-size: 1.5rem;
+        padding: 14px 52px 14px 40px;
       }
 
-      p {
-        font-size: 18px;
+      .en__component--premiumgiftblock {
+        margin: 35px 0 10px;
+        .en__pg__body {
+          grid-template-columns: min-content auto;
+          grid-template-areas: "en__pg__select en__pg__detail en__pg__display";
+          row-gap: 20px;
+          margin-bottom: 1rem;
+        }
       }
 
-      .footer-links {
+      .payment-information-header {
         flex-direction: column;
-        row-gap: 15px;
+
+        div {
+          display: none;
+        }
+
+        h2 {
+          margin-bottom: 5px;
+        }
+      }
+
+      .nwf2-page-footer {
+        .footer-head {
+          text-align: left;
+        }
+
+        .footer-head + p {
+          font-size: 22px;
+        }
+
+        p {
+          font-size: 18px;
+        }
+
+        .footer-links {
+          flex-direction: column;
+          row-gap: 15px;
+        }
       }
     }
   }
@@ -1024,6 +1025,8 @@
       display: none !important;
     }
     @media screen and (max-width: 600px) {
+      --h1_font-size: 2.25rem;
+      --h2_font-size: 1.75rem;
       --donation-amount__button_count: 3;
       --en-vgs-height: 58px;
       --engrid__body_padding: 0;
