@@ -19,10 +19,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, November 27, 2024 @ 17:38:35 ET
+ *  Date: Thursday, January 23, 2025 @ 16:21:10 ET
  *  By: fernando
- *  ENGrid styles: v0.19.20
- *  ENGrid scripts: v0.19.22
+ *  ENGrid styles: v0.20.0
+ *  ENGrid scripts: v0.20.4
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -9518,6 +9518,7 @@ body[data-engrid-debug]:before{
   font-weight:700;
   left:-10px;
   position:absolute;
+  top:0;
 }
 @media screen and (max-width:800px){
   [data-engrid-theme=nwf2]{

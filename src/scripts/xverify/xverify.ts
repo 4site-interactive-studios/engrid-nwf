@@ -1,6 +1,12 @@
 import { EnForm, ENGrid, EngridLogger } from "@4site/engrid-scripts";
 // import { EnForm, ENGrid } from "../../../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
 
+declare global {
+  interface Window {
+    EngagingNetworks: any;
+  }
+}
+
 export class XVerify {
   public form: EnForm = EnForm.getInstance();
   public emailField: HTMLInputElement;
@@ -22,6 +28,15 @@ export class XVerify {
     "blueviolet",
     "aliceblue",
     "🔍"
+  );
+  private submissionFailed: boolean = !!(
+    ENGrid.checkNested(
+      window.EngagingNetworks,
+      "require",
+      "_defined",
+      "enjs",
+      "checkSubmissionFailed"
+    ) && window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()
   );
   constructor(options: {
     statusField?: string;
@@ -69,6 +84,10 @@ export class XVerify {
     }
     if (!this.emailField) {
       this.logger.log("E-mail Field Not Found", this.emailField);
+      return;
+    }
+    if (this.emailField.value !== "" && !this.submissionFailed) {
+      this.logger.log("X-Verify is Disabled for Autofilled Email Address");
       return;
     }
     this.form.onValidate.subscribe(() => {
