@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, January 21, 2025 @ 16:17:29 ET
+ *  Date: Thursday, January 23, 2025 @ 16:21:49 ET
  *  By: fernando
- *  ENGrid styles: v0.20.0
- *  ENGrid scripts: v0.20.4
+ *  ENGrid styles: v0.20.6
+ *  ENGrid scripts: v0.20.6
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10171,7 +10171,7 @@ tippy.setDefaultProps({
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"v":"5.7.4","fr":30,"ip":9,"op":60,"w":554,"h":184,"nm":"NWF Button","ddd":0,"assets":[{"id":"image_0","w":61,"h":56,"u":"","p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAA4CAYAAABOr/BaAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAAEDklEQVRogeWaQXLaSBSG/9cSs9YNRlNRpryLKIfZDt6lbKYKnyDxCcY+geEEwAnCnCCkxnG8s9aDXbB0VUhFOUGU5ZTUerOQ0GAsjACpFcy3lIT6fXrdTav1CCsyapqG/Fers0a2YPqZweb0HAHjEPjKTM5vl5/Gq947ra3A198Q43cC2SzYAMMAAGJymdhl4P2q7VHWC4cNq06McwD1bDcmF4AjKlq7Orhzs7YDAP8cPrcFcSdrWzFjYurtX37qL49tCcOGVRdMb2czuirEaO1fTtpZrr09sjoMnK7dFsgVFe3gsQe9UHrUNI3Q1883CWCOsVbRjxcFM2qahvT1d1gtu4vwOES79nHSTTsp0gPYM0O/MspRGADs0JfXo+aemXZS+vo18hEGAIMEOreH1nnayQfSkbC83qQ7L4LBpvSDd6Omacwevz2yOgDs3NsjtEZHv76eP/5AuijhGezQ15MM3PzxrJlzj7qHRNid7133pKNJpFBhAAADp9NAKBSdgpszpB+8nT2QTGSj5p4p/eBLwQH8D3OPBQ2Ica2kuRBn04ktyfT80ygcotcE/KmsOYFkSAkg+i9GfjNnVgzFbRqxZyQtmB7McEqIl5SqiFeU0Zi+aVjfVAdQEp5WCX4Rw4ZV3xFhADCCQLcF1I/lcmHYgoAXZcehEgF6IQCYZQeiEgbbOycNkCF2aBJLSH21fNqwuYPS5AoQvLLDUI0gpt2SJnYFE2+8VbtNcIjvAuCvZQeiFIIjQHDKjkMphLHQNOmUHYdKdD0Yi+rA9YAdyTbBqQ5cTwAAA+/LjkcFFNJfQLwi0ytBv9RoFCFCzQFi6aiLR0/hqUKgfvUq+qSULEOZuF9WQCoQUks+ICbStYuJgyc6oc1mGZh7y9KkfqI8IgXMZhmYk65e3blMyPQdeVuYzzKQ8j6t60E3riLYegjkzmcZSJGuDlwvJH4a3ZzRns8ysGDnpHYxcba9mxOov6j+ZOHOSe1i0sKWzuZR3Yl/tuj8o9tFWiU43rrxTfCE1A7id4pUHpWuDlxPSO1gq8Qln6SN41mWbgxWr+7cbRFnQvvlx8+DZddlLp4bvdozQ63wepS1YUI7noeWklka+HHFVxEGVpQGfjzxVYWBNb5wTMc4gNJ3UdcRBtbI9Cw3jWddMCkrlkkgeER0tv/38uLX9J9vyPDIOiWg6FqwBAK5knG8SWn1xtKAwnFOcLRAX/o/vPw2OTJsWK1pBU/uMPdeXn7OpZwyV2kgn/rwWQjkhsQn8c5OLuQuPSWXrDP3tJ9k67F19DoUJg1EY11qsgXwSsV5RWT3/v0VkLnLEzxmtGsf0ivy80KJ9JTbw+dvQDh/IE/wGOjpetDNuyunoVR6yrBh1eMK4LpK2Sn/AfEmumGq5phqAAAAAElFTkSuQmCC","e":1},{"id":"image_1","w":43,"h":40,"u":"","p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAoCAYAAABnyQNuAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAAFcUlEQVRYhbVYzU4bVxT+zp0xSRuq3mBSsWilG2Xj4FYdniC2alfeYZ4g5gmSrLrEPEGSVZfAE0B2SLjCXXaVqRRcVmGyixQg02JI4/k5XfiHGTOeGQ/0kywxl3PO/ebec79z7mjICGXUpZj79pcv5h8Yn47f/pE1zjTQMjvmv/uVgKdEqH35zYN3nz68NW+SWBREFqcFo6bA3Lgc4cc3xCcWehYnx3MMgACQBbACk8pKQBl1efb5opS7Jcz35q4VZ5tpZT0nZ3oXs3dPOnv3vYvZu/C99Sxx8g9/rp853SOQv+047kaSPWWZZAhZKCl5W9qWuWNP67tg1JTjuK/BkMOxk04rls/UaTCYZAOAAYY863Uxv1g1mfDy5GBvM20c57NvgNAGyABY9VMqHlOtbNRqBMFA87TTmiolZKGmNM1rgsEnnb3VGyObX6we9VchJqBA+fhNqz0+roy6/KfXfSJAdQBgYhugreFuSFWXthWfTiGyyqjLM6e7DSYlCCsfDvZG2pkvVhtgTjwEILRPDlrl4NA9o2r4Du9H7QiBzNmZO+U0eR9SgzPn/DkYJYAVA2PEfCORKAAwQnYLRk1NIto3Z+PM6W6nCR2WLkZp9CezIQsldclVRE4WgZCd43hrk4gG553/vlKKtcE4WWIJ8Gb/R5au6yOyDE5VTokobMdcT+PHTIl2IenyzmfvB5NcqvpoRfxb7qbW058nBfSZX40NpdsR9r9OMgmtrG3t2LJQUrJQUsoIn07bbNvMeBYfjiz/YvbF2GC6gkHi79Rk88VqY65Yea0J/UgT+tFZr/sxv1jZXjBqamhz+lfrBQGROkqEtudr5SvyQ7yViivxTvBZGXU5nscEAPOLlTUGmhPi2IKoHJSxgZCXiFn5BFsQzChtHdkK9zVi04E2gwVh7mH1CQlugiEZWD/ttJoAQOn0k6yvZu4sZekBAEAWq4bG2I4qKERou+ezK8MducqHrJPO3n0A0An8mBOnY9X93G0AGM/HfmVyug0ClketIrEVrE72wZ4pC7WyLtwGCI+YSQFsgujV8Xg/IXwbrtgCDXpkYmtEO79Y+YhUJ5Y3Tzq/hWp3cLuifcjKzWjlpD41Cv308fZBWB++tJ6O6FXki9UNMDcQuy2snJ63v2DUJhIebPsyQAaILYIw9Zx4+d7ctWSxumIHzoo+6vYTQKB3lxNU9sFcSvdaPGwpQ/3CglFTbs/bZuZBeWaAoRh+yelx/V6xGupNAEAQ0kmL6+ubADBXrDwPluV0fFHKF6uN4JDjuBsMntBvsPKZ94OyCQDiuNNqMiG2lDKwbh/uWvOLlTViPJ2K6GWU0aUy/8NP9RQvLB3HC80lAMDPuWUwXV1hgk2MZ6edVnPBqKkYLU7BNdCs+Cl3hrEcfNSBfikF0JCFWlNobl0wJBFZzvmdnaH+uSkudIlz95uVNnwhQcmCOX6WQo2MfbhrIUJL88Vqg1MfqNjJfwTQ11JOc0kJ38tSXcXppj5iDBpzItpJMh2gHXxIJHuvWDV42tM/GVIWSur4TatNFCZyFWR5vhZqmhLJ+vAb12E3jmFD7+bclYkqRLA9wsogLS99k4IT6FGao5AWTP3r0eBQLw0rGBEUMywC/nTPZ19E3XRjs1waJan19I83yBWCaPXDFB9DQr5x/8w5OZUlaBx8QZnaTCDjh7nrgNj/f8g6OcfKGngSXNfNHDOWrG227WSJmQq2fdi2sjonpoHr6atpvvClxO/XcU4kax/uWt6MsxRqdAg2ATuCaNUjWoLGK5GN0Dg0sXkdslN9RZSqLnHblvhX2lE62NdMrEU38+EbbBZc68t3FGShpjTymhC8DIYkggnGK/ciWuinwX/n9oEHtxrYEQAAAABJRU5ErkJggg==","e":1},{"id":"image_2","w":52,"h":50,"u":"","p":"data:image/png;base64,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","e":1},{"id":"comp_0","layers":[{"ddd":0,"ind":1,"ty":2,"nm":"paw right dark.png","cl":"png","refId":"image_1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":20,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":22,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":32,"s":[50]},{"t":34,"s":[0]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[120.5,95.75,0],"ix":2,"l":2},"a":{"a":0,"k":[21.5,20,0],"ix":1,"l":2},"s":{"a":0,"k":[128.75,128.75,100],"ix":6,"l":2}},"ao":0,"ip":8,"op":608,"st":8,"bm":0},{"ddd":0,"ind":2,"ty":2,"nm":"paw left dark.png","cl":"png","refId":"image_2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":26,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":28,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":38,"s":[50]},{"t":40,"s":[0]}],"ix":11},"r":{"a":0,"k":22,"ix":10},"p":{"a":0,"k":[87,47,0],"ix":2,"l":2},"a":{"a":0,"k":[26,25,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":14,"op":614,"st":14,"bm":0},{"ddd":0,"ind":3,"ty":2,"nm":"paw right dark.png","cl":"png","refId":"image_1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":32,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":34,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":44,"s":[50]},{"t":46,"s":[0]}],"ix":11},"r":{"a":0,"k":31,"ix":10},"p":{"a":0,"k":[156,41,0],"ix":2,"l":2},"a":{"a":0,"k":[21.5,20,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":20,"op":620,"st":20,"bm":0},{"ddd":0,"ind":4,"ty":2,"nm":"paw left dark.png","cl":"png","refId":"image_2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":32,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":34,"s":[50]},{"t":44,"s":[0]}],"ix":11},"r":{"a":0,"k":22,"ix":10},"p":{"a":0,"k":[127.765,-3.956,0],"ix":2,"l":2},"a":{"a":0,"k":[26,25,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":26,"op":626,"st":26,"bm":0},{"ddd":0,"ind":5,"ty":2,"nm":"paw right dark.png","cl":"png","refId":"image_1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":38,"s":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":40,"s":[50]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"t":50,"s":[50]},{"t":52,"s":[0]}],"ix":11},"r":{"a":0,"k":46,"ix":10},"p":{"a":0,"k":[208,7,0],"ix":2,"l":2},"a":{"a":0,"k":[21.5,20,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"ip":32,"op":632,"st":32,"bm":0}]}],"layers":[{"ddd":0,"ind":2,"ty":2,"nm":"heart white.png","cl":"png","refId":"image_0","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"t":33,"s":[0]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0]},"t":38,"s":[100]},{"t":43,"s":[100]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"t":33,"s":[116,135,0],"to":[0,-7.167,0],"ti":[0,6.833,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":43,"s":[116,92,0],"to":[0,-6.833,0],"ti":[0,-0.333,0]},{"t":46,"s":[116,94,0]}],"ix":2,"l":2},"a":{"a":0,"k":[30.5,28,0],"ix":1,"l":2},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0.167,0.167,-0.45]},"t":33,"s":[38,38,100]},{"i":{"x":[0.833,0.833,0.833],"y":[0.833,0.833,3.244]},"o":{"x":[1,1,0.167],"y":[0,0,-2.244]},"t":43,"s":[100,100,100]},{"t":46,"s":[90,90,100]}],"ix":6,"l":2}},"ao":0,"ip":0,"op":600,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":0,"nm":"paws","refId":"comp_0","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[277,92,0],"ix":2,"l":2},"a":{"a":0,"k":[276,92,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"w":552,"h":184,"ip":0,"op":600,"st":0,"bm":0}],"markers":[]}');
+module.exports = JSON.parse('{"nm":"NWF Button","ddd":0,"h":184,"w":554,"meta":{"g":"@lottiefiles/toolkit-js 0.33.2"},"layers":[{"ty":2,"nm":"heart white.png","sr":1,"st":0,"op":600,"ip":0,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[30.5,28,0],"ix":1},"s":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.667,"y":1},"s":[38,38,100],"t":33},{"o":{"x":1,"y":0},"i":{"x":0.833,"y":0.833},"s":[100,100,100],"t":43},{"s":[90,90,100],"t":46}],"ix":6},"sk":{"a":0,"k":0},"p":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.667,"y":1},"s":[116,135,0],"t":33,"ti":[0,6.833,0],"to":[0,-7.167,0]},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[116,92,0],"t":43,"ti":[0,-0.333,0],"to":[0,-6.833,0]},{"s":[116,94,0],"t":46}],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.667,"y":1},"s":[0],"t":33},{"o":{"x":0.167,"y":0},"i":{"x":0.667,"y":1},"s":[100],"t":38},{"s":[100],"t":43}],"ix":11}},"ef":[],"refId":"image_0","ind":1},{"ty":0,"nm":"paws","sr":1,"st":0,"op":600,"ip":0,"hd":false,"ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[276,92,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[277,92,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":0,"k":100,"ix":11}},"ef":[],"w":552,"h":184,"refId":"comp_0","ind":2}],"v":"5.7.4","fr":30,"op":60,"ip":9,"assets":[{"id":"image_0","u":"","e":1,"w":61,"h":56,"p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAA4CAYAAABOr/BaAAAACXBIWXMAAAABAAAAAQBPJcTWAAAAJHpUWHRDcmVhdG9yAAAImXNMyU9KVXBMK0ktUnBNS0tNLikGAEF6Bs5qehXFAAACnUlEQVRogeWb4XHaQBCFv1UFuIJABSYd4AriDkw6cCoAV2A6iFxBkgogFZhUIFIBdPDyQydbFiggo7sz0jfDDIwY3j52V+hWh9EQSQNgAoyBT8CwdHgN/AXWZrZq+tk1WlPg2mkO3ANg4x6/gZ9mtj5X71AAE0lLnU4m6buk4Tu0hg21Cr1pm2azhgFUmTXQm52plekdX3QhPpD0eGYAJwfj9JYt6t03NTzU+dk9RKYa45KePeidVmHyZ7ggU36CKmvOPOodz7j8Gi54LOmNA+iN/2e4zR4+xsRpLgNoZWWfSbmsgWbNfx53zvgkgNZQ0rx4YcUTSctAARTsgBVwG1BvZGa7BPLfYsIahvzKKpThQm8Kr+V9F1A8Jl/AlbekLa/XtF3nKnGl3RfDALcJ4Xs5NuOEfNnWJ4YJb9fDfeC6j6YHJkmxowhNcvwt3aO3pnexgwjMro+mNwn52LZP7BLyOXWf+JOQr2n7xMqUD+m2sSMJyFViZsUEow+sXiYnwK+ooYTjCV6HCAMgo/vr6pGZbRIAV+Jdz3ZqZht4exmaRgklHE/FkxfT7n7yKkIwIViV75db+Ygb+Gd0j1FR2lBZZbkDD4ED8k1aNgyVTMPLmfyZbkxUNsBN1fTeetqdyb+Gick7D1XDUDNEcE3/zXNAvknNLD10YK+8y0j6Qdj7TW2x4UBZFxwzfYn9vQM+1xmGIzMy19835N/cpXCwjxsj//tQ2mJ+ttkLM96u4Qsw7sfwBzbu13DFuI/Nbk0JY7hifhHRcMidUHvG7yVtA5rN5PagRUXh+vxZ793h6wtJc4+GF7H91aL2s57pI5TzKaidrC9U2TH84VGe9bTT2a1Dp///Y6sYv70+kTStMb9V3g6XVcpNcJlPY5n9B3nuOBF6paLrAAAAAElFTkSuQmCC"},{"id":"image_1","u":"","e":1,"w":43,"h":40,"p":"data:image/png;base64,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"},{"id":"image_2","u":"","e":1,"w":52,"h":50,"p":"data:image/png;base64,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"},{"nm":"","id":"comp_0","layers":[{"ty":2,"nm":"paw right dark.png","sr":1,"st":8,"op":608,"ip":8,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[21.5,20,0],"ix":1},"s":{"a":0,"k":[128.75,128.75,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[120.5,95.75,0],"ix":2},"r":{"a":0,"k":0,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":20},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":22},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":32},{"s":[0],"t":34}],"ix":11}},"ef":[],"refId":"image_1","ind":1},{"ty":2,"nm":"paw left dark.png","sr":1,"st":14,"op":614,"ip":14,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[26,25,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[87,47,0],"ix":2},"r":{"a":0,"k":22,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":26},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":28},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":38},{"s":[0],"t":40}],"ix":11}},"ef":[],"refId":"image_2","ind":2},{"ty":2,"nm":"paw right dark.png","sr":1,"st":20,"op":620,"ip":20,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[21.5,20,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[156,41,0],"ix":2},"r":{"a":0,"k":31,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":32},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":34},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":44},{"s":[0],"t":46}],"ix":11}},"ef":[],"refId":"image_1","ind":3},{"ty":2,"nm":"paw left dark.png","sr":1,"st":26,"op":626,"ip":26,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[26,25,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[127.765,-3.956,0],"ix":2},"r":{"a":0,"k":22,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":32},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":34},{"s":[0],"t":44}],"ix":11}},"ef":[],"refId":"image_2","ind":4},{"ty":2,"nm":"paw right dark.png","sr":1,"st":32,"op":632,"ip":32,"hd":false,"cl":"png","ddd":0,"bm":0,"hasMask":false,"ao":0,"ks":{"a":{"a":0,"k":[21.5,20,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6},"sk":{"a":0,"k":0},"p":{"a":0,"k":[208,7,0],"ix":2},"r":{"a":0,"k":46,"ix":10},"sa":{"a":0,"k":0},"o":{"a":1,"k":[{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[100],"t":38},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":40},{"o":{"x":0.167,"y":0.167},"i":{"x":0.833,"y":0.833},"s":[50],"t":50},{"s":[0],"t":52}],"ix":11}},"ef":[],"refId":"image_1","ind":5}]}]}');
 
 /***/ })
 
@@ -10332,6 +10332,7 @@ const OptionsDefaults = {
     PostalCodeValidator: false,
     CountryRedirect: false,
     WelcomeBack: false,
+    OptInLadder: false,
     PageLayouts: [
         "leftleft1col",
         "centerleft1col",
@@ -19451,17 +19452,19 @@ class DigitalWallets {
 
 class MobileCTA {
     constructor() {
-        var _a, _b, _c;
+        var _a;
         // Initialize options with the MobileCTA value or false
         this.options = (_a = engrid_ENGrid.getOption("MobileCTA")) !== null && _a !== void 0 ? _a : false;
         this.buttonLabel = "";
         // Return early if the options object is falsy or the current page type is not in the options.pages array
-        if (!this.options ||
-            !((_b = this.options.pages) === null || _b === void 0 ? void 0 : _b.includes(engrid_ENGrid.getPageType())) ||
-            engrid_ENGrid.getPageNumber() !== 1)
+        if (!this.options || engrid_ENGrid.getPageNumber() !== 1) {
             return;
-        // Set the button label using the options.label or the default value "Take Action"
-        this.buttonLabel = (_c = this.options.label) !== null && _c !== void 0 ? _c : "Take Action";
+        }
+        const labelForPageType = this.options.find((option) => option.pageType === engrid_ENGrid.getPageType());
+        if (!labelForPageType)
+            return;
+        // Set the button label to the window.mobileCTAButtonLabel value or the label for the current page type
+        this.buttonLabel = window.mobileCTAButtonLabel || labelForPageType.label;
         this.renderButton();
         this.addEventListeners();
     }
@@ -19474,11 +19477,12 @@ class MobileCTA {
         const buttonContainer = document.createElement("div");
         const button = document.createElement("button");
         // Add necessary classes and set the initial display style for the button container
-        buttonContainer.classList.add("engrid-mobile-cta-container");
-        buttonContainer.style.display = "none";
+        buttonContainer.classList.add("engrid-mobile-cta-container", "hide-cta");
         button.classList.add("primary");
         // Set the button's innerHTML and add a click event listener
-        button.innerHTML = this.buttonLabel;
+        button.innerHTML =
+            this.buttonLabel +
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
         button.addEventListener("click", () => {
             formBlock.scrollIntoView({ behavior: "smooth" });
         });
@@ -19500,6 +19504,7 @@ class MobileCTA {
                 this.showButton();
             }
         };
+        toggleButton();
         // Add event listeners for load, resize, and scroll events to toggle the button visibility
         window.addEventListener("load", toggleButton);
         window.addEventListener("resize", toggleButton);
@@ -19509,13 +19514,13 @@ class MobileCTA {
     hideButton() {
         const buttonContainer = document.querySelector(".engrid-mobile-cta-container");
         if (buttonContainer)
-            buttonContainer.style.display = "none";
+            buttonContainer.classList.add("hide-cta");
     }
     // Show the button by setting the container's display style to "block"
     showButton() {
         const buttonContainer = document.querySelector(".engrid-mobile-cta-container");
         if (buttonContainer)
-            buttonContainer.style.display = "block";
+            buttonContainer.classList.remove("hide-cta");
     }
 }
 
@@ -21444,20 +21449,62 @@ class OptInLadder {
         }
     }
     runAsParent() {
-        // Grab all the checkboxes with the name starting with "supporter.questions"
-        const checkboxes = document.querySelectorAll('input[name^="supporter.questions"]');
-        if (checkboxes.length === 0) {
-            this.logger.log("No checkboxes found");
-            return;
-        }
-        this._form.onSubmit.subscribe(() => {
-            // Save the checkbox values to sessionStorage
-            this.saveOptInsToSessionStorage("parent");
-        });
         this.logger.log("Running as Parent");
-        if (ENGrid.getPageNumber() === 1) {
-            // Delete items from sessionStorage
-            this.clearSessionStorage();
+        if (ENGrid.getPageNumber() === ENGrid.getPageCount()) {
+            // We are on the Thank You Page as a Parent
+            // Check autoinject iFrame
+            const optInLadderOptions = ENGrid.getOption("OptInLadder");
+            if (!optInLadderOptions || !optInLadderOptions.iframeUrl) {
+                this.logger.log("Options not found");
+                return;
+            }
+            // Create an iFrame
+            const iframe = document.createElement("iframe");
+            iframe.src = optInLadderOptions.iframeUrl;
+            iframe.style.width = "100%";
+            iframe.style.height = "0";
+            iframe.scrolling = "no";
+            iframe.frameBorder = "0";
+            iframe.allowFullscreen = true;
+            iframe.allow = "payment";
+            iframe.classList.add("opt-in-ladder-iframe");
+            iframe.classList.add("engrid-iframe");
+            // If the page already has an iFrame with the same class, we don't need to add another one
+            const existingIframe = document.querySelector(".opt-in-ladder-iframe");
+            if (existingIframe) {
+                this.logger.log("iFrame already exists");
+                return;
+            }
+            // Check if the current page is part of the excludePageIDs
+            if (optInLadderOptions.excludePageIDs &&
+                optInLadderOptions.excludePageIDs.includes(ENGrid.getPageID())) {
+                this.logger.log("Current page is excluded");
+                return;
+            }
+            // Append the iFrame to the proper placement
+            const placementQuerySelector = optInLadderOptions.placementQuerySelector || ".body-top";
+            const placement = document.querySelector(placementQuerySelector);
+            if (!placement) {
+                this.logger.error("Placement not found");
+                return;
+            }
+            placement.appendChild(iframe);
+        }
+        else {
+            // Grab all the checkboxes with the name starting with "supporter.questions"
+            const checkboxes = document.querySelectorAll('input[name^="supporter.questions"]');
+            if (checkboxes.length === 0) {
+                this.logger.log("No checkboxes found");
+                return;
+            }
+            this._form.onSubmit.subscribe(() => {
+                // Save the checkbox values to sessionStorage
+                this.saveOptInsToSessionStorage("parent");
+            });
+            if (ENGrid.getPageNumber() === 1) {
+                // Delete items from sessionStorage
+                this.clearSessionStorage();
+            }
         }
     }
     runAsChildRegular() {
@@ -21643,7 +21690,7 @@ class OptInLadder {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/version.js
-const AppVersion = "0.20.4";
+const AppVersion = "0.20.6";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
