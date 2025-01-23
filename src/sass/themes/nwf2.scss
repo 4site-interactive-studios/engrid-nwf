@@ -426,42 +426,7 @@
   }
 
   //Premiums
-  .en__component--premiumgiftblock {
-    margin: 64px 0 7px;
-
-    .en__pgHeader {
-      margin-top: 0;
-      margin-bottom: 1.8rem;
-    }
-
-    .en__pg__body {
-      column-gap: 20px;
-      padding: 0;
-      margin-bottom: 2rem;
-      grid-template-columns: min-content 276px var(--premium__image_max-width);
-      @media (max-width: 600px) {
-        grid-template-columns: min-content auto var(--premium__image_max-width);
-      }
-    }
-
-    .en__pg__select {
-      align-self: start;
-      padding-top: 3px;
-    }
-
-    .en__pg__name {
-      font-family: var(--default_font-family);
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 3px;
-    }
-
-    .en__pg__description {
-      align-self: start;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
+  @import "../components/premiums";
 
   //Give by select styles
   .give-by-select.en__field--give-by-select {
