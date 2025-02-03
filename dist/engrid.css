@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, January 23, 2025 @ 16:42:24 ET
+ *  Date: Monday, February 3, 2025 @ 16:18:14 ET
  *  By: fernando
  *  ENGrid styles: v0.20.6
  *  ENGrid scripts: v0.20.6
@@ -9323,7 +9323,7 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf2] .en__submit button:hover{
   transform:translateY(-2px);
 }
-[data-engrid-theme=nwf2] .en__errorList{
+[data-engrid-theme=nwf2] .en__errorHeader,[data-engrid-theme=nwf2] .en__errorList{
   position:relative;
   z-index:6;
 }

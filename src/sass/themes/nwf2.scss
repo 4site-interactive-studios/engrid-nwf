@@ -484,7 +484,8 @@
   }
 
   //Place errors above background image
-  .en__errorList {
+  .en__errorList,
+  .en__errorHeader {
     z-index: 6;
     position: relative;
   }
