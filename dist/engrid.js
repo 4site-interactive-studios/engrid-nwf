@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, February 3, 2025 @ 16:18:14 ET
+ *  Date: Friday, February 7, 2025 @ 13:46:39 ET
  *  By: fernando
  *  ENGrid styles: v0.20.6
  *  ENGrid scripts: v0.20.6
@@ -21789,199 +21789,211 @@ const monthlyAnimationData = __webpack_require__(7403);
 const customScript = function (DonationFrequency, App) {
   App.log("ENGrid client scripts are executing"); // Add your client scripts here
   // PREMIUMS SCRIPTS - START
-
-  const freq = DonationFrequency.getInstance();
-
-  if ("pageJson" in window && "pageType" in window.pageJson && window.pageJson.pageType === "premiumgift") {
-    const country = App.getField("supporter.country");
-
-    const maxMyGift = () => {
-      const maxRadio = document.querySelector(".en__pg:last-child input[type='radio'][name='en__pg'][value='0']");
-
-      if (maxRadio) {
-        maxRadio.checked = true;
-        maxRadio.click();
-        setTimeout(() => {
-          App.setFieldValue("transaction.selprodvariantid", "");
-        }, 150);
-      }
-    };
-
-    const selectPremiumFromSession = () => {
-      const selectedPremiumId = sessionStorage.getItem("selectedPremiumId");
-      const selectedVariantId = sessionStorage.getItem("selectedVariantId");
-
-      if (selectedPremiumId && selectedVariantId) {
-        const selectedGift = document.querySelector(`input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`);
-
-        if (selectedGift) {
-          selectedGift.click();
-          window.setTimeout(() => {
-            App.setFieldValue("transaction.selprodvariantid", selectedVariantId);
-          }, 100);
-        }
-      }
-    };
-
-    const disablePremiumBlock = function () {
-      let message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Gifts Disabled";
-      const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
-
-      if (!premiumBlock || premiumBlock.dataset.dataAnnualDisabled === "true") {
-        return;
-      }
-
-      if (!premiumBlock.hasAttribute("disabled")) {
-        // Keep the page scroll position when the premium block is disabled (hidden)
-        const scrollY = window.scrollY;
-        const premiumStyle = window.getComputedStyle(premiumBlock);
-        const premiumSize = parseInt(premiumStyle.height, 10) + parseInt(premiumStyle.marginTop.replace("px", "")) + parseInt(premiumStyle.marginBottom.replace("px", ""));
-        premiumBlock.setAttribute("disabled", "disabled");
-        premiumBlock.setAttribute("aria-disabled", "true");
-        premiumBlock.setAttribute("data-disabled-message", message);
-        window.scrollTo(0, scrollY - premiumSize);
-        console.log(premiumSize);
-      }
-    };
-
-    const enablePremiumBlock = () => {
-      const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
-
-      if (!premiumBlock || premiumBlock.dataset.dataAnnualDisabled === "true") {
-        return;
-      }
-
-      if (premiumBlock.hasAttribute("disabled")) {
-        // Keep the page scroll position when the premium block is enabled (shown)
-        const scrollY = window.scrollY;
-        const premiumStyle = window.getComputedStyle(premiumBlock);
-        premiumBlock.removeAttribute("disabled");
-        premiumBlock.removeAttribute("aria-disabled");
-        premiumBlock.removeAttribute("data-disabled-message");
-        const premiumSize = parseInt(premiumStyle.height, 10) + parseInt(premiumStyle.marginTop.replace("px", "")) + parseInt(premiumStyle.marginBottom.replace("px", ""));
-        window.scrollTo(0, scrollY + premiumSize);
-        console.log(premiumSize);
-      }
-    };
-
-    const addCountryNotice = () => {
-      if (!document.querySelector(".en__field--country .en__field__notice")) {
-        App.addHtml('<div class="en__field__notice"><strong>Note:</strong> We are unable to mail thank-you gifts to donors outside the United States and its territories and have selected the "Mazimize my gift" option for you.</div>', ".en__field--country .en__field__element", "after");
-      }
-    };
-
-    const removeCountryNotice = () => {
-      App.removeHtml(".en__field--country .en__field__notice");
-    };
-
-    if (!window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()) {
-      maxMyGift();
-    } else {
-      window.setTimeout(() => {
-        selectPremiumFromSession();
-      }, 1000);
-    }
-
-    if (App.getUrlParameter("premium") !== "international" && country) {
-      if (country.value !== "US") {
-        const countryText = country.options[country.selectedIndex].text;
-        maxMyGift();
-        disablePremiumBlock(`Gifts Disabled in ${countryText}`);
-        addCountryNotice();
-      }
-
-      country.addEventListener("change", () => {
-        if (country.value !== "US") {
-          const countryText = country.options[country.selectedIndex].text;
-          maxMyGift();
-          disablePremiumBlock(`Gifts Disabled in ${countryText}`);
-          addCountryNotice();
-        } else {
-          enablePremiumBlock();
-          removeCountryNotice();
-        }
-      });
-      freq.onFrequencyChange.subscribe(s => {
-        if (country.value !== "US") {
-          const countryText = country.options[country.selectedIndex].text;
-          maxMyGift();
-          disablePremiumBlock(`Gifts Disabled in ${countryText}`);
-        } else {
-          enablePremiumBlock();
-        }
-      });
-    }
-
-    const premiumBlock = document.querySelector(".en__component--premiumgiftblock");
-
-    if (premiumBlock) {
-      //listen for the change event of name "en__pg" using event delegation
-      let selectedPremiumId = null;
-      let selectedVariantId = null;
-      ["change", "click"].forEach(event => {
-        premiumBlock.addEventListener(event, e => {
-          setTimeout(() => {
-            const selectedGift = document.querySelector('[name="en__pg"]:checked');
-
-            if (selectedGift) {
-              selectedPremiumId = selectedGift.value;
-              selectedVariantId = App.getFieldValue("transaction.selprodvariantid");
-
-              if (selectedPremiumId > 0) {
-                // Save the selected gift and variant id to the session storage
-                sessionStorage.setItem("selectedPremiumId", selectedPremiumId);
-                sessionStorage.setItem("selectedVariantId", selectedVariantId);
-              }
-            }
-          }, 250);
-        });
-      }); // Mutation observer to check if the "Maximized Their Gift" radio button is present. If it is, hide it.
-
-      const observer = new MutationObserver(mutationsList => {
-        //loop over the mutations and if we're adding a radio with the "checked" attribute, remove that attribute so nothing gets re-selected
-        //when the premiums list is re-rendered
-        for (const mutation of mutationsList) {
-          if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
-            mutation.addedNodes.forEach(node => {
-              if (typeof node.querySelector !== "function") return;
-              const preSelectedRadio = node.querySelector("input[checked]");
-
-              if (preSelectedRadio) {
-                preSelectedRadio.removeAttribute("checked");
-              }
-            });
-          }
-        }
-
-        if (mutationsList.some(mutation => mutation.type === "childList")) {
-          // Re-select the previously selected gift when gift list is re-rendered
-          // If gift no longer exists, choose maximize my gift
-          if (selectedPremiumId && selectedVariantId) {
-            const selectedGift = document.querySelector(`input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`);
-
-            if (selectedGift) {
-              selectedGift.click();
-              window.setTimeout(() => {
-                App.setFieldValue("transaction.selprodvariantid", selectedVariantId);
-              }, 100);
-            } else {
-              maxMyGift();
-            }
-          } else {
-            maxMyGift();
-          }
-        }
-      }); // Start observing the target node for configured mutations
-
-      observer.observe(premiumBlock, {
-        attributes: true,
-        childList: true,
-        subtree: true
-      });
-    }
-  } // PREMIUMS SCRIPTS - END
+  // const freq = DonationFrequency.getInstance();
+  // if (
+  //   "pageJson" in window &&
+  //   "pageType" in window.pageJson &&
+  //   window.pageJson.pageType === "premiumgift"
+  // ) {
+  //   const country = App.getField("supporter.country");
+  //   const maxMyGift = () => {
+  //     const maxRadio = document.querySelector(
+  //       ".en__pg:last-child input[type='radio'][name='en__pg'][value='0']"
+  //     );
+  //     if (maxRadio) {
+  //       maxRadio.checked = true;
+  //       maxRadio.click();
+  //       setTimeout(() => {
+  //         App.setFieldValue("transaction.selprodvariantid", "");
+  //       }, 150);
+  //     }
+  //   };
+  //   const selectPremiumFromSession = () => {
+  //     const selectedPremiumId = sessionStorage.getItem("selectedPremiumId");
+  //     const selectedVariantId = sessionStorage.getItem("selectedVariantId");
+  //     if (selectedPremiumId && selectedVariantId) {
+  //       const selectedGift = document.querySelector(
+  //         `input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`
+  //       );
+  //       if (selectedGift) {
+  //         selectedGift.click();
+  //         window.setTimeout(() => {
+  //           App.setFieldValue(
+  //             "transaction.selprodvariantid",
+  //             selectedVariantId
+  //           );
+  //         }, 100);
+  //       }
+  //     }
+  //   };
+  //   const disablePremiumBlock = (message = "Gifts Disabled") => {
+  //     const premiumBlock = document.querySelector(
+  //       ".en__component--premiumgiftblock"
+  //     );
+  //     if (!premiumBlock || premiumBlock.dataset.dataAnnualDisabled === "true") {
+  //       return;
+  //     }
+  //     if (!premiumBlock.hasAttribute("disabled")) {
+  //       // Keep the page scroll position when the premium block is disabled (hidden)
+  //       const scrollY = window.scrollY;
+  //       const premiumStyle = window.getComputedStyle(premiumBlock);
+  //       const premiumSize =
+  //         parseInt(premiumStyle.height, 10) +
+  //         parseInt(premiumStyle.marginTop.replace("px", "")) +
+  //         parseInt(premiumStyle.marginBottom.replace("px", ""));
+  //       premiumBlock.setAttribute("disabled", "disabled");
+  //       premiumBlock.setAttribute("aria-disabled", "true");
+  //       premiumBlock.setAttribute("data-disabled-message", message);
+  //       window.scrollTo(0, scrollY - premiumSize);
+  //       console.log(premiumSize);
+  //     }
+  //   };
+  //   const enablePremiumBlock = () => {
+  //     const premiumBlock = document.querySelector(
+  //       ".en__component--premiumgiftblock"
+  //     );
+  //     if (!premiumBlock || premiumBlock.dataset.dataAnnualDisabled === "true") {
+  //       return;
+  //     }
+  //     if (premiumBlock.hasAttribute("disabled")) {
+  //       // Keep the page scroll position when the premium block is enabled (shown)
+  //       const scrollY = window.scrollY;
+  //       const premiumStyle = window.getComputedStyle(premiumBlock);
+  //       premiumBlock.removeAttribute("disabled");
+  //       premiumBlock.removeAttribute("aria-disabled");
+  //       premiumBlock.removeAttribute("data-disabled-message");
+  //       const premiumSize =
+  //         parseInt(premiumStyle.height, 10) +
+  //         parseInt(premiumStyle.marginTop.replace("px", "")) +
+  //         parseInt(premiumStyle.marginBottom.replace("px", ""));
+  //       window.scrollTo(0, scrollY + premiumSize);
+  //       console.log(premiumSize);
+  //     }
+  //   };
+  //   const addCountryNotice = () => {
+  //     if (!document.querySelector(".en__field--country .en__field__notice")) {
+  //       App.addHtml(
+  //         '<div class="en__field__notice"><strong>Note:</strong> We are unable to mail thank-you gifts to donors outside the United States and its territories and have selected the "Mazimize my gift" option for you.</div>',
+  //         ".en__field--country .en__field__element",
+  //         "after"
+  //       );
+  //     }
+  //   };
+  //   const removeCountryNotice = () => {
+  //     App.removeHtml(".en__field--country .en__field__notice");
+  //   };
+  //   if (
+  //     !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed()
+  //   ) {
+  //     maxMyGift();
+  //   } else {
+  //     window.setTimeout(() => {
+  //       selectPremiumFromSession();
+  //     }, 1000);
+  //   }
+  //   if (App.getUrlParameter("premium") !== "international" && country) {
+  //     if (country.value !== "US") {
+  //       const countryText = country.options[country.selectedIndex].text;
+  //       maxMyGift();
+  //       disablePremiumBlock(`Gifts Disabled in ${countryText}`);
+  //       addCountryNotice();
+  //     }
+  //     country.addEventListener("change", () => {
+  //       if (country.value !== "US") {
+  //         const countryText = country.options[country.selectedIndex].text;
+  //         maxMyGift();
+  //         disablePremiumBlock(`Gifts Disabled in ${countryText}`);
+  //         addCountryNotice();
+  //       } else {
+  //         enablePremiumBlock();
+  //         removeCountryNotice();
+  //       }
+  //     });
+  //     freq.onFrequencyChange.subscribe((s) => {
+  //       if (country.value !== "US") {
+  //         const countryText = country.options[country.selectedIndex].text;
+  //         maxMyGift();
+  //         disablePremiumBlock(`Gifts Disabled in ${countryText}`);
+  //       } else {
+  //         enablePremiumBlock();
+  //       }
+  //     });
+  //   }
+  //   const premiumBlock = document.querySelector(
+  //     ".en__component--premiumgiftblock"
+  //   );
+  //   if (premiumBlock) {
+  //     //listen for the change event of name "en__pg" using event delegation
+  //     let selectedPremiumId = null;
+  //     let selectedVariantId = null;
+  //     ["change", "click"].forEach((event) => {
+  //       premiumBlock.addEventListener(event, (e) => {
+  //         setTimeout(() => {
+  //           const selectedGift = document.querySelector(
+  //             '[name="en__pg"]:checked'
+  //           );
+  //           if (selectedGift) {
+  //             selectedPremiumId = selectedGift.value;
+  //             selectedVariantId = App.getFieldValue(
+  //               "transaction.selprodvariantid"
+  //             );
+  //             if (selectedPremiumId > 0) {
+  //               // Save the selected gift and variant id to the session storage
+  //               sessionStorage.setItem("selectedPremiumId", selectedPremiumId);
+  //               sessionStorage.setItem("selectedVariantId", selectedVariantId);
+  //             }
+  //           }
+  //         }, 250);
+  //       });
+  //     });
+  //     // Mutation observer to check if the "Maximized Their Gift" radio button is present. If it is, hide it.
+  //     const observer = new MutationObserver((mutationsList) => {
+  //       //loop over the mutations and if we're adding a radio with the "checked" attribute, remove that attribute so nothing gets re-selected
+  //       //when the premiums list is re-rendered
+  //       for (const mutation of mutationsList) {
+  //         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+  //           mutation.addedNodes.forEach((node) => {
+  //             if (typeof node.querySelector !== "function") return;
+  //             const preSelectedRadio = node.querySelector("input[checked]");
+  //             if (preSelectedRadio) {
+  //               preSelectedRadio.removeAttribute("checked");
+  //             }
+  //           });
+  //         }
+  //       }
+  //       if (mutationsList.some((mutation) => mutation.type === "childList")) {
+  //         // Re-select the previously selected gift when gift list is re-rendered
+  //         // If gift no longer exists, choose maximize my gift
+  //         if (selectedPremiumId && selectedVariantId) {
+  //           const selectedGift = document.querySelector(
+  //             `input[type="radio"][name="en__pg"][value="${selectedPremiumId}"]`
+  //           );
+  //           if (selectedGift) {
+  //             selectedGift.click();
+  //             window.setTimeout(() => {
+  //               App.setFieldValue(
+  //                 "transaction.selprodvariantid",
+  //                 selectedVariantId
+  //               );
+  //             }, 100);
+  //           } else {
+  //             maxMyGift();
+  //           }
+  //         } else {
+  //           maxMyGift();
+  //         }
+  //       }
+  //     });
+  //     // Start observing the target node for configured mutations
+  //     observer.observe(premiumBlock, {
+  //       attributes: true,
+  //       childList: true,
+  //       subtree: true,
+  //     });
+  //   }
+  // }
+  // PREMIUMS SCRIPTS - END
   // Add "(Optional)" to the PhoneNumber2 field label if the field is not required
-
 
   const enFieldPhoneNumber2Label = document.querySelector("label[for='en__field_supporter_phoneNumber2']");
   const enFieldPhoneNumber2Required = document.querySelector(".en__mandatory > * > input#en__field_supporter_phoneNumber2");
@@ -22659,123 +22671,6 @@ class XVerify {
 }
 
 _defineProperty(XVerify, "instance", void 0);
-;// CONCATENATED MODULE: ./src/scripts/annual-limit.ts
-
-// This script hides the premium gift options for the annual frequency until the amount is
-// greater than the minimum amount for the one-time frequency.
-
-class AnnualLimit {
-  constructor() {
-    _defineProperty(this, "logger", new logger_EngridLogger("AnnualLimit", "yellow", "darkblue", "📅"));
-
-    _defineProperty(this, "_amount", DonationAmount.getInstance());
-
-    _defineProperty(this, "_frequency", DonationFrequency.getInstance());
-
-    _defineProperty(this, "annualLimit", 0);
-
-    _defineProperty(this, "country", engrid_ENGrid.getField("supporter.country"));
-
-    _defineProperty(this, "maxMyGift", () => {
-      const maxRadio = document.querySelector(".en__pg:last-child input[type='radio'][name='en__pg'][value='0']");
-
-      if (maxRadio) {
-        maxRadio.checked = true;
-        maxRadio.click();
-        setTimeout(() => {
-          engrid_ENGrid.setFieldValue("transaction.selprodvariantid", "");
-        }, 150);
-      }
-    });
-
-    if (!this.shouldRun()) return;
-    this.loadAnnualLimit();
-
-    this._frequency.onFrequencyChange.subscribe(() => {
-      window.setTimeout(() => this.checkAnnualLimit(), 100);
-    });
-
-    this._amount.onAmountChange.subscribe(() => {
-      window.setTimeout(() => this.checkAnnualLimit(), 100);
-    });
-
-    this.checkAnnualLimit();
-    this.country.addEventListener("change", () => {
-      const premiumGiftContainer = document.querySelector(".en__component--premiumgiftblock");
-
-      if (premiumGiftContainer) {
-        premiumGiftContainer.removeAttribute("data-annual-disabled");
-        this.checkAnnualLimit();
-      }
-    });
-  }
-
-  checkAnnualLimit() {
-    if (this.annualLimit === 0 || this.country.value !== "US") return;
-    const amount = this._amount.amount;
-
-    if (this._frequency.frequency === "annual") {
-      if (amount < this.annualLimit) {
-        this.hidePremium();
-      } else {
-        this.showPremium();
-      }
-    } else {
-      this.showPremium();
-    }
-  }
-
-  showPremium() {
-    const premiumGiftContainer = document.querySelector(".en__component--premiumgiftblock");
-
-    if (premiumGiftContainer && !premiumGiftContainer.hasAttribute("data-disabled-message")) {
-      premiumGiftContainer.removeAttribute("disabled");
-      premiumGiftContainer.removeAttribute("data-annual-disabled");
-      this.logger.log("Premium Gift Container Show");
-    }
-  }
-
-  hidePremium() {
-    const premiumGiftContainer = document.querySelector(".en__component--premiumgiftblock");
-
-    if (premiumGiftContainer && !premiumGiftContainer.hasAttribute("disabled")) {
-      this.maxMyGift();
-      premiumGiftContainer.setAttribute("disabled", "disabled");
-      premiumGiftContainer.setAttribute("data-annual-disabled", "true");
-      this.logger.log("Premium Gift Container Hide");
-    }
-  }
-
-  shouldRun() {
-    const isPremiumGift = window.pageJson.pageType === "premiumgift";
-    const hasAnnualFrequency = document.querySelector("[name='transaction.recurrfreq'][value='annual' i]");
-    const hasPremiumGiftRules = engrid_ENGrid.checkNested(window.EngagingNetworks, "premiumGifts", "rules", "single", "ranges");
-    const hasMonthlyFrequency = document.querySelector("[name='transaction.recurrfreq'][value='monthly' i]");
-    return this.country && isPremiumGift && hasAnnualFrequency && hasMonthlyFrequency && hasPremiumGiftRules;
-  }
-
-  loadAnnualLimit() {
-    // Check if there's a global variable for the premium annual limit
-    if ("PremiumAnnualLimit" in window) {
-      this.annualLimit = +window.PremiumAnnualLimit;
-      this.logger.log("Annual Limit From Global Variable", this.annualLimit);
-      return;
-    }
-
-    const premiumGiftRules = window.EngagingNetworks.premiumGifts.rules;
-    let annualLimit = 0;
-
-    for (let range in premiumGiftRules.single.ranges) {
-      if ("productIds" in premiumGiftRules.single.ranges[range] && premiumGiftRules.single.ranges[range].productIds.length === 0) {
-        annualLimit = +premiumGiftRules.single.ranges[range].limit;
-      }
-    }
-
-    this.annualLimit = annualLimit;
-    this.logger.log("Annual Limit From Single", this.annualLimit);
-  }
-
-}
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM
 // import {
@@ -22788,7 +22683,7 @@ class AnnualLimit {
 
 
 
-
+ // import { AnnualLimit } from "./scripts/annual-limit";
 
 const options = {
   applePay: false,
@@ -22824,8 +22719,7 @@ const options = {
       window.XVerify = XVerify.getInstance(window.XVerifyOptions);
     }
 
-    window.validateXverify = XVerify.validateXverify;
-    new AnnualLimit();
+    window.validateXverify = XVerify.validateXverify; // new AnnualLimit();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();
