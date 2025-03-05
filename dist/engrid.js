@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, March 5, 2025 @ 08:48:58 ET
+ *  Date: Wednesday, March 5, 2025 @ 10:42:43 ET
  *  By: michael
  *  ENGrid styles: v0.20.9
  *  ENGrid scripts: v0.20.8
@@ -22087,30 +22087,41 @@ const customScript = function (DonationFrequency, App) {
   const digitalWalletRadio = document.querySelector("input[name='transaction.giveBySelect'][value='stripedigitalwallet']");
 
   if (digitalWalletRadio && window.EngridDefaultDigitalWallets && window.EngridDefaultDigitalWallets === true) {
-    let observerFinished = false;
-    const digitalWalletsObserver = new MutationObserver(mutationsList => {
-      mutationsList.forEach(mutation => {
-        if (mutation.type === "attributes" && !observerFinished) {
-          const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
-          const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+    const setDigitalWalletPaymentMethod = () => {
+      digitalWalletRadio.checked = true;
+      digitalWalletRadio.dispatchEvent(new Event("change", {
+        bubbles: true,
+        cancelable: true
+      }));
+    };
 
-          if (applePay === "true" || googlePay === "true") {
-            digitalWalletRadio.checked = true;
-            digitalWalletRadio.dispatchEvent(new Event("change", {
-              bubbles: true,
-              cancelable: true
-            }));
-            observerFinished = true; // prevent multiple runs if both attribute changes are in the same batch
+    const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
+    const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
 
-            digitalWalletsObserver.disconnect();
+    if (applePay === "true" || googlePay === "true") {
+      setDigitalWalletPaymentMethod();
+    } else {
+      let observerFinished = false;
+      const digitalWalletsObserver = new MutationObserver(mutationsList => {
+        mutationsList.forEach(mutation => {
+          if (mutation.type === "attributes" && !observerFinished) {
+            const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
+            const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+
+            if (applePay === "true" || googlePay === "true") {
+              setDigitalWalletPaymentMethod();
+              observerFinished = true; // prevent multiple runs if both attribute changes are in the same batch
+
+              digitalWalletsObserver.disconnect();
+            }
           }
-        }
+        });
       });
-    });
-    digitalWalletsObserver.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["data-engrid-payment-type-option-apple-pay", "data-engrid-payment-type-option-google-pay"]
-    });
+      digitalWalletsObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ["data-engrid-payment-type-option-apple-pay", "data-engrid-payment-type-option-google-pay"]
+      });
+    }
   }
 };
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js
