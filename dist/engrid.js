@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 3, 2025 @ 23:03:13 ET
- *  By: fernando
+ *  Date: Wednesday, March 5, 2025 @ 08:48:58 ET
+ *  By: michael
  *  ENGrid styles: v0.20.9
  *  ENGrid scripts: v0.20.8
  *
@@ -22080,6 +22080,36 @@ const customScript = function (DonationFrequency, App) {
           monthlyAnimation.goToAndStop(0);
         }
       });
+    });
+  } // Use the window.EngridDefaultDigitalWallets variable in a code block to set the default payment method to GooglePay / ApplePay
+
+
+  const digitalWalletRadio = document.querySelector("input[name='transaction.giveBySelect'][value='stripedigitalwallet']");
+
+  if (digitalWalletRadio && window.EngridDefaultDigitalWallets && window.EngridDefaultDigitalWallets === true) {
+    let observerFinished = false;
+    const digitalWalletsObserver = new MutationObserver(mutationsList => {
+      mutationsList.forEach(mutation => {
+        if (mutation.type === "attributes" && !observerFinished) {
+          const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
+          const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+
+          if (applePay === "true" || googlePay === "true") {
+            digitalWalletRadio.checked = true;
+            digitalWalletRadio.dispatchEvent(new Event("change", {
+              bubbles: true,
+              cancelable: true
+            }));
+            observerFinished = true; // prevent multiple runs if both attribute changes are in the same batch
+
+            digitalWalletsObserver.disconnect();
+          }
+        }
+      });
+    });
+    digitalWalletsObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-engrid-payment-type-option-apple-pay", "data-engrid-payment-type-option-google-pay"]
     });
   }
 };
