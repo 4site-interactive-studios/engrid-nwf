@@ -969,4 +969,121 @@
       width: 100%;
     }
   }
+
+  /* Start Donor Scroll */
+  div.en__component.donor-list {
+    display: none;
+  }
+  body:has(#ticker-container[data-layout="full"]) {
+    .content-header {
+      padding-top: 60px;
+    }
+  }
+  .en__component--codeblock:has(#ticker-container) {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  #ticker-container {
+    background-color: #e8e8e8;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid #00ad85;
+    margin-bottom: 1rem;
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #00ad85;
+      color: var(--recurring-frequency__button_color, #000);
+      border: none;
+      cursor: pointer;
+      margin: 0;
+      white-space: nowrap;
+      width: 85px;
+    }
+    &[data-layout="full"] {
+      position: fixed;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      z-index: 11111111112;
+    }
+  }
+  #donor-ticker {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    line-height: 1.4;
+    &[data-playing="false"] {
+      .ticker {
+        animation-play-state: paused;
+      }
+    }
+    .ticker {
+      box-sizing: content-box;
+      display: flex;
+      white-space: nowrap;
+      will-change: transform;
+      transition: transform 0.1s linear;
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      animation-timing-function: linear;
+      -webkit-animation-name: tickerNews;
+      animation-name: tickerNews;
+      -webkit-animation-duration: 250s;
+      animation-duration: 250s;
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+    .ticker__item {
+      flex-shrink: 0;
+      padding: 0 2rem;
+      font-size: 1.125rem;
+      color: #555;
+      line-height: 2rem;
+      font-weight: 700;
+      user-select: none;
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  @keyframes tickerNews {
+    0% {
+      -webkit-transform: translate3d(10%, 0, 0);
+      transform: translate3d(0%, 0, 0);
+      visibility: visible;
+    }
+    90% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(-87.5%, 0%, 0);
+    }
+    90.01% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(-87.5%, 80%, 0);
+    }
+    90.02% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(9%, 80%, 0);
+    }
+    90.03% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(9%, 0, 0);
+    }
+    90.04% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(9%, 0, 0);
+    }
+    100% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(0%, 0, 0);
+    }
+  }
+  /* End Donor Scroll */
 }

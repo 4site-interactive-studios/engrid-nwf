@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, March 5, 2025 @ 10:42:43 ET
- *  By: michael
+ *  Date: Thursday, March 20, 2025 @ 16:39:05 ET
+ *  By: 4Site
  *  ENGrid styles: v0.20.9
  *  ENGrid scripts: v0.20.8
  *
@@ -9850,6 +9850,105 @@ body[data-engrid-debug]:before{
 @media screen and (max-width:600px){
   [data-engrid-theme=nwf2][data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container{
     width:100%;
+  }
+}
+[data-engrid-theme=nwf2] div.en__component.donor-list{
+  display:none;
+}
+[data-engrid-theme=nwf2] body:has(#ticker-container[data-layout=full]) .content-header{
+  padding-top:60px;
+}
+[data-engrid-theme=nwf2] .en__component--codeblock:has(#ticker-container){
+  max-width:100%;
+  overflow:hidden;
+}
+[data-engrid-theme=nwf2] #ticker-container{
+  align-items:center;
+  background-color:#e8e8e8;
+  border:2px solid #00ad85;
+  display:flex;
+  gap:1rem;
+  margin-bottom:1rem;
+  padding:10px;
+}
+[data-engrid-theme=nwf2] #ticker-container button{
+  background-color:#00ad85;
+  border:none;
+  color:var(--recurring-frequency__button_color, #000);
+  cursor:pointer;
+  font-size:1rem;
+  margin:0;
+  padding:.5rem 1rem;
+  white-space:nowrap;
+  width:85px;
+}
+[data-engrid-theme=nwf2] #ticker-container[data-layout=full]{
+  left:5px;
+  position:fixed;
+  right:5px;
+  top:5px;
+  z-index:11111111112;
+}
+[data-engrid-theme=nwf2] #donor-ticker{
+  align-items:center;
+  display:flex;
+  line-height:1.4;
+  overflow:hidden;
+  white-space:nowrap;
+  width:100%;
+}
+[data-engrid-theme=nwf2] #donor-ticker[data-playing=false] .ticker{
+  animation-play-state:paused;
+}
+[data-engrid-theme=nwf2] #donor-ticker .ticker{
+  animation-duration:250s;
+  animation-iteration-count:infinite;
+  animation-name:tickerNews;
+  animation-timing-function:linear;
+  box-sizing:initial;
+  display:flex;
+  transition:transform .1s linear;
+  white-space:nowrap;
+  will-change:transform;
+}
+[data-engrid-theme=nwf2] #donor-ticker .ticker:hover{
+  animation-play-state:paused;
+}
+[data-engrid-theme=nwf2] #donor-ticker .ticker__item{
+  color:#555;
+  flex-shrink:0;
+  font-size:1.125rem;
+  font-weight:700;
+  line-height:2rem;
+  padding:0 2rem;
+  -webkit-user-select:none;
+          user-select:none;
+}
+[data-engrid-theme=nwf2] #donor-ticker .ticker__item:hover{
+  animation-play-state:paused;
+}
+@keyframes tickerNews{
+  0%{
+    transform:translateZ(0);
+    visibility:visible;
+  }
+  90%{
+    transform:translate3d(-87.5%, 0, 0);
+  }
+  90.01%{
+    transform:translate3d(-87.5%, 80%, 0);
+  }
+  90.02%{
+    transform:translate3d(9%, 80%, 0);
+  }
+  90.03%{
+    transform:translate3d(9%, 0, 0);
+  }
+  90.04%{
+    transform:translate3d(9%, 0, 0);
+  }
+  to{
+    transform:translateZ(0);
   }
 }
 body{
