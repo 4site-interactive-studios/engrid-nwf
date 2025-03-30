@@ -327,18 +327,30 @@ export const customScript = function (DonationFrequency, App) {
   }
 
   // Use the window.EngridDefaultDigitalWallets variable in a code block to set the default payment method to GooglePay / ApplePay
-  const digitalWalletRadio = document.querySelector("input[name='transaction.giveBySelect'][value='stripedigitalwallet']");
-  if (digitalWalletRadio && window.EngridDefaultDigitalWallets && window.EngridDefaultDigitalWallets === true) {
+  const digitalWalletRadio = document.querySelector(
+    "input[name='transaction.giveBySelect'][value='stripedigitalwallet']"
+  );
+  if (
+    digitalWalletRadio &&
+    window.EngridDefaultDigitalWallets &&
+    window.EngridDefaultDigitalWallets === true
+  ) {
     const setDigitalWalletPaymentMethod = () => {
       digitalWalletRadio.checked = true;
-      digitalWalletRadio.dispatchEvent(new Event("change", {
-        bubbles: true,
-        cancelable: true,
-      }));
-    }
+      digitalWalletRadio.dispatchEvent(
+        new Event("change", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+    };
 
-    const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
-    const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+    const applePay = document.body.getAttribute(
+      "data-engrid-payment-type-option-apple-pay"
+    );
+    const googlePay = document.body.getAttribute(
+      "data-engrid-payment-type-option-google-pay"
+    );
     if (applePay === "true" || googlePay === "true") {
       setDigitalWalletPaymentMethod();
     } else {
@@ -346,8 +358,12 @@ export const customScript = function (DonationFrequency, App) {
       const digitalWalletsObserver = new MutationObserver((mutationsList) => {
         mutationsList.forEach((mutation) => {
           if (mutation.type === "attributes" && !observerFinished) {
-            const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
-            const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+            const applePay = document.body.getAttribute(
+              "data-engrid-payment-type-option-apple-pay"
+            );
+            const googlePay = document.body.getAttribute(
+              "data-engrid-payment-type-option-google-pay"
+            );
             if (applePay === "true" || googlePay === "true") {
               setDigitalWalletPaymentMethod();
               observerFinished = true; // prevent multiple runs if both attribute changes are in the same batch
@@ -360,7 +376,7 @@ export const customScript = function (DonationFrequency, App) {
         attributes: true,
         attributeFilter: [
           "data-engrid-payment-type-option-apple-pay",
-          "data-engrid-payment-type-option-google-pay"
+          "data-engrid-payment-type-option-google-pay",
         ],
       });
     }

@@ -972,11 +972,16 @@
   }
   /* Styles the iFrame of the embedded donation page that is displayed on the thank you page */
   iframe.thank-you-page-donation {
-    outline: 5px dashed #00ad85;
     margin: calc(1rem + 5px);
-    outline-offset: 1rem;
     position: relative;
     left: calc(((1rem + 5px) * -1));
+    transition: all 0.2s ease-in-out;
+    visibility: hidden;
+    &.loaded {
+      outline: 5px dashed #00ad85;
+      outline-offset: 1rem;
+      visibility: visible;
+    }
   }
   /* This are temporary stylings that will be moved into the theme once complete */
   &[data-engrid-embedded="thank-you-page-donation"] {
