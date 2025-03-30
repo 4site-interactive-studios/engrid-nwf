@@ -9,6 +9,7 @@ import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
 import { XVerify } from "./scripts/xverify/xverify";
+// import { AnnualLimit } from "./scripts/annual-limit";
 
 const options: Options = {
   applePay: false,
@@ -43,6 +44,7 @@ const options: Options = {
       (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
     }
     (<any>window).validateXverify = XVerify.validateXverify;
+    // new AnnualLimit();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();
