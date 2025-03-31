@@ -10,7 +10,11 @@ if (window.pageJson && window.pageJson.pageType) {
     // Determine the redirect URL based on the page type
     if (pageType === "donation" || pageType === "premiumgift") {
       redirectUrl = "https://nwf.org/donate";
-    } else if (pageType === "advocacy") {
+    } else if (
+      pageType === "advocacypetition" ||
+      pageType === "otherdatacapture" ||
+      pageType === "survey"
+    ) {
       redirectUrl = "https://nwfactionfund.org/take-action/";
     } else {
       redirectUrl = "https://nwf.org/";
