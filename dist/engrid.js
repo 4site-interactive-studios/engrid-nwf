@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, May 2, 2025 @ 16:05:10 ET
- *  By: fernando
+ *  Date: Tuesday, May 13, 2025 @ 07:40:04 ET
+ *  By: michael
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
  *
@@ -22892,7 +22892,7 @@ class XVerify {
   }
 
   init() {
-    if ([64320].includes(engrid_ENGrid.getPageID())) {
+    if ([64320, 82994, 82995].includes(engrid_ENGrid.getPageID())) {
       this.logger.log(`XVerify is Disabled for Page ID: ${engrid_ENGrid.getPageID()}`);
       return;
     }
@@ -23130,7 +23130,7 @@ const options = {
     } // Optional email field on specific pages
 
 
-    if ([64320].includes(App.getPageID())) {
+    if ([64320, 82994, 82995].includes(App.getPageID())) {
       if (App.getFieldValue("supporter.emailAddress") === "") {
         const email = `${App.getFieldValue("supporter.firstName")}${App.getFieldValue("supporter.lastName")}${Date.now()}-autofilled@noaddress.ea`;
         App.setFieldValue("supporter.emailAddress", email);

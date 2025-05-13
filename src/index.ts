@@ -68,7 +68,7 @@ const options: Options = {
     }
 
     // Optional email field on specific pages
-    if ([64320].includes(App.getPageID())) {
+    if ([64320, 82994, 82995].includes(App.getPageID())) {
       if (App.getFieldValue("supporter.emailAddress") === "") {
         const email = `${App.getFieldValue(
           "supporter.firstName"

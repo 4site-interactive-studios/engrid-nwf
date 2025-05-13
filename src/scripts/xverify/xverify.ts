@@ -78,7 +78,7 @@ export class XVerify {
     return XVerify.instance;
   }
   private init() {
-    if ([64320].includes(ENGrid.getPageID())) {
+    if ([64320, 82994, 82995].includes(ENGrid.getPageID())) {
       this.logger.log(`XVerify is Disabled for Page ID: ${ENGrid.getPageID()}`);
       return;
     }
