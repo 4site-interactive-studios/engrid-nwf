@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, June 2, 2025 @ 14:19:52 ET
+ *  Date: Tuesday, June 3, 2025 @ 12:41:43 ET
  *  By: daryl
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
@@ -23102,7 +23102,7 @@ const options = {
     phone_status_field: "supporter.NOT_TAGGED_140"
   },
   OptInLadder: {
-    iframeUrl: "https://support.nwf.org/page/83949/data/1?chain&assets=local&debug=log&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class" //excludePageIDs: ["78306"],
+    iframeUrl: "https://support.nwf.org/page/83949/data/1?chain&assets=optin-ladder&debug=log&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class" //excludePageIDs: ["78306"],
 
   },
   onLoad: () => {
