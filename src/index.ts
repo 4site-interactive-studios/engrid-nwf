@@ -39,7 +39,7 @@ const options: Options = {
   },
   OptInLadder: {
     iframeUrl:
-      "https://support.nwf.org/page/83949/data/1?chain&assets=local&debug=log&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class",
+      "https://support.nwf.org/page/83949/data/1?chain&assets=optin-ladder&debug=log&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class",
     //excludePageIDs: ["78306"],
   },
   onLoad: () => {
