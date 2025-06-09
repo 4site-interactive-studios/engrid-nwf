@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, June 3, 2025 @ 12:41:43 ET
+ *  Date: Monday, June 9, 2025 @ 10:31:31 ET
  *  By: daryl
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
@@ -22469,6 +22469,18 @@ const customScript = function (DonationFrequency, App) {
         attributeFilter: ["data-engrid-payment-type-option-apple-pay", "data-engrid-payment-type-option-google-pay"]
       });
     }
+  } // If it's a donation or advocacy page and it's the thank-you page, hide error messaging caused by the Opt-In Ladder using mandatory fields
+
+
+  const validPageTypes = ['donation', 'premiumgift', 'petition', 'emailtotarget', 'surveypage', 'tweetpage', 'click2call'];
+  const isValidPageType = validPageTypes.includes(pageJson.pageType);
+  const isLastPage = pageJson.pageNumber === pageJson.totalPages;
+
+  if (isValidPageType && isLastPage) {
+    const errorHeader = document.querySelector('.en__errorHeader');
+    const errorList = document.querySelector('.en__errorList');
+    if (errorHeader) errorHeader.style.display = 'none';
+    if (errorList) errorList.style.display = 'none';
   }
 };
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js

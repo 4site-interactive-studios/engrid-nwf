@@ -365,4 +365,18 @@ export const customScript = function (DonationFrequency, App) {
       });
     }
   }
+
+  // If it's a donation or advocacy page and it's the thank-you page, hide error messaging caused by the Opt-In Ladder using mandatory fields
+  const validPageTypes = ['donation', 'premiumgift', 'petition', 'emailtotarget', 'surveypage', 'tweetpage', 'click2call'];
+
+  const isValidPageType = validPageTypes.includes(pageJson.pageType);
+  const isLastPage = pageJson.pageNumber === pageJson.totalPages;
+
+  if (isValidPageType && isLastPage) {
+    const errorHeader = document.querySelector('.en__errorHeader');
+    const errorList = document.querySelector('.en__errorList');
+
+    if (errorHeader) errorHeader.style.display = 'none';
+    if (errorList) errorList.style.display = 'none';
+  }
 };
