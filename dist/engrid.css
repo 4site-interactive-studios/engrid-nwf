@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, May 13, 2025 @ 07:40:04 ET
- *  By: michael
+ *  Date: Tuesday, June 10, 2025 @ 12:44:51 ET
+ *  By: daryl
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
  *
@@ -9555,6 +9555,9 @@ body[data-engrid-debug]:before{
   display:flex;
   justify-content:space-between;
   margin-top:0;
+}
+[data-engrid-theme=nwf2] .enWidget__fill{
+  background-color:var(--color_orange) !important;
 }
 [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item label{
   --recurring-frequency__button_font-size:24px;

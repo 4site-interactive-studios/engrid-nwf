@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, May 13, 2025 @ 07:40:04 ET
- *  By: michael
+ *  Date: Tuesday, June 10, 2025 @ 12:44:51 ET
+ *  By: daryl
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
  *
@@ -22469,6 +22469,32 @@ const customScript = function (DonationFrequency, App) {
         attributeFilter: ["data-engrid-payment-type-option-apple-pay", "data-engrid-payment-type-option-google-pay"]
       });
     }
+  } // Add labels to the contact subject and message fields on email-to-target pages
+
+
+  if (pageJson.pageType === 'emailtotarget') {
+    console.log("This is an email-to-target page, adding contact subject and message field labels.");
+    const contactSubject = document.querySelector('.en__singleMessage > .en__contactSubject > .en__contactSubject__field');
+
+    if (contactSubject) {
+      contactSubject.id = 'en__contactSubject__field';
+      const subjectLabel = document.createElement("label");
+      subjectLabel.setAttribute('for', 'en__contactSubject__field');
+      subjectLabel.innerText = 'Subject';
+      contactSubject.insertAdjacentElement('beforebegin', subjectLabel);
+    }
+
+    const contactMessage = document.querySelector('.en__singleMessage > .en__contactMessage > .en__contactMessage__plainText');
+
+    if (contactMessage) {
+      contactMessage.id = 'en__contactMessage__field';
+      const messageLabel = document.createElement("label");
+      messageLabel.setAttribute('for', 'en__contactMessage__field');
+      messageLabel.innerText = 'Message';
+      contactMessage.insertAdjacentElement('beforebegin', messageLabel);
+    }
+  } else {
+    console.log("This is not an email-to-target page, skipping contact subject and message field labels.");
   }
 };
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js
