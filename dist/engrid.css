@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, June 10, 2025 @ 12:44:51 ET
+ *  Date: Tuesday, June 10, 2025 @ 15:44:39 ET
  *  By: daryl
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
@@ -8942,27 +8942,19 @@ body[data-engrid-debug]:before{
   --recurring-frequency__button_count:2;
   --recurring-frequency__button_padding:1.5rem 1rem;
   --recurring-frequency__button_border-radius:0;
-  --recurring-frequency__button_background-color_checked:var(
-    --button_background-color_checked
-  );
-  --recurring-frequency__button_border-color_checked:var(
-    --button_border-color
-  );
+  --recurring-frequency__button_background-color_checked:var(--button_background-color_checked);
+  --recurring-frequency__button_border-color_checked:var(--button_border-color);
   --recurring-frequency__button_text-transform:uppercase;
   --recurring-frequency__button_font-weight:700;
   --donation-amount__button_count:3;
   --donation-amount__button_font-size:2.25rem;
-  --donation-amount__button_background-color_checked:var(
-    --button_background-color_checked
-  );
+  --donation-amount__button_background-color_checked:var(--button_background-color_checked);
   --donation-amount__button_border-color_checked:var(--button_border-color);
   --donation-amount__button_padding:1rem 0.25rem;
   --donation-amount__button_font-weight:600;
   --premium__image_max-height:100px;
   --give-by-select__button_count:1;
-  --give-by-select__button_background-color_checked:var(
-    --button_background-color_checked
-  );
+  --give-by-select__button_background-color_checked:var(--button_background-color_checked);
   --give-by-select__button_border-color_checked:var(--button_border-color);
   --submit__button_color:#fff;
   --submit__button_color_hover:#fff;
@@ -9558,6 +9550,9 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=nwf2] .enWidget__fill{
   background-color:var(--color_orange) !important;
+}
+[data-engrid-theme=nwf2] .enWidget--progressBar .enWidget__copy:has(>p:nth-child(3):last-child)>p:nth-child(2){
+  display:none;
 }
 [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item label{
   --recurring-frequency__button_font-size:24px;
