@@ -327,18 +327,30 @@ export const customScript = function (DonationFrequency, App) {
   }
 
   // Use the window.EngridDefaultDigitalWallets variable in a code block to set the default payment method to GooglePay / ApplePay
-  const digitalWalletRadio = document.querySelector("input[name='transaction.giveBySelect'][value='stripedigitalwallet']");
-  if (digitalWalletRadio && window.EngridDefaultDigitalWallets && window.EngridDefaultDigitalWallets === true) {
+  const digitalWalletRadio = document.querySelector(
+    "input[name='transaction.giveBySelect'][value='stripedigitalwallet']"
+  );
+  if (
+    digitalWalletRadio &&
+    window.EngridDefaultDigitalWallets &&
+    window.EngridDefaultDigitalWallets === true
+  ) {
     const setDigitalWalletPaymentMethod = () => {
       digitalWalletRadio.checked = true;
-      digitalWalletRadio.dispatchEvent(new Event("change", {
-        bubbles: true,
-        cancelable: true,
-      }));
-    }
+      digitalWalletRadio.dispatchEvent(
+        new Event("change", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+    };
 
-    const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
-    const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+    const applePay = document.body.getAttribute(
+      "data-engrid-payment-type-option-apple-pay"
+    );
+    const googlePay = document.body.getAttribute(
+      "data-engrid-payment-type-option-google-pay"
+    );
     if (applePay === "true" || googlePay === "true") {
       setDigitalWalletPaymentMethod();
     } else {
@@ -346,8 +358,12 @@ export const customScript = function (DonationFrequency, App) {
       const digitalWalletsObserver = new MutationObserver((mutationsList) => {
         mutationsList.forEach((mutation) => {
           if (mutation.type === "attributes" && !observerFinished) {
-            const applePay = document.body.getAttribute("data-engrid-payment-type-option-apple-pay");
-            const googlePay = document.body.getAttribute("data-engrid-payment-type-option-google-pay");
+            const applePay = document.body.getAttribute(
+              "data-engrid-payment-type-option-apple-pay"
+            );
+            const googlePay = document.body.getAttribute(
+              "data-engrid-payment-type-option-google-pay"
+            );
             if (applePay === "true" || googlePay === "true") {
               setDigitalWalletPaymentMethod();
               observerFinished = true; // prevent multiple runs if both attribute changes are in the same batch
@@ -360,33 +376,34 @@ export const customScript = function (DonationFrequency, App) {
         attributes: true,
         attributeFilter: [
           "data-engrid-payment-type-option-apple-pay",
-          "data-engrid-payment-type-option-google-pay"
+          "data-engrid-payment-type-option-google-pay",
         ],
       });
     }
   }
 
   // Add labels to the contact subject and message fields on email-to-target pages
-  if (pageJson.pageType === 'emailtotarget') {
-    console.log("This is an email-to-target page, adding contact subject and message field labels.");
-    const contactSubject = document.querySelector('.en__singleMessage > .en__contactSubject > .en__contactSubject__field');
+  if (pageJson.pageType === "emailtotarget") {
+    const contactSubject = document.querySelector(
+      ".en__singleMessage > .en__contactSubject > .en__contactSubject__field"
+    );
     if (contactSubject) {
-      contactSubject.id = 'en__contactSubject__field';
+      contactSubject.id = "en__contactSubject__field";
       const subjectLabel = document.createElement("label");
-      subjectLabel.setAttribute('for', 'en__contactSubject__field');
-      subjectLabel.innerText = 'Subject';
-      contactSubject.insertAdjacentElement('beforebegin', subjectLabel);
+      subjectLabel.setAttribute("for", "en__contactSubject__field");
+      subjectLabel.innerText = "Subject";
+      contactSubject.insertAdjacentElement("beforebegin", subjectLabel);
     }
 
-    const contactMessage = document.querySelector('.en__singleMessage > .en__contactMessage > .en__contactMessage__plainText');
+    const contactMessage = document.querySelector(
+      ".en__singleMessage > .en__contactMessage > .en__contactMessage__plainText"
+    );
     if (contactMessage) {
-      contactMessage.id = 'en__contactMessage__field';
+      contactMessage.id = "en__contactMessage__field";
       const messageLabel = document.createElement("label");
-      messageLabel.setAttribute('for', 'en__contactMessage__field');
-      messageLabel.innerText = 'Message';
-      contactMessage.insertAdjacentElement('beforebegin', messageLabel);
+      messageLabel.setAttribute("for", "en__contactMessage__field");
+      messageLabel.innerText = "Message";
+      contactMessage.insertAdjacentElement("beforebegin", messageLabel);
     }
-  } else {
-    console.log("This is not an email-to-target page, skipping contact subject and message field labels.");
   }
 };
