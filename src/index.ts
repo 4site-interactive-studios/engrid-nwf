@@ -9,6 +9,7 @@ import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
 import { XVerify } from "./scripts/xverify/xverify";
+import Shop from "./scripts/Shop";
 // import { AnnualLimit } from "./scripts/annual-limit";
 
 const options: Options = {
@@ -45,6 +46,7 @@ const options: Options = {
     }
     (<any>window).validateXverify = XVerify.validateXverify;
     // new AnnualLimit();
+    new Shop();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();
