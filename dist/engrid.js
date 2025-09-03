@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, August 20, 2025 @ 12:31:23 ET
+ *  Date: Wednesday, September 3, 2025 @ 06:17:21 ET
  *  By: michael
  *  ENGrid styles: v0.22.0
  *  ENGrid scripts: v0.22.0
@@ -23100,7 +23100,8 @@ class Shop {
       return;
     }
 
-    this.logger.log("Shop is running");
+    this.logger.log("Shop is running"); // Create a simplified products array with only the necessary details
+
     this.rawProducts.forEach(product => {
       const defaultProductVariant = product.variants.find(variant => variant.productVariantOptions.length === 0);
 
@@ -23113,28 +23114,35 @@ class Shop {
         id: product.id,
         name: product.name,
         description: product.description,
-        price: defaultProductVariant.price
+        price: defaultProductVariant.price,
+        image: product.images[0]?.url || ""
       });
     });
-    this.logger.log("Products loaded", this.products);
+    this.logger.log("Products loaded", this.products); // Add price and "Learn more" link to each product element
+
     this.products.forEach(product => {
-      this.logger.log(`Product ID: ${product.id}, Name: ${product.name}, Price: ${product.price}`);
-      const productElement = this.getProductElement(product.id);
-
-      if (!productElement) {
-        this.logger.log(`Product element not found for product ID: ${product.id}`);
-        return;
-      }
-
-      const productName = productElement.querySelector(".en__pg__name");
-      const productDetails = document.createElement("div");
-      productDetails.className = "engrid__pg__details";
-      productDetails.innerHTML = `
-        <div class="engrid__pg__price">$${product.price.toFixed(2)}</div>
-        ${product.description ? `<div class="engrid__pg__learnmore">Learn more</div>` : ""}
-      `;
-      productName.insertAdjacentElement("afterend", productDetails);
+      this.addProductDetails(product);
     });
+    this.watchForProductMarkupChanges();
+  } // Add price and "Learn more" link below product name
+
+
+  addProductDetails(product) {
+    const productElement = this.getProductElement(product.id);
+
+    if (!productElement) {
+      this.logger.log(`Product element not found for product ID: ${product.id}`);
+      return;
+    }
+
+    const productName = productElement.querySelector(".en__pg__name");
+    const productDetails = document.createElement("div");
+    productDetails.className = "engrid__pg__details";
+    productDetails.innerHTML = `
+        <div class="engrid__pg__price">$${product.price.toFixed(2)}</div>
+        ${product.description ? `<div class="engrid__pg__learnmore"><span>Learn more</span></div>` : ""}
+      `;
+    productName.insertAdjacentElement("afterend", productDetails);
   }
 
   shouldRun() {
@@ -23150,6 +23158,36 @@ class Shop {
     }
 
     return productRadio.closest(".en__pg");
+  } // When selecting a product variant, its markup is replaced.
+  // We need to watch for these changes and re-add the price and "Learn more" link.
+
+
+  watchForProductMarkupChanges() {
+    const productList = document.querySelector(".en__pgList");
+
+    if (!productList) {
+      this.logger.log("Product list element not found");
+      return;
+    }
+
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node instanceof HTMLElement && node.classList.contains("en__pg__body")) {
+            const productId = parseInt(node.querySelector('input[name="en__pg"]')?.value);
+            const product = this.products.find(p => p.id === productId);
+
+            if (product && !node.querySelector(".engrid__pg__details")) {
+              this.addProductDetails(product);
+            }
+          }
+        });
+      });
+    });
+    observer.observe(productList, {
+      childList: true,
+      subtree: true
+    });
   }
 
 }
