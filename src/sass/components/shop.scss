@@ -211,6 +211,88 @@
     }
   }
 
+  .product-details-modal {
+    .engrid-modal__container {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .engrid-modal__body {
+      padding: 40px;
+    }
+
+    .engrid-modal__close {
+      font-weight: 600;
+      right: 16px;
+      top: 8px;
+      font-size: 28px;
+    }
+  }
+
+  .product-details-modal__content {
+    display: flex;
+    align-items: center;
+
+    .product-details-modal__image-container {
+      flex: 0 0 370px;
+      padding: 0 40px 0 0;
+    }
+
+    .product-details-modal__name {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .product-details-modal__price {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .product-details-modal__description p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .engrid__checkout-summary {
+    //display: grid;
+    //grid-template-columns: repeat(2, 1fr);
+    //gap: 10px;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    .engrid__checkout-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+
+      .engrid__checkout-item__cost {
+        flex: 0 0 100px;
+        text-align: right;
+      }
+    }
+
+    .engrid__checkout-item--total {
+      border-top: 2px solid #000;
+      margin-top: 5px;
+      padding-top: 15px;
+    }
+
+    .engrid__checkout-item--product .engrid__checkout-item__details {
+      display: flex;
+
+      .engrid__checkout-item__image {
+        flex: 0 0 120px;
+        margin-right: 20px;
+      }
+    }
+
+    .engrid__checkout-item__quantity {
+      font-weight: normal;
+    }
+  }
+
   @media screen and (max-width: 800px) {
     .en__component--premiumgiftblock {
       .en__pgList {
@@ -234,6 +316,24 @@
 
       > .en__component.en__component--copyblock {
         padding: 0 20px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .product-details-modal {
+      .engrid-modal__body {
+        padding: 50px 20px 20px;
+      }
+    }
+
+    .product-details-modal__content {
+      flex-direction: column;
+
+      .product-details-modal__image-container {
+        flex: 1;
+        padding: 0;
+        margin-bottom: 20px;
       }
     }
   }

@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 3, 2025 @ 06:17:21 ET
+ *  Date: Wednesday, September 3, 2025 @ 12:29:51 ET
  *  By: michael
- *  ENGrid styles: v0.22.0
- *  ENGrid scripts: v0.22.0
+ *  ENGrid styles: v0.22.4
+ *  ENGrid scripts: v0.22.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10439,6 +10439,20 @@ const ExitIntentOptionsDefaults = {
     },
 };
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/interfaces/frequency-upsell-options.js
+const FrequencyUpsellOptionsDefaults = {
+    title: "Before we process your donation...",
+    paragraph: "Would you like to make it an annual gift?",
+    yesButton: "YES! Process my gift as an annual gift of ${upsell_amount}",
+    noButton: "NO! Process my gift as a one-time gift of ${current_amount}",
+    upsellFrequency: "annual",
+    upsellFromFrequency: ["onetime"],
+    customClass: "",
+    upsellAmount: (currentAmount) => currentAmount,
+    onAccept: () => { },
+    onDecline: () => { },
+};
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/loader.js
 // Ref: https://app.getguru.com/card/iMgx968T/ENgrid-Loader
 
@@ -11142,10 +11156,12 @@ class engrid_ENGrid {
         const submit = document.querySelector(".en__submit button");
         if (!submit)
             return false;
+        let submitButtonProcessingHTML = `<span class='loader-wrapper'><span class='loader loader-quart'></span><span class='submit-button-text-wrapper'>${label}</span></span>`;
+        if (submit.innerHTML.includes("loader-wrapper")) {
+            // If we are already processing, don't override the originalText again
+            return false;
+        }
         submit.dataset.originalText = submit.innerHTML;
-        let submitButtonProcessingHTML = "<span class='loader-wrapper'><span class='loader loader-quart'></span><span class='submit-button-text-wrapper'>" +
-            label +
-            "</span></span>";
         submit.disabled = true;
         submit.innerHTML = submitButtonProcessingHTML;
         return true;
@@ -11942,6 +11958,7 @@ class App extends engrid_ENGrid {
         new EmbeddedEcard();
         new CheckboxLabel();
         new PostDonationEmbed();
+        new FrequencyUpsell();
         //Debug panel
         let showDebugPanel = this.options.Debug;
         try {
@@ -14265,7 +14282,7 @@ class TranslateFields {
         }
         //Storing these values on load so we can set them back after the translation/swap.
         let countryAndStateValuesOnLoad = {};
-        if (this.countriesSelect) {
+        if (this.countriesSelect && this.countriesSelect.length > 0) {
             this.countriesSelect.forEach((select) => {
                 select.addEventListener("change", this.translateFields.bind(this, select.name));
                 if (select.value) {
@@ -20565,6 +20582,149 @@ class ENValidators {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/modal.js
+
+class Modal {
+    constructor(options) {
+        this.modal = null;
+        this.defaultOptions = {
+            onClickOutside: "close",
+            addCloseButton: false,
+            closeButtonLabel: "Okay!",
+            customClass: "",
+            showCloseX: true,
+        };
+        this.focusTrapHandler = (e) => {
+            const modalElement = this.modal;
+            const focusableElements = [
+                ...modalElement.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'),
+            ];
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+            const isTabPressed = e.key === "Tab";
+            if (!isTabPressed) {
+                return;
+            }
+            if (e.shiftKey) {
+                if (document.activeElement === firstFocusable) {
+                    e.preventDefault();
+                    lastFocusable.focus();
+                }
+            }
+            else {
+                if (document.activeElement === lastFocusable) {
+                    e.preventDefault();
+                    firstFocusable.focus();
+                }
+            }
+        };
+        this.options = Object.assign(Object.assign({}, this.defaultOptions), options);
+        this.modalContent = this.getModalContent();
+        this.createModal();
+    }
+    createModal() {
+        var _a;
+        this.modal = document.createElement("div");
+        this.modal.classList.add("engrid-modal", "modal--hidden");
+        if (this.options.customClass && this.options.customClass !== "") {
+            this.options.customClass.split(" ").forEach((customClass) => {
+                if (!customClass)
+                    return;
+                this.modal.classList.add(customClass);
+            });
+        }
+        if (this.options.showCloseX) {
+            this.modal.classList.add("engrid-modal--close-x");
+        }
+        this.modal.setAttribute("aria-hidden", "true");
+        this.modal.setAttribute("role", "dialog");
+        this.modal.setAttribute("aria-modal", "true");
+        this.modal.setAttribute("tabindex", "-1");
+        this.modal.innerHTML = `
+      <div class="engrid-modal__overlay" tabindex="-1">
+        <div class="engrid-modal__container" tabindex="0">
+          <div class="engrid-modal__close engrid-modal__close-x" role="button" tabindex="0" aria-label="Close">
+            X
+          </div>
+          <div class="engrid-modal__body"></div>
+        </div>
+      </div>
+    `;
+        (_a = document.getElementById("engrid")) === null || _a === void 0 ? void 0 : _a.appendChild(this.modal);
+        const modalBody = this.modal.querySelector(".engrid-modal__body");
+        if (this.modalContent instanceof NodeList) {
+            this.modalContent.forEach((content) => {
+                modalBody === null || modalBody === void 0 ? void 0 : modalBody.appendChild(content);
+            });
+        }
+        else if (typeof this.modalContent === "string") {
+            modalBody === null || modalBody === void 0 ? void 0 : modalBody.insertAdjacentHTML("beforeend", this.modalContent);
+        }
+        else {
+            modalBody === null || modalBody === void 0 ? void 0 : modalBody.appendChild(this.modalContent);
+        }
+        if (this.options.addCloseButton) {
+            const button = document.createElement("button");
+            button.classList.add("engrid-modal__button");
+            button.textContent = this.options.closeButtonLabel;
+            button.addEventListener("click", () => {
+                this.close();
+            });
+            modalBody === null || modalBody === void 0 ? void 0 : modalBody.appendChild(button);
+        }
+        this.addEventListeners();
+    }
+    addEventListeners() {
+        var _a, _b, _c, _d, _e;
+        // Close event on top X
+        (_b = (_a = this.modal) === null || _a === void 0 ? void 0 : _a.querySelector(".engrid-modal__close")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
+            this.close();
+        });
+        // Bounce scale when clicking outside of modal
+        (_d = (_c = this.modal) === null || _c === void 0 ? void 0 : _c.querySelector(".engrid-modal__overlay")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", (event) => {
+            if (event.target === event.currentTarget) {
+                if (this.options.onClickOutside === "close") {
+                    this.close();
+                }
+                else if (this.options.onClickOutside === "bounce") {
+                    const modal = document.querySelector(".engrid-modal");
+                    if (modal) {
+                        modal.classList.remove("engrid-modal--scale");
+                        void modal.clientWidth;
+                        modal.classList.add("engrid-modal--scale");
+                    }
+                }
+            }
+        });
+        // Close on "modal__close" click
+        const closeEls = (_e = this.modal) === null || _e === void 0 ? void 0 : _e.querySelectorAll(".modal__close");
+        closeEls === null || closeEls === void 0 ? void 0 : closeEls.forEach((el) => {
+            el.addEventListener("click", () => {
+                this.close();
+            });
+        });
+    }
+    open() {
+        var _a, _b, _c, _d;
+        engrid_ENGrid.setBodyData("has-lightbox", "true");
+        (_a = this.modal) === null || _a === void 0 ? void 0 : _a.classList.remove("modal--hidden");
+        (_b = this.modal) === null || _b === void 0 ? void 0 : _b.removeAttribute("aria-hidden");
+        const container = (_c = this.modal) === null || _c === void 0 ? void 0 : _c.querySelector(".engrid-modal__container");
+        container === null || container === void 0 ? void 0 : container.focus({ preventScroll: true });
+        (_d = this.modal) === null || _d === void 0 ? void 0 : _d.addEventListener("keydown", this.focusTrapHandler);
+    }
+    close() {
+        var _a, _b, _c;
+        engrid_ENGrid.setBodyData("has-lightbox", false);
+        (_a = this.modal) === null || _a === void 0 ? void 0 : _a.classList.add("modal--hidden");
+        (_b = this.modal) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-hidden", "true");
+        (_c = this.modal) === null || _c === void 0 ? void 0 : _c.removeEventListener("keydown", this.focusTrapHandler);
+    }
+    getModalContent() {
+        return "<h1>Default Modal Content</h1>";
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/postal-code-validator.js
 
 
@@ -21131,17 +21291,44 @@ class WelcomeBack {
             });
         });
         this._form.onValidate.subscribe(this.enOnValidate.bind(this));
+        this._form.onValidate.subscribe(() => {
+            window.setTimeout(this.doubleCheckValidation.bind(this), 150);
+        });
     }
     enOnValidate() {
-        if (!this._form.validate)
+        if (!this._form.validate) {
+            // Disable the fast personal details if the form is invalidated by other components running before
+            engrid_ENGrid.setBodyData("hide-fast-personal-details", false);
             return;
-        const regionFieldValue = engrid_ENGrid.getFieldValue("supporter.region");
+        }
+        const regionField = engrid_ENGrid.getField("supporter.region");
+        const regionFieldValue = regionField ? regionField.value : "";
+        const regionFieldType = regionField === null || regionField === void 0 ? void 0 : regionField.tagName.toLowerCase();
         const regionFieldLabel = document.querySelector(".en__field--region label");
-        if (regionFieldLabel && regionFieldValue === "") {
+        if (regionFieldType === "select" &&
+            regionFieldLabel &&
+            regionFieldValue === "") {
             engrid_ENGrid.setError(".en__field--region", `${regionFieldLabel.innerText} is required`);
             engrid_ENGrid.setBodyData("hide-fast-personal-details", false);
             this._form.validate = false;
         }
+        else {
+            // Remove the error message if the region field is filled
+            engrid_ENGrid.removeError(".en__field--region");
+        }
+    }
+    doubleCheckValidation() {
+        // Disable the fast personal details if the form is invalidated by other components running AFTER
+        // the fast personal details component
+        const validationError = document.querySelector(".fast-personal-details .en__field--validationFailed");
+        if (validationError) {
+            engrid_ENGrid.setBodyData("hide-fast-personal-details", false);
+            validationError.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+        return;
     }
 }
 
@@ -21696,7 +21883,7 @@ class CheckboxLabel {
             var _a;
             const labelText = (_a = checkboxLabel.textContent) === null || _a === void 0 ? void 0 : _a.trim();
             const checkboxContainer = checkboxLabel.nextElementSibling;
-            const checkboxLabelElement = checkboxContainer.querySelector("label");
+            const checkboxLabelElement = checkboxContainer.querySelector("label:last-child");
             if (!checkboxLabelElement || !labelText)
                 return;
             checkboxLabelElement.textContent = labelText;
@@ -22037,11 +22224,196 @@ class PostDonationEmbed {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/frequency-upsell-modal.js
+/*
+ * FrequencyUpsellModal - this is class that creates the modal for the frequency upsell.
+ * This component is intentionally "dumb" and only creates the modal renders its content.
+ * Logic for showing the modal and handling the upsell is in the FrequencyUpsell class.
+ */
+
+class FrequencyUpsellModal extends Modal {
+    constructor(upsellOptions) {
+        super({
+            onClickOutside: "bounce",
+            customClass: `engrid--frequency-upsell-modal ${upsellOptions.customClass}`,
+            showCloseX: false,
+        });
+        this._amountWithFees = 0;
+        this._upsellAmountWithFees = 0;
+        this.upsellOptions = upsellOptions;
+        this.updateModalContent();
+    }
+    set amountWithFees(value) {
+        this._amountWithFees = value;
+    }
+    set upsellAmountWithFees(value) {
+        this._upsellAmountWithFees = value;
+    }
+    updateModalContent() {
+        var _a;
+        this.modalContent = this.getModalContent();
+        const modalBody = (_a = this.modal) === null || _a === void 0 ? void 0 : _a.querySelector(".engrid-modal__body");
+        if (modalBody) {
+            modalBody.innerHTML = "";
+            modalBody.insertAdjacentHTML("beforeend", this.modalContent);
+        }
+    }
+    getModalContent() {
+        if (!this.upsellOptions)
+            return "";
+        return `
+    <div class="frequency-upsell-modal__secondary-content"></div>
+    <div class="frequency-upsell-modal__content">
+      <div class="frequency-upsell-modal__text">
+        <h2 class="frequency-upsell-modal__title">${this.replaceAmountTokens(this.upsellOptions.title)}</h2>
+        <p class="frequency-upsell-modal__para">${this.replaceAmountTokens(this.upsellOptions.paragraph)}</p>
+      </div>
+      <div class="frequency-upsell-modal__buttons">
+        <button class="primary frequency-upsell-modal__button" id="frequency-upsell-yes">
+          ${this.replaceAmountTokens(this.upsellOptions.yesButton)}
+        </button>
+        <button class="primary frequency-upsell-modal__button" id="frequency-upsell-no">
+           ${this.replaceAmountTokens(this.upsellOptions.noButton)}
+        </button>
+      </div>
+    </div>
+    `;
+    }
+    replaceAmountTokens(string) {
+        const amount = engrid_ENGrid.formatNumber(this._amountWithFees, this._amountWithFees % 1 == 0 ? 0 : 2, ".", "");
+        const upsellAmount = engrid_ENGrid.formatNumber(this._upsellAmountWithFees, this._upsellAmountWithFees % 1 == 0 ? 0 : 2, ".", "");
+        return string
+            .replace(/{current_amount}/g, amount)
+            .replace(/{upsell_amount}/g, upsellAmount);
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/frequency-upsell.js
+/*
+ * FrequencyUpsell component which creates a modal to upsell the frequency of the donation
+ * This is typically used to upsell a single donation into an annual donation, but the component
+ * options can be configured to upsell any frequency to any other frequency. The upsell amount can also be configured
+ * See FrequencyUpsellOptions for more details.
+ */
+
+class FrequencyUpsell {
+    constructor() {
+        this.logger = new logger_EngridLogger("FrequencyUpsell", "lightgray", "darkblue", "🏦");
+        this.upsellModal = null;
+        this.options = null;
+        this._frequency = DonationFrequency.getInstance();
+        this._amount = DonationAmount.getInstance();
+        this._fee = ProcessingFees.getInstance();
+        this._form = en_form_EnForm.getInstance();
+        this.modalSeen = false;
+        if (!this.shouldRun()) {
+            this.logger.log("FrequencyUpsell not running");
+            return;
+        }
+        this.options = Object.assign(Object.assign({}, FrequencyUpsellOptionsDefaults), window.EngridFrequencyUpsell);
+        this.logger.log("FrequencyUpsell initialized", this.options);
+        this.upsellModal = new FrequencyUpsellModal(this.options);
+        this.createFrequencyField();
+        this.addEventListeners();
+    }
+    /**
+     * Check if the FrequencyUpsell should run:
+     * - Check if the FrequencyUpsell is enabled in the window object
+     * - Check that we don't have an EngridUpsell active on this page
+     * - Check that we don't have an EngagingNetworks upsell active on this page
+     * @returns {boolean} - true if the FrequencyUpsell should run, false otherwise
+     */
+    shouldRun() {
+        return (window.EngridFrequencyUpsell &&
+            !window.EngridUpsell &&
+            (!window.EngagingNetworks.upsell ||
+                window.EngagingNetworks.upsell.length === 0));
+    }
+    /**
+     * Get the upsell amount with/without fees
+     * We want to display to the user the amount with fees, but we need to set the donation amount to the value without fees
+     * @param {boolean} withFee - true if we want to include the fees in the upsell amount
+     * @returns {number} - The upsell amount with fees
+     */
+    getUpsellAmount(withFee) {
+        if (withFee) {
+            const upsellAmount = this.options.upsellAmount(this._amount.amount);
+            return upsellAmount + this._fee.calculateFees(upsellAmount);
+        }
+        return this.options.upsellAmount(this._amount.amount);
+    }
+    addEventListeners() {
+        var _a, _b;
+        // When the Modal buttons are clicked
+        (_b = (_a = this.upsellModal) === null || _a === void 0 ? void 0 : _a.modal) === null || _b === void 0 ? void 0 : _b.addEventListener("click", (e) => {
+            const target = e.target;
+            // Upsell is accepted
+            if (target.id === "frequency-upsell-yes") {
+                this.logger.log("Frequency upsell accepted");
+                this._frequency.setFrequency(this.options.upsellFrequency);
+                this._amount.setAmount(this.getUpsellAmount(false));
+                this.options.onAccept();
+                this._form.submitForm();
+                this.upsellModal.close();
+                return;
+            }
+            // Upsell is declined
+            if (target.id === "frequency-upsell-no") {
+                this.logger.log("Frequency upsell declined");
+                this.options.onDecline();
+                this._form.submitForm();
+                this.upsellModal.close();
+                return;
+            }
+        });
+        // When the form is submitted
+        this._form.onSubmit.subscribe(() => {
+            var _a;
+            // If we have a frequency we want to upsell on & the modal isn't already open
+            // Since frequency in the event class doesn't have a specific type, I need to cast our options array to a general string array
+            if (this.options.upsellFromFrequency.includes(this._frequency.frequency) &&
+                !this.modalSeen) {
+                // Open the modal and prevent form submission
+                this.upsellModal.amountWithFees =
+                    this._amount.amount + this._fee.calculateFees(this._amount.amount);
+                this.upsellModal.upsellAmountWithFees = this.getUpsellAmount(true);
+                this.upsellModal.updateModalContent();
+                this.logger.log("Frequency upsell modal opened");
+                (_a = this.upsellModal) === null || _a === void 0 ? void 0 : _a.open();
+                this.modalSeen = true;
+                this._form.submit = false;
+                return false;
+            }
+            // If not opening, continue with the form submission
+            this._form.submit = true;
+            return true;
+        });
+    }
+    /**
+     * Create the frequency field for the upsell, if it does not exist on the page already
+     * This is required by DonationFrequency to set the frequency
+     */
+    createFrequencyField() {
+        const frequencyField = document.querySelector(`input[name="transaction.recurrfreq"][value="${this.options.upsellFrequency.toUpperCase()}"]`);
+        if (frequencyField)
+            return;
+        const frequencyFieldContainer = document.querySelector(".en__field--recurrfreq .en__field__element");
+        frequencyFieldContainer === null || frequencyFieldContainer === void 0 ? void 0 : frequencyFieldContainer.insertAdjacentHTML("beforeend", `
+      <div class="en__field__item hide">
+        <input type="radio" name="transaction.recurrfreq" value="${this.options.upsellFrequency.toUpperCase()}" class="en__field__input en__field__input--radio">
+      </div>
+    `);
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/version.js
-const AppVersion = "0.22.0";
+const AppVersion = "0.22.7";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
+
 
 
 
@@ -23084,7 +23456,69 @@ class XVerify {
 }
 
 _defineProperty(XVerify, "instance", void 0);
-;// CONCATENATED MODULE: ./src/scripts/Shop.ts
+;// CONCATENATED MODULE: ./src/scripts/shop/ProductDetailsModal.ts
+
+
+class ProductDetailsModal extends Modal {
+  constructor() {
+    super({
+      onClickOutside: "close",
+      addCloseButton: false,
+      closeButtonLabel: "Close",
+      customClass: "product-details-modal",
+      showCloseX: true
+    });
+
+    _defineProperty(this, "product", null);
+  }
+
+  getModalContent() {
+    return `
+      <div class="product-details-modal__content">
+        <div class="product-details-modal__image-container">
+          <img
+            src="${this.product ? this.product.image : ''}"
+            alt="${this.product ? this.product.name : ''}"
+            class="product-details-modal__image"
+          />
+        </div>
+        <div class="product-details-modal__info">
+          <h2 class="product-details-modal__name">
+            ${this.product ? this.product.name : ''}
+          </h2>
+          <h3 class="product-details-modal__price">
+            ${this.product ? this.formatPrice(this.product.price) : ''}
+          </h3>
+          <div class="product-details-modal__description">
+            ${this.product ? this.formatDescription(this.product.description) : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  updateProduct(product) {
+    this.product = product;
+    const modalBody = this.modal.querySelector('.engrid-modal__body');
+
+    if (modalBody) {
+      modalBody.innerHTML = this.getModalContent();
+    }
+  }
+
+  formatDescription(description) {
+    if (!description) return "";
+    return description.split("\n\n").map(line => `<p>${line}</p>`).join("");
+  }
+
+  formatPrice(price) {
+    if (!price || isNaN(price)) return "";
+    return "$" + price.toFixed(2);
+  }
+
+}
+;// CONCATENATED MODULE: ./src/scripts/shop/Shop.ts
+
 
 
 class Shop {
@@ -23095,12 +23529,25 @@ class Shop {
 
     _defineProperty(this, "products", []);
 
+    _defineProperty(this, "productDetailsModal", null);
+
+    _defineProperty(this, "productPrice", 0);
+
+    _defineProperty(this, "shippingPrice", 0);
+
+    _defineProperty(this, "tax", 0);
+
+    _defineProperty(this, "discount", 0);
+
+    _defineProperty(this, "totalPrice", 0);
+
     if (!this.shouldRun()) {
-      this.logger.log("Shop is NOT running", this.rawProducts, this.rawProducts.length);
+      this.logger.log("Shop is NOT running");
       return;
     }
 
-    this.logger.log("Shop is running"); // Create a simplified products array with only the necessary details
+    this.logger.log("Shop is running");
+    this.productDetailsModal = new ProductDetailsModal(); // Create a simplified products array with only the necessary details
 
     this.rawProducts.forEach(product => {
       const defaultProductVariant = product.variants.find(variant => variant.productVariantOptions.length === 0);
@@ -23115,7 +23562,14 @@ class Shop {
         name: product.name,
         description: product.description,
         price: defaultProductVariant.price,
-        image: product.images[0]?.url || ""
+        image: product.images[0]?.url || "",
+        variants: product.variants.map(variant => ({
+          id: variant.id,
+          productId: variant.productId,
+          price: variant.price,
+          image: product.images[0]?.url || "",
+          name: product.name
+        }))
       });
     });
     this.logger.log("Products loaded", this.products); // Add price and "Learn more" link to each product element
@@ -23123,7 +23577,14 @@ class Shop {
     this.products.forEach(product => {
       this.addProductDetails(product);
     });
+    this.addWatchersAndListeners();
+    this.calculateTotalPrice();
+    this.updateCheckoutSummary();
+  }
+
+  addWatchersAndListeners() {
     this.watchForProductMarkupChanges();
+    this.watchForProductSelectionChanges();
   } // Add price and "Learn more" link below product name
 
 
@@ -23140,9 +23601,16 @@ class Shop {
     productDetails.className = "engrid__pg__details";
     productDetails.innerHTML = `
         <div class="engrid__pg__price">$${product.price.toFixed(2)}</div>
-        ${product.description ? `<div class="engrid__pg__learnmore"><span>Learn more</span></div>` : ""}
-      `;
+        <div class="engrid__pg__learnmore"><span>Learn more</span></div>
+    `;
     productName.insertAdjacentElement("afterend", productDetails);
+    const learnMoreLink = productDetails.querySelector(".engrid__pg__learnmore span");
+    learnMoreLink.addEventListener("click", () => {
+      if (this.productDetailsModal) {
+        this.productDetailsModal.updateProduct(product);
+        this.productDetailsModal.open();
+      }
+    });
   }
 
   shouldRun() {
@@ -23188,6 +23656,148 @@ class Shop {
       childList: true,
       subtree: true
     });
+  }
+
+  calculateTotalPrice() {
+    this.productPrice = this.getSelectedProductPrice();
+    this.shippingPrice = this.getSelectedShippingPrice();
+    this.tax = this.getCalculatedTax(this.productPrice);
+    this.discount = this.getDiscountAmount(this.productPrice);
+    this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discount; //TODO: Update amount in a hidden input field to pass to Engaging Networks
+
+    return this.totalPrice;
+  }
+
+  getSelectedProduct() {
+    const selectedProductId = document.querySelector('input[name="transaction.selprodvariantid"]')?.value;
+
+    if (!selectedProductId) {
+      this.logger.log("No product selected");
+      return null;
+    }
+
+    let productVariant;
+    this.products.forEach(p => {
+      if (productVariant) return;
+      productVariant = p.variants.find(v => v.id.toString() === selectedProductId);
+    });
+
+    if (!productVariant) {
+      this.logger.log(`Selected product not found`, selectedProductId);
+      return null;
+    }
+
+    this.logger.log(`Selected product`, productVariant);
+    return productVariant;
+  }
+
+  getSelectedProductPrice() {
+    const productVariant = this.getSelectedProduct();
+
+    if (!productVariant) {
+      this.logger.log(`Could not get selected product price`);
+      return 0;
+    }
+
+    return productVariant.price;
+  }
+
+  getSelectedShippingPrice() {
+    // Shipping price will be a future enhancement. For now, all shipping is free.
+    return 0;
+  }
+
+  getCalculatedTax(productPrice) {
+    const address = this.getShippingAddress(); // return 5% of product price as tax for demo purposes
+    // TODO: Implement TaxJar for tax calculation based on shipping address
+
+    return productPrice * 0.05;
+  }
+
+  getDiscountAmount(productPrice) {
+    return 0;
+  }
+
+  getShippingAddress() {
+    // should be the shipping address fields if user ticks the box to ship to a different address
+    return {};
+  }
+
+  watchForProductSelectionChanges() {
+    const productVariantInput = document.querySelector('input[name="transaction.selprodvariantid"]');
+
+    if (!productVariantInput) {
+      this.logger.log("Product variant input not found");
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      this.calculateTotalPrice();
+      this.updateCheckoutSummary();
+    });
+    observer.observe(productVariantInput, {
+      attributes: true,
+      attributeFilter: ['value']
+    });
+  }
+
+  updateCheckoutSummary() {
+    const selectedProduct = this.getSelectedProduct();
+
+    if (!selectedProduct) {
+      this.logger.log("No selected product to update checkout summary");
+      return;
+    }
+
+    const productNameElement = document.querySelector(".engrid__checkout-item--product .engrid__checkout-item__title span");
+
+    if (productNameElement) {
+      productNameElement.innerText = selectedProduct.name;
+    }
+
+    const productQuantityElement = document.querySelector(".engrid__checkout-item__quantity span");
+
+    if (productQuantityElement) {
+      //TODO: Implement quantity selection in the future
+      productQuantityElement.innerText = "Quantity: 1";
+    }
+
+    const productImageElement = document.querySelector(".engrid__checkout-item__image img");
+
+    if (productImageElement) {
+      productImageElement.src = selectedProduct.image;
+      productImageElement.alt = selectedProduct.name;
+    }
+
+    const productPriceElement = document.querySelector(".engrid__checkout-item--product .engrid__checkout-item__cost span");
+
+    if (productPriceElement) {
+      productPriceElement.innerText = `$${this.productPrice.toFixed(2)}`;
+    }
+
+    const shippingPriceElement = document.querySelector(".engrid__checkout-item--shipping .engrid__checkout-item__cost span");
+
+    if (shippingPriceElement) {
+      shippingPriceElement.innerText = `$${this.shippingPrice.toFixed(2)}`;
+    }
+
+    const discountAmountElement = document.querySelector(".engrid__checkout-item--discount .engrid__checkout-item__cost span");
+
+    if (discountAmountElement) {
+      discountAmountElement.innerText = `-$${this.discount.toFixed(2)}`;
+    }
+
+    const taxAmountElement = document.querySelector(".engrid__checkout-item--tax .engrid__checkout-item__cost span");
+
+    if (taxAmountElement) {
+      taxAmountElement.innerText = `$${this.tax.toFixed(2)}`;
+    }
+
+    const totalPriceElement = document.querySelector(".engrid__checkout-item--total .engrid__checkout-item__cost span");
+
+    if (totalPriceElement) {
+      totalPriceElement.innerText = `$${this.totalPrice.toFixed(2)}`;
+    }
   }
 
 }

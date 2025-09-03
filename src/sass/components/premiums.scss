@@ -70,7 +70,7 @@
 }
 
 // On premium pages, when the visitor is not in the US, hide the premium gift options other than the no gift option
-&:not([data-engrid-demo])[data-engrid-page-type="premiumgift"]:not([data-engrid-country="US"])
+&:not([data-engrid-demo]):not([data-engrid-subtheme="shop"])[data-engrid-page-type="premiumgift"]:not([data-engrid-country="US"])
   .en__pgList[data-nogift] {
   // Force the no gift option to always appear selected
   .en__pg__select input:before {

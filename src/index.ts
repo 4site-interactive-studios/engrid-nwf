@@ -9,7 +9,7 @@ import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
 import { XVerify } from "./scripts/xverify/xverify";
-import Shop from "./scripts/Shop";
+import Shop from "./scripts/shop/Shop";
 // import { AnnualLimit } from "./scripts/annual-limit";
 
 const options: Options = {
