@@ -1,4 +1,4 @@
-import { ENGrid, EngridLogger } from "@4site/engrid-scripts";
+import { DonationAmount, ENGrid, EngridLogger } from "@4site/engrid-scripts";
 import { Product, ProductVariant } from "./product.interface";
 import ProductDetailsModal from "./ProductDetailsModal";
 
@@ -9,6 +9,7 @@ export default class Shop {
     "orange",
     "🛍️"
   );
+  private _amount: DonationAmount = DonationAmount.getInstance();
   private rawProducts: any[] =
     window.EngagingNetworks?.premiumGifts?.products || [];
   private readonly products: Product[] = [];
@@ -149,7 +150,7 @@ export default class Shop {
     this.tax = this.getCalculatedTax(this.productPrice)
     this.discount = this.getDiscountAmount(this.productPrice);
     this.totalPrice = (this.productPrice + this.shippingPrice + this.tax) - this.discount;
-    //TODO: Update amount in a hidden input field to pass to Engaging Networks
+    this.setPaymentValuesOnForm(this.totalPrice, this.tax);
     return this.totalPrice;
   }
 
@@ -273,5 +274,12 @@ export default class Shop {
     if (totalPriceElement) {
       totalPriceElement.innerText = `$${this.totalPrice.toFixed(2)}`;
     }
+  }
+
+  private setPaymentValuesOnForm(totalPrice: number, taxAmount: number) {
+    ENGrid.setFieldValue("transaction.donationAmt", totalPrice.toFixed(2).toString(), true, true);
+    ENGrid.setFieldValue("en_txn10", taxAmount.toFixed(2).toString(), true, true);
+    this.logger.log(`Payment amount set to $${totalPrice.toFixed(2)}`);
+    this.logger.log(`Tax amount set to $${taxAmount.toFixed(2)}`);
   }
 }

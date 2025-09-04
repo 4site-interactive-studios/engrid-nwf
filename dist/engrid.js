@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 3, 2025 @ 12:29:51 ET
+ *  Date: Thursday, September 4, 2025 @ 12:50:43 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -23525,6 +23525,8 @@ class Shop {
   constructor() {
     _defineProperty(this, "logger", new logger_EngridLogger("Shop", "black", "orange", "🛍️"));
 
+    _defineProperty(this, "_amount", DonationAmount.getInstance());
+
     _defineProperty(this, "rawProducts", window.EngagingNetworks?.premiumGifts?.products || []);
 
     _defineProperty(this, "products", []);
@@ -23663,8 +23665,8 @@ class Shop {
     this.shippingPrice = this.getSelectedShippingPrice();
     this.tax = this.getCalculatedTax(this.productPrice);
     this.discount = this.getDiscountAmount(this.productPrice);
-    this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discount; //TODO: Update amount in a hidden input field to pass to Engaging Networks
-
+    this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discount;
+    this.setPaymentValuesOnForm(this.totalPrice, this.tax);
     return this.totalPrice;
   }
 
@@ -23798,6 +23800,13 @@ class Shop {
     if (totalPriceElement) {
       totalPriceElement.innerText = `$${this.totalPrice.toFixed(2)}`;
     }
+  }
+
+  setPaymentValuesOnForm(totalPrice, taxAmount) {
+    engrid_ENGrid.setFieldValue("transaction.donationAmt", totalPrice.toFixed(2).toString(), true, true);
+    engrid_ENGrid.setFieldValue("en_txn10", taxAmount.toFixed(2).toString(), true, true);
+    this.logger.log(`Payment amount set to $${totalPrice.toFixed(2)}`);
+    this.logger.log(`Tax amount set to $${taxAmount.toFixed(2)}`);
   }
 
 }
