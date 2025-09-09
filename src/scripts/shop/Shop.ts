@@ -1,6 +1,15 @@
-import { DonationAmount, ENGrid, EngridLogger } from "@4site/engrid-scripts";
+import { DonationAmount, EnForm, ENGrid, EngridLogger } from "@4site/engrid-scripts";
 import { Product, ProductVariant } from "./product.interface";
 import ProductDetailsModal from "./ProductDetailsModal";
+
+declare global {
+  interface Window {
+    EngagingNetworks: any;
+    EngridShop: {
+      discountCodes?: Record<string, number>;
+    }
+  }
+}
 
 export default class Shop {
   private logger: EngridLogger = new EngridLogger(
@@ -10,6 +19,7 @@ export default class Shop {
     "🛍️"
   );
   private _amount: DonationAmount = DonationAmount.getInstance();
+  private _form: EnForm = EnForm.getInstance();
   private rawProducts: any[] =
     window.EngagingNetworks?.premiumGifts?.products || [];
   private readonly products: Product[] = [];
@@ -18,7 +28,9 @@ export default class Shop {
   private shippingPrice: number = 0;
   private tax: number = 0;
   private discount: number = 0;
+  private discountValue: number = 0;
   private totalPrice: number = 0;
+  private quantityOptionId: number = 90; // ID of the quantity option from Engaging Networks
 
   constructor() {
     if (!this.shouldRun()) {
@@ -48,6 +60,7 @@ export default class Shop {
           price: variant.price,
           image: product.images[0]?.url || "",
           name: product.name,
+          quantity: this.getVariantQuantity(variant.productVariantOptions)
         }))
       });
     });
@@ -64,6 +77,33 @@ export default class Shop {
   private addWatchersAndListeners() {
     this.watchForProductMarkupChanges();
     this.watchForProductSelectionChanges();
+
+    // Coupon code application
+    document.querySelector(".button--apply-coupon")?.addEventListener("click", () => {
+      const couponCodes = window.EngridShop.discountCodes || {};
+      if (!Object.keys(couponCodes).length) return;
+
+      const couponCode = ENGrid.getFieldValue("transaction.coupon");
+      if (couponCode && couponCodes[couponCode]) {
+        this.logger.log(`Applying coupon code: ${couponCode} for discount of ${couponCodes[couponCode]}%`);
+        ENGrid.setBodyData("coupon-applied", "true");
+        this.discount = couponCodes[couponCode];
+        this.calculateTotalPrice();
+        this.updateCheckoutSummary();
+        const couponCodeField = ENGrid.getField("transaction.coupon");
+        couponCodeField?.setAttribute("disabled", "true");
+      }
+    });
+
+    // Amount validation
+    this._form.onValidate.subscribe(() => {
+      if (!this._form.validate) return;
+      if (this.totalPrice.toFixed(2).toString() !== ENGrid.getFieldValue("transaction.donationAmt")) {
+        this.logger.log(`Total price mismatch: Expected value: ${this.totalPrice.toFixed(2)} vs Field value: ${ENGrid.getFieldValue("transaction.donationAmt")}`);
+        this._form.validate = false;
+        return false;
+      }
+    });
   }
 
   // Add price and "Learn more" link below product name
@@ -148,8 +188,8 @@ export default class Shop {
     this.productPrice = this.getSelectedProductPrice();
     this.shippingPrice = this.getSelectedShippingPrice();
     this.tax = this.getCalculatedTax(this.productPrice)
-    this.discount = this.getDiscountAmount(this.productPrice);
-    this.totalPrice = (this.productPrice + this.shippingPrice + this.tax) - this.discount;
+    this.discountValue = this.getDiscountValue();
+    this.totalPrice = (this.productPrice + this.shippingPrice + this.tax) - this.discountValue;
     this.setPaymentValuesOnForm(this.totalPrice, this.tax);
     return this.totalPrice;
   }
@@ -195,11 +235,13 @@ export default class Shop {
     const address = this.getShippingAddress();
     // return 5% of product price as tax for demo purposes
     // TODO: Implement TaxJar for tax calculation based on shipping address
+    // Amount sent to TaxJar should be the full product price, with shipping and discount specified separately
     return productPrice * 0.05;
   }
 
-  private getDiscountAmount(productPrice: number): number {
-    return 0;
+  private getDiscountValue(): number {
+    if (!this.productPrice || !this.discount) return 0;
+    return (this.productPrice * this.discount) / 100;
   }
 
   private getShippingAddress(): object {
@@ -240,8 +282,7 @@ export default class Shop {
       ".engrid__checkout-item__quantity span"
     ) as HTMLElement;
     if (productQuantityElement) {
-      //TODO: Implement quantity selection in the future
-      productQuantityElement.innerText = "Quantity: 1";
+      productQuantityElement.innerText = `Quantity: ${selectedProduct.quantity}`;
     }
 
     const productImageElement = document.querySelector(".engrid__checkout-item__image img") as HTMLImageElement;
@@ -262,7 +303,7 @@ export default class Shop {
 
     const discountAmountElement = document.querySelector(".engrid__checkout-item--discount .engrid__checkout-item__cost span") as HTMLElement;
     if (discountAmountElement) {
-      discountAmountElement.innerText = `-$${this.discount.toFixed(2)}`;
+      discountAmountElement.innerText = `-$${this.discountValue.toFixed(2)}`;
     }
 
     const taxAmountElement = document.querySelector(".engrid__checkout-item--tax .engrid__checkout-item__cost span") as HTMLElement;
@@ -281,5 +322,30 @@ export default class Shop {
     ENGrid.setFieldValue("en_txn10", taxAmount.toFixed(2).toString(), true, true);
     this.logger.log(`Payment amount set to $${totalPrice.toFixed(2)}`);
     this.logger.log(`Tax amount set to $${taxAmount.toFixed(2)}`);
+  }
+
+  private getVariantQuantity(productVariantOptions: any) {
+    // Get the product variant options on the page. If none exist, return 1.
+    const premiumOptions: {
+      id: number;
+      optionTypeId: number;
+      name: string;
+      clientId: string;
+      createdOn: number;
+    }[] = window.EngagingNetworks?.premiumGifts?.options || [];
+    if (!premiumOptions.length) return 1;
+
+    // Filter the product variant options to find the quantity option. If none exist, return 1.
+    const quantityOptions = premiumOptions.filter((option: any) => option.optionTypeId === this.quantityOptionId);
+    if (!quantityOptions.length) return 1;
+
+    // Find the product variant option that matches the quantity option. If none exist, return 1.
+    const quantity = quantityOptions.find((option: any) =>
+      productVariantOptions.some(
+        (vOption: any) => vOption.optionId === option.id
+      )
+    );
+
+    return quantity ? parseInt(quantity.name) || 1 : 1;
   }
 }

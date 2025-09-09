@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, September 4, 2025 @ 12:50:43 ET
+ *  Date: Tuesday, September 9, 2025 @ 13:59:58 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -23522,10 +23522,13 @@ class ProductDetailsModal extends Modal {
 
 
 class Shop {
+  // ID of the quantity option from Engaging Networks
   constructor() {
     _defineProperty(this, "logger", new logger_EngridLogger("Shop", "black", "orange", "🛍️"));
 
     _defineProperty(this, "_amount", DonationAmount.getInstance());
+
+    _defineProperty(this, "_form", en_form_EnForm.getInstance());
 
     _defineProperty(this, "rawProducts", window.EngagingNetworks?.premiumGifts?.products || []);
 
@@ -23541,7 +23544,11 @@ class Shop {
 
     _defineProperty(this, "discount", 0);
 
+    _defineProperty(this, "discountValue", 0);
+
     _defineProperty(this, "totalPrice", 0);
+
+    _defineProperty(this, "quantityOptionId", 90);
 
     if (!this.shouldRun()) {
       this.logger.log("Shop is NOT running");
@@ -23570,7 +23577,8 @@ class Shop {
           productId: variant.productId,
           price: variant.price,
           image: product.images[0]?.url || "",
-          name: product.name
+          name: product.name,
+          quantity: this.getVariantQuantity(variant.productVariantOptions)
         }))
       });
     });
@@ -23586,7 +23594,33 @@ class Shop {
 
   addWatchersAndListeners() {
     this.watchForProductMarkupChanges();
-    this.watchForProductSelectionChanges();
+    this.watchForProductSelectionChanges(); // Coupon code application
+
+    document.querySelector(".button--apply-coupon")?.addEventListener("click", () => {
+      const couponCodes = window.EngridShop.discountCodes || {};
+      if (!Object.keys(couponCodes).length) return;
+      const couponCode = engrid_ENGrid.getFieldValue("transaction.coupon");
+
+      if (couponCode && couponCodes[couponCode]) {
+        this.logger.log(`Applying coupon code: ${couponCode} for discount of ${couponCodes[couponCode]}%`);
+        engrid_ENGrid.setBodyData("coupon-applied", "true");
+        this.discount = couponCodes[couponCode];
+        this.calculateTotalPrice();
+        this.updateCheckoutSummary();
+        const couponCodeField = engrid_ENGrid.getField("transaction.coupon");
+        couponCodeField?.setAttribute("disabled", "true");
+      }
+    }); // Amount validation
+
+    this._form.onValidate.subscribe(() => {
+      if (!this._form.validate) return;
+
+      if (this.totalPrice.toFixed(2).toString() !== engrid_ENGrid.getFieldValue("transaction.donationAmt")) {
+        this.logger.log(`Total price mismatch: Expected value: ${this.totalPrice.toFixed(2)} vs Field value: ${engrid_ENGrid.getFieldValue("transaction.donationAmt")}`);
+        this._form.validate = false;
+        return false;
+      }
+    });
   } // Add price and "Learn more" link below product name
 
 
@@ -23664,8 +23698,8 @@ class Shop {
     this.productPrice = this.getSelectedProductPrice();
     this.shippingPrice = this.getSelectedShippingPrice();
     this.tax = this.getCalculatedTax(this.productPrice);
-    this.discount = this.getDiscountAmount(this.productPrice);
-    this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discount;
+    this.discountValue = this.getDiscountValue();
+    this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discountValue;
     this.setPaymentValuesOnForm(this.totalPrice, this.tax);
     return this.totalPrice;
   }
@@ -23712,12 +23746,14 @@ class Shop {
   getCalculatedTax(productPrice) {
     const address = this.getShippingAddress(); // return 5% of product price as tax for demo purposes
     // TODO: Implement TaxJar for tax calculation based on shipping address
+    // Amount sent to TaxJar should be the full product price, with shipping and discount specified separately
 
     return productPrice * 0.05;
   }
 
-  getDiscountAmount(productPrice) {
-    return 0;
+  getDiscountValue() {
+    if (!this.productPrice || !this.discount) return 0;
+    return this.productPrice * this.discount / 100;
   }
 
   getShippingAddress() {
@@ -23760,8 +23796,7 @@ class Shop {
     const productQuantityElement = document.querySelector(".engrid__checkout-item__quantity span");
 
     if (productQuantityElement) {
-      //TODO: Implement quantity selection in the future
-      productQuantityElement.innerText = "Quantity: 1";
+      productQuantityElement.innerText = `Quantity: ${selectedProduct.quantity}`;
     }
 
     const productImageElement = document.querySelector(".engrid__checkout-item__image img");
@@ -23786,7 +23821,7 @@ class Shop {
     const discountAmountElement = document.querySelector(".engrid__checkout-item--discount .engrid__checkout-item__cost span");
 
     if (discountAmountElement) {
-      discountAmountElement.innerText = `-$${this.discount.toFixed(2)}`;
+      discountAmountElement.innerText = `-$${this.discountValue.toFixed(2)}`;
     }
 
     const taxAmountElement = document.querySelector(".engrid__checkout-item--tax .engrid__checkout-item__cost span");
@@ -23807,6 +23842,18 @@ class Shop {
     engrid_ENGrid.setFieldValue("en_txn10", taxAmount.toFixed(2).toString(), true, true);
     this.logger.log(`Payment amount set to $${totalPrice.toFixed(2)}`);
     this.logger.log(`Tax amount set to $${taxAmount.toFixed(2)}`);
+  }
+
+  getVariantQuantity(productVariantOptions) {
+    // Get the product variant options on the page. If none exist, return 1.
+    const premiumOptions = window.EngagingNetworks?.premiumGifts?.options || [];
+    if (!premiumOptions.length) return 1; // Filter the product variant options to find the quantity option. If none exist, return 1.
+
+    const quantityOptions = premiumOptions.filter(option => option.optionTypeId === this.quantityOptionId);
+    if (!quantityOptions.length) return 1; // Find the product variant option that matches the quantity option. If none exist, return 1.
+
+    const quantity = quantityOptions.find(option => productVariantOptions.some(vOption => vOption.optionId === option.id));
+    return quantity ? parseInt(quantity.name) || 1 : 1;
   }
 
 }

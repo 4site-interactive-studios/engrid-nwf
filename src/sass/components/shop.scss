@@ -7,6 +7,12 @@
   --engrid__body-bottom_padding: 0 0 50px;
   --engrid__body-title_padding: 45px 20px 0;
   --engrid__body-main_padding: 20px 20px 40px;
+  --engrid__content-footer_padding: 35px 20px;
+
+  .shop-thank-you {
+    --engrid__body-title_padding: 45px 20px;
+    --engrid__body-bottom_padding: 50px 0;
+  }
 
   .content-header {
     grid-column: pc;
@@ -192,7 +198,7 @@
   }
 
   .body-bottom {
-    > .en__component {
+    > .en__component:not(.no-bg) {
       background-color: #f4f4f4;
       margin-left: 0;
       margin-right: 0;
@@ -208,7 +214,31 @@
 
     > .en__component--copyblock:has(h2) {
       margin-top: 50px;
+      padding-top: 10px!important;
     }
+  }
+
+  .shop-thank-you {
+    .body-bottom {
+      .en__component:not(.no-bg) {
+        background-color: #ffffff;
+      }
+    }
+  }
+
+  .no-bg:has(h1) {
+    margin-top: 40px;
+  }
+
+  .en__component--formblock.giveBySelect-ACH,
+  .en__component--formblock.giveBySelect-Card,
+  .en__field--shipenabled,
+  .en__field--shipcountry {
+    padding-bottom: 10px!important;
+  }
+
+  .en__component--formblock.hideif-stripedigitalwallet-selected {
+    padding-bottom: 20px!important;
   }
 
   .product-details-modal {
@@ -259,10 +289,6 @@
   }
 
   .engrid__checkout-summary {
-    //display: grid;
-    //grid-template-columns: repeat(2, 1fr);
-    //gap: 10px;
-
     font-size: 24px;
     font-weight: bold;
 
@@ -285,6 +311,7 @@
 
     .engrid__checkout-item--product .engrid__checkout-item__details {
       display: flex;
+      flex-direction: row;
 
       .engrid__checkout-item__image {
         flex: 0 0 120px;
@@ -295,6 +322,54 @@
     .engrid__checkout-item__quantity {
       font-weight: normal;
     }
+  }
+
+  .en__field--coupon {
+    margin-bottom: 42px;
+
+    .en__field__element {
+      flex-wrap: nowrap;
+      justify-content: center;
+      column-gap: 16px;
+
+      input {
+        margin: 0;
+      }
+
+      input[disabled] {
+        color: #787878;
+      }
+    }
+
+    .button--apply-coupon {
+      font-size: 29px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      flex-basis: 200px;
+      margin: 0;
+      height: 100%;
+      background-color: var(--color_green);
+      border-color: var(--color_green);
+    }
+  }
+
+  .coupon-applied-text {
+    font-style: italic;
+  }
+
+  .en__submit {
+    padding: 0;
+  }
+
+  &:not([data-engrid-coupon-applied="true"]) {
+    .coupon-applied-text,
+    .engrid__checkout-item--discount {
+      display: none;
+    }
+  }
+
+  .nwf2-page-footer .f-btn {
+    max-width: 370px;
   }
 
   @media screen and (max-width: 800px) {
@@ -338,6 +413,17 @@
         flex: 1;
         padding: 0;
         margin-bottom: 20px;
+      }
+    }
+
+    .engrid__checkout-summary {
+      font-size: 20px;
+
+      .engrid__checkout-item--product .engrid__checkout-item__details {
+        flex-direction: column-reverse;
+        .engrid__checkout-item__image {
+          margin-right: 0;
+        }
       }
     }
   }
