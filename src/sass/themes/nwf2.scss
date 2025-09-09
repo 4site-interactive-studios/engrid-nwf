@@ -105,21 +105,15 @@
   --recurring-frequency__button_count: 2;
   --recurring-frequency__button_padding: 1.5rem 1rem;
   --recurring-frequency__button_border-radius: 0;
-  --recurring-frequency__button_background-color_checked: var(
-    --button_background-color_checked
-  );
-  --recurring-frequency__button_border-color_checked: var(
-    --button_border-color
-  );
+  --recurring-frequency__button_background-color_checked: var(--button_background-color_checked);
+  --recurring-frequency__button_border-color_checked: var(--button_border-color);
   --recurring-frequency__button_text-transform: uppercase;
   --recurring-frequency__button_font-weight: 700;
 
   //Donation amount buttons
   --donation-amount__button_count: 3;
   --donation-amount__button_font-size: 2.25rem;
-  --donation-amount__button_background-color_checked: var(
-    --button_background-color_checked
-  );
+  --donation-amount__button_background-color_checked: var(--button_background-color_checked);
   --donation-amount__button_border-color_checked: var(--button_border-color);
   --donation-amount__button_padding: 1rem 0.25rem;
   --donation-amount__button_font-weight: 600;
@@ -129,9 +123,7 @@
 
   //Give by select
   --give-by-select__button_count: 1;
-  --give-by-select__button_background-color_checked: var(
-    --button_background-color_checked
-  );
+  --give-by-select__button_background-color_checked: var(--button_background-color_checked);
   --give-by-select__button_border-color_checked: var(--button_border-color);
 
   //Submit button
@@ -159,6 +151,7 @@
 
   //Hide unused page sections in page builder
   &#en__pagebuilder .en__component--advrow {
+
     .page-alert,
     .body-headerOutside,
     .body-header,
@@ -208,6 +201,7 @@
     .payment-information-header {
       flex-direction: column;
       align-items: flex-start;
+
       h2 {
         margin-bottom: 5px;
       }
@@ -218,6 +212,7 @@
     &:not(#en__pagebuilder) .content-footer {
       z-index: 5;
     }
+
     &:not(#en__pagebuilder)[data-engrid-layout="leftleft1col"] {
       .page-backgroundImage {
         z-index: 5;
@@ -268,22 +263,24 @@
     .en__field__element .en__field__item {
       &:first-of-type {
         padding-right: 0;
+
         label {
-          border-radius: var(--recurring-frequency__button_border-radius) 0 0
-            var(--recurring-frequency__button_border-radius);
+          border-radius: var(--recurring-frequency__button_border-radius) 0 0 var(--recurring-frequency__button_border-radius);
         }
-        input:not(:checked) + label {
+
+        input:not(:checked)+label {
           border-right: none;
         }
       }
 
       &:last-of-type {
         padding-left: 0;
+
         label {
           overflow: hidden;
           position: relative;
-          border-radius: 0 var(--recurring-frequency__button_border-radius)
-            var(--recurring-frequency__button_border-radius) 0;
+          border-radius: 0 var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0;
+
           svg {
             position: absolute;
             left: -15px;
@@ -291,7 +288,8 @@
             //height: 87px!important;
           }
         }
-        input:not(:checked) + label {
+
+        input:not(:checked)+label {
           border-left: none;
         }
       }
@@ -299,8 +297,7 @@
   }
 
   //Other amount input
-  .en__field--withOther.en__field--radio.en__field--donationAmt
-    .en__field__item--other {
+  .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other {
     flex-basis: 100%;
     position: relative;
 
@@ -337,13 +334,13 @@
     }
   }
 
-  .en__field__input--radio:focus + .en__field__label {
+  .en__field__input--radio:focus+.en__field__label {
     outline: none;
   }
 
   .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio {
     input[type="radio"] {
-      + label {
+      +label {
         transition: transform 0.1s linear;
 
         .engrid-currency-symbol {
@@ -354,14 +351,14 @@
         }
       }
 
-      &:not(:checked) + label:hover {
+      &:not(:checked)+label:hover {
         transform: translateY(-2px);
       }
     }
   }
 
   //Making tick bold without making label text bold
-  input[type="checkbox"] + label:before {
+  input[type="checkbox"]+label:before {
     font-weight: 700;
     font-size: 18px;
     padding-top: 3px;
@@ -455,13 +452,13 @@
       }
     }
 
-    .check input[type="radio"] + label {
+    .check input[type="radio"]+label {
       padding: 11px 1rem;
       font-size: 31px;
     }
   }
 
-  .en__component--dd360search > p {
+  .en__component--dd360search>p {
     font-weight: 500;
     margin-bottom: 0;
   }
@@ -470,7 +467,7 @@
     width: 100%;
     justify-content: center;
 
-    .g-recaptcha > div {
+    .g-recaptcha>div {
       margin: 0 auto;
     }
   }
@@ -491,21 +488,21 @@
   }
 
   // If the PayPal One Touch / Venmo option is enabled, hide Vanilla Paypal when a one-time gift is selected so only one PayPal option is ever visible at a time
-  &[data-engrid-transaction-recurring="n"][data-engrid-payment-type-option-paypal-one-touch="true"]
-    .en__field--give-by-select
-    .en__field__item.paypal {
+  &[data-engrid-transaction-recurring="n"][data-engrid-payment-type-option-paypal-one-touch="true"] .en__field--give-by-select .en__field__item.paypal {
     display: none;
   }
 
   .charity-logos-wrapper {
     border-top: 2px solid var(--color_primary);
     margin: 20px 0 85px;
+
     p {
       text-align: center;
       max-width: 409px;
       width: 100%;
       margin: 1rem auto;
     }
+
     img {
       margin: 25px 0 8px;
     }
@@ -538,7 +535,7 @@
       }
     }
 
-    .footer-head + p {
+    .footer-head+p {
       font-size: 25px;
       font-style: italic;
     }
@@ -559,6 +556,7 @@
       width: 280px;
       margin: 0 auto;
       padding: 0;
+
       li {
         width: 40px;
       }
@@ -635,6 +633,7 @@
     img {
       width: 56px;
     }
+
     .text-nudge {
       font-family: "Fuzzy Bubbles", sans-serif;
       text-align: center;
@@ -642,6 +641,7 @@
       margin-top: 10px;
       font-size: 20px;
     }
+
     p:not(.text-nudge) {
       margin: 0;
     }
@@ -658,7 +658,7 @@
       margin: 0;
     }
 
-    > div {
+    >div {
       display: flex;
       align-items: center;
       font-weight: 500;
@@ -674,6 +674,7 @@
   // Thank you page
   .en__component--dd360confirmation {
     margin: 30px 0;
+
     #dd-container .dtd-plugin button,
     #dd-container .dtd-plugin a[class*="-button"] {
       font-size: 20px;
@@ -686,6 +687,7 @@
 
   .cards-container {
     margin-bottom: 80px;
+
     .cards-title {
       text-align: center;
       margin: 0 0 20px;
@@ -761,9 +763,16 @@
     margin-top: 0;
   }
 
-  .recurring-frequency_count_3
-    .en__field--recurrfreq
-    .en__field__element--radio {
+  .enWidget__fill {
+    background-color: var(--color_orange) !important;
+  }
+
+  // Hide the submission count on the progress bar on mobile
+  .enWidget--progressBar .enWidget__copy:has(> p:nth-child(3):last-child)>p:nth-child(2) {
+    display: none;
+  }
+
+  .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio {
     .en__field__item label {
       --recurring-frequency__button_font-size: 24px;
 
@@ -796,9 +805,11 @@
         position: relative;
         padding-left: calc(19px + 1.5ch);
         padding-right: 0px;
+
         @media only screen and (max-width: 800px) {
           padding-left: calc(19px + 1ch);
         }
+
         @media only screen and (max-width: 600px) {
           padding-left: calc(19px + 0.5ch);
         }
@@ -832,11 +843,11 @@
     }
   }
 
-  .en__field--survey > label.en__field__label {
+  .en__field--survey>label.en__field__label {
     position: relative;
   }
 
-  .en__mandatory > label.en__field__label:before {
+  .en__mandatory>label.en__field__label:before {
     content: "*";
     position: absolute;
     top: 0px;
@@ -894,15 +905,14 @@
       font-size: 16px;
     }
 
-    .en__field--withOther.en__field--radio.en__field--donationAmt
-      .en__field__item--other
-      input {
+    .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other input {
       font-size: 1.5rem;
       padding: 14px 52px 14px 40px;
     }
 
     .en__component--premiumgiftblock {
       margin: 35px 0 10px;
+
       .en__pg__body {
         grid-template-columns: min-content auto;
         grid-template-areas: "en__pg__select en__pg__detail en__pg__display";
@@ -928,7 +938,7 @@
         text-align: left;
       }
 
-      .footer-head + p {
+      .footer-head+p {
         font-size: 22px;
       }
 
@@ -960,9 +970,7 @@
     }
   }
 
-  &[data-conditonally-hide-show-digital-wallet-elements]
-    #en__digitalWallet
-    .en__digitalWallet__container {
+  &[data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container {
     width: 570px;
 
     @media screen and (max-width: 600px) {

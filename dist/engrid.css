@@ -19,10 +19,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, June 18, 2025 @ 11:44:07 ET
- *  By: daryl
- *  ENGrid styles: v0.22.0
- *  ENGrid scripts: v0.22.0
+ *  Date: Tuesday, September 9, 2025 @ 14:21:03 ET
+ *  By: fernando
+ *  ENGrid styles: v0.22.18
+ *  ENGrid scripts: v0.22.18
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -4540,6 +4540,42 @@ figure.media-with-attribution figattribution.attribution-topleft{
   top:auto;
 }
 
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-topleft figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-topleft:before{
+  background-position:0 0;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-topright figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-topright:before{
+  background-position:100% 0;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottomright figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottomright:before{
+  background-position:100% 100%;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottomleft figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottomleft:before{
+  background-position:0 100%;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-top figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-top:before,body:not(#en__pagebuilder) .page-backgroundImage.attribution-topcenter figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-topcenter:before{
+  background-position:top;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottom figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottom:before,body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottomcenter figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-bottomcenter:before{
+  background-position:bottom;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-left figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-left:before,body:not(#en__pagebuilder) .page-backgroundImage.attribution-leftcenter figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-leftcenter:before{
+  background-position:0;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-right figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-right:before,body:not(#en__pagebuilder) .page-backgroundImage.attribution-rightcenter figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-rightcenter:before{
+  background-position:100%;
+}
+
+body:not(#en__pagebuilder) .page-backgroundImage.attribution-center figure.media-with-attribution,body:not(#en__pagebuilder) .page-backgroundImage.attribution-center:before{
+  background-position:50%;
+}
+
 img,video{
   aspect-ratio:attr(width)/attr(height);
   display:inherit;
@@ -4829,6 +4865,10 @@ body:not(#en__pagebuilder) img:not([src]):not([srcset]){
   outline:none;
 }
 
+.engrid-modal:not(.engrid-modal--close-x) .engrid-modal__close-x{
+  display:none;
+}
+
 .engrid-modal__close{
   cursor:pointer;
   font-size:20px;
@@ -4865,6 +4905,19 @@ body:not(#en__pagebuilder) img:not([src]):not([srcset]){
 .engrid-modal--scale{
   animation:scaleAnimation .5s ease-in-out;
   transform-origin:center;
+}
+
+[data-engrid-theme] .engrid--frequency-upsell-modal .engrid-modal__container{
+  --submit__button_text-transform:none;
+  max-width:700px;
+}
+
+.frequency-upsell-modal__title{
+  margin-top:0;
+}
+
+#frequency-upsell-no{
+  margin-bottom:0;
 }
 div[id^=nb-field-],div[id^=nb-field-] div.nb-feedback{
   max-width:100% !important;
@@ -5707,6 +5760,17 @@ body:not(#en__pagebuilder):not([data-engrid-debug]):not([data-engrid-embedded-ec
 
 body:not(#en__pagebuilder) .checkbox-label{
   display:none;
+}
+
+.engrid-custom-checkbox-label{
+  box-sizing:border-box;
+  width:100%;
+}
+.engrid-custom-checkbox-label p:first-child{
+  margin-top:0;
+}
+.engrid-custom-checkbox-label p:last-child{
+  margin-bottom:0;
 }
 [data-engrid-theme]{
   --engrid__page_padding:0px;
@@ -8942,27 +9006,19 @@ body[data-engrid-debug]:before{
   --recurring-frequency__button_count:2;
   --recurring-frequency__button_padding:1.5rem 1rem;
   --recurring-frequency__button_border-radius:0;
-  --recurring-frequency__button_background-color_checked:var(
-    --button_background-color_checked
-  );
-  --recurring-frequency__button_border-color_checked:var(
-    --button_border-color
-  );
+  --recurring-frequency__button_background-color_checked:var(--button_background-color_checked);
+  --recurring-frequency__button_border-color_checked:var(--button_border-color);
   --recurring-frequency__button_text-transform:uppercase;
   --recurring-frequency__button_font-weight:700;
   --donation-amount__button_count:3;
   --donation-amount__button_font-size:2.25rem;
-  --donation-amount__button_background-color_checked:var(
-    --button_background-color_checked
-  );
+  --donation-amount__button_background-color_checked:var(--button_background-color_checked);
   --donation-amount__button_border-color_checked:var(--button_border-color);
   --donation-amount__button_padding:1rem 0.25rem;
   --donation-amount__button_font-weight:600;
   --premium__image_max-height:100px;
   --give-by-select__button_count:1;
-  --give-by-select__button_background-color_checked:var(
-    --button_background-color_checked
-  );
+  --give-by-select__button_background-color_checked:var(--button_background-color_checked);
   --give-by-select__button_border-color_checked:var(--button_border-color);
   --submit__button_color:#fff;
   --submit__button_color_hover:#fff;
@@ -9555,6 +9611,12 @@ body[data-engrid-debug]:before{
   display:flex;
   justify-content:space-between;
   margin-top:0;
+}
+[data-engrid-theme=nwf2] .enWidget__fill{
+  background-color:var(--color_orange) !important;
+}
+[data-engrid-theme=nwf2] .enWidget--progressBar .enWidget__copy:has(>p:nth-child(3):last-child)>p:nth-child(2){
+  display:none;
 }
 [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item label{
   --recurring-frequency__button_font-size:24px;
