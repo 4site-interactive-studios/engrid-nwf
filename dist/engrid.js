@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, September 9, 2025 @ 13:59:58 ET
+ *  Date: Monday, September 22, 2025 @ 13:33:38 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -23597,9 +23597,15 @@ class Shop {
     this.watchForProductSelectionChanges(); // Coupon code application
 
     document.querySelector(".button--apply-coupon")?.addEventListener("click", () => {
-      const couponCodes = window.EngridShop.discountCodes || {};
+      let couponCodes = window.EngridShop.discountCodes || {}; // Make all coupon codes uppercase for case-insensitive matching
+
+      couponCodes = Object.fromEntries(Object.entries(couponCodes).map(_ref => {
+        let [code, discount] = _ref;
+        return [code.toUpperCase(), discount];
+      }));
       if (!Object.keys(couponCodes).length) return;
-      const couponCode = engrid_ENGrid.getFieldValue("transaction.coupon");
+      const couponCode = engrid_ENGrid.getFieldValue("transaction.coupon").toUpperCase().trim();
+      const couponField = document.querySelector(".en__field--coupon");
 
       if (couponCode && couponCodes[couponCode]) {
         this.logger.log(`Applying coupon code: ${couponCode} for discount of ${couponCodes[couponCode]}%`);
@@ -23609,6 +23615,14 @@ class Shop {
         this.updateCheckoutSummary();
         const couponCodeField = engrid_ENGrid.getField("transaction.coupon");
         couponCodeField?.setAttribute("disabled", "true");
+        engrid_ENGrid.removeError(couponField);
+        document.querySelector(".button--apply-coupon")?.setAttribute("disabled", "true");
+      } else {
+        this.logger.log(`Invalid coupon code: ${couponCode}`);
+
+        if (couponField) {
+          engrid_ENGrid.setError(couponField, "Invalid coupon code");
+        }
       }
     }); // Amount validation
 

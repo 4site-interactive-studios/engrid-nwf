@@ -80,10 +80,13 @@ export default class Shop {
 
     // Coupon code application
     document.querySelector(".button--apply-coupon")?.addEventListener("click", () => {
-      const couponCodes = window.EngridShop.discountCodes || {};
+      let couponCodes = window.EngridShop.discountCodes || {};
+      // Make all coupon codes uppercase for case-insensitive matching
+      couponCodes = Object.fromEntries(Object.entries(couponCodes).map(([code, discount]) => [code.toUpperCase(), discount]));
       if (!Object.keys(couponCodes).length) return;
 
-      const couponCode = ENGrid.getFieldValue("transaction.coupon");
+      const couponCode = ENGrid.getFieldValue("transaction.coupon").toUpperCase().trim();
+      const couponField = document.querySelector(".en__field--coupon") as HTMLInputElement;
       if (couponCode && couponCodes[couponCode]) {
         this.logger.log(`Applying coupon code: ${couponCode} for discount of ${couponCodes[couponCode]}%`);
         ENGrid.setBodyData("coupon-applied", "true");
@@ -92,6 +95,13 @@ export default class Shop {
         this.updateCheckoutSummary();
         const couponCodeField = ENGrid.getField("transaction.coupon");
         couponCodeField?.setAttribute("disabled", "true");
+        ENGrid.removeError(couponField);
+        document.querySelector(".button--apply-coupon")?.setAttribute("disabled", "true");
+      } else {
+        this.logger.log(`Invalid coupon code: ${couponCode}`);
+        if (couponField) {
+          ENGrid.setError(couponField, "Invalid coupon code");
+        }
       }
     });
 
