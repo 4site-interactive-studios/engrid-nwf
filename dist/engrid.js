@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, September 9, 2025 @ 14:21:03 ET
+ *  Date: Wednesday, October 1, 2025 @ 11:51:55 ET
  *  By: fernando
  *  ENGrid styles: v0.22.18
- *  ENGrid scripts: v0.22.18
+ *  ENGrid scripts: v0.22.19
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -17842,6 +17842,7 @@ const options_OptionsDefaults = {
   NeverBounceDateField: null,
   NeverBounceStatusField: null,
   NeverBounceDateFormat: "MM/DD/YYYY",
+  NeverBounceTimeout: 10000,
   FreshAddress: false,
   ProgressBar: false,
   AutoYear: false,
@@ -23868,6 +23869,8 @@ class neverbounce_NeverBounce {
     this.shouldRun = true;
     this.nbLoaded = false;
     this.bypassEmails = ["noaddress.ea"];
+    this.neverBounceTimeout = engrid_ENGrid.getOption("NeverBounceTimeout") || 10000;
+    this.neverBounceTimeoutFunc = null;
     const searchParams = new URLSearchParams(window.location.search);
 
     if (searchParams.has("bypassemailvalidation")) {
@@ -23884,7 +23887,9 @@ class neverbounce_NeverBounce {
       loadingMessage: "Validating...",
       softRejectMessage: "Invalid email",
       acceptedMessage: "Email validated!",
-      feedback: false
+      feedback: false,
+      // Set NB timeout 1 second than our timeout. Ensures NB response will always be before our timeout if there is not a server error.
+      timeout: Math.floor((this.neverBounceTimeout - 1000) / 1000)
     };
     engrid_ENGrid.loadJS("https://cdn.neverbounce.com/widget/dist/NeverBounce.js");
 
@@ -23953,9 +23958,31 @@ class neverbounce_NeverBounce {
       const field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
       field.addEventListener("nb:loading", function (e) {
         engrid_ENGrid.disableSubmit("Validating Your Email");
+        NBClass.setEmailStatus("loading");
+        NBClass.clearTimeout();
+        NBClass.neverBounceTimeoutFunc = setTimeout(() => {
+          NBClass.setEmailStatus("unknown");
+
+          if (NBClass.nbDate) {
+            NBClass.nbDate.value = engrid_ENGrid.formatDate(new Date(), NBClass.dateFormat);
+          }
+
+          if (NBClass.nbStatus) {
+            NBClass.nbStatus.value = "unknown";
+          }
+
+          engrid_ENGrid.enableSubmit();
+
+          window._nb.fields.unregisterListener(NBClass.emailField);
+
+          NBClass.nbLoaded = false;
+          NBClass.logger.log("NeverBounce Timeout Reached. Bypassing validation, setting unknown status and removing NB.");
+        }, NBClass.neverBounceTimeout);
       }); // Never Bounce: Do work when input changes or when API responds with an error
 
       field.addEventListener("nb:clear", function (e) {
+        if (!NBClass.nbLoaded) return;
+        NBClass.clearTimeout();
         NBClass.setEmailStatus("clear");
         engrid_ENGrid.enableSubmit();
         if (NBClass.nbDate) NBClass.nbDate.value = "";
@@ -23963,6 +23990,8 @@ class neverbounce_NeverBounce {
       }); // Never Bounce: Do work when results have an input that does not look like an email (i.e. missing @ or no .com/.net/etc...)
 
       field.addEventListener("nb:soft-result", function (e) {
+        if (!NBClass.nbLoaded) return;
+        NBClass.clearTimeout();
         NBClass.setEmailStatus("soft-result");
         if (NBClass.nbDate) NBClass.nbDate.value = "";
         if (NBClass.nbStatus) NBClass.nbStatus.value = "";
@@ -23970,6 +23999,9 @@ class neverbounce_NeverBounce {
       }); // Never Bounce: When results have been received
 
       field.addEventListener("nb:result", function (e) {
+        if (!NBClass.nbLoaded) return;
+        NBClass.clearTimeout();
+
         if (e.detail.result.is(window._nb.settings.getAcceptedStatusCodes())) {
           NBClass.setEmailStatus("valid");
           if (NBClass.nbDate) NBClass.nbDate.value = engrid_ENGrid.formatDate(new Date(), NBClass.dateFormat);
@@ -24132,6 +24164,18 @@ class neverbounce_NeverBounce {
       (_a = this.emailField) === null || _a === void 0 ? void 0 : _a.focus();
       this.logger.log("NB-Result:", engrid_ENGrid.getFieldValue("nb-result"));
       this.form.validate = false;
+    }
+  }
+  /**
+   * Clears the backup timeout function if it exists.
+   * @private
+   */
+
+
+  clearTimeout() {
+    if (this.neverBounceTimeoutFunc) {
+      clearTimeout(this.neverBounceTimeoutFunc);
+      this.neverBounceTimeoutFunc = null;
     }
   }
 
@@ -31794,7 +31838,7 @@ class frequency_upsell_FrequencyUpsell {
 
 }
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/version.js
-const version_AppVersion = "0.22.18";
+const version_AppVersion = "0.22.19";
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
 
@@ -32686,6 +32730,7 @@ const interfaces_options_OptionsDefaults = {
     NeverBounceDateField: null,
     NeverBounceStatusField: null,
     NeverBounceDateFormat: "MM/DD/YYYY",
+    NeverBounceTimeout: 10000,
     FreshAddress: false,
     ProgressBar: false,
     AutoYear: false,
@@ -37409,6 +37454,8 @@ class dist_neverbounce_NeverBounce {
         this.bypassEmails = [
             "noaddress.ea",
         ];
+        this.neverBounceTimeout = ENGrid.getOption("NeverBounceTimeout") || 10000;
+        this.neverBounceTimeoutFunc = null;
         const searchParams = new URLSearchParams(window.location.search);
         if (searchParams.has("bypassemailvalidation")) {
             this.logger.log("Bypass Email Validation Enabled - not running NeverBounce");
@@ -37424,6 +37471,8 @@ class dist_neverbounce_NeverBounce {
             softRejectMessage: "Invalid email",
             acceptedMessage: "Email validated!",
             feedback: false,
+            // Set NB timeout 1 second than our timeout. Ensures NB response will always be before our timeout if there is not a server error.
+            timeout: Math.floor((this.neverBounceTimeout - 1000) / 1000),
         };
         ENGrid.loadJS("https://cdn.neverbounce.com/widget/dist/NeverBounce.js");
         if (this.emailField) {
@@ -37486,9 +37535,27 @@ class dist_neverbounce_NeverBounce {
             const field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
             field.addEventListener("nb:loading", function (e) {
                 ENGrid.disableSubmit("Validating Your Email");
+                NBClass.setEmailStatus("loading");
+                NBClass.clearTimeout();
+                NBClass.neverBounceTimeoutFunc = setTimeout(() => {
+                    NBClass.setEmailStatus("unknown");
+                    if (NBClass.nbDate) {
+                        NBClass.nbDate.value = ENGrid.formatDate(new Date(), NBClass.dateFormat);
+                    }
+                    if (NBClass.nbStatus) {
+                        NBClass.nbStatus.value = "unknown";
+                    }
+                    ENGrid.enableSubmit();
+                    window._nb.fields.unregisterListener(NBClass.emailField);
+                    NBClass.nbLoaded = false;
+                    NBClass.logger.log("NeverBounce Timeout Reached. Bypassing validation, setting unknown status and removing NB.");
+                }, NBClass.neverBounceTimeout);
             });
             // Never Bounce: Do work when input changes or when API responds with an error
             field.addEventListener("nb:clear", function (e) {
+                if (!NBClass.nbLoaded)
+                    return;
+                NBClass.clearTimeout();
                 NBClass.setEmailStatus("clear");
                 ENGrid.enableSubmit();
                 if (NBClass.nbDate)
@@ -37498,6 +37565,9 @@ class dist_neverbounce_NeverBounce {
             });
             // Never Bounce: Do work when results have an input that does not look like an email (i.e. missing @ or no .com/.net/etc...)
             field.addEventListener("nb:soft-result", function (e) {
+                if (!NBClass.nbLoaded)
+                    return;
+                NBClass.clearTimeout();
                 NBClass.setEmailStatus("soft-result");
                 if (NBClass.nbDate)
                     NBClass.nbDate.value = "";
@@ -37507,6 +37577,9 @@ class dist_neverbounce_NeverBounce {
             });
             // Never Bounce: When results have been received
             field.addEventListener("nb:result", function (e) {
+                if (!NBClass.nbLoaded)
+                    return;
+                NBClass.clearTimeout();
                 if (e.detail.result.is(window._nb.settings.getAcceptedStatusCodes())) {
                     NBClass.setEmailStatus("valid");
                     if (NBClass.nbDate)
@@ -37653,6 +37726,16 @@ class dist_neverbounce_NeverBounce {
             (_a = this.emailField) === null || _a === void 0 ? void 0 : _a.focus();
             this.logger.log("NB-Result:", ENGrid.getFieldValue("nb-result"));
             this.form.validate = false;
+        }
+    }
+    /**
+     * Clears the backup timeout function if it exists.
+     * @private
+     */
+    clearTimeout() {
+        if (this.neverBounceTimeoutFunc) {
+            clearTimeout(this.neverBounceTimeoutFunc);
+            this.neverBounceTimeoutFunc = null;
         }
     }
 }
@@ -45041,8 +45124,8 @@ const options = {
     phone_status_field: "supporter.NOT_TAGGED_140"
   },
   OptInLadder: {
-    iframeUrl: "https://support.nwf.org/page/83949/data/1?chain&assets=optin-ladder&debug=log&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class" //excludePageIDs: ["78306"],
-
+    iframeUrl: "https://support.nwf.org/page/88894/data/1?chain&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class",
+    excludePageIDs: ["87303", "44240", "44219", "22541", "22540", "22538", "22539", "22463", "22462", "22461", "22460", "22325"]
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
