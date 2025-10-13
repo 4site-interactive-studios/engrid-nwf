@@ -65,7 +65,7 @@
 
       .en__pgList {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 0 15px;
 
         // Hide no gift option
@@ -174,7 +174,7 @@
             border-bottom: none;
             text-align: center;
             margin: 0 -10px;
-            padding: 16px 10px 0;
+            padding: 16px 20% 0;
           }
 
           .engrid__pg__details {
@@ -379,15 +379,16 @@
       .en__component--premiumgiftblock {
         .en__pgList {
           grid-template-columns: repeat(2, 1fr);
-
           .en__pg__body .en__pg__image {
             height: 150px !important;
             max-height: 150px !important;
           }
-        }
-
-        .en__pg__body {
-          row-gap: 0;
+          .en__pg__body {
+            row-gap: 0;
+            .en__pg__name {
+              padding: 16px 10px 0;
+            }
+          }
         }
       }
     }

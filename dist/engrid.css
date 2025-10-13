@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, September 22, 2025 @ 13:33:38 ET
+ *  Date: Monday, October 13, 2025 @ 11:34:41 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -9932,7 +9932,7 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pgList{
   display:grid;
   gap:0 15px;
-  grid-template-columns:repeat(4, 1fr);
+  grid-template-columns:repeat(3, 1fr);
 }
 [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pgList .en__pg:last-child,[data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pgList .en__pg:not(.en__pg--selected) .en__pg__optionTypes{
   display:none;
@@ -9991,7 +9991,7 @@ body[data-engrid-debug]:before{
   border-bottom:none;
   border-top:none;
   margin:0 -10px;
-  padding:16px 10px 0;
+  padding:16px 20% 0;
   text-align:center;
 }
 [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pgList .en__pg__body .engrid__pg__details{
@@ -10146,8 +10146,11 @@ body[data-engrid-debug]:before{
     height:150px !important;
     max-height:150px !important;
   }
-  [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pg__body{
+  [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pgList .en__pg__body{
     row-gap:0;
+  }
+  [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop]:not(#en__pagebuilder) .en__component--premiumgiftblock .en__pgList .en__pg__body .en__pg__name{
+    padding:16px 10px 0;
   }
   [data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop] .body-bottom>.en__component.en__component--copyblock,[data-engrid-theme=nwf2][data-engrid-layout=centercenter1col][data-engrid-subtheme=shop] .body-bottom>.en__component:not(.en__component--copyblock){
     padding:0 20px;
