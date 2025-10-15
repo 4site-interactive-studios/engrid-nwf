@@ -1,5 +1,5 @@
 import { Modal } from "@4site/engrid-scripts";
-import { Product } from "./product.interface";
+import { Product } from "./shop.types";
 
 export default class ProductDetailsModal extends Modal {
   private product: Product | null = null;

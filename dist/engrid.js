@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, October 13, 2025 @ 11:34:41 ET
+ *  Date: Wednesday, October 15, 2025 @ 13:23:09 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -23517,7 +23517,76 @@ class ProductDetailsModal extends Modal {
   }
 
 }
+;// CONCATENATED MODULE: ./src/scripts/shop/Taxjar.ts
+
+class Taxjar {
+  constructor() {
+    _defineProperty(this, "baseUrl", "http://localhost:3000");
+
+    _defineProperty(this, "fromAddress", {
+      street: "9500 Gilman Drive",
+      city: "La Jolla",
+      state: "CA",
+      zip: "92093",
+      country: "US"
+    });
+  }
+
+  async estimateTax(order) {
+    order.from_street = this.fromAddress.street;
+    order.from_city = this.fromAddress.city;
+    order.from_state = this.fromAddress.state;
+    order.from_zip = this.fromAddress.zip;
+    order.from_country = this.fromAddress.country;
+    const response = await fetch(`${this.baseUrl}/estimate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        order
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to estimate tax");
+    }
+
+    const resJson = await response.json();
+    return resJson.amount_to_collect;
+  }
+
+  async createEnTransaction(transaction) {
+    transaction.from_street = this.fromAddress.street;
+    transaction.from_city = this.fromAddress.city;
+    transaction.from_state = this.fromAddress.state;
+    transaction.from_zip = this.fromAddress.zip;
+    transaction.from_country = this.fromAddress.country;
+    const response = await fetch(`${this.baseUrl}/en-transaction`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        transaction
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create EN transaction");
+    }
+
+    return response.json();
+  }
+
+}
 ;// CONCATENATED MODULE: ./src/scripts/shop/Shop.ts
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 
 
 
@@ -23526,9 +23595,9 @@ class Shop {
   constructor() {
     _defineProperty(this, "logger", new logger_EngridLogger("Shop", "black", "orange", "🛍️"));
 
-    _defineProperty(this, "_amount", DonationAmount.getInstance());
-
     _defineProperty(this, "_form", en_form_EnForm.getInstance());
+
+    _defineProperty(this, "taxjar", new Taxjar());
 
     _defineProperty(this, "rawProducts", window.EngagingNetworks?.premiumGifts?.products || []);
 
@@ -23552,6 +23621,11 @@ class Shop {
 
     if (!this.shouldRun()) {
       this.logger.log("Shop is NOT running");
+      return;
+    }
+
+    if (engrid_ENGrid.getPageNumber() === 2) {
+      this.createTaxjarTransaction();
       return;
     }
 
@@ -23588,15 +23662,16 @@ class Shop {
       this.addProductDetails(product);
     });
     this.addWatchersAndListeners();
-    this.calculateTotalPrice();
-    this.updateCheckoutSummary();
+    this.calculateTotalPrice().then(() => {
+      this.updateCheckoutSummary();
+    });
   }
 
   addWatchersAndListeners() {
     this.watchForProductMarkupChanges();
     this.watchForProductSelectionChanges(); // Coupon code application
 
-    document.querySelector(".button--apply-coupon")?.addEventListener("click", () => {
+    document.querySelector(".button--apply-coupon")?.addEventListener("click", async () => {
       let couponCodes = window.EngridShop.discountCodes || {}; // Make all coupon codes uppercase for case-insensitive matching
 
       couponCodes = Object.fromEntries(Object.entries(couponCodes).map(_ref => {
@@ -23611,7 +23686,7 @@ class Shop {
         this.logger.log(`Applying coupon code: ${couponCode} for discount of ${couponCodes[couponCode]}%`);
         engrid_ENGrid.setBodyData("coupon-applied", "true");
         this.discount = couponCodes[couponCode];
-        this.calculateTotalPrice();
+        await this.calculateTotalPrice();
         this.updateCheckoutSummary();
         const couponCodeField = engrid_ENGrid.getField("transaction.coupon");
         couponCodeField?.setAttribute("disabled", "true");
@@ -23634,6 +23709,57 @@ class Shop {
         this._form.validate = false;
         return false;
       }
+    }); // Create session storage entry on form submit to create TaxJar transaction on page 2
+
+
+    this._form.onValidate.subscribe(() => {
+      if (!this._form.validate) return;
+      const address = this.getShippingAddress();
+      const transactionSessionData = {
+        address: _objectSpread({}, address),
+        amountWithoutTax: this.productPrice + this.shippingPrice - this.discountValue,
+        shipping: this.shippingPrice,
+        tax: this.tax,
+        discount: this.discountValue,
+        product: this.getSelectedProduct()
+      };
+      sessionStorage.setItem("shopTransactionData", JSON.stringify(transactionSessionData));
+      this.logger.log("Storing transaction data for TaxJar on page 2", transactionSessionData);
+    }); // calculate checkout total with tax on address change
+    // Debounce address changes to avoid excessive tax calculations
+
+
+    let addressChangeTimeout;
+
+    const handleAddressChange = () => {
+      if (addressChangeTimeout) {
+        clearTimeout(addressChangeTimeout);
+      }
+
+      addressChangeTimeout = window.setTimeout(async () => {
+        const address = this.getShippingAddress();
+
+        if (!address.country || !address.zip || !address.state || !address.city || !address.street) {
+          this.logger.log("Incomplete address, skipping tax calculation", address);
+          return;
+        }
+
+        this.logger.log("Address changed, calculating tax", address);
+        await this.calculateTotalPrice();
+        this.updateCheckoutSummary();
+      }, 500);
+    }; // Handle both input and change events for address fields via event delegation to accommodate dynamic fields
+
+
+    const addressFields = ["supporter.country", "supporter.postcode", "supporter.region", "supporter.city", "supporter.address1", "transaction.shipcountry", "transaction.shippostcode", "transaction.shipregion", "transaction.shipcity", "transaction.shipadd1", "transaction.shipenabled"];
+    ["input", "change"].forEach(eventType => {
+      document.getElementById("engrid")?.addEventListener(eventType, event => {
+        const target = event.target;
+
+        if (target.matches(addressFields.map(f => `[name="${f}"]`).join(","))) {
+          handleAddressChange();
+        }
+      });
     });
   } // Add price and "Learn more" link below product name
 
@@ -23708,13 +23834,15 @@ class Shop {
     });
   }
 
-  calculateTotalPrice() {
+  async calculateTotalPrice() {
+    engrid_ENGrid.disableSubmit("Calculating total...");
     this.productPrice = this.getSelectedProductPrice();
     this.shippingPrice = this.getSelectedShippingPrice();
-    this.tax = this.getCalculatedTax(this.productPrice);
     this.discountValue = this.getDiscountValue();
+    this.tax = await this.getCalculatedTax();
     this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discountValue;
     this.setPaymentValuesOnForm(this.totalPrice, this.tax);
+    engrid_ENGrid.enableSubmit();
     return this.totalPrice;
   }
 
@@ -23757,12 +23885,37 @@ class Shop {
     return 0;
   }
 
-  getCalculatedTax(productPrice) {
-    const address = this.getShippingAddress(); // return 5% of product price as tax for demo purposes
-    // TODO: Implement TaxJar for tax calculation based on shipping address
-    // Amount sent to TaxJar should be the full product price, with shipping and discount specified separately
+  async getCalculatedTax() {
+    const address = this.getShippingAddress();
 
-    return productPrice * 0.05;
+    if (!address.country || !address.zip || !address.state || !address.city || !address.street) {
+      this.logger.log("Incomplete shipping address, skipping tax calculation", address);
+      return 0;
+    }
+
+    const orderEstimate = {
+      to_zip: address.zip,
+      to_state: address.state,
+      to_city: address.city,
+      to_street: address.street,
+      to_country: address.country,
+      shipping: this.shippingPrice,
+      line_items: [{
+        id: this.getSelectedProduct()?.id.toString() || "1",
+        quantity: 1,
+        unit_price: this.productPrice,
+        discount: this.discountValue
+      }]
+    };
+
+    try {
+      const tax = await this.taxjar.estimateTax(orderEstimate);
+      this.logger.log(`Calculated tax to collect: ${tax}`);
+      return tax;
+    } catch (error) {
+      this.logger.error("Error calculating tax", error);
+      return 0;
+    }
   }
 
   getDiscountValue() {
@@ -23771,8 +23924,25 @@ class Shop {
   }
 
   getShippingAddress() {
-    // should be the shipping address fields if user ticks the box to ship to a different address
-    return {};
+    const shipToDifferentAddressField = engrid_ENGrid.getField("transaction.shipenabled");
+
+    if (shipToDifferentAddressField && shipToDifferentAddressField.checked) {
+      return {
+        country: engrid_ENGrid.getFieldValue("transaction.shipcountry"),
+        zip: engrid_ENGrid.getFieldValue("transaction.shippostcode"),
+        state: engrid_ENGrid.getFieldValue("transaction.shipregion"),
+        city: engrid_ENGrid.getFieldValue("transaction.shipcity"),
+        street: engrid_ENGrid.getFieldValue("transaction.shipadd1")
+      };
+    }
+
+    return {
+      country: engrid_ENGrid.getFieldValue("supporter.country"),
+      zip: engrid_ENGrid.getFieldValue("supporter.postcode"),
+      state: engrid_ENGrid.getFieldValue("supporter.region"),
+      city: engrid_ENGrid.getFieldValue("supporter.city"),
+      street: engrid_ENGrid.getFieldValue("supporter.address1")
+    };
   }
 
   watchForProductSelectionChanges() {
@@ -23784,12 +23954,13 @@ class Shop {
     }
 
     const observer = new MutationObserver(() => {
-      this.calculateTotalPrice();
-      this.updateCheckoutSummary();
+      this.calculateTotalPrice().then(() => {
+        this.updateCheckoutSummary();
+      });
     });
     observer.observe(productVariantInput, {
       attributes: true,
-      attributeFilter: ['value']
+      attributeFilter: ["value"]
     });
   }
 
@@ -23868,6 +24039,52 @@ class Shop {
 
     const quantity = quantityOptions.find(option => productVariantOptions.some(vOption => vOption.optionId === option.id));
     return quantity ? parseInt(quantity.name) || 1 : 1;
+  }
+
+  createTaxjarTransaction() {
+    let transactionSessionData;
+
+    try {
+      transactionSessionData = JSON.parse(sessionStorage.getItem("shopTransactionData") || "{}");
+    } catch (e) {
+      this.logger.log("Could not parse transaction data from session storage", e);
+      return;
+    }
+
+    if (!transactionSessionData || !transactionSessionData.address || !transactionSessionData.product) {
+      this.logger.log("No transaction data found in session storage");
+      return;
+    }
+
+    try {
+      const transaction = {
+        transaction_id: window.pageJson.transactionId,
+        transaction_date: new Date().toISOString().split("T")[0],
+        supporter_id: window.pageJson.supporterId,
+        to_country: transactionSessionData.address.country,
+        to_zip: transactionSessionData.address.zip,
+        to_state: transactionSessionData.address.state,
+        to_city: transactionSessionData.address.city,
+        to_street: transactionSessionData.address.street,
+        amount: transactionSessionData.amountWithoutTax,
+        shipping: transactionSessionData.shipping,
+        sales_tax: transactionSessionData.tax,
+        line_items: [{
+          quantity: 1,
+          product_identifier: transactionSessionData.product.id.toString(),
+          description: transactionSessionData.product.name,
+          unit_price: transactionSessionData.product.price,
+          discount: transactionSessionData.discount || 0,
+          sales_tax: transactionSessionData.tax
+        }]
+      };
+      this.logger.log("Creating TaxJar transaction", transaction);
+      this.taxjar.createEnTransaction(transaction).then(r => {});
+    } catch (e) {
+      this.logger.error("Error creating TaxJar transaction", e);
+    }
+
+    sessionStorage.removeItem("shopTransactionData");
   }
 
 }
