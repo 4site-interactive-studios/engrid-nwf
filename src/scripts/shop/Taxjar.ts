@@ -3,10 +3,10 @@ import { Estimate, Transaction } from "./shop.types";
 export default class Taxjar {
   private baseUrl: string = "http://localhost:3000";
   private fromAddress = {
-    street: "9500 Gilman Drive",
-    city: "La Jolla",
-    state: "CA",
-    zip: "92093",
+    street: "11100 Wildlife Center Dr",
+    city: "Reston",
+    state: "VA",
+    zip: "20190-5361",
     country: "US",
   };
 
