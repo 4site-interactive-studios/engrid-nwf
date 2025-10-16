@@ -1,12 +1,12 @@
 import { Estimate, Transaction } from "./shop.types";
 
 export default class Taxjar {
-  private baseUrl: string = "http://localhost:3000";
+  private baseUrl: string = "https://taxjar.nwf.org";
   private fromAddress = {
-    street: "11100 Wildlife Center Dr",
-    city: "Reston",
-    state: "VA",
-    zip: "20190-5361",
+    street: "1641 Commons Parkway",
+    city: "Macedon",
+    state: "NY",
+    zip: "14502",
     country: "US",
   };
 

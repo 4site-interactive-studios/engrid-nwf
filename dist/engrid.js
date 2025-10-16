@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, October 15, 2025 @ 13:26:53 ET
+ *  Date: Thursday, October 16, 2025 @ 12:18:31 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -23521,13 +23521,13 @@ class ProductDetailsModal extends Modal {
 
 class Taxjar {
   constructor() {
-    _defineProperty(this, "baseUrl", "http://localhost:3000");
+    _defineProperty(this, "baseUrl", "https://taxjar.nwf.org");
 
     _defineProperty(this, "fromAddress", {
-      street: "11100 Wildlife Center Dr",
-      city: "Reston",
-      state: "VA",
-      zip: "20190-5361",
+      street: "1641 Commons Parkway",
+      city: "Macedon",
+      state: "NY",
+      zip: "14502",
       country: "US"
     });
   }
