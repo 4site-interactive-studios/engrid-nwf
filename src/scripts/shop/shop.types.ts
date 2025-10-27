@@ -33,7 +33,7 @@ export type TransactionSessionData = {
   discount: number;
 }
 
-export interface Estimate {
+export interface Order {
   from_country?: string;
   from_zip?: string;
   from_state?: string;
@@ -46,10 +46,10 @@ export interface Estimate {
   to_street?: string;
   amount?: number; // if not using line items
   shipping: number;
-  line_items?: EstimateLineItem[];
+  line_items?: OrderLineItem[];
 }
 
-export interface EstimateLineItem {
+export interface OrderLineItem {
   id?: string;
   quantity?: number;
   product_tax_code?: string;
@@ -77,7 +77,7 @@ export interface Transaction {
   line_items: TransactionLineItem[];
 }
 
-export interface TransactionLineItem extends EstimateLineItem {
+export interface TransactionLineItem extends OrderLineItem {
   product_identifier?: string;
   description?: string;
   sales_tax?: number;

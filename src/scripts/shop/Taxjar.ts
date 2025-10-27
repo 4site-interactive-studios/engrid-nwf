@@ -1,4 +1,4 @@
-import { Estimate, Transaction } from "./shop.types";
+import { Order, Transaction } from "./shop.types";
 
 export default class Taxjar {
   private baseUrl: string = "https://taxjar.nwf.org";
@@ -10,14 +10,14 @@ export default class Taxjar {
     country: "US",
   };
 
-  async estimateTax(order: Estimate): Promise<number> {
+  async calculateTax(order: Order): Promise<number> {
     order.from_street = this.fromAddress.street;
     order.from_city = this.fromAddress.city;
     order.from_state = this.fromAddress.state;
     order.from_zip = this.fromAddress.zip;
     order.from_country = this.fromAddress.country;
 
-    const response = await fetch(`${this.baseUrl}/estimate`, {
+    const response = await fetch(`${this.baseUrl}/calculate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export default class Taxjar {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to estimate tax");
+      throw new Error("Failed to calculate tax");
     }
 
     const resJson = await response.json();

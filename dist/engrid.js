@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 16, 2025 @ 12:18:31 ET
+ *  Date: Monday, October 27, 2025 @ 08:42:17 ET
  *  By: michael
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -23532,13 +23532,13 @@ class Taxjar {
     });
   }
 
-  async estimateTax(order) {
+  async calculateTax(order) {
     order.from_street = this.fromAddress.street;
     order.from_city = this.fromAddress.city;
     order.from_state = this.fromAddress.state;
     order.from_zip = this.fromAddress.zip;
     order.from_country = this.fromAddress.country;
-    const response = await fetch(`${this.baseUrl}/estimate`, {
+    const response = await fetch(`${this.baseUrl}/calculate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -23549,7 +23549,7 @@ class Taxjar {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to estimate tax");
+      throw new Error("Failed to calculate tax");
     }
 
     const resJson = await response.json();
@@ -23760,6 +23760,28 @@ class Shop {
           handleAddressChange();
         }
       });
+    }); //Shipping Field - Fix for EN's functionality that sometimes fails.
+
+    const shippingField = engrid_ENGrid.getField("transaction.shipenabled");
+
+    if (shippingField) {
+      this.toggleShippingAddressFields(shippingField.checked);
+      shippingField.addEventListener("change", event => {
+        const target = event.target;
+        this.toggleShippingAddressFields(target.checked);
+      });
+    }
+  }
+
+  toggleShippingAddressFields(enabled) {
+    const fields = ["shipemail", "shiptitle", "shipfname", "shiplname", "shipadd1", "shipadd2", "shipcity", "shipregion", "shippostcode", "shipcountry", "shipnotes"];
+    this.logger.log(`Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`);
+    fields.forEach(fieldName => {
+      if (enabled) {
+        window.EngagingNetworks.require._defined.enjs.showField(fieldName);
+      } else {
+        window.EngagingNetworks.require._defined.enjs.hideField(fieldName);
+      }
     });
   } // Add price and "Learn more" link below product name
 
@@ -23835,13 +23857,24 @@ class Shop {
   }
 
   async calculateTotalPrice() {
+    engrid_ENGrid.removeError(".en__submit");
     engrid_ENGrid.disableSubmit("Calculating total...");
     this.productPrice = this.getSelectedProductPrice();
     this.shippingPrice = this.getSelectedShippingPrice();
     this.discountValue = this.getDiscountValue();
-    this.tax = await this.getCalculatedTax();
+    const calculatedTax = await this.getCalculatedTax();
+    this.tax = calculatedTax === false ? 0 : calculatedTax;
     this.totalPrice = this.productPrice + this.shippingPrice + this.tax - this.discountValue;
-    this.setPaymentValuesOnForm(this.totalPrice, this.tax);
+    this.setPaymentValuesOnForm(this.totalPrice, this.tax); // If tax calculation failed, keep disabled submit button
+
+    if (calculatedTax === false) {
+      this.logger.log("Tax calculation failed, keeping submit disabled");
+      engrid_ENGrid.enableSubmit();
+      document.querySelector(".en__submit button")?.setAttribute("disabled", "true");
+      engrid_ENGrid.setError(".en__submit", "Unable to calculate tax. Please check your address.");
+      return this.totalPrice;
+    }
+
     engrid_ENGrid.enableSubmit();
     return this.totalPrice;
   }
@@ -23893,7 +23926,7 @@ class Shop {
       return 0;
     }
 
-    const orderEstimate = {
+    const order = {
       to_zip: address.zip,
       to_state: address.state,
       to_city: address.city,
@@ -23909,12 +23942,12 @@ class Shop {
     };
 
     try {
-      const tax = await this.taxjar.estimateTax(orderEstimate);
+      const tax = await this.taxjar.calculateTax(order);
       this.logger.log(`Calculated tax to collect: ${tax}`);
       return tax;
     } catch (error) {
       this.logger.error("Error calculating tax", error);
-      return 0;
+      return false;
     }
   }
 

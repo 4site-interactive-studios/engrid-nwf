@@ -1,5 +1,5 @@
 import { EnForm, ENGrid, EngridLogger } from "@4site/engrid-scripts";
-import { Estimate, Product, ProductVariant, ShippingAddress, TransactionSessionData } from "./shop.types";
+import { Order, Product, ProductVariant, ShippingAddress, TransactionSessionData } from "./shop.types";
 import ProductDetailsModal from "./ProductDetailsModal";
 import Taxjar from "./Taxjar";
 
@@ -228,6 +228,28 @@ export default class Shop {
           }
         });
     });
+
+    //Shipping Field - Fix for EN's functionality that sometimes fails.
+    const shippingField = ENGrid.getField("transaction.shipenabled") as HTMLInputElement;
+    if (shippingField) {
+      this.toggleShippingAddressFields(shippingField.checked);
+      shippingField.addEventListener("change", (event) => {
+        const target = event.target as HTMLInputElement;
+        this.toggleShippingAddressFields(target.checked);
+      });
+    }
+  }
+
+  private toggleShippingAddressFields(enabled: boolean) {
+    const fields = ["shipemail", "shiptitle", "shipfname", "shiplname", "shipadd1", "shipadd2", "shipcity", "shipregion", "shippostcode", "shipcountry", "shipnotes"];
+    this.logger.log(`Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`);
+    fields.forEach((fieldName) => {
+      if (enabled) {
+        window.EngagingNetworks.require._defined.enjs.showField(fieldName);
+      } else {
+        window.EngagingNetworks.require._defined.enjs.hideField(fieldName);
+      }
+    });
   }
 
   // Add price and "Learn more" link below product name
@@ -308,14 +330,24 @@ export default class Shop {
   }
 
   private async calculateTotalPrice(): Promise<number> {
+    ENGrid.removeError(".en__submit");
     ENGrid.disableSubmit("Calculating total...");
     this.productPrice = this.getSelectedProductPrice();
     this.shippingPrice = this.getSelectedShippingPrice();
     this.discountValue = this.getDiscountValue();
-    this.tax = await this.getCalculatedTax();
+    const calculatedTax = await this.getCalculatedTax();
+    this.tax = calculatedTax === false ? 0 : calculatedTax;
     this.totalPrice =
       this.productPrice + this.shippingPrice + this.tax - this.discountValue;
     this.setPaymentValuesOnForm(this.totalPrice, this.tax);
+    // If tax calculation failed, keep disabled submit button
+    if (calculatedTax === false) {
+      this.logger.log("Tax calculation failed, keeping submit disabled");
+      ENGrid.enableSubmit();
+      document.querySelector(".en__submit button")?.setAttribute("disabled", "true");
+      ENGrid.setError(".en__submit", "Unable to calculate tax. Please check your address.");
+      return this.totalPrice;
+    }
     ENGrid.enableSubmit();
     return this.totalPrice;
   }
@@ -357,7 +389,7 @@ export default class Shop {
     return 0;
   }
 
-  private async getCalculatedTax(): Promise<number> {
+  private async getCalculatedTax(): Promise<number | false> {
     const address = this.getShippingAddress();
 
     if (
@@ -374,7 +406,7 @@ export default class Shop {
       return 0;
     }
 
-    const orderEstimate: Estimate = {
+    const order: Order = {
       to_zip: address.zip,
       to_state: address.state,
       to_city: address.city,
@@ -392,12 +424,12 @@ export default class Shop {
     };
 
     try {
-      const tax = await this.taxjar.estimateTax(orderEstimate);
+      const tax = await this.taxjar.calculateTax(order);
       this.logger.log(`Calculated tax to collect: ${tax}`);
       return tax;
     } catch (error) {
       this.logger.error("Error calculating tax", error);
-      return 0;
+      return false;
     }
   }
 
