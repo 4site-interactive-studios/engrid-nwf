@@ -82,3 +82,10 @@ export interface TransactionLineItem extends OrderLineItem {
   description?: string;
   sales_tax?: number;
 }
+
+export type RemoveProductVariants = {
+  product: string,
+  variantName: string,
+  variantOptions: string[]
+}
+

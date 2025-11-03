@@ -1,5 +1,12 @@
 import { EnForm, ENGrid, EngridLogger } from "@4site/engrid-scripts";
-import { Order, Product, ProductVariant, ShippingAddress, TransactionSessionData } from "./shop.types";
+import {
+  RemoveProductVariants,
+  Order,
+  Product,
+  ProductVariant,
+  ShippingAddress,
+  TransactionSessionData,
+} from "./shop.types";
 import ProductDetailsModal from "./ProductDetailsModal";
 import Taxjar from "./Taxjar";
 
@@ -8,13 +15,14 @@ declare global {
     EngagingNetworks: any;
     EngridShop: {
       discountCodes?: Record<string, number>;
-    }
+      removeVariants?: RemoveProductVariants[];
+    };
     pageJson: {
       transactionId: string;
       supporterId: number;
       amount: number;
       country: string;
-    }
+    };
   }
 }
 
@@ -50,6 +58,17 @@ export default class Shop {
     }
     this.logger.log("Shop is running");
     this.productDetailsModal = new ProductDetailsModal();
+    this.setupProducts();
+    this.addWatchersAndListeners();
+    this.calculateTotalPrice().then(() => {
+      this.updateCheckoutSummary();
+    });
+  }
+
+  /*
+   * Create our products array and adjust the DOM as needed
+   */
+  private setupProducts() {
     // Create a simplified products array with only the necessary details
     this.rawProducts.forEach((product) => {
       const defaultProductVariant = product.variants.find(
@@ -80,12 +99,11 @@ export default class Shop {
     this.products.forEach((product) => {
       this.addProductDetails(product);
     });
-    this.addWatchersAndListeners();
-    this.calculateTotalPrice().then(() => {
-      this.updateCheckoutSummary();
-    });
+
+    this.hideProductVariants();
   }
 
+  // Add event listeners and mutation observers
   private addWatchersAndListeners() {
     this.watchForProductMarkupChanges();
     this.watchForProductSelectionChanges();
@@ -155,7 +173,7 @@ export default class Shop {
       const address = this.getShippingAddress();
       const transactionSessionData: TransactionSessionData = {
         address: {
-          ...address
+          ...address,
         },
         amountWithoutTax:
           this.productPrice + this.shippingPrice - this.discountValue,
@@ -230,7 +248,9 @@ export default class Shop {
     });
 
     //Shipping Field - Fix for EN's functionality that sometimes fails.
-    const shippingField = ENGrid.getField("transaction.shipenabled") as HTMLInputElement;
+    const shippingField = ENGrid.getField(
+      "transaction.shipenabled"
+    ) as HTMLInputElement;
     if (shippingField) {
       this.toggleShippingAddressFields(shippingField.checked);
       shippingField.addEventListener("change", (event) => {
@@ -240,9 +260,24 @@ export default class Shop {
     }
   }
 
+  // Toggle the visibility of shipping address fields
   private toggleShippingAddressFields(enabled: boolean) {
-    const fields = ["shipemail", "shiptitle", "shipfname", "shiplname", "shipadd1", "shipadd2", "shipcity", "shipregion", "shippostcode", "shipcountry", "shipnotes"];
-    this.logger.log(`Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`);
+    const fields = [
+      "shipemail",
+      "shiptitle",
+      "shipfname",
+      "shiplname",
+      "shipadd1",
+      "shipadd2",
+      "shipcity",
+      "shipregion",
+      "shippostcode",
+      "shipcountry",
+      "shipnotes",
+    ];
+    this.logger.log(
+      `Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`
+    );
     fields.forEach((fieldName) => {
       if (enabled) {
         window.EngagingNetworks.require._defined.enjs.showField(fieldName);
@@ -286,6 +321,7 @@ export default class Shop {
     return ENGrid.getBodyData("subtheme") === "shop";
   }
 
+  // Get the "en__pg" element for a given product ID
   private getProductElement(productId: number): HTMLElement | null {
     const productRadio = document.querySelector(
       `input[name="en__pg"][value="${productId}"]`
@@ -297,6 +333,53 @@ export default class Shop {
       return null;
     }
     return productRadio.closest(".en__pg") as HTMLElement;
+  }
+
+  // Get the select input element for a variant of a given product
+  private getProductVariantSelect(
+    productName: string,
+    variantName: string
+  ): HTMLSelectElement | null {
+    const productNameEls = [
+      ...document.querySelectorAll(".en__pg__name"),
+    ] as HTMLElement[];
+    const productNameEl = productNameEls.find(
+      (el) => el.innerText.trim().toLowerCase() === productName.toLowerCase()
+    );
+    if (!productNameEl) {
+      this.logger.log(
+        `Product element not found for product name: ${productName}`
+      );
+      return null;
+    }
+    const productDetailsEl = productNameEl.closest(".en__pg__detail");
+    if (!productDetailsEl) {
+      this.logger.log(
+        `Product details element not found for product name: ${productName}`
+      );
+      return null;
+    }
+    const productOptionTypeLabels = [
+      ...productDetailsEl.querySelectorAll(`.en__pg__optionType > label`),
+    ] as HTMLElement[];
+    const variantLabelEl = productOptionTypeLabels.find(
+      (el) => el.innerText.trim().toLowerCase() === variantName.toLowerCase()
+    );
+    if (!variantLabelEl) {
+      this.logger.log(
+        `Variant label not found for variant name: ${variantName}`
+      );
+      return null;
+    }
+    const variantSelect =
+      variantLabelEl.nextElementSibling as HTMLSelectElement;
+    if (!variantSelect || variantSelect.tagName !== "SELECT") {
+      this.logger.log(
+        `Variant select not found for variant name: ${variantName}`
+      );
+      return null;
+    }
+    return variantSelect;
   }
 
   // When selecting a product variant, its markup is replaced.
@@ -312,20 +395,29 @@ export default class Shop {
         mutation.addedNodes.forEach((node) => {
           if (
             node instanceof HTMLElement &&
-            node.classList.contains("en__pg__body")
+            (node.classList.contains("en__pg__body") ||
+              node.classList.contains("en__pg__optionType"))
           ) {
             const productId = parseInt(
-              (node.querySelector('input[name="en__pg"]') as HTMLInputElement)
-                ?.value
+              (
+                node
+                  .closest(".en__pg")
+                  ?.querySelector('input[name="en__pg"]') as HTMLInputElement
+              )?.value
             );
+            if (!productId) return;
             const product = this.products.find((p) => p.id === productId);
-            if (product && !node.querySelector(".engrid__pg__details")) {
+            if (
+              product &&
+              !node.closest(".en__pg")?.querySelector(".engrid__pg__details")
+            ) {
               this.addProductDetails(product);
             }
           }
         });
       });
     });
+
     observer.observe(productList, { childList: true, subtree: true });
   }
 
@@ -344,14 +436,20 @@ export default class Shop {
     if (calculatedTax === false) {
       this.logger.log("Tax calculation failed, keeping submit disabled");
       ENGrid.enableSubmit();
-      document.querySelector(".en__submit button")?.setAttribute("disabled", "true");
-      ENGrid.setError(".en__submit", "Unable to calculate tax. Please check your address.");
+      document
+        .querySelector(".en__submit button")
+        ?.setAttribute("disabled", "true");
+      ENGrid.setError(
+        ".en__submit",
+        "Unable to calculate tax. Please check your address."
+      );
       return this.totalPrice;
     }
     ENGrid.enableSubmit();
     return this.totalPrice;
   }
 
+  // Get the currently selected product variant from the ID on the page
   private getSelectedProduct(): ProductVariant | null {
     const selectedProductId = document.querySelector<HTMLInputElement>(
       'input[name="transaction.selprodvariantid"]'
@@ -462,6 +560,7 @@ export default class Shop {
     };
   }
 
+  // Update our checkout summary when the selected product changes
   private watchForProductSelectionChanges() {
     const productVariantInput = document.querySelector(
       'input[name="transaction.selprodvariantid"]'
@@ -593,13 +692,22 @@ export default class Shop {
   private createTaxjarTransaction() {
     let transactionSessionData: TransactionSessionData;
     try {
-      transactionSessionData = JSON.parse(sessionStorage.getItem("shopTransactionData") || "{}");
+      transactionSessionData = JSON.parse(
+        sessionStorage.getItem("shopTransactionData") || "{}"
+      );
     } catch (e) {
-      this.logger.log("Could not parse transaction data from session storage", e);
+      this.logger.log(
+        "Could not parse transaction data from session storage",
+        e
+      );
       return;
     }
 
-    if (!transactionSessionData || !transactionSessionData.address || !transactionSessionData.product) {
+    if (
+      !transactionSessionData ||
+      !transactionSessionData.address ||
+      !transactionSessionData.product
+    ) {
       this.logger.log("No transaction data found in session storage");
       return;
     }
@@ -627,14 +735,78 @@ export default class Shop {
             sales_tax: transactionSessionData.tax,
           },
         ],
-      }
+      };
       this.logger.log("Creating TaxJar transaction", transaction);
-      this.taxjar.createEnTransaction(transaction)
-        .then((r) => {})
+      this.taxjar.createEnTransaction(transaction).then((r) => {});
     } catch (e) {
       this.logger.error("Error creating TaxJar transaction", e);
     }
 
     sessionStorage.removeItem("shopTransactionData");
+  }
+
+  // Inject CSS to hide unwanted product variants, and adjust selected options if needed
+  private hideProductVariants() {
+    if (!window.EngridShop.removeVariants?.length) return;
+
+    this.logger.log(
+      "Hiding product variants",
+      window.EngridShop.removeVariants
+    );
+
+    // Remove previous style tag if present
+    const existing = document.getElementById("engrid-variant-hide-style");
+    if (existing) existing.remove();
+
+    let css = ``;
+    window.EngridShop.removeVariants.forEach((remove) => {
+      const selectElement = this.getProductVariantSelect(
+        remove.product,
+        remove.variantName
+      );
+      if (!selectElement) return;
+      const wrapperElement = selectElement.closest(".en__pg");
+      if (!wrapperElement) return;
+
+      const hiddenValuesForThisSelect = new Set<string>();
+      //get wrapper element nth position of its parent
+      const wrapperIndex = [...wrapperElement.parentElement!.children].indexOf(
+        wrapperElement
+      );
+      // Build CSS to hide the unwanted options
+      remove.variantOptions.forEach((optionValue) => {
+        const option = [...selectElement.options].find(
+          (opt) => opt.text.trim().toLowerCase() === optionValue.toLowerCase()
+        );
+        if (!option) return;
+        hiddenValuesForThisSelect.add(option.value);
+        css += `
+            /* In product "${remove.product}" hide variant "${optionValue}" */
+            .en__pg:nth-child(${wrapperIndex + 1}) select option[value="${
+          option.value
+        }"] {
+              display: none;
+            }
+          `;
+      });
+
+      // If our selected value is one we are hiding, change it to the first non-hidden option
+      const selectedValue = selectElement.value;
+      if (hiddenValuesForThisSelect.has(selectedValue)) {
+        // Find the first non-hidden option to select
+        const firstVisibleOption = [...selectElement.options].find(
+          (opt) => !hiddenValuesForThisSelect.has(opt.value)
+        );
+        if (firstVisibleOption) {
+          selectElement.value = firstVisibleOption.value;
+          selectElement.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      }
+    });
+
+    const style = document.createElement("style");
+    style.id = "engrid-variant-hide-style";
+    style.textContent = css;
+    document.head.appendChild(style);
   }
 }
