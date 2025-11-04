@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, October 1, 2025 @ 11:51:55 ET
+ *  Date: Monday, November 3, 2025 @ 16:23:47 ET
  *  By: fernando
- *  ENGrid styles: v0.22.18
- *  ENGrid scripts: v0.22.19
+ *  ENGrid styles: v0.23.0
+ *  ENGrid scripts: v0.23.0
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -17863,6 +17863,7 @@ const options_OptionsDefaults = {
   CountryRedirect: false,
   WelcomeBack: false,
   OptInLadder: false,
+  PreferredPaymentMethod: false,
   PageLayouts: ["leftleft1col", "centerleft1col", "centercenter1col", "centercenter2col", "centerright1col", "rightright1col", "none"]
 };
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/interfaces/upsell-options.js
@@ -19716,6 +19717,7 @@ class App extends engrid_ENGrid {
 
     if (engrid_ENGrid.getPageType() === "DONATION") {
       new digital_wallets_DigitalWallets();
+      new preferred_payment_method_PreferredPaymentMethod();
     } // Mobile CTA
 
 
@@ -28717,6 +28719,7 @@ class digital_wallets_DigitalWallets {
   constructor() {
     //digital wallets not enabled.
     if (!document.getElementById("en__digitalWallet")) {
+      engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "false");
       engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "false");
       engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
       engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "false");
@@ -28760,6 +28763,7 @@ class digital_wallets_DigitalWallets {
     } else {
       engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "false");
       engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
+      engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "false");
       const stripeContainer = document.getElementById("en__digitalWallet__stripeButtons__container");
 
       if (stripeContainer) {
@@ -28812,8 +28816,9 @@ class digital_wallets_DigitalWallets {
 
   addStripeDigitalWallets() {
     this.addOptionToPaymentTypeField("stripedigitalwallet", "GooglePay / ApplePay");
-    engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "true");
-    engrid_ENGrid.setBodyData("payment-type-option-google-pay", "true");
+    engrid_ENGrid.setBodyData("payment-type-option-apple-pay", digital_wallets_DigitalWallets.isApplePayAvailable.toString());
+    engrid_ENGrid.setBodyData("payment-type-option-google-pay", !digital_wallets_DigitalWallets.isApplePayAvailable.toString());
+    engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "true");
   }
 
   addPaypalTouchDigitalWallets() {
@@ -28878,6 +28883,7 @@ class digital_wallets_DigitalWallets {
   }
 
 }
+digital_wallets_DigitalWallets.isApplePayAvailable = !!window.hasOwnProperty("ApplePaySession");
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/mobile-cta.js
 // This component adds a floating CTA button to the page, which can be used to scroll to the top of the form
 
@@ -30779,6 +30785,7 @@ class embedded_ecard_EmbeddedEcard {
       this.options = Object.assign(Object.assign({}, embedded_ecard_options_EmbeddedEcardOptionsDefaults), window.EngridEmbeddedEcard);
       const pageUrl = new URL(this.options.pageUrl);
       pageUrl.searchParams.append("data-engrid-embedded-ecard", "true");
+      pageUrl.searchParams.append("chain", "");
       this.options.pageUrl = pageUrl.href;
       this.logger.log("Running Embedded Ecard component", this.options);
       this.embedEcard();
@@ -30803,7 +30810,7 @@ class embedded_ecard_EmbeddedEcard {
   }
 
   onEmbeddedEcardPage() {
-    return engrid_ENGrid.getPageType() === "ECARD" && engrid_ENGrid.hasBodyData("embedded");
+    return engrid_ENGrid.getPageType() === "ECARD" && engrid_ENGrid.hasBodyData("embedded") && engrid_ENGrid.getPageNumber() === 1;
   }
 
   onPostActionPage() {
@@ -31837,10 +31844,350 @@ class frequency_upsell_FrequencyUpsell {
   }
 
 }
+;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/preferred-payment-method.js
+
+class preferred_payment_method_PreferredPaymentMethod {
+  constructor() {
+    var _a;
+
+    this.logger = new logger_EngridLogger("PreferredPaymentMethod", "#ffffff", "#1f2933", "⭐️");
+    this.availabilityTimeoutMs = 4000;
+    this.cleanupHandlers = [];
+    this.selectionFinalized = false;
+    this.listenersAttached = false;
+    this.config = this.resolveConfig();
+    this.preferredFieldName = ((_a = this.config.preferredPaymentMethodField) === null || _a === void 0 ? void 0 : _a.trim()) || "";
+
+    if (!this.shouldRun()) {
+      return;
+    }
+
+    this.attachGiveBySelectListeners();
+    const candidates = this.buildCandidateList();
+
+    if (candidates.length === 0) {
+      this.logger.log("No payment methods to evaluate. Skipping.");
+      return;
+    }
+
+    this.logger.log(`Evaluating preferred payment methods in order: ${candidates.join(", ")}`);
+    this.tryCandidateAtIndex(0, candidates);
+  }
+
+  shouldRun() {
+    if (engrid_ENGrid.getPageType() !== "DONATION") {
+      this.logger.log("Not a donation page. Skipping preferred payment selection.");
+      return false;
+    }
+
+    if (!this.getGiveBySelectInputs().length) {
+      this.logger.log("No give-by-select inputs found. Skipping.");
+      return false;
+    }
+
+    const config = engrid_ENGrid.getOption("PreferredPaymentMethod");
+
+    if (config === false) {
+      this.logger.log("PreferredPaymentMethod option disabled.");
+      return false;
+    }
+
+    return true;
+  }
+
+  resolveConfig() {
+    const option = engrid_ENGrid.getOption("PreferredPaymentMethod");
+
+    if (option && typeof option === "object") {
+      const preferredPaymentMethodField = option.preferredPaymentMethodField || "";
+      const defaultPaymentMethod = Array.isArray(option.defaultPaymentMethod) ? option.defaultPaymentMethod.filter(item => !!item) : [];
+      return {
+        preferredPaymentMethodField,
+        defaultPaymentMethod: defaultPaymentMethod.length > 0 ? defaultPaymentMethod : ["card"]
+      };
+    }
+
+    return {
+      preferredPaymentMethodField: "",
+      defaultPaymentMethod: ["card"]
+    };
+  }
+
+  buildCandidateList() {
+    const candidates = [];
+    const seen = new Set();
+
+    const pushCandidate = value => {
+      if (!value) return;
+      const normalized = this.normalizePaymentValue(value);
+      if (!normalized || seen.has(normalized)) return;
+      seen.add(normalized);
+      candidates.push(normalized);
+    };
+
+    pushCandidate(this.getFieldPreference());
+    pushCandidate(this.getUrlPreference());
+    this.config.defaultPaymentMethod.forEach(pushCandidate);
+    return candidates;
+  }
+
+  hasPreferredField() {
+    if (!this.preferredFieldName) return false;
+    const field = engrid_ENGrid.getField(this.preferredFieldName);
+    return !!field;
+  }
+
+  attachGiveBySelectListeners() {
+    if (this.listenersAttached) return;
+    if (!this.preferredFieldName) return;
+
+    if (!this.hasPreferredField()) {
+      this.logger.log(`Preferred payment field "${this.preferredFieldName}" not found. Field sync disabled.`);
+      return;
+    }
+
+    const inputs = this.getGiveBySelectInputs();
+    inputs.forEach(input => {
+      input.addEventListener("change", () => {
+        if (input.checked) {
+          this.syncPreferredField(input.value);
+        }
+      });
+    });
+    this.listenersAttached = true;
+  }
+
+  syncPreferredField(value) {
+    if (!this.preferredFieldName) return;
+    if (!this.hasPreferredField()) return;
+    engrid_ENGrid.setFieldValue(this.preferredFieldName, value, false, true);
+  }
+
+  getFieldPreference() {
+    if (!this.preferredFieldName) {
+      return null;
+    }
+
+    const fieldValue = engrid_ENGrid.getFieldValue(this.preferredFieldName);
+
+    if (!fieldValue) {
+      this.logger.log(`Preferred payment field "${this.preferredFieldName}" is empty. Moving on.`);
+      return null;
+    }
+
+    this.logger.log(`Preferred payment from field "${this.preferredFieldName}" resolved to "${fieldValue}".`);
+    return fieldValue;
+  }
+
+  getUrlPreference() {
+    const urlValue = engrid_ENGrid.getUrlParameter("payment");
+
+    if (typeof urlValue === "string" && urlValue.trim() !== "") {
+      this.logger.log(`Preferred payment from URL parameter: "${urlValue}".`);
+      return urlValue;
+    }
+
+    return null;
+  }
+
+  tryCandidateAtIndex(index, candidates) {
+    if (this.selectionFinalized) {
+      return;
+    }
+
+    if (index >= candidates.length) {
+      this.logger.log("No preferred payment method was applied.");
+      return;
+    }
+
+    const method = candidates[index];
+
+    if (!this.paymentMethodExists(method)) {
+      this.logger.log(`Payment method "${method}" not found. Skipping.`);
+      this.tryCandidateAtIndex(index + 1, candidates);
+      return;
+    }
+
+    if (this.isPaymentMethodAvailable(method)) {
+      this.logger.success(`Selecting available payment method "${method}".`);
+      this.applySelection(method);
+      return;
+    }
+
+    this.logger.log(`Payment method "${method}" exists but is not available yet. Waiting up to ${this.availabilityTimeoutMs}ms.`);
+    this.waitForAvailability(method, () => {
+      if (this.selectionFinalized) return;
+
+      if (this.isPaymentMethodAvailable(method)) {
+        this.logger.success(`Selecting payment method "${method}" once it became available.`);
+        this.applySelection(method);
+      }
+    }, () => {
+      if (this.selectionFinalized) return;
+      this.logger.log(`Payment method "${method}" still unavailable after waiting. Trying next option.`);
+      this.tryCandidateAtIndex(index + 1, candidates);
+    });
+  }
+
+  waitForAvailability(method, onAvailable, onTimeout) {
+    const observers = [];
+
+    const cleanup = () => {
+      observers.forEach(observer => observer.disconnect());
+      observers.length = 0;
+      this.cleanupHandlers = this.cleanupHandlers.filter(fn => fn !== cleanup);
+      window.clearTimeout(timeoutId);
+    };
+
+    this.cleanupHandlers.push(cleanup);
+
+    const checkAvailability = () => {
+      if (this.selectionFinalized) {
+        cleanup();
+        return;
+      }
+
+      if (this.isPaymentMethodAvailable(method)) {
+        cleanup();
+        onAvailable();
+      }
+    };
+
+    const fieldContainer = this.getGiveBySelectContainer() || document.body;
+    const domObserver = new MutationObserver(() => checkAvailability());
+    domObserver.observe(fieldContainer, {
+      attributes: true,
+      attributeFilter: ["class", "style"],
+      childList: true,
+      subtree: true
+    });
+    observers.push(domObserver);
+    const attributeFilters = this.getAvailabilityAttributeFilters(method);
+
+    if (attributeFilters.length > 0) {
+      const attrObserver = new MutationObserver(() => checkAvailability());
+      attrObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: attributeFilters
+      });
+      observers.push(attrObserver);
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      cleanup();
+      onTimeout();
+    }, this.availabilityTimeoutMs);
+  }
+
+  applySelection(method) {
+    if (this.selectionFinalized) {
+      return;
+    }
+
+    const input = this.findPaymentInput(method);
+
+    if (!input) {
+      this.logger.log(`Unable to locate give-by-select input for "${method}" during selection.`);
+      return;
+    }
+
+    if (!this.isPaymentMethodAvailable(method)) {
+      this.logger.log(`Payment method "${method}" is not available to select.`);
+      return;
+    }
+
+    const label = this.findLabelForInput(input);
+
+    if (label) {
+      label.click();
+    } else {
+      input.checked = true;
+      input.dispatchEvent(new Event("change", {
+        bubbles: true,
+        cancelable: true
+      }));
+    }
+
+    engrid_ENGrid.setPaymentType(method);
+    this.syncPreferredField(input.value);
+    this.selectionFinalized = true;
+    this.cleanupAllObservers();
+  }
+
+  paymentMethodExists(method) {
+    return !!this.findPaymentInput(method);
+  }
+
+  isPaymentMethodAvailable(method) {
+    const input = this.findPaymentInput(method);
+
+    if (!input || input.disabled) {
+      return false;
+    }
+
+    const container = this.getInputContainer(input);
+    return container ? engrid_ENGrid.isVisible(container) : engrid_ENGrid.isVisible(input);
+  }
+
+  findPaymentInput(method) {
+    const normalized = this.normalizePaymentValue(method);
+
+    if (!normalized) {
+      return null;
+    }
+
+    const inputs = this.getGiveBySelectInputs();
+    return Array.from(inputs).find(input => input.value && this.normalizePaymentValue(input.value) === normalized) || null;
+  }
+
+  getGiveBySelectInputs() {
+    return document.getElementsByName("transaction.giveBySelect");
+  }
+
+  getGiveBySelectContainer() {
+    return document.querySelector(".en__field--give-by-select, .give-by-select");
+  }
+
+  getInputContainer(input) {
+    return input.closest(".en__field__item") || input.closest(".en__field__element") || input.parentElement;
+  }
+
+  findLabelForInput(input) {
+    if (input.id) {
+      const externalLabel = document.querySelector(`label[for="${input.id}"]`);
+
+      if (externalLabel) {
+        return externalLabel;
+      }
+    }
+
+    return input.closest("label");
+  }
+
+  normalizePaymentValue(value) {
+    return value.trim().toLowerCase();
+  }
+
+  getAvailabilityAttributeFilters(method) {
+    const map = {
+      stripedigitalwallet: ["data-engrid-payment-type-option-apple-pay", "data-engrid-payment-type-option-google-pay"],
+      paypaltouch: ["data-engrid-payment-type-option-paypal-one-touch", "data-engrid-payment-type-option-venmo"],
+      daf: ["data-engrid-payment-type-option-daf"]
+    };
+    return map[method] || [];
+  }
+
+  cleanupAllObservers() {
+    this.cleanupHandlers.forEach(cleanup => cleanup());
+    this.cleanupHandlers = [];
+  }
+
+}
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/version.js
-const version_AppVersion = "0.22.19";
+const version_AppVersion = "0.23.0";
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
@@ -32751,6 +33098,7 @@ const interfaces_options_OptionsDefaults = {
     CountryRedirect: false,
     WelcomeBack: false,
     OptInLadder: false,
+    PreferredPaymentMethod: false,
     PageLayouts: [
         "leftleft1col",
         "centerleft1col",
@@ -33797,6 +34145,7 @@ class app_App extends (/* unused pure expression or super */ null && (ENGrid)) {
         // Digital Wallets Features
         if (ENGrid.getPageType() === "DONATION") {
             new DigitalWallets();
+            new PreferredPaymentMethod();
         }
         // Mobile CTA
         new MobileCTA();
@@ -42108,6 +42457,155 @@ class dist_custom_premium_CustomPremium {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/digital-wallets.js
+
+class dist_digital_wallets_DigitalWallets {
+    constructor() {
+        //digital wallets not enabled.
+        if (!document.getElementById("en__digitalWallet")) {
+            dist_engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-venmo", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-daf", "false");
+            return;
+        }
+        // Add giveBySelect classes to the separate wallet containers
+        // and hide them on load.
+        const stripeButtons = document.getElementById("en__digitalWallet__stripeButtons__container");
+        if (stripeButtons) {
+            stripeButtons.classList.add("giveBySelect-stripedigitalwallet");
+            stripeButtons.classList.add("showif-stripedigitalwallet-selected");
+            // stripeButtons.style.display = "none";
+        }
+        const paypalTouchButtons = document.getElementById("en__digitalWallet__paypalTouch__container");
+        if (paypalTouchButtons) {
+            paypalTouchButtons.classList.add("giveBySelect-paypaltouch");
+            paypalTouchButtons.classList.add("showif-paypaltouch-selected");
+            // paypalTouchButtons.style.display = "none";
+        }
+        const donorAdvisedFundButtonContainer = document.getElementById("en__digitalWallet__chariot__container");
+        if (donorAdvisedFundButtonContainer) {
+            donorAdvisedFundButtonContainer.classList.add("giveBySelect-daf");
+            donorAdvisedFundButtonContainer.classList.add("showif-daf-selected");
+        }
+        /**
+         * Check for presence of elements that indicated Stripe digital wallets
+         * (Google Pay, Apple Pay) have loaded, and add functionality for them.
+         * If they haven't yet loaded, set up a Mutation Observer to check for
+         * when they do.
+         */
+        if (document.querySelector("#en__digitalWallet__stripeButtons__container > *")) {
+            this.addStripeDigitalWallets();
+        }
+        else {
+            dist_engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "false");
+            const stripeContainer = document.getElementById("en__digitalWallet__stripeButtons__container");
+            if (stripeContainer) {
+                this.checkForWalletsBeingAdded(stripeContainer, "stripe");
+            }
+            // If the default payment type is Stripe Digital Wallet and the page doesnt support it, set the payment type to Card
+            const paymentType = dist_engrid_ENGrid.getPaymentType();
+            if (paymentType.toLowerCase() === "stripedigitalwallet") {
+                dist_engrid_ENGrid.setPaymentType("card");
+            }
+        }
+        /**
+         * Check for presence of elements that indicated Paypal digital wallets
+         * (Paypal One Touch, Venmo, Etc) have loaded, and add functionality for them.
+         * If they haven't yet loaded, set up a Mutation Observer to check for
+         * when they do.
+         */
+        if (document.querySelector("#en__digitalWallet__paypalTouch__container > *")) {
+            this.addPaypalTouchDigitalWallets();
+        }
+        else {
+            dist_engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "false");
+            dist_engrid_ENGrid.setBodyData("payment-type-option-venmo", "false");
+            const paypalContainer = document.getElementById("en__digitalWallet__paypalTouch__container");
+            if (paypalContainer) {
+                this.checkForWalletsBeingAdded(paypalContainer, "paypalTouch");
+            }
+        }
+        /**
+         * Check for presence of elements that indicate DAF is present, and add functionality for it.
+         * If it hasn't loaded yet, set up a Mutation Observer to check for when it does.
+         */
+        if (document.querySelector("#en__digitalWallet__chariot__container > *")) {
+            this.addDAF();
+        }
+        else {
+            dist_engrid_ENGrid.setBodyData("payment-type-option-daf", "false");
+            const donorAdvisedFundButtonContainer = document.getElementById("en__digitalWallet__chariot__container");
+            if (donorAdvisedFundButtonContainer) {
+                this.checkForWalletsBeingAdded(donorAdvisedFundButtonContainer, "daf");
+            }
+        }
+    }
+    addStripeDigitalWallets() {
+        this.addOptionToPaymentTypeField("stripedigitalwallet", "GooglePay / ApplePay");
+        dist_engrid_ENGrid.setBodyData("payment-type-option-apple-pay", dist_digital_wallets_DigitalWallets.isApplePayAvailable.toString());
+        dist_engrid_ENGrid.setBodyData("payment-type-option-google-pay", !dist_digital_wallets_DigitalWallets.isApplePayAvailable.toString());
+        dist_engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "true");
+    }
+    addPaypalTouchDigitalWallets() {
+        this.addOptionToPaymentTypeField("paypaltouch", "Paypal / Venmo");
+        dist_engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "true");
+        dist_engrid_ENGrid.setBodyData("payment-type-option-venmo", "true");
+    }
+    addDAF() {
+        this.addOptionToPaymentTypeField("daf", "Donor Advised Fund");
+        dist_engrid_ENGrid.setBodyData("payment-type-option-daf", "true");
+    }
+    addOptionToPaymentTypeField(value, label) {
+        const paymentTypeField = document.querySelector('[name="transaction.paymenttype"]');
+        if (paymentTypeField &&
+            !paymentTypeField.querySelector(`[value=${value}]`)) {
+            const walletOption = document.createElement("option");
+            walletOption.value = value;
+            walletOption.innerText = label;
+            paymentTypeField.appendChild(walletOption);
+        }
+        // If this payment type is set as the default on GiveBySelect, set the payment type to this value
+        // We need to do this here because the digital wallets are sometimes slow to load
+        const giveBySelect = document.querySelector('input[name="transaction.giveBySelect"][value="' + value + '"]');
+        if (giveBySelect && giveBySelect.dataset.default === "true") {
+            giveBySelect.checked = true;
+            const event = new Event("change", {
+                bubbles: true,
+                cancelable: true,
+            });
+            giveBySelect.dispatchEvent(event);
+        }
+    }
+    checkForWalletsBeingAdded(node, walletType) {
+        const callback = (mutationList, observer) => {
+            for (const mutation of mutationList) {
+                //Once a child node has been added, set up the appropriate digital wallet
+                if (mutation.type === "childList" && mutation.addedNodes.length) {
+                    if (walletType === "stripe") {
+                        this.addStripeDigitalWallets();
+                    }
+                    else if (walletType === "paypalTouch") {
+                        this.addPaypalTouchDigitalWallets();
+                    }
+                    else if (walletType === "daf") {
+                        this.addDAF();
+                    }
+                    //Disconnect observer to prevent multiple additions
+                    observer.disconnect();
+                }
+            }
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(node, { childList: true, subtree: true });
+    }
+}
+dist_digital_wallets_DigitalWallets.isApplePayAvailable = !!window.hasOwnProperty("ApplePaySession");
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/mobile-cta.js
 // This component adds a floating CTA button to the page, which can be used to scroll to the top of the form
 
@@ -43798,6 +44296,7 @@ class dist_embedded_ecard_EmbeddedEcard {
             this.options = Object.assign(Object.assign({}, EmbeddedEcardOptionsDefaults), window.EngridEmbeddedEcard);
             const pageUrl = new URL(this.options.pageUrl);
             pageUrl.searchParams.append("data-engrid-embedded-ecard", "true");
+            pageUrl.searchParams.append("chain", "");
             this.options.pageUrl = pageUrl.href;
             this.logger.log("Running Embedded Ecard component", this.options);
             this.embedEcard();
@@ -43821,7 +44320,7 @@ class dist_embedded_ecard_EmbeddedEcard {
             window.EngridEmbeddedEcard.pageUrl !== "");
     }
     onEmbeddedEcardPage() {
-        return ENGrid.getPageType() === "ECARD" && ENGrid.hasBodyData("embedded");
+        return ENGrid.getPageType() === "ECARD" && ENGrid.hasBodyData("embedded") && ENGrid.getPageNumber() === 1;
     }
     onPostActionPage() {
         return (sessionStorage.getItem("engrid-embedded-ecard") !== null &&
@@ -44771,8 +45270,299 @@ class dist_frequency_upsell_FrequencyUpsell {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/preferred-payment-method.js
+
+class dist_preferred_payment_method_PreferredPaymentMethod {
+    constructor() {
+        var _a;
+        this.logger = new EngridLogger("PreferredPaymentMethod", "#ffffff", "#1f2933", "⭐️");
+        this.availabilityTimeoutMs = 4000;
+        this.cleanupHandlers = [];
+        this.selectionFinalized = false;
+        this.listenersAttached = false;
+        this.config = this.resolveConfig();
+        this.preferredFieldName = ((_a = this.config.preferredPaymentMethodField) === null || _a === void 0 ? void 0 : _a.trim()) || "";
+        if (!this.shouldRun()) {
+            return;
+        }
+        this.attachGiveBySelectListeners();
+        const candidates = this.buildCandidateList();
+        if (candidates.length === 0) {
+            this.logger.log("No payment methods to evaluate. Skipping.");
+            return;
+        }
+        this.logger.log(`Evaluating preferred payment methods in order: ${candidates.join(", ")}`);
+        this.tryCandidateAtIndex(0, candidates);
+    }
+    shouldRun() {
+        if (ENGrid.getPageType() !== "DONATION") {
+            this.logger.log("Not a donation page. Skipping preferred payment selection.");
+            return false;
+        }
+        if (!this.getGiveBySelectInputs().length) {
+            this.logger.log("No give-by-select inputs found. Skipping.");
+            return false;
+        }
+        const config = ENGrid.getOption("PreferredPaymentMethod");
+        if (config === false) {
+            this.logger.log("PreferredPaymentMethod option disabled.");
+            return false;
+        }
+        return true;
+    }
+    resolveConfig() {
+        const option = ENGrid.getOption("PreferredPaymentMethod");
+        if (option && typeof option === "object") {
+            const preferredPaymentMethodField = option.preferredPaymentMethodField || "";
+            const defaultPaymentMethod = Array.isArray(option.defaultPaymentMethod)
+                ? option.defaultPaymentMethod.filter((item) => !!item)
+                : [];
+            return {
+                preferredPaymentMethodField,
+                defaultPaymentMethod: defaultPaymentMethod.length > 0 ? defaultPaymentMethod : ["card"],
+            };
+        }
+        return {
+            preferredPaymentMethodField: "",
+            defaultPaymentMethod: ["card"],
+        };
+    }
+    buildCandidateList() {
+        const candidates = [];
+        const seen = new Set();
+        const pushCandidate = (value) => {
+            if (!value)
+                return;
+            const normalized = this.normalizePaymentValue(value);
+            if (!normalized || seen.has(normalized))
+                return;
+            seen.add(normalized);
+            candidates.push(normalized);
+        };
+        pushCandidate(this.getFieldPreference());
+        pushCandidate(this.getUrlPreference());
+        this.config.defaultPaymentMethod.forEach(pushCandidate);
+        return candidates;
+    }
+    hasPreferredField() {
+        if (!this.preferredFieldName)
+            return false;
+        const field = ENGrid.getField(this.preferredFieldName);
+        return !!field;
+    }
+    attachGiveBySelectListeners() {
+        if (this.listenersAttached)
+            return;
+        if (!this.preferredFieldName)
+            return;
+        if (!this.hasPreferredField()) {
+            this.logger.log(`Preferred payment field "${this.preferredFieldName}" not found. Field sync disabled.`);
+            return;
+        }
+        const inputs = this.getGiveBySelectInputs();
+        inputs.forEach((input) => {
+            input.addEventListener("change", () => {
+                if (input.checked) {
+                    this.syncPreferredField(input.value);
+                }
+            });
+        });
+        this.listenersAttached = true;
+    }
+    syncPreferredField(value) {
+        if (!this.preferredFieldName)
+            return;
+        if (!this.hasPreferredField())
+            return;
+        ENGrid.setFieldValue(this.preferredFieldName, value, false, true);
+    }
+    getFieldPreference() {
+        if (!this.preferredFieldName) {
+            return null;
+        }
+        const fieldValue = ENGrid.getFieldValue(this.preferredFieldName);
+        if (!fieldValue) {
+            this.logger.log(`Preferred payment field "${this.preferredFieldName}" is empty. Moving on.`);
+            return null;
+        }
+        this.logger.log(`Preferred payment from field "${this.preferredFieldName}" resolved to "${fieldValue}".`);
+        return fieldValue;
+    }
+    getUrlPreference() {
+        const urlValue = ENGrid.getUrlParameter("payment");
+        if (typeof urlValue === "string" && urlValue.trim() !== "") {
+            this.logger.log(`Preferred payment from URL parameter: "${urlValue}".`);
+            return urlValue;
+        }
+        return null;
+    }
+    tryCandidateAtIndex(index, candidates) {
+        if (this.selectionFinalized) {
+            return;
+        }
+        if (index >= candidates.length) {
+            this.logger.log("No preferred payment method was applied.");
+            return;
+        }
+        const method = candidates[index];
+        if (!this.paymentMethodExists(method)) {
+            this.logger.log(`Payment method "${method}" not found. Skipping.`);
+            this.tryCandidateAtIndex(index + 1, candidates);
+            return;
+        }
+        if (this.isPaymentMethodAvailable(method)) {
+            this.logger.success(`Selecting available payment method "${method}".`);
+            this.applySelection(method);
+            return;
+        }
+        this.logger.log(`Payment method "${method}" exists but is not available yet. Waiting up to ${this.availabilityTimeoutMs}ms.`);
+        this.waitForAvailability(method, () => {
+            if (this.selectionFinalized)
+                return;
+            if (this.isPaymentMethodAvailable(method)) {
+                this.logger.success(`Selecting payment method "${method}" once it became available.`);
+                this.applySelection(method);
+            }
+        }, () => {
+            if (this.selectionFinalized)
+                return;
+            this.logger.log(`Payment method "${method}" still unavailable after waiting. Trying next option.`);
+            this.tryCandidateAtIndex(index + 1, candidates);
+        });
+    }
+    waitForAvailability(method, onAvailable, onTimeout) {
+        const observers = [];
+        const cleanup = () => {
+            observers.forEach((observer) => observer.disconnect());
+            observers.length = 0;
+            this.cleanupHandlers = this.cleanupHandlers.filter((fn) => fn !== cleanup);
+            window.clearTimeout(timeoutId);
+        };
+        this.cleanupHandlers.push(cleanup);
+        const checkAvailability = () => {
+            if (this.selectionFinalized) {
+                cleanup();
+                return;
+            }
+            if (this.isPaymentMethodAvailable(method)) {
+                cleanup();
+                onAvailable();
+            }
+        };
+        const fieldContainer = this.getGiveBySelectContainer() || document.body;
+        const domObserver = new MutationObserver(() => checkAvailability());
+        domObserver.observe(fieldContainer, {
+            attributes: true,
+            attributeFilter: ["class", "style"],
+            childList: true,
+            subtree: true,
+        });
+        observers.push(domObserver);
+        const attributeFilters = this.getAvailabilityAttributeFilters(method);
+        if (attributeFilters.length > 0) {
+            const attrObserver = new MutationObserver(() => checkAvailability());
+            attrObserver.observe(document.body, {
+                attributes: true,
+                attributeFilter: attributeFilters,
+            });
+            observers.push(attrObserver);
+        }
+        const timeoutId = window.setTimeout(() => {
+            cleanup();
+            onTimeout();
+        }, this.availabilityTimeoutMs);
+    }
+    applySelection(method) {
+        if (this.selectionFinalized) {
+            return;
+        }
+        const input = this.findPaymentInput(method);
+        if (!input) {
+            this.logger.log(`Unable to locate give-by-select input for "${method}" during selection.`);
+            return;
+        }
+        if (!this.isPaymentMethodAvailable(method)) {
+            this.logger.log(`Payment method "${method}" is not available to select.`);
+            return;
+        }
+        const label = this.findLabelForInput(input);
+        if (label) {
+            label.click();
+        }
+        else {
+            input.checked = true;
+            input.dispatchEvent(new Event("change", { bubbles: true, cancelable: true }));
+        }
+        ENGrid.setPaymentType(method);
+        this.syncPreferredField(input.value);
+        this.selectionFinalized = true;
+        this.cleanupAllObservers();
+    }
+    paymentMethodExists(method) {
+        return !!this.findPaymentInput(method);
+    }
+    isPaymentMethodAvailable(method) {
+        const input = this.findPaymentInput(method);
+        if (!input || input.disabled) {
+            return false;
+        }
+        const container = this.getInputContainer(input);
+        return container ? ENGrid.isVisible(container) : ENGrid.isVisible(input);
+    }
+    findPaymentInput(method) {
+        const normalized = this.normalizePaymentValue(method);
+        if (!normalized) {
+            return null;
+        }
+        const inputs = this.getGiveBySelectInputs();
+        return (Array.from(inputs).find((input) => input.value && this.normalizePaymentValue(input.value) === normalized) || null);
+    }
+    getGiveBySelectInputs() {
+        return document.getElementsByName("transaction.giveBySelect");
+    }
+    getGiveBySelectContainer() {
+        return document.querySelector(".en__field--give-by-select, .give-by-select");
+    }
+    getInputContainer(input) {
+        return (input.closest(".en__field__item") ||
+            input.closest(".en__field__element") ||
+            input.parentElement);
+    }
+    findLabelForInput(input) {
+        if (input.id) {
+            const externalLabel = document.querySelector(`label[for="${input.id}"]`);
+            if (externalLabel) {
+                return externalLabel;
+            }
+        }
+        return input.closest("label");
+    }
+    normalizePaymentValue(value) {
+        return value.trim().toLowerCase();
+    }
+    getAvailabilityAttributeFilters(method) {
+        const map = {
+            stripedigitalwallet: [
+                "data-engrid-payment-type-option-apple-pay",
+                "data-engrid-payment-type-option-google-pay",
+            ],
+            paypaltouch: [
+                "data-engrid-payment-type-option-paypal-one-touch",
+                "data-engrid-payment-type-option-venmo",
+            ],
+            daf: ["data-engrid-payment-type-option-daf"],
+        };
+        return map[method] || [];
+    }
+    cleanupAllObservers() {
+        this.cleanupHandlers.forEach((cleanup) => cleanup());
+        this.cleanupHandlers = [];
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
