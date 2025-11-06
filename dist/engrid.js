@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, November 5, 2025 @ 23:02:08 ET
+ *  Date: Thursday, November 6, 2025 @ 10:57:03 ET
  *  By: fernando
  *  ENGrid styles: v0.23.0
- *  ENGrid scripts: v0.23.1
+ *  ENGrid scripts: v0.23.2
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -20456,7 +20456,14 @@ class data_attributes_DataAttributes {
   }
 
   setDataAttributes() {
-    // Add the Page Type as a Data Attribute on the Body Tag
+    // Apple Pay Availability
+    if (window.hasOwnProperty("ApplePaySession")) {
+      engrid_ENGrid.setBodyData("apple-pay-available", "true");
+    } else {
+      engrid_ENGrid.setBodyData("apple-pay-available", "false");
+    } // Add the Page Type as a Data Attribute on the Body Tag
+
+
     if (engrid_ENGrid.checkNested(window, "pageJson", "pageType")) {
       engrid_ENGrid.setBodyData("page-type", window.pageJson.pageType);
     } // Add the currency code as a Data Attribute on the Body Tag
@@ -28815,9 +28822,18 @@ class digital_wallets_DigitalWallets {
   }
 
   addStripeDigitalWallets() {
-    this.addOptionToPaymentTypeField("stripedigitalwallet", "GooglePay / ApplePay");
-    engrid_ENGrid.setBodyData("payment-type-option-apple-pay", digital_wallets_DigitalWallets.isApplePayAvailable.toString());
-    engrid_ENGrid.setBodyData("payment-type-option-google-pay", !digital_wallets_DigitalWallets.isApplePayAvailable.toString());
+    this.addOptionToPaymentTypeField("stripedigitalwallet", "GooglePay / ApplePay"); // ENGrid.setBodyData(
+    //   "payment-type-option-apple-pay",
+    //   DigitalWallets.isApplePayAvailable.toString()
+    // );
+    // ENGrid.setBodyData(
+    //   "payment-type-option-google-pay",
+    //   !DigitalWallets.isApplePayAvailable.toString()
+    // );
+    // TODO: Change to trustworthy detection of Google Pay & Apple Pay availability
+
+    engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "true");
+    engrid_ENGrid.setBodyData("payment-type-option-google-pay", "true");
     engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "true");
   }
 
@@ -28883,7 +28899,6 @@ class digital_wallets_DigitalWallets {
   }
 
 }
-digital_wallets_DigitalWallets.isApplePayAvailable = !!window.hasOwnProperty("ApplePaySession");
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/mobile-cta.js
 // This component adds a floating CTA button to the page, which can be used to scroll to the top of the form
 
@@ -32182,7 +32197,7 @@ class preferred_payment_method_PreferredPaymentMethod {
 
 }
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/version.js
-const version_AppVersion = "0.23.1";
+const version_AppVersion = "0.23.2";
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
 
@@ -35214,6 +35229,13 @@ class dist_data_attributes_DataAttributes {
         this.setDataAttributes();
     }
     setDataAttributes() {
+        // Apple Pay Availability
+        if (window.hasOwnProperty("ApplePaySession")) {
+            ENGrid.setBodyData("apple-pay-available", "true");
+        }
+        else {
+            ENGrid.setBodyData("apple-pay-available", "false");
+        }
         // Add the Page Type as a Data Attribute on the Body Tag
         if (ENGrid.checkNested(window, "pageJson", "pageType")) {
             ENGrid.setBodyData("page-type", window.pageJson.pageType);
@@ -42454,155 +42476,6 @@ class dist_custom_premium_CustomPremium {
         this.pendingFrequencyChange = false;
     }
 }
-
-;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/digital-wallets.js
-
-class dist_digital_wallets_DigitalWallets {
-    constructor() {
-        //digital wallets not enabled.
-        if (!document.getElementById("en__digitalWallet")) {
-            dist_engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-venmo", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-daf", "false");
-            return;
-        }
-        // Add giveBySelect classes to the separate wallet containers
-        // and hide them on load.
-        const stripeButtons = document.getElementById("en__digitalWallet__stripeButtons__container");
-        if (stripeButtons) {
-            stripeButtons.classList.add("giveBySelect-stripedigitalwallet");
-            stripeButtons.classList.add("showif-stripedigitalwallet-selected");
-            // stripeButtons.style.display = "none";
-        }
-        const paypalTouchButtons = document.getElementById("en__digitalWallet__paypalTouch__container");
-        if (paypalTouchButtons) {
-            paypalTouchButtons.classList.add("giveBySelect-paypaltouch");
-            paypalTouchButtons.classList.add("showif-paypaltouch-selected");
-            // paypalTouchButtons.style.display = "none";
-        }
-        const donorAdvisedFundButtonContainer = document.getElementById("en__digitalWallet__chariot__container");
-        if (donorAdvisedFundButtonContainer) {
-            donorAdvisedFundButtonContainer.classList.add("giveBySelect-daf");
-            donorAdvisedFundButtonContainer.classList.add("showif-daf-selected");
-        }
-        /**
-         * Check for presence of elements that indicated Stripe digital wallets
-         * (Google Pay, Apple Pay) have loaded, and add functionality for them.
-         * If they haven't yet loaded, set up a Mutation Observer to check for
-         * when they do.
-         */
-        if (document.querySelector("#en__digitalWallet__stripeButtons__container > *")) {
-            this.addStripeDigitalWallets();
-        }
-        else {
-            dist_engrid_ENGrid.setBodyData("payment-type-option-apple-pay", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "false");
-            const stripeContainer = document.getElementById("en__digitalWallet__stripeButtons__container");
-            if (stripeContainer) {
-                this.checkForWalletsBeingAdded(stripeContainer, "stripe");
-            }
-            // If the default payment type is Stripe Digital Wallet and the page doesnt support it, set the payment type to Card
-            const paymentType = dist_engrid_ENGrid.getPaymentType();
-            if (paymentType.toLowerCase() === "stripedigitalwallet") {
-                dist_engrid_ENGrid.setPaymentType("card");
-            }
-        }
-        /**
-         * Check for presence of elements that indicated Paypal digital wallets
-         * (Paypal One Touch, Venmo, Etc) have loaded, and add functionality for them.
-         * If they haven't yet loaded, set up a Mutation Observer to check for
-         * when they do.
-         */
-        if (document.querySelector("#en__digitalWallet__paypalTouch__container > *")) {
-            this.addPaypalTouchDigitalWallets();
-        }
-        else {
-            dist_engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "false");
-            dist_engrid_ENGrid.setBodyData("payment-type-option-venmo", "false");
-            const paypalContainer = document.getElementById("en__digitalWallet__paypalTouch__container");
-            if (paypalContainer) {
-                this.checkForWalletsBeingAdded(paypalContainer, "paypalTouch");
-            }
-        }
-        /**
-         * Check for presence of elements that indicate DAF is present, and add functionality for it.
-         * If it hasn't loaded yet, set up a Mutation Observer to check for when it does.
-         */
-        if (document.querySelector("#en__digitalWallet__chariot__container > *")) {
-            this.addDAF();
-        }
-        else {
-            dist_engrid_ENGrid.setBodyData("payment-type-option-daf", "false");
-            const donorAdvisedFundButtonContainer = document.getElementById("en__digitalWallet__chariot__container");
-            if (donorAdvisedFundButtonContainer) {
-                this.checkForWalletsBeingAdded(donorAdvisedFundButtonContainer, "daf");
-            }
-        }
-    }
-    addStripeDigitalWallets() {
-        this.addOptionToPaymentTypeField("stripedigitalwallet", "GooglePay / ApplePay");
-        dist_engrid_ENGrid.setBodyData("payment-type-option-apple-pay", dist_digital_wallets_DigitalWallets.isApplePayAvailable.toString());
-        dist_engrid_ENGrid.setBodyData("payment-type-option-google-pay", !dist_digital_wallets_DigitalWallets.isApplePayAvailable.toString());
-        dist_engrid_ENGrid.setBodyData("payment-type-option-stripedigitalwallet", "true");
-    }
-    addPaypalTouchDigitalWallets() {
-        this.addOptionToPaymentTypeField("paypaltouch", "Paypal / Venmo");
-        dist_engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "true");
-        dist_engrid_ENGrid.setBodyData("payment-type-option-venmo", "true");
-    }
-    addDAF() {
-        this.addOptionToPaymentTypeField("daf", "Donor Advised Fund");
-        dist_engrid_ENGrid.setBodyData("payment-type-option-daf", "true");
-    }
-    addOptionToPaymentTypeField(value, label) {
-        const paymentTypeField = document.querySelector('[name="transaction.paymenttype"]');
-        if (paymentTypeField &&
-            !paymentTypeField.querySelector(`[value=${value}]`)) {
-            const walletOption = document.createElement("option");
-            walletOption.value = value;
-            walletOption.innerText = label;
-            paymentTypeField.appendChild(walletOption);
-        }
-        // If this payment type is set as the default on GiveBySelect, set the payment type to this value
-        // We need to do this here because the digital wallets are sometimes slow to load
-        const giveBySelect = document.querySelector('input[name="transaction.giveBySelect"][value="' + value + '"]');
-        if (giveBySelect && giveBySelect.dataset.default === "true") {
-            giveBySelect.checked = true;
-            const event = new Event("change", {
-                bubbles: true,
-                cancelable: true,
-            });
-            giveBySelect.dispatchEvent(event);
-        }
-    }
-    checkForWalletsBeingAdded(node, walletType) {
-        const callback = (mutationList, observer) => {
-            for (const mutation of mutationList) {
-                //Once a child node has been added, set up the appropriate digital wallet
-                if (mutation.type === "childList" && mutation.addedNodes.length) {
-                    if (walletType === "stripe") {
-                        this.addStripeDigitalWallets();
-                    }
-                    else if (walletType === "paypalTouch") {
-                        this.addPaypalTouchDigitalWallets();
-                    }
-                    else if (walletType === "daf") {
-                        this.addDAF();
-                    }
-                    //Disconnect observer to prevent multiple additions
-                    observer.disconnect();
-                }
-            }
-        };
-        const observer = new MutationObserver(callback);
-        observer.observe(node, { childList: true, subtree: true });
-    }
-}
-dist_digital_wallets_DigitalWallets.isApplePayAvailable = !!window.hasOwnProperty("ApplePaySession");
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/mobile-cta.js
 // This component adds a floating CTA button to the page, which can be used to scroll to the top of the form
