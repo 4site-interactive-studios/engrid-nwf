@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, November 6, 2025 @ 10:57:03 ET
- *  By: fernando
+ *  Date: Monday, November 10, 2025 @ 11:25:18 ET
+ *  By: michael
  *  ENGrid styles: v0.23.0
  *  ENGrid scripts: v0.23.2
  *
@@ -19541,7 +19541,8 @@ class App extends engrid_ENGrid {
     new give_by_select_GiveBySelect();
     new show_hide_radio_checkboxes_ShowHideRadioCheckboxes("transaction.giveBySelect", "giveBySelect-");
     new show_hide_radio_checkboxes_ShowHideRadioCheckboxes("transaction.inmem", "inmem-");
-    new show_hide_radio_checkboxes_ShowHideRadioCheckboxes("transaction.recurrpay", "recurrpay-"); // Automatically show/hide all radios
+    new show_hide_radio_checkboxes_ShowHideRadioCheckboxes("transaction.recurrpay", "recurrpay-");
+    new show_hide_radio_checkboxes_ShowHideRadioCheckboxes("transaction.shipenabled", "shipenabled-"); // Automatically show/hide all radios
 
     let radioFields = [];
     const allRadios = document.querySelectorAll("input[type=radio]");
@@ -30768,7 +30769,8 @@ const embedded_ecard_options_EmbeddedEcardOptionsDefaults = {
   headerText: "Send an Ecard notification of your gift",
   checkboxText: "Yes, I would like to send an ecard to announce my gift.",
   anchor: ".en__field--donationAmt",
-  placement: "afterend"
+  placement: "afterend",
+  requireInMemCheckbox: false
 };
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/embedded-ecard.js
 /**
@@ -30870,8 +30872,24 @@ class embedded_ecard_EmbeddedEcard {
   }
 
   addEventListeners() {
+    var _a;
+
     const sendEcardCheckbox = document.getElementById("en__field_embedded-ecard");
-    this.toggleEcardForm(sendEcardCheckbox.checked);
+
+    if (this.options.requireInMemCheckbox) {
+      const inMemoriamCheckbox = document.getElementById("en__field_transaction_inmem");
+      inMemoriamCheckbox === null || inMemoriamCheckbox === void 0 ? void 0 : inMemoriamCheckbox.addEventListener("change", e => {
+        const checkbox = e.target;
+
+        const _sendEcardCheckbox = document.getElementById("en__field_embedded-ecard");
+
+        this.toggleEcardForm(checkbox.checked && _sendEcardCheckbox.checked);
+      });
+      this.toggleEcardForm(((_a = inMemoriamCheckbox === null || inMemoriamCheckbox === void 0 ? void 0 : inMemoriamCheckbox.checked) !== null && _a !== void 0 ? _a : true) && sendEcardCheckbox.checked);
+    } else {
+      this.toggleEcardForm(sendEcardCheckbox.checked);
+    }
+
     sendEcardCheckbox === null || sendEcardCheckbox === void 0 ? void 0 : sendEcardCheckbox.addEventListener("change", e => {
       const checkbox = e.target;
       this.toggleEcardForm(checkbox.checked);
@@ -32197,7 +32215,7 @@ class preferred_payment_method_PreferredPaymentMethod {
 
 }
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/version.js
-const version_AppVersion = "0.23.2";
+const version_AppVersion = "0.23.3";
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
 
