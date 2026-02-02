@@ -1,15 +1,22 @@
-// import { Options, App, DonationFrequency, EnForm, OptInLadder, } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
 import {
   Options,
   App,
   DonationFrequency,
   EnForm,
   OptInLadder,
-} from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
+} from "@4site/engrid-scripts"; // Uses ENGrid via NPM
+// import {
+//   Options,
+//   App,
+//   DonationFrequency,
+//   EnForm,
+//   OptInLadder,
+// } from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
 import { XVerify } from "./scripts/xverify/xverify";
+import Shop from "./scripts/shop/Shop";
 // import { AnnualLimit } from "./scripts/annual-limit";
 
 const options: Options = {
@@ -65,6 +72,7 @@ const options: Options = {
     (<any>window).validateXverify = XVerify.validateXverify;
     // new AnnualLimit();
     new OptInLadder();
+    new Shop();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();
