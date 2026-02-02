@@ -1,9 +1,16 @@
-import { Options, App, DonationFrequency, EnForm } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
+import {
+  Options,
+  App,
+  DonationFrequency,
+  EnForm,
+  OptInLadder,
+} from "@4site/engrid-scripts"; // Uses ENGrid via NPM
 // import {
 //   Options,
 //   App,
 //   DonationFrequency,
 //   EnForm,
+//   OptInLadder,
 // } from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
@@ -38,6 +45,24 @@ const options: Options = {
     phone_date_field: "supporter.NOT_TAGGED_139",
     phone_status_field: "supporter.NOT_TAGGED_140",
   },
+  OptInLadder: {
+    iframeUrl:
+      "https://support.nwf.org/page/88894/data/1?chain&engrid_hide[body-headerOutside]=class&engrid_hide[body-banner]=class&engrid_hide[content-footer]=class&engrid_hide[page-backgroundImage]=class",
+    excludePageIDs: [
+      "87303",
+      "44240",
+      "44219",
+      "22541",
+      "22540",
+      "22538",
+      "22539",
+      "22463",
+      "22462",
+      "22461",
+      "22460",
+      "22325",
+    ],
+  },
   onLoad: () => {
     console.log("Starter Theme Loaded");
     customScript(DonationFrequency, App);
@@ -46,6 +71,7 @@ const options: Options = {
     }
     (<any>window).validateXverify = XVerify.validateXverify;
     // new AnnualLimit();
+    new OptInLadder();
     new Shop();
   },
   onValidate: () => {
