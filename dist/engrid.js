@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, February 17, 2026 @ 06:37:30 ET
+ *  Date: Tuesday, February 17, 2026 @ 07:01:36 ET
  *  By: michael
  *  ENGrid styles: v0.23.4
  *  ENGrid scripts: v0.23.7
@@ -25360,6 +25360,7 @@ class CwhApp {
     this.encrypter.decryptData(urlCartData).then(data => {
       this.cartData = data;
       sessionStorage.setItem("cwhSuccessUrl", this.cartData.successUrl);
+      sessionStorage.setItem("cwhTransactionId", this.cartData.transactionId.toString());
       this.setupPage().then(() => {
         engrid_ENGrid.setBodyData("cwh-app-ready", "true");
       });
@@ -25431,15 +25432,18 @@ class CwhApp {
 
   redirectToSuccessUrl() {
     let successUrlString = sessionStorage.getItem("cwhSuccessUrl");
+    let transactionId = sessionStorage.getItem("cwhTransactionId");
 
-    if (!successUrlString) {
-      this.logger.log("No success URL found in session storage");
+    if (!successUrlString || !transactionId) {
+      this.logger.log("No success URL or transaction ID found in session storage");
       return;
     }
 
     sessionStorage.removeItem("cwhSuccessUrl");
+    sessionStorage.removeItem("cwhTransactionId");
     const successUrl = new URL(successUrlString);
-    successUrl.searchParams.set("transactionId", window.pageJson?.transactionId?.toString());
+    successUrl.searchParams.set("transactionId", transactionId);
+    successUrl.searchParams.set("enTransactionId", window.pageJson?.transactionId?.toString());
     successUrl.searchParams.set("supporterId", window.pageJson?.supporterId?.toString());
     this.logger.log("Redirecting to success URL:", successUrl.toString());
     window.location.href = successUrl.href;

@@ -69,6 +69,10 @@ export default class CwhApp {
     this.encrypter.decryptData(urlCartData as string).then((data) => {
       this.cartData = data as CwhCartData;
       sessionStorage.setItem("cwhSuccessUrl", this.cartData.successUrl);
+      sessionStorage.setItem(
+        "cwhTransactionId",
+        this.cartData.transactionId.toString()
+      );
       this.setupPage().then(() => {
         ENGrid.setBodyData("cwh-app-ready", "true");
       });
@@ -144,14 +148,19 @@ export default class CwhApp {
 
   private redirectToSuccessUrl() {
     let successUrlString = sessionStorage.getItem("cwhSuccessUrl");
-    if (!successUrlString) {
-      this.logger.log("No success URL found in session storage");
+    let transactionId = sessionStorage.getItem("cwhTransactionId");
+    if (!successUrlString || !transactionId) {
+      this.logger.log(
+        "No success URL or transaction ID found in session storage"
+      );
       return;
     }
     sessionStorage.removeItem("cwhSuccessUrl");
+    sessionStorage.removeItem("cwhTransactionId");
     const successUrl = new URL(successUrlString);
+    successUrl.searchParams.set("transactionId", transactionId);
     successUrl.searchParams.set(
-      "transactionId",
+      "enTransactionId",
       window.pageJson?.transactionId?.toString()
     );
     successUrl.searchParams.set(
