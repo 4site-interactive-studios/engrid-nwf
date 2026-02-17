@@ -17,6 +17,7 @@ import { customScript } from "./scripts/main";
 import { FormSwitch } from "./scripts/form-switch/form-switch";
 import { XVerify } from "./scripts/xverify/xverify";
 import Shop from "./scripts/shop/Shop";
+import CwhApp from "./scripts/cwh/CwhApp";
 // import { AnnualLimit } from "./scripts/annual-limit";
 
 const options: Options = {
@@ -73,6 +74,7 @@ const options: Options = {
     // new AnnualLimit();
     new OptInLadder();
     new Shop();
+    new CwhApp();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();

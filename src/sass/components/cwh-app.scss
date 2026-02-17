@@ -1,0 +1,34 @@
+&:not([data-engrid-cwh-app-ready="true"]) {
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 173, 133, 0.2);
+    border-top-color: rgba(0, 173, 133, 0.8);
+    animation: cwh-app-loader 0.8s linear infinite;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+
+  .cwh-app {
+    position: relative;
+  }
+
+  .cwh-app > *:not(.content-header) {
+    opacity: 0;
+  }
+
+  @keyframes cwh-app-loader {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+}
