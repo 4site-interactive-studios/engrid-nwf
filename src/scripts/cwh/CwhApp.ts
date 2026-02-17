@@ -60,6 +60,7 @@ export default class CwhApp {
 
     if (typeof urlCartData !== "string") {
       this.logger.log("Cart data not found in URL or invalid");
+      document.querySelector(".cwh-back-button")?.remove();
       ENGrid.setBodyData("cwh-app-ready", "true");
       return;
     }

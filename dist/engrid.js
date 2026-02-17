@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, February 17, 2026 @ 07:01:36 ET
+ *  Date: Tuesday, February 17, 2026 @ 07:14:18 ET
  *  By: michael
  *  ENGrid styles: v0.23.4
  *  ENGrid scripts: v0.23.7
@@ -25352,6 +25352,7 @@ class CwhApp {
 
     if (typeof urlCartData !== "string") {
       this.logger.log("Cart data not found in URL or invalid");
+      document.querySelector(".cwh-back-button")?.remove();
       engrid_ENGrid.setBodyData("cwh-app-ready", "true");
       return;
     }
