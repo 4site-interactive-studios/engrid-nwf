@@ -46,6 +46,9 @@ export default class Shop {
   private discountValue: number = 0;
   private totalPrice: number = 0;
   private quantityOptionId: number = 90; // ID of the quantity option from Engaging Networks
+  private shouldCollectTax =
+    ENGrid.getPageNumber() === 1 &&
+    !!document.querySelector('input[name="en_txn10"]'); // Only collect tax if we're on the first page and the tax field is present
 
   constructor() {
     if (!this.shouldRun()) {
@@ -170,6 +173,7 @@ export default class Shop {
     // Create session storage entry on form submit to create TaxJar transaction on page 2
     this._form.onValidate.subscribe(() => {
       if (!this._form.validate) return;
+      if (!this.shouldCollectTax) return; // Don't make TaxJar transaction when not collecting tax
       const address = this.getShippingAddress();
       const transactionSessionData: TransactionSessionData = {
         address: {
@@ -200,6 +204,7 @@ export default class Shop {
         clearTimeout(addressChangeTimeout);
       }
       addressChangeTimeout = window.setTimeout(async () => {
+        if (!this.shouldCollectTax) return;
         const address = this.getShippingAddress();
         if (
           !address.country ||
@@ -427,13 +432,15 @@ export default class Shop {
     this.productPrice = this.getSelectedProductPrice();
     this.shippingPrice = this.getSelectedShippingPrice();
     this.discountValue = this.getDiscountValue();
-    const calculatedTax = await this.getCalculatedTax();
+    const calculatedTax = this.shouldCollectTax
+      ? await this.getCalculatedTax()
+      : 0;
     this.tax = calculatedTax === false ? 0 : calculatedTax;
     this.totalPrice =
       this.productPrice + this.shippingPrice + this.tax - this.discountValue;
     this.setPaymentValuesOnForm(this.totalPrice, this.tax);
-    // If tax calculation failed, keep disabled submit button
-    if (calculatedTax === false) {
+    // If tax calculation failed and required, keep disabled submit button
+    if (calculatedTax === false && this.shouldCollectTax) {
       this.logger.log("Tax calculation failed, keeping submit disabled");
       ENGrid.enableSubmit();
       document
@@ -634,7 +641,13 @@ export default class Shop {
       ".engrid__checkout-item--tax .engrid__checkout-item__cost span"
     ) as HTMLElement;
     if (taxAmountElement) {
-      taxAmountElement.innerText = `$${this.tax.toFixed(2)}`;
+      if (this.shouldCollectTax) {
+        taxAmountElement.innerText = `$${this.tax.toFixed(2)}`;
+      } else {
+        document
+          .querySelector(".engrid__checkout-item--tax")
+          ?.classList.add("hide");
+      }
     }
 
     const totalPriceElement = document.querySelector(
@@ -652,14 +665,16 @@ export default class Shop {
       true,
       true
     );
-    ENGrid.setFieldValue(
-      "en_txn10",
-      taxAmount.toFixed(2).toString(),
-      true,
-      true
-    );
     this.logger.log(`Payment amount set to $${totalPrice.toFixed(2)}`);
-    this.logger.log(`Tax amount set to $${taxAmount.toFixed(2)}`);
+    if (this.shouldCollectTax) {
+      ENGrid.setFieldValue(
+        "en_txn10",
+        taxAmount.toFixed(2).toString(),
+        true,
+        true
+      );
+      this.logger.log(`Tax amount set to $${taxAmount.toFixed(2)}`);
+    }
   }
 
   private getVariantQuantity(productVariantOptions: any) {
@@ -690,11 +705,17 @@ export default class Shop {
   }
 
   private createTaxjarTransaction() {
+    const rawTransactionsSessionData = sessionStorage.getItem(
+      "shopTransactionData"
+    );
+    if (!rawTransactionsSessionData) {
+      this.logger.log("No transaction data found in session storage");
+      return;
+    }
+
     let transactionSessionData: TransactionSessionData;
     try {
-      transactionSessionData = JSON.parse(
-        sessionStorage.getItem("shopTransactionData") || "{}"
-      );
+      transactionSessionData = JSON.parse(rawTransactionsSessionData || "{}");
     } catch (e) {
       this.logger.log(
         "Could not parse transaction data from session storage",
