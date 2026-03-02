@@ -30,20 +30,17 @@ export default class CwhApp {
     returnUrl: "https://cwh.nwf.org/checkout",
     successUrl: "https://cwh.nwf.org/success",
     transactionId: 12345,
-    certFee: 5,
-    productCost: 20,
-    donation: 7,
-    tax: 3,
+    externalRef: "30.00,WH25MSK,70.00,SI26VC2",
   };
   private testEncryptedPayload: string =
-    "pHF6vIM9LQcu4pkGNirZFRaI4fk7189ZxGdF5_NLat40z9IApDoYd2Da_bGZbksZwHxJEtDDRG4M-NmDjtaK7xX65d76l1VOukpq-X0E9GYbRuD08OP6oFMgG-dCuTRPdCa_5TR5QE28SjFQIumcaopj5WsRLylZLmU7Yz9kKfPf0-nprLEsIsnivlf-_7vjrTQHNwtumaI8bthrJpZ8_BBrlsybxkXF--lQPG9jrPVAblvPowcdT6GukcCcM6sq5wGXDwEBDoA1ASk1A1tucnDm3W2fq03O7gsc3LRNQWWW30OfkIsA3lEuPhA7ubbR18uzU0ibKsrznZBej2xl8BnfTKo6BSyjSx2MXtSTSRn3BqiUYYGMVX_QzRuSY-nT3FKxWUTw-OWdA4eypRVBRBFnrkShyNESy-zx_QWM0he13wfwQ2LksrxTYg4QRlpaI3jbKBb18QDjdz2A6YOd98xCEr59cMQhWv3d9nezm1nPfd1EENExwrbBrUKDO7l-ccIeKfzad7LJCtJvkXMmf7g";
+    "R90vSDfbNDVzytuRvzbcHmzhdfFqO3HLfyOCYrNemAdytYLN52zhXuKDWaCM0lO1zJCLNH2LXDX6B-0idrPd74lu4rEFSp_RjrDVPPcKYxEJrGFCMfEx518d8zJhObWz83iL-_wa0Hf09fjoTw_zskdwORgrnVk9kW_MQuuhmi0lyz5DOq7fY2c20TdRdi75uM1t3LxRzptoB2Ffc4kwihykX4r2ZO3jkfYJcjK98nuIgv3RDrOitQ2R7Z5RDfElwI5f7DMZQJVEaCYkg28DYDfKECZrDSkRty5yCvX0bob0BBDP2bwc0f5s1AN3DLHVB3mMsr5nP1IRtsA19VF7jnUUq729Y-gkfiKZKZ5Hg5wl50kMDlHRdOgCJ6fFPJJh3onFndRT2rpe2ksPz4-1sfIKte5Wg9AILhcJeE-N8VrBLx8JsHOKDu1UjiCAPrkXH2eo6kA7nMxHf0Pd2kJgnbpH5nSii-cpj_vmxH-4aFtKFpYDKHM3v1aVYFgjLqDC9zjHOz50fS2oX_8";
 
   constructor() {
     if (!this.shouldRun()) return;
 
-    // this.encrypter.encryptJson(this.testPayload).then((encrypted) => {
-    //   this.logger.log("Test encrypted payload:", encrypted);
-    // });
+    this.encrypter.encryptJson(this.testPayload).then((encrypted) => {
+      this.logger.log("Test encrypted payload:", encrypted);
+    });
 
     // If we're on the last page, just redirect to the success URL.
     if (this.onLastPage()) {
@@ -104,10 +101,7 @@ export default class CwhApp {
       "supporter.postcode": "zip",
       "supporter.country": "country",
       "transaction.donationAmt": "totalAmount",
-      en_txn7: "productCost",
-      en_txn8: "donation",
-      en_txn9: "certFee",
-      en_txn10: "tax",
+      en_txn8: "externalRef",
     };
 
     // Delay to account for scripts that overwrite country/state fields on load.

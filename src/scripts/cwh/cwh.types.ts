@@ -12,8 +12,5 @@ export type CwhCartData = {
   returnUrl: string;
   successUrl: string;
   transactionId: number | string;
-  certFee: number;
-  productCost: number;
-  donation: number;
-  tax: number;
+  externalRef?: string;
 };
