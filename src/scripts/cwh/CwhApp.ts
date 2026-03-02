@@ -123,6 +123,8 @@ export default class CwhApp {
     new FastFormFill();
     new WelcomeBack();
     RememberMeEvents.getInstance().dispatchLoad(true);
+
+    document.querySelector(".engrid-welcome-back")?.classList.add("hide");
   }
 
   private addBackButton() {

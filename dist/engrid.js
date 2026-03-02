@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 2, 2026 @ 08:11:35 ET
+ *  Date: Monday, March 2, 2026 @ 08:21:36 ET
  *  By: michael
  *  ENGrid styles: v0.23.4
  *  ENGrid scripts: v0.23.7
@@ -25409,6 +25409,7 @@ class CwhApp {
     new FastFormFill();
     new WelcomeBack();
     RememberMeEvents.getInstance().dispatchLoad(true);
+    document.querySelector(".engrid-welcome-back")?.classList.add("hide");
   }
 
   addBackButton() {
