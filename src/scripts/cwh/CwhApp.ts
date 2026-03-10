@@ -132,7 +132,9 @@ export default class CwhApp {
       ".cwh-back-button"
     ) as HTMLButtonElement;
     if (!backButton) return;
-    backButton.setAttribute("href", this.cartData.returnUrl);
+    const returnUrl = new URL(this.cartData.returnUrl);
+    returnUrl.searchParams.set("cart", this.urlParams.get("cart") || "");
+    backButton.setAttribute("href", returnUrl.href);
   }
 
   private async delay(number: number) {
@@ -152,19 +154,21 @@ export default class CwhApp {
       );
       return;
     }
+
     sessionStorage.removeItem("cwhSuccessUrl");
     sessionStorage.removeItem("cwhTransactionId");
+
     const successUrl = new URL(successUrlString);
-    successUrl.searchParams.set("transactionId", transactionId);
-    successUrl.searchParams.set(
-      "enTransactionId",
-      window.pageJson?.transactionId?.toString()
-    );
-    successUrl.searchParams.set(
-      "supporterId",
-      window.pageJson?.supporterId?.toString()
-    );
-    this.logger.log("Redirecting to success URL:", successUrl.toString());
-    window.location.href = successUrl.href;
+
+    const returnPayload = {
+      transactionId: transactionId,
+      enTransactionId: window.pageJson?.transactionId,
+      supporterId: window.pageJson?.supporterId,
+    };
+
+    this.encrypter.encryptJson(returnPayload).then((encryptedData) => {
+      successUrl.searchParams.set("payload", encryptedData);
+      window.location.href = successUrl.href;
+    });
   }
 }

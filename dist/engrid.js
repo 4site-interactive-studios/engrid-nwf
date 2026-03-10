@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 2, 2026 @ 08:21:36 ET
+ *  Date: Tuesday, March 10, 2026 @ 12:36:27 ET
  *  By: michael
  *  ENGrid styles: v0.23.4
  *  ENGrid scripts: v0.23.7
@@ -25415,7 +25415,9 @@ class CwhApp {
   addBackButton() {
     const backButton = document.querySelector(".cwh-back-button");
     if (!backButton) return;
-    backButton.setAttribute("href", this.cartData.returnUrl);
+    const returnUrl = new URL(this.cartData.returnUrl);
+    returnUrl.searchParams.set("cart", this.urlParams.get("cart") || "");
+    backButton.setAttribute("href", returnUrl.href);
   }
 
   async delay(number) {
@@ -25438,11 +25440,15 @@ class CwhApp {
     sessionStorage.removeItem("cwhSuccessUrl");
     sessionStorage.removeItem("cwhTransactionId");
     const successUrl = new URL(successUrlString);
-    successUrl.searchParams.set("transactionId", transactionId);
-    successUrl.searchParams.set("enTransactionId", window.pageJson?.transactionId?.toString());
-    successUrl.searchParams.set("supporterId", window.pageJson?.supporterId?.toString());
-    this.logger.log("Redirecting to success URL:", successUrl.toString());
-    window.location.href = successUrl.href;
+    const returnPayload = {
+      transactionId: transactionId,
+      enTransactionId: window.pageJson?.transactionId,
+      supporterId: window.pageJson?.supporterId
+    };
+    this.encrypter.encryptJson(returnPayload).then(encryptedData => {
+      successUrl.searchParams.set("payload", encryptedData);
+      window.location.href = successUrl.href;
+    });
   }
 
 }
