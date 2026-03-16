@@ -87,6 +87,8 @@ export default class CwhApp {
     await this.setFormFieldValues();
     this.rerunWelcomeBack();
     this.addBackButton();
+    this.fixShippingField();
+    this.handleFormErrors();
   }
 
   private async setFormFieldValues() {
@@ -132,9 +134,7 @@ export default class CwhApp {
       ".cwh-back-button"
     ) as HTMLButtonElement;
     if (!backButton) return;
-    const returnUrl = new URL(this.cartData.returnUrl);
-    returnUrl.searchParams.set("cart", this.urlParams.get("cart") || "");
-    backButton.setAttribute("href", returnUrl.href);
+    backButton.setAttribute("href", this.cartData.returnUrl);
   }
 
   private async delay(number: number) {
@@ -171,4 +171,47 @@ export default class CwhApp {
       window.location.href = successUrl.href;
     });
   }
+
+  //Shipping Field - Fix for EN's functionality that sometimes fails.
+  private fixShippingField() {
+    const shippingField = ENGrid.getField(
+      "transaction.shipenabled"
+    ) as HTMLInputElement;
+    if (shippingField) {
+      this.toggleShippingAddressFields(shippingField.checked);
+      shippingField.addEventListener("change", (event) => {
+        const target = event.target as HTMLInputElement;
+        this.toggleShippingAddressFields(target.checked);
+      });
+    }
+  }
+
+  // Toggle the visibility of shipping address fields
+  private toggleShippingAddressFields(enabled: boolean) {
+    const fields = [
+      "shipemail",
+      "shiptitle",
+      "shipfname",
+      "shiplname",
+      "shipadd1",
+      "shipadd2",
+      "shipcity",
+      "shipregion",
+      "shippostcode",
+      "shipcountry",
+      "shipnotes",
+    ];
+    this.logger.log(
+      `Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`
+    );
+    fields.forEach((fieldName) => {
+      if (enabled) {
+        window.EngagingNetworks.require._defined.enjs.showField(fieldName);
+      } else {
+        window.EngagingNetworks.require._defined.enjs.hideField(fieldName);
+      }
+    });
+  }
+
+  private handleFormErrors() {}
 }

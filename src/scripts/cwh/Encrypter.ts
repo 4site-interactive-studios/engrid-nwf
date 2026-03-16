@@ -53,27 +53,32 @@ export default class Encrypter {
       this.encryptionKey = await this.importKey(this.key);
     }
 
-    // Convert URL-safe Base64 → regular Base64
-    const b64 =
-      data.replace(/-/g, "+").replace(/_/g, "/") +
-      "===".slice((data.length + 3) % 4);
+    try {
+      // Convert URL-safe Base64 → regular Base64
+      const b64 =
+        data.replace(/-/g, "+").replace(/_/g, "/") +
+        "===".slice((data.length + 3) % 4);
 
-    const combined = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      const combined = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 
-    const nonce = combined.slice(0, 12);
-    const tag = combined.slice(combined.length - 16);
-    const ciphertext = combined.slice(12, combined.length - 16);
+      const nonce = combined.slice(0, 12);
+      const tag = combined.slice(combined.length - 16);
+      const ciphertext = combined.slice(12, combined.length - 16);
 
-    const ctAndTag = new Uint8Array(ciphertext.length + tag.length);
-    ctAndTag.set(ciphertext);
-    ctAndTag.set(tag, ciphertext.length);
+      const ctAndTag = new Uint8Array(ciphertext.length + tag.length);
+      ctAndTag.set(ciphertext);
+      ctAndTag.set(tag, ciphertext.length);
 
-    const plaintext = await crypto.subtle.decrypt(
-      { name: "AES-GCM", iv: nonce },
-      this.encryptionKey,
-      ctAndTag
-    );
+      const plaintext = await crypto.subtle.decrypt(
+        { name: "AES-GCM", iv: nonce },
+        this.encryptionKey,
+        ctAndTag
+      );
 
-    return JSON.parse(new TextDecoder().decode(plaintext));
+      return JSON.parse(new TextDecoder().decode(plaintext));
+    } catch (error) {
+      console.error("Decryption failed:", error);
+      throw new Error("Invalid encrypted data");
+    }
   }
 }

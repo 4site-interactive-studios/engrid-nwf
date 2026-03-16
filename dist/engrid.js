@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, March 10, 2026 @ 12:36:27 ET
+ *  Date: Monday, March 16, 2026 @ 10:19:58 ET
  *  By: michael
  *  ENGrid styles: v0.23.4
  *  ENGrid scripts: v0.23.7
@@ -25276,22 +25276,27 @@ class Encrypter {
   async decryptData(data) {
     if (!this.encryptionKey) {
       this.encryptionKey = await this.importKey(this.key);
-    } // Convert URL-safe Base64 → regular Base64
+    }
 
-
-    const b64 = data.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((data.length + 3) % 4);
-    const combined = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-    const nonce = combined.slice(0, 12);
-    const tag = combined.slice(combined.length - 16);
-    const ciphertext = combined.slice(12, combined.length - 16);
-    const ctAndTag = new Uint8Array(ciphertext.length + tag.length);
-    ctAndTag.set(ciphertext);
-    ctAndTag.set(tag, ciphertext.length);
-    const plaintext = await crypto.subtle.decrypt({
-      name: "AES-GCM",
-      iv: nonce
-    }, this.encryptionKey, ctAndTag);
-    return JSON.parse(new TextDecoder().decode(plaintext));
+    try {
+      // Convert URL-safe Base64 → regular Base64
+      const b64 = data.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((data.length + 3) % 4);
+      const combined = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+      const nonce = combined.slice(0, 12);
+      const tag = combined.slice(combined.length - 16);
+      const ciphertext = combined.slice(12, combined.length - 16);
+      const ctAndTag = new Uint8Array(ciphertext.length + tag.length);
+      ctAndTag.set(ciphertext);
+      ctAndTag.set(tag, ciphertext.length);
+      const plaintext = await crypto.subtle.decrypt({
+        name: "AES-GCM",
+        iv: nonce
+      }, this.encryptionKey, ctAndTag);
+      return JSON.parse(new TextDecoder().decode(plaintext));
+    } catch (error) {
+      console.error("Decryption failed:", error);
+      throw new Error("Invalid encrypted data");
+    }
   }
 
 }
@@ -25375,6 +25380,8 @@ class CwhApp {
     await this.setFormFieldValues();
     this.rerunWelcomeBack();
     this.addBackButton();
+    this.fixShippingField();
+    this.handleFormErrors();
   }
 
   async setFormFieldValues() {
@@ -25415,9 +25422,7 @@ class CwhApp {
   addBackButton() {
     const backButton = document.querySelector(".cwh-back-button");
     if (!backButton) return;
-    const returnUrl = new URL(this.cartData.returnUrl);
-    returnUrl.searchParams.set("cart", this.urlParams.get("cart") || "");
-    backButton.setAttribute("href", returnUrl.href);
+    backButton.setAttribute("href", this.cartData.returnUrl);
   }
 
   async delay(number) {
@@ -25449,7 +25454,35 @@ class CwhApp {
       successUrl.searchParams.set("payload", encryptedData);
       window.location.href = successUrl.href;
     });
+  } //Shipping Field - Fix for EN's functionality that sometimes fails.
+
+
+  fixShippingField() {
+    const shippingField = engrid_ENGrid.getField("transaction.shipenabled");
+
+    if (shippingField) {
+      this.toggleShippingAddressFields(shippingField.checked);
+      shippingField.addEventListener("change", event => {
+        const target = event.target;
+        this.toggleShippingAddressFields(target.checked);
+      });
+    }
+  } // Toggle the visibility of shipping address fields
+
+
+  toggleShippingAddressFields(enabled) {
+    const fields = ["shipemail", "shiptitle", "shipfname", "shiplname", "shipadd1", "shipadd2", "shipcity", "shipregion", "shippostcode", "shipcountry", "shipnotes"];
+    this.logger.log(`Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`);
+    fields.forEach(fieldName => {
+      if (enabled) {
+        window.EngagingNetworks.require._defined.enjs.showField(fieldName);
+      } else {
+        window.EngagingNetworks.require._defined.enjs.hideField(fieldName);
+      }
+    });
   }
+
+  handleFormErrors() {}
 
 }
 ;// CONCATENATED MODULE: ./src/index.ts
