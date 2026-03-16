@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 16, 2026 @ 11:33:09 ET
+ *  Date: Monday, March 16, 2026 @ 11:42:06 ET
  *  By: michael
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
@@ -24440,9 +24440,9 @@ class XVerify {
       if (this.form.submit) {
         this.logger.log("onSubmit: Validating Email");
         this.form.submit = this.validateSubmit();
-        engrid_ENGrid.enableSubmit();
 
         if (!this.form.submit) {
+          engrid_ENGrid.enableSubmit();
           this.emailField.scrollIntoView({
             behavior: "smooth",
             block: "center"

@@ -94,8 +94,8 @@ export class XVerify {
       if (this.form.submit) {
         this.logger.log("onSubmit: Validating Email");
         this.form.submit = this.validateSubmit();
-        ENGrid.enableSubmit();
         if (!this.form.submit) {
+          ENGrid.enableSubmit();
           this.emailField.scrollIntoView({
             behavior: "smooth",
             block: "center",
