@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 9, 2026 @ 13:36:45 ET
- *  By: fernando
+ *  Date: Monday, March 16, 2026 @ 11:42:06 ET
+ *  By: michael
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
  *
@@ -24436,15 +24436,24 @@ class XVerify {
       return;
     }
 
-    this.form.onValidate.subscribe(() => {
-      if (this.form.validate) {
-        this.logger.log("onValidate");
-        this.form.validate = this.validateSubmit();
+    this.form.onSubmit.subscribe(() => {
+      if (this.form.submit) {
+        this.logger.log("onSubmit: Validating Email");
+        this.form.submit = this.validateSubmit();
+
+        if (!this.form.submit) {
+          engrid_ENGrid.enableSubmit();
+          this.emailField.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
       }
     });
     "change paste".split(" ").forEach(e => {
       this.emailField.addEventListener(e, event => {
-        // Run after 100ms
+        if (!this.emailField.value) return; // Run after 100ms
+
         setTimeout(() => {
           this.validateEmail(this.emailField.value);
         }, 100);
