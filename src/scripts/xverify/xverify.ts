@@ -105,6 +105,7 @@ export class XVerify {
     });
     "change paste".split(" ").forEach((e) => {
       this.emailField.addEventListener(e, (event) => {
+        if (!this.emailField.value) return;
         // Run after 100ms
         setTimeout(() => {
           this.validateEmail(this.emailField.value);
