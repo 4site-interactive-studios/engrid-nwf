@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 16, 2026 @ 12:01:33 ET
+ *  Date: Monday, March 16, 2026 @ 12:06:48 ET
  *  By: michael
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
@@ -25538,7 +25538,6 @@ class CwhApp {
     this.rerunWelcomeBack();
     this.addBackButton();
     this.fixShippingField();
-    this.handleFormErrors();
   }
 
   async setFormFieldValues() {
@@ -25638,8 +25637,6 @@ class CwhApp {
       }
     });
   }
-
-  handleFormErrors() {}
 
 }
 ;// CONCATENATED MODULE: ./src/index.ts

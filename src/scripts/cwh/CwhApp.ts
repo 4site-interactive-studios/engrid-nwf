@@ -88,7 +88,6 @@ export default class CwhApp {
     this.rerunWelcomeBack();
     this.addBackButton();
     this.fixShippingField();
-    this.handleFormErrors();
   }
 
   private async setFormFieldValues() {
@@ -212,6 +211,4 @@ export default class CwhApp {
       }
     });
   }
-
-  private handleFormErrors() {}
 }
