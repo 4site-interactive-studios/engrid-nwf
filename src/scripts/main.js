@@ -406,4 +406,6 @@ export const customScript = function (DonationFrequency, App) {
       contactMessage.insertAdjacentElement("beforebegin", messageLabel);
     }
   }
+
+  App.setBodyData("client-js-loading", "finished");
 };

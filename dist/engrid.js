@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 16, 2026 @ 11:42:06 ET
+ *  Date: Monday, March 16, 2026 @ 11:58:03 ET
  *  By: michael
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
@@ -23999,6 +23999,8 @@ const customScript = function (DonationFrequency, App) {
       contactMessage.insertAdjacentElement("beforebegin", messageLabel);
     }
   }
+
+  App.setBodyData("client-js-loading", "finished");
 };
 ;// CONCATENATED MODULE: ./src/scripts/form-switch/crumbs.js
 const crumbs = {
