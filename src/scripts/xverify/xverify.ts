@@ -90,14 +90,22 @@ export class XVerify {
       this.logger.log("X-Verify is Disabled for Autofilled Email Address");
       return;
     }
-    this.form.onValidate.subscribe(() => {
-      if (this.form.validate) {
-        this.logger.log("onValidate");
-        this.form.validate = this.validateSubmit();
+    this.form.onSubmit.subscribe(() => {
+      if (this.form.submit) {
+        this.logger.log("onSubmit: Validating Email");
+        this.form.submit = this.validateSubmit();
+        if (!this.form.submit) {
+          ENGrid.enableSubmit();
+          this.emailField.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
       }
     });
     "change paste".split(" ").forEach((e) => {
       this.emailField.addEventListener(e, (event) => {
+        if (!this.emailField.value) return;
         // Run after 100ms
         setTimeout(() => {
           this.validateEmail(this.emailField.value);
