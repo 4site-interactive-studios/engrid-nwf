@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 16, 2026 @ 11:58:03 ET
- *  By: michael
+ *  Date: Wednesday, March 18, 2026 @ 18:16:44 ET
+ *  By: fernando
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
  *
@@ -9003,19 +9003,27 @@ body[data-engrid-debug]:before{
   --recurring-frequency__button_count:2;
   --recurring-frequency__button_padding:1.5rem 1rem;
   --recurring-frequency__button_border-radius:0;
-  --recurring-frequency__button_background-color_checked:var(--button_background-color_checked);
-  --recurring-frequency__button_border-color_checked:var(--button_border-color);
+  --recurring-frequency__button_background-color_checked:var(
+    --button_background-color_checked
+  );
+  --recurring-frequency__button_border-color_checked:var(
+    --button_border-color
+  );
   --recurring-frequency__button_text-transform:uppercase;
   --recurring-frequency__button_font-weight:700;
   --donation-amount__button_count:3;
   --donation-amount__button_font-size:2.25rem;
-  --donation-amount__button_background-color_checked:var(--button_background-color_checked);
+  --donation-amount__button_background-color_checked:var(
+    --button_background-color_checked
+  );
   --donation-amount__button_border-color_checked:var(--button_border-color);
   --donation-amount__button_padding:1rem 0.25rem;
   --donation-amount__button_font-weight:600;
   --premium__image_max-height:100px;
   --give-by-select__button_count:1;
-  --give-by-select__button_background-color_checked:var(--button_background-color_checked);
+  --give-by-select__button_background-color_checked:var(
+    --button_background-color_checked
+  );
   --give-by-select__button_border-color_checked:var(--button_border-color);
   --submit__button_color:#fff;
   --submit__button_color_hover:#fff;
@@ -9534,6 +9542,9 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=nwf2] .payment-information-header>div svg{
   margin-right:10px;
+}
+[data-engrid-theme=nwf2] [data-engrid-embedded=thank-you-page-donation] #onetrust-consent-sdk{
+  display:none;
 }
 [data-engrid-theme=nwf2] .en__component--dd360confirmation{
   margin:30px 0;
