@@ -16,7 +16,7 @@
 
   // TYPOGRAPHY DEFAULT
   --default_font-family: "Fira Sans", -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Helvetica, Arial, sans-serif;
+    "Segoe UI", Helvetica, Arial, sans-serif;
   --default_color: var(--color_primary_accent);
   --default_font-size: var(--root_font-size);
   // --default_font-weight: initial;
@@ -445,7 +445,7 @@
 
   &[class*="validationFail"] {
     margin-bottom: calc(
-            var(--fields_spacing-block) * 2
+      var(--fields_spacing-block) * 2
     ); // Give a little breathing room when a field has an error
   }
 
@@ -1653,5 +1653,10 @@
         height: 72px;
       }
     }
+  }
+}
+[data-engrid-embedded="thank-you-page-donation"] {
+  #onetrust-consent-sdk {
+    display: none;
   }
 }
