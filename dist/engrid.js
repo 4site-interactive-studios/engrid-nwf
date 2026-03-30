@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, March 18, 2026 @ 21:07:43 ET
- *  By: fernando
+ *  Date: Monday, March 30, 2026 @ 12:41:43 ET
+ *  By: michael
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
  *
@@ -25385,6 +25385,260 @@ class Shop {
   }
 
 }
+;// CONCATENATED MODULE: ./src/scripts/cwh/Encrypter.ts
+
+class Encrypter {
+  constructor(key) {
+    _defineProperty(this, "key", void 0);
+
+    _defineProperty(this, "encryptionKey", null);
+
+    this.key = key;
+  }
+
+  async importKey(key) {
+    const raw = Uint8Array.from(atob(key), c => c.charCodeAt(0));
+    return crypto.subtle.importKey("raw", raw, {
+      name: "AES-GCM"
+    }, false, ["encrypt", "decrypt"]);
+  } // Encrypts an object into a "URL-safe" Base64-encoded string
+
+
+  async encryptJson(object) {
+    if (!this.encryptionKey) {
+      this.encryptionKey = await this.importKey(this.key);
+    }
+
+    const plaintext = new TextEncoder().encode(JSON.stringify(object)); // Generate a random 12-byte nonce (IV)
+
+    const nonce = crypto.getRandomValues(new Uint8Array(12)); // Encrypt using AES-GCM
+
+    const ciphertextBuffer = await crypto.subtle.encrypt({
+      name: "AES-GCM",
+      iv: nonce
+    }, this.encryptionKey, plaintext); // ciphertextBuffer includes the tag at the end automatically
+
+    const ciphertext = new Uint8Array(ciphertextBuffer); // Combine nonce + ciphertext
+
+    const combined = new Uint8Array(nonce.length + ciphertext.length);
+    combined.set(nonce, 0);
+    combined.set(ciphertext, nonce.length); // Base64-url encode
+
+    let b64 = btoa(String.fromCharCode(...combined));
+    b64 = b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    return b64;
+  } // Decrypts "URL-safe" Base64-encoded string back into an object
+
+
+  async decryptData(data) {
+    if (!this.encryptionKey) {
+      this.encryptionKey = await this.importKey(this.key);
+    }
+
+    try {
+      // Convert URL-safe Base64 → regular Base64
+      const b64 = data.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((data.length + 3) % 4);
+      const combined = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+      const nonce = combined.slice(0, 12);
+      const tag = combined.slice(combined.length - 16);
+      const ciphertext = combined.slice(12, combined.length - 16);
+      const ctAndTag = new Uint8Array(ciphertext.length + tag.length);
+      ctAndTag.set(ciphertext);
+      ctAndTag.set(tag, ciphertext.length);
+      const plaintext = await crypto.subtle.decrypt({
+        name: "AES-GCM",
+        iv: nonce
+      }, this.encryptionKey, ctAndTag);
+      return JSON.parse(new TextDecoder().decode(plaintext));
+    } catch (error) {
+      console.error("Decryption failed:", error);
+      throw new Error("Invalid encrypted data");
+    }
+  }
+
+}
+;// CONCATENATED MODULE: ./src/scripts/cwh/CwhApp.ts
+
+
+
+class CwhApp {
+  constructor() {
+    _defineProperty(this, "key", "u7+3LJpA3p7nFz5h9S1bVf1HQG/eLkV7+Xr5Ch3i2gU=");
+
+    _defineProperty(this, "logger", new EngridLogger("CWH"));
+
+    _defineProperty(this, "encrypter", new Encrypter(this.key));
+
+    _defineProperty(this, "cartData", {});
+
+    _defineProperty(this, "urlParams", new URLSearchParams(window.location.search));
+
+    _defineProperty(this, "testPayload", {
+      email: "michaelt@4sitestudios.com",
+      firstName: "Michael",
+      lastName: "Thomas",
+      address1: "3431 14th St NW Ste 1",
+      address2: "Suite 1",
+      city: "Washington",
+      region: "DC",
+      zip: "20010",
+      country: "US",
+      totalAmount: 35,
+      returnUrl: "https://cwh.nwf.org/checkout",
+      successUrl: "https://cwh.nwf.org/success",
+      transactionId: 12345,
+      externalRef: "30.00,WH25MSK,70.00,SI26VC2"
+    });
+
+    _defineProperty(this, "testEncryptedPayload", "R90vSDfbNDVzytuRvzbcHmzhdfFqO3HLfyOCYrNemAdytYLN52zhXuKDWaCM0lO1zJCLNH2LXDX6B-0idrPd74lu4rEFSp_RjrDVPPcKYxEJrGFCMfEx518d8zJhObWz83iL-_wa0Hf09fjoTw_zskdwORgrnVk9kW_MQuuhmi0lyz5DOq7fY2c20TdRdi75uM1t3LxRzptoB2Ffc4kwihykX4r2ZO3jkfYJcjK98nuIgv3RDrOitQ2R7Z5RDfElwI5f7DMZQJVEaCYkg28DYDfKECZrDSkRty5yCvX0bob0BBDP2bwc0f5s1AN3DLHVB3mMsr5nP1IRtsA19VF7jnUUq729Y-gkfiKZKZ5Hg5wl50kMDlHRdOgCJ6fFPJJh3onFndRT2rpe2ksPz4-1sfIKte5Wg9AILhcJeE-N8VrBLx8JsHOKDu1UjiCAPrkXH2eo6kA7nMxHf0Pd2kJgnbpH5nSii-cpj_vmxH-4aFtKFpYDKHM3v1aVYFgjLqDC9zjHOz50fS2oX_8");
+
+    if (!this.shouldRun()) return;
+    this.encrypter.encryptJson(this.testPayload).then(encrypted => {
+      this.logger.log("Test encrypted payload:", encrypted);
+    }); // If we're on the last page, just redirect to the success URL.
+
+    if (this.onLastPage()) {
+      this.redirectToSuccessUrl();
+      return;
+    }
+
+    let urlCartData = this.urlParams.get("cart");
+
+    if (this.urlParams.get("test") === "true") {
+      this.logger.warn("Test mode enabled - using hardcoded encrypted payload");
+      urlCartData = this.testEncryptedPayload;
+    }
+
+    if (typeof urlCartData !== "string") {
+      this.logger.log("Cart data not found in URL or invalid");
+      document.querySelector(".cwh-back-button")?.remove();
+      engrid_ENGrid.setBodyData("cwh-app-ready", "true");
+      return;
+    }
+
+    this.logger.log("Encrypted cart data found in URL:", urlCartData);
+    this.encrypter.decryptData(urlCartData).then(data => {
+      this.cartData = data;
+      sessionStorage.setItem("cwhSuccessUrl", this.cartData.successUrl);
+      sessionStorage.setItem("cwhTransactionId", this.cartData.transactionId.toString());
+      this.setupPage().then(() => {
+        engrid_ENGrid.setBodyData("cwh-app-ready", "true");
+      });
+    });
+  }
+
+  shouldRun() {
+    return !!document.querySelector(".cwh-app");
+  }
+
+  async setupPage() {
+    if (!this.cartData) return;
+    this.logger.log("Decrypted cart data:", this.cartData);
+    await this.setFormFieldValues();
+    this.rerunWelcomeBack();
+    this.addBackButton();
+    this.fixShippingField();
+  }
+
+  async setFormFieldValues() {
+    const fieldsMapping = {
+      "supporter.emailAddress": "email",
+      "supporter.firstName": "firstName",
+      "supporter.lastName": "lastName",
+      "supporter.address1": "address1",
+      "supporter.address2": "address2",
+      "supporter.city": "city",
+      "supporter.region": "region",
+      "supporter.postcode": "zip",
+      "supporter.country": "country",
+      "transaction.donationAmt": "totalAmount",
+      en_txn8: "externalRef"
+    }; // Delay to account for scripts that overwrite country/state fields on load.
+
+    await this.delay(1000);
+
+    for (const [selector, dataKey] of Object.entries(fieldsMapping)) {
+      engrid_ENGrid.setFieldValue(selector, this.cartData[dataKey] || "", true, true);
+    }
+
+    this.logger.log("Form field values set");
+  } // Since WelcomeBack runs on initial page load but this script is running later
+  // remove its components and run everything again.
+
+
+  rerunWelcomeBack() {
+    document.querySelector(".engrid-welcome-back")?.remove();
+    document.querySelector(".engrid-personal-details-summary")?.remove();
+    new FastFormFill();
+    new WelcomeBack();
+    RememberMeEvents.getInstance().dispatchLoad(true);
+    document.querySelector(".engrid-welcome-back")?.classList.add("hide");
+  }
+
+  addBackButton() {
+    const backButton = document.querySelector(".cwh-back-button");
+    if (!backButton) return;
+    backButton.setAttribute("href", this.cartData.returnUrl);
+  }
+
+  async delay(number) {
+    return new Promise(resolve => setTimeout(resolve, number));
+  }
+
+  onLastPage() {
+    return engrid_ENGrid.getPageNumber() === engrid_ENGrid.getPageCount();
+  }
+
+  redirectToSuccessUrl() {
+    let successUrlString = sessionStorage.getItem("cwhSuccessUrl");
+    let transactionId = sessionStorage.getItem("cwhTransactionId");
+
+    if (!successUrlString || !transactionId) {
+      this.logger.log("No success URL or transaction ID found in session storage");
+      return;
+    }
+
+    sessionStorage.removeItem("cwhSuccessUrl");
+    sessionStorage.removeItem("cwhTransactionId");
+    const successUrl = new URL(successUrlString);
+    const returnPayload = {
+      transactionId: transactionId,
+      enTransactionId: window.pageJson?.transactionId,
+      supporterId: window.pageJson?.supporterId
+    };
+    this.encrypter.encryptJson(returnPayload).then(encryptedData => {
+      successUrl.searchParams.set("payload", encryptedData);
+      window.location.href = successUrl.href;
+    });
+  } //Shipping Field - Fix for EN's functionality that sometimes fails.
+
+
+  fixShippingField() {
+    const shippingField = engrid_ENGrid.getField("transaction.shipenabled");
+
+    if (shippingField) {
+      this.toggleShippingAddressFields(shippingField.checked);
+      shippingField.addEventListener("change", event => {
+        const target = event.target;
+        this.toggleShippingAddressFields(target.checked);
+      });
+    }
+  } // Toggle the visibility of shipping address fields
+
+
+  toggleShippingAddressFields(enabled) {
+    const fields = ["shipemail", "shiptitle", "shipfname", "shiplname", "shipadd1", "shipadd2", "shipcity", "shipregion", "shippostcode", "shipcountry", "shipnotes"];
+    this.logger.log(`Toggling shipping fields to ${enabled ? "enabled" : "disabled"}`);
+    fields.forEach(fieldName => {
+      if (enabled) {
+        window.EngagingNetworks.require._defined.enjs.showField(fieldName);
+      } else {
+        window.EngagingNetworks.require._defined.enjs.hideField(fieldName);
+      }
+    });
+  }
+
+}
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM
 // import {
@@ -25394,6 +25648,7 @@ class Shop {
 //   EnForm,
 //   OptInLadder,
 // } from "../../engrid/packages/scripts"; // Uses ENGrid via Visual Studio Workspace
+
 
 
 
@@ -25443,6 +25698,7 @@ const options = {
 
     new OptInLadder();
     new Shop();
+    new CwhApp();
   },
   onValidate: () => {
     const paymentType = App.getPaymentType();
