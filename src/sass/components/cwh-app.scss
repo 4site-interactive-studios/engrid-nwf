@@ -1,4 +1,4 @@
-&:not([data-engrid-cwh-app-ready="true"]):not(#en__pagebuilder) {
+&:not([data-engrid-cwh-app-ready="true"]):not(#en__pagebuilder):has(.cwh-app) {
   position: relative;
   overflow: hidden;
 
