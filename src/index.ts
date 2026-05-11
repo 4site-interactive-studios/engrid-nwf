@@ -19,6 +19,16 @@ import { XVerify } from "./scripts/xverify/xverify";
 import Shop from "./scripts/shop/Shop";
 import CwhApp from "./scripts/cwh/CwhApp";
 // import { AnnualLimit } from "./scripts/annual-limit";
+import * as Sentry from "@sentry/browser";
+
+Sentry.init({
+  dsn: "https://e40b25242c611ff23ac57c8fc28ed573@o4511371305615360.ingest.us.sentry.io/4511371359944704",
+  sendDefaultPii: true,
+  integrations: [Sentry.replayIntegration()],
+  // Session Replay
+  replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+  replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+});
 
 const options: Options = {
   applePay: false,
