@@ -76,6 +76,15 @@ const options: Options = {
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
+    const errorElement = document.querySelector(".en__error");
+    if (errorElement) {
+      Sentry.captureMessage(
+        "Form submission failed: " + errorElement.textContent,
+        {
+          level: "error",
+        }
+      );
+    }
     customScript(DonationFrequency, App);
     if (window.hasOwnProperty("XVerifyOptions")) {
       (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
@@ -87,6 +96,9 @@ const options: Options = {
     new CwhApp();
   },
   onValidate: () => {
+    Sentry.addBreadcrumb({
+      message: "Form onValidate started",
+    });
     const paymentType = App.getPaymentType();
     const phoneContainer = document.querySelector(
       ".en__field--phoneNumber"
@@ -121,6 +133,9 @@ const options: Options = {
   },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
+    Sentry.addBreadcrumb({
+      message: "Form onSubmit started",
+    });
     const premiumGift = <HTMLInputElement>(
       document.querySelector('[name="en__pg"]:checked')
     );
