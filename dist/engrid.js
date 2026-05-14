@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"3e1997eb865263a24ece901f0c6787d95edd7920"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="b7fc8751-357d-4576-aa20-1bd0d905ed57",e._sentryDebugIdIdentifier="sentry-dbid-b7fc8751-357d-4576-aa20-1bd0d905ed57");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"63e0ba9099d5bf547cf9a9417a9f6005bc103bf6"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="31de62ab-40c7-4b3d-a6b4-9762c601bce9",e._sentryDebugIdIdentifier="sentry-dbid-31de62ab-40c7-4b3d-a6b4-9762c601bce9");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, May 11, 2026 @ 10:33:00 ET
+ *  Date: Thursday, May 14, 2026 @ 07:08:31 ET
  *  By: michael
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.3
@@ -31533,7 +31533,8 @@ class CwhApp {
       "supporter.postcode": "zip",
       "supporter.country": "country",
       "transaction.donationAmt": "totalAmount",
-      en_txn8: "externalRef"
+      en_txn8: "externalRef",
+      en_txn3: "transactionId"
     }; // Delay to account for scripts that overwrite country/state fields on load.
 
     await this.delay(1000);
@@ -31603,8 +31604,6 @@ class CwhApp {
       return;
     }
 
-    sessionStorage.removeItem("cwhSuccessUrl");
-    sessionStorage.removeItem("cwhTransactionId");
     let successUrl;
 
     try {
@@ -31653,6 +31652,8 @@ class CwhApp {
         message: "Encryption succeeded, redirecting"
       });
       successUrl.searchParams.set("payload", encryptedData);
+      sessionStorage.removeItem("cwhSuccessUrl");
+      sessionStorage.removeItem("cwhTransactionId");
       window.location.href = successUrl.href;
     }).catch(err => {
       captureException(err, {

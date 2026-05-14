@@ -132,6 +132,7 @@ export default class CwhApp {
       "supporter.country": "country",
       "transaction.donationAmt": "totalAmount",
       en_txn8: "externalRef",
+      en_txn3: "transactionId",
     };
 
     // Delay to account for scripts that overwrite country/state fields on load.
@@ -212,9 +213,6 @@ export default class CwhApp {
       return;
     }
 
-    sessionStorage.removeItem("cwhSuccessUrl");
-    sessionStorage.removeItem("cwhTransactionId");
-
     let successUrl: URL;
     try {
       successUrl = new URL(successUrlString);
@@ -252,6 +250,8 @@ export default class CwhApp {
       .then((encryptedData) => {
         Sentry.addBreadcrumb({ message: "Encryption succeeded, redirecting" });
         successUrl.searchParams.set("payload", encryptedData);
+        sessionStorage.removeItem("cwhSuccessUrl");
+        sessionStorage.removeItem("cwhTransactionId");
         window.location.href = successUrl.href;
       })
       .catch((err) => {
