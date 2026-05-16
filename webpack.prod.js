@@ -3,8 +3,10 @@ const common = require("./webpack.common");
 const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 
 module.exports = merge(common, {
+  devtool: "source-map",
   mode: "production",
   output: {
     filename: "[name].js",
@@ -27,7 +29,14 @@ module.exports = merge(common, {
       }),
     ],
   },
-  plugins: [new MiniCssExtractPlugin({ filename: "[name].css" })],
+  plugins: [
+    new MiniCssExtractPlugin({ filename: "[name].css" }),
+    sentryWebpackPlugin({
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      org: "4site-studios",
+      project: "engrid-nwf",
+    }),
+  ],
   module: {
     rules: [
       {

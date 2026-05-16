@@ -19,6 +19,16 @@ import { XVerify } from "./scripts/xverify/xverify";
 import Shop from "./scripts/shop/Shop";
 import CwhApp from "./scripts/cwh/CwhApp";
 // import { AnnualLimit } from "./scripts/annual-limit";
+import * as Sentry from "@sentry/browser";
+
+Sentry.init({
+  dsn: "https://e40b25242c611ff23ac57c8fc28ed573@o4511371305615360.ingest.us.sentry.io/4511371359944704",
+  sendDefaultPii: true,
+  integrations: [Sentry.replayIntegration()],
+  // Session Replay
+  replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+  replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+});
 
 const options: Options = {
   applePay: false,
@@ -66,6 +76,15 @@ const options: Options = {
   },
   onLoad: () => {
     console.log("Starter Theme Loaded");
+    const errorElement = document.querySelector(".en__error");
+    if (errorElement) {
+      Sentry.captureMessage(
+        "Form submission failed: " + errorElement.textContent,
+        {
+          level: "error",
+        }
+      );
+    }
     customScript(DonationFrequency, App);
     if (window.hasOwnProperty("XVerifyOptions")) {
       (<any>window).XVerify = XVerify.getInstance((<any>window).XVerifyOptions);
@@ -77,6 +96,9 @@ const options: Options = {
     new CwhApp();
   },
   onValidate: () => {
+    Sentry.addBreadcrumb({
+      message: "Form onValidate started",
+    });
     const paymentType = App.getPaymentType();
     const phoneContainer = document.querySelector(
       ".en__field--phoneNumber"
@@ -111,6 +133,9 @@ const options: Options = {
   },
   onResize: () => console.log("Starter Theme Window Resized"),
   onSubmit: () => {
+    Sentry.addBreadcrumb({
+      message: "Form onSubmit started",
+    });
     const premiumGift = <HTMLInputElement>(
       document.querySelector('[name="en__pg"]:checked')
     );

@@ -7,6 +7,7 @@ import {
   WelcomeBack,
 } from "@4site/engrid-scripts";
 import { CwhCartData } from "./cwh.types";
+import * as Sentry from "@sentry/browser";
 
 export default class CwhApp {
   private key: string = "u7+3LJpA3p7nFz5h9S1bVf1HQG/eLkV7+Xr5Ch3i2gU=";
@@ -16,46 +17,29 @@ export default class CwhApp {
   private urlParams: URLSearchParams = new URLSearchParams(
     window.location.search
   );
-  private testPayload = {
-    email: "michaelt@4sitestudios.com",
-    firstName: "Michael",
-    lastName: "Thomas",
-    address1: "3431 14th St NW Ste 1",
-    address2: "Suite 1",
-    city: "Washington",
-    region: "DC",
-    zip: "20010",
-    country: "US",
-    totalAmount: 35,
-    returnUrl: "https://cwh.nwf.org/checkout",
-    successUrl: "https://cwh.nwf.org/success",
-    transactionId: 12345,
-    externalRef: "30.00,WH25MSK,70.00,SI26VC2",
-  };
-  private testEncryptedPayload: string =
-    "R90vSDfbNDVzytuRvzbcHmzhdfFqO3HLfyOCYrNemAdytYLN52zhXuKDWaCM0lO1zJCLNH2LXDX6B-0idrPd74lu4rEFSp_RjrDVPPcKYxEJrGFCMfEx518d8zJhObWz83iL-_wa0Hf09fjoTw_zskdwORgrnVk9kW_MQuuhmi0lyz5DOq7fY2c20TdRdi75uM1t3LxRzptoB2Ffc4kwihykX4r2ZO3jkfYJcjK98nuIgv3RDrOitQ2R7Z5RDfElwI5f7DMZQJVEaCYkg28DYDfKECZrDSkRty5yCvX0bob0BBDP2bwc0f5s1AN3DLHVB3mMsr5nP1IRtsA19VF7jnUUq729Y-gkfiKZKZ5Hg5wl50kMDlHRdOgCJ6fFPJJh3onFndRT2rpe2ksPz4-1sfIKte5Wg9AILhcJeE-N8VrBLx8JsHOKDu1UjiCAPrkXH2eo6kA7nMxHf0Pd2kJgnbpH5nSii-cpj_vmxH-4aFtKFpYDKHM3v1aVYFgjLqDC9zjHOz50fS2oX_8";
 
   constructor() {
     if (!this.shouldRun()) return;
 
-    this.encrypter.encryptJson(this.testPayload).then((encrypted) => {
-      this.logger.log("Test encrypted payload:", encrypted);
-    });
-
     // If we're on the last page, just redirect to the success URL.
     if (this.onLastPage()) {
+      Sentry.addBreadcrumb({
+        message: "[CWH App] On Thank You Page - redirecting to success URL",
+      });
       this.redirectToSuccessUrl();
       return;
     }
 
+    Sentry.addBreadcrumb({
+      message: "[CWH App] Loading Form Page",
+    });
+
     let urlCartData = this.urlParams.get("cart");
 
-    if (this.urlParams.get("test") === "true") {
-      this.logger.warn("Test mode enabled - using hardcoded encrypted payload");
-      urlCartData = this.testEncryptedPayload;
-    }
-
     if (typeof urlCartData !== "string") {
+      Sentry.addBreadcrumb({
+        message: "[CWH App] Cart data not found in URL or invalid",
+      });
       this.logger.log("Cart data not found in URL or invalid");
       document.querySelector(".cwh-back-button")?.remove();
       ENGrid.setBodyData("cwh-app-ready", "true");
@@ -64,17 +48,62 @@ export default class CwhApp {
 
     this.logger.log("Encrypted cart data found in URL:", urlCartData);
 
-    this.encrypter.decryptData(urlCartData as string).then((data) => {
-      this.cartData = data as CwhCartData;
-      sessionStorage.setItem("cwhSuccessUrl", this.cartData.successUrl);
-      sessionStorage.setItem(
-        "cwhTransactionId",
-        this.cartData.transactionId.toString()
-      );
-      this.setupPage().then(() => {
+    this.encrypter
+      .decryptData(urlCartData as string)
+      .then((data) => {
+        this.cartData = data as CwhCartData;
+
+        if (
+          !this.cartData.successUrl ||
+          !this.cartData.returnUrl ||
+          !this.cartData.transactionId
+        ) {
+          Sentry.captureMessage(
+            "[CWH App] Decrypted cart data missing required fields",
+            {
+              level: "warning",
+              extra: {
+                hasSuccessUrl: !!this.cartData.successUrl,
+                hasReturnUrl: !!this.cartData.returnUrl,
+                hasTransactionId: !!this.cartData.transactionId,
+              },
+            }
+          );
+          this.logger.log(
+            "Decrypted cart data missing required fields:",
+            this.cartData
+          );
+          document.querySelector(".cwh-back-button")?.remove();
+          ENGrid.setBodyData("cwh-app-ready", "true");
+          return;
+        }
+
+        sessionStorage.setItem("cwhSuccessUrl", this.cartData.successUrl);
+        sessionStorage.setItem(
+          "cwhTransactionId",
+          this.cartData.transactionId.toString()
+        );
+
+        this.setupPage()
+          .then(() => {
+            ENGrid.setBodyData("cwh-app-ready", "true");
+          })
+          .catch((err) => {
+            Sentry.captureException(err, {
+              extra: { urlCartData },
+            });
+            this.logger.log("setupPage failed:", err);
+            ENGrid.setBodyData("cwh-app-ready", "true");
+          });
+      })
+      .catch((err) => {
+        Sentry.captureException(err, {
+          extra: { urlCartData },
+        });
+        this.logger.log("Failed to decrypt cart data:", err);
+        document.querySelector(".cwh-back-button")?.remove();
         ENGrid.setBodyData("cwh-app-ready", "true");
       });
-    });
   }
 
   shouldRun(): boolean {
@@ -103,6 +132,7 @@ export default class CwhApp {
       "supporter.country": "country",
       "transaction.donationAmt": "totalAmount",
       en_txn8: "externalRef",
+      en_txn3: "transactionId",
     };
 
     // Delay to account for scripts that overwrite country/state fields on load.
@@ -118,6 +148,9 @@ export default class CwhApp {
   // Since WelcomeBack runs on initial page load but this script is running later
   // remove its components and run everything again.
   private rerunWelcomeBack() {
+    Sentry.addBreadcrumb({
+      message: "[CWH App] Re-running WelcomeBack",
+    });
     document.querySelector(".engrid-welcome-back")?.remove();
     document.querySelector(".engrid-personal-details-summary")?.remove();
 
@@ -129,11 +162,27 @@ export default class CwhApp {
   }
 
   private addBackButton() {
-    const backButton = document.querySelector(
-      ".cwh-back-button"
-    ) as HTMLButtonElement;
+    const backButton = document.querySelector(".cwh-back-button");
     if (!backButton) return;
-    backButton.setAttribute("href", this.cartData.returnUrl);
+
+    if (!this.cartData.returnUrl) {
+      Sentry.captureMessage(
+        "[CWH App] Back button skipped: missing returnUrl",
+        {
+          level: "warning",
+        }
+      );
+      return;
+    }
+
+    if (backButton instanceof HTMLAnchorElement) {
+      backButton.setAttribute("href", this.cartData.returnUrl);
+    } else {
+      Sentry.captureMessage(
+        `[CWH App] Back button is unexpected element type: ${backButton.tagName}`,
+        { level: "warning" }
+      );
+    }
   }
 
   private async delay(number: number) {
@@ -148,16 +197,29 @@ export default class CwhApp {
     let successUrlString = sessionStorage.getItem("cwhSuccessUrl");
     let transactionId = sessionStorage.getItem("cwhTransactionId");
     if (!successUrlString || !transactionId) {
+      Sentry.captureMessage(
+        "[CWH App] Redirect failed: missing session storage values",
+        {
+          level: "error",
+          extra: {
+            hasSuccessUrl: !!successUrlString,
+            hasTransactionId: !!transactionId,
+          },
+        }
+      );
       this.logger.log(
         "No success URL or transaction ID found in session storage"
       );
       return;
     }
 
-    sessionStorage.removeItem("cwhSuccessUrl");
-    sessionStorage.removeItem("cwhTransactionId");
-
-    const successUrl = new URL(successUrlString);
+    let successUrl: URL;
+    try {
+      successUrl = new URL(successUrlString);
+    } catch (e) {
+      Sentry.captureException(e, { extra: { successUrlString } });
+      return;
+    }
 
     const returnPayload = {
       transactionId: transactionId,
@@ -165,10 +227,38 @@ export default class CwhApp {
       supporterId: window.pageJson?.supporterId,
     };
 
-    this.encrypter.encryptJson(returnPayload).then((encryptedData) => {
-      successUrl.searchParams.set("payload", encryptedData);
-      window.location.href = successUrl.href;
+    if (!window.pageJson?.transactionId) {
+      Sentry.captureMessage(
+        "[CWH App] pageJson.transactionId missing during redirect",
+        { level: "warning", extra: { returnPayload } }
+      );
+    }
+    if (!window.pageJson?.supporterId) {
+      Sentry.captureMessage(
+        "[CWH App] pageJson.supporterId missing during redirect",
+        { level: "warning", extra: { returnPayload } }
+      );
+    }
+
+    Sentry.addBreadcrumb({
+      message: "Attempting encryptJson",
+      data: { transactionId },
     });
+
+    this.encrypter
+      .encryptJson(returnPayload)
+      .then((encryptedData) => {
+        Sentry.addBreadcrumb({ message: "Encryption succeeded, redirecting" });
+        successUrl.searchParams.set("payload", encryptedData);
+        sessionStorage.removeItem("cwhSuccessUrl");
+        sessionStorage.removeItem("cwhTransactionId");
+        window.location.href = successUrl.href;
+      })
+      .catch((err) => {
+        Sentry.captureException(err, {
+          extra: { transactionId, successUrlString },
+        });
+      });
   }
 
   //Shipping Field - Fix for EN's functionality that sometimes fails.
@@ -177,6 +267,10 @@ export default class CwhApp {
       "transaction.shipenabled"
     ) as HTMLInputElement;
     if (shippingField) {
+      Sentry.addBreadcrumb({
+        message: "[CWH App] Applying shipping field fix",
+        data: { checked: shippingField.checked },
+      });
       this.toggleShippingAddressFields(shippingField.checked);
       shippingField.addEventListener("change", (event) => {
         const target = event.target as HTMLInputElement;
@@ -187,6 +281,15 @@ export default class CwhApp {
 
   // Toggle the visibility of shipping address fields
   private toggleShippingAddressFields(enabled: boolean) {
+    const enjs = window.EngagingNetworks?.require?._defined?.enjs;
+    if (!enjs) {
+      Sentry.captureMessage(
+        "[CWH App] EngagingNetworks ENJS API unavailable - cannot toggle shipping fields",
+        { level: "warning" }
+      );
+      return;
+    }
+
     const fields = [
       "shipemail",
       "shiptitle",
@@ -205,9 +308,9 @@ export default class CwhApp {
     );
     fields.forEach((fieldName) => {
       if (enabled) {
-        window.EngagingNetworks.require._defined.enjs.showField(fieldName);
+        enjs.showField(fieldName);
       } else {
-        window.EngagingNetworks.require._defined.enjs.hideField(fieldName);
+        enjs.hideField(fieldName);
       }
     });
   }
