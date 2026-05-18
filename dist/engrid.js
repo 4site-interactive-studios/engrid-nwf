@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"d27f757273b3db7dee89d04fd37d6fad5da7984b"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="1cf5cccd-7da6-47fd-9fcf-449179a2023e",e._sentryDebugIdIdentifier="sentry-dbid-1cf5cccd-7da6-47fd-9fcf-449179a2023e");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"7bc052a9853d9de7e72fef0aaed30d7ff0d56501"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="cd7b4822-837a-402d-924e-faf8d06b6fdb",e._sentryDebugIdIdentifier="sentry-dbid-cd7b4822-837a-402d-924e-faf8d06b6fdb");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,8 +18,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, May 15, 2026 @ 23:51:18 ET
- *  By: fernando
+ *  Date: Monday, May 18, 2026 @ 07:23:22 ET
+ *  By: michael
  *  ENGrid styles: v0.25.0
  *  ENGrid scripts: v0.25.1
  *
@@ -31956,34 +31956,55 @@ class CwhApp {
     addBreadcrumb({
       message: "[CWH App] Loading Form Page"
     });
+
+    if (!document.referrer || !document.referrer.includes("certifiedwildlifehabitat.nwf.org")) {
+      captureMessage("[CWH App] Unexpected referrer, potential direct access to CWH app", {
+        level: "warning",
+        extra: {
+          referrer: document.referrer
+        }
+      });
+      this.logger.log(`Unexpected referrer, potential direct access to CWH app. Referrer: "${document.referrer}"`);
+
+      if (this.urlParams.get("bypass") !== "true") {
+        this.redirectToCwhApp();
+        return;
+      }
+
+      this.logger.log("Bypass mode - skipping redirect to CWH app");
+    }
+
     let urlCartData = this.urlParams.get("cart");
 
     if (typeof urlCartData !== "string") {
-      addBreadcrumb({
-        message: "[CWH App] Cart data not found in URL or invalid"
+      captureMessage("[CWH App] Cart data not found in URL or invalid", {
+        level: "warning",
+        extra: {
+          urlCartData
+        }
       });
       this.logger.log("Cart data not found in URL or invalid");
-      document.querySelector(".cwh-back-button")?.remove();
-      engrid_ENGrid.setBodyData("cwh-app-ready", "true");
+      this.redirectToCwhApp();
       return;
     }
 
-    this.logger.log("Encrypted cart data found in URL:", urlCartData);
     this.encrypter.decryptData(urlCartData).then(data => {
       this.cartData = data;
 
-      if (!this.cartData.successUrl || !this.cartData.returnUrl || !this.cartData.transactionId) {
+      if (!this.cartData.email || !this.cartData.totalAmount || !this.cartData.successUrl || !this.cartData.returnUrl || !this.cartData.transactionId) {
         captureMessage("[CWH App] Decrypted cart data missing required fields", {
           level: "warning",
           extra: {
+            hasEmail: !!this.cartData.email,
+            hasTotalAmount: !!this.cartData.totalAmount,
             hasSuccessUrl: !!this.cartData.successUrl,
             hasReturnUrl: !!this.cartData.returnUrl,
-            hasTransactionId: !!this.cartData.transactionId
+            hasTransactionId: !!this.cartData.transactionId,
+            urlCartData: urlCartData
           }
         });
         this.logger.log("Decrypted cart data missing required fields:", this.cartData);
-        document.querySelector(".cwh-back-button")?.remove();
-        engrid_ENGrid.setBodyData("cwh-app-ready", "true");
+        this.redirectToCwhApp();
         return;
       }
 
@@ -31998,7 +32019,8 @@ class CwhApp {
           }
         });
         this.logger.log("setupPage failed:", err);
-        engrid_ENGrid.setBodyData("cwh-app-ready", "true");
+        this.redirectToCwhApp();
+        return;
       });
     }).catch(err => {
       captureException(err, {
@@ -32007,8 +32029,8 @@ class CwhApp {
         }
       });
       this.logger.log("Failed to decrypt cart data:", err);
-      document.querySelector(".cwh-back-button")?.remove();
-      engrid_ENGrid.setBodyData("cwh-app-ready", "true");
+      this.redirectToCwhApp();
+      return;
     });
   }
 
@@ -32208,6 +32230,15 @@ class CwhApp {
         enjs.hideField(fieldName);
       }
     });
+  }
+
+  redirectToCwhApp() {
+    if (this.urlParams.get("bypass") === "true") {
+      this.logger.log("Bypass mode - skipping redirect to CWH app");
+      return;
+    }
+
+    window.location.href = "https://certifiedwildlifehabitat.nwf.org/";
   }
 
 }

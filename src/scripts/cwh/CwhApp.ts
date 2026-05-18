@@ -34,19 +34,38 @@ export default class CwhApp {
       message: "[CWH App] Loading Form Page",
     });
 
+    if (
+      !document.referrer ||
+      !document.referrer.includes("certifiedwildlifehabitat.nwf.org")
+    ) {
+      Sentry.captureMessage(
+        "[CWH App] Unexpected referrer, potential direct access to CWH app",
+        {
+          level: "warning",
+          extra: { referrer: document.referrer },
+        }
+      );
+      this.logger.log(
+        `Unexpected referrer, potential direct access to CWH app. Referrer: "${document.referrer}"`
+      );
+      if (this.urlParams.get("bypass") !== "true") {
+        this.redirectToCwhApp();
+        return;
+      }
+      this.logger.log("Bypass mode - skipping redirect to CWH app");
+    }
+
     let urlCartData = this.urlParams.get("cart");
 
     if (typeof urlCartData !== "string") {
-      Sentry.addBreadcrumb({
-        message: "[CWH App] Cart data not found in URL or invalid",
+      Sentry.captureMessage("[CWH App] Cart data not found in URL or invalid", {
+        level: "warning",
+        extra: { urlCartData },
       });
       this.logger.log("Cart data not found in URL or invalid");
-      document.querySelector(".cwh-back-button")?.remove();
-      ENGrid.setBodyData("cwh-app-ready", "true");
+      this.redirectToCwhApp();
       return;
     }
-
-    this.logger.log("Encrypted cart data found in URL:", urlCartData);
 
     this.encrypter
       .decryptData(urlCartData as string)
@@ -54,6 +73,8 @@ export default class CwhApp {
         this.cartData = data as CwhCartData;
 
         if (
+          !this.cartData.email ||
+          !this.cartData.totalAmount ||
           !this.cartData.successUrl ||
           !this.cartData.returnUrl ||
           !this.cartData.transactionId
@@ -63,9 +84,12 @@ export default class CwhApp {
             {
               level: "warning",
               extra: {
+                hasEmail: !!this.cartData.email,
+                hasTotalAmount: !!this.cartData.totalAmount,
                 hasSuccessUrl: !!this.cartData.successUrl,
                 hasReturnUrl: !!this.cartData.returnUrl,
                 hasTransactionId: !!this.cartData.transactionId,
+                urlCartData: urlCartData,
               },
             }
           );
@@ -73,8 +97,7 @@ export default class CwhApp {
             "Decrypted cart data missing required fields:",
             this.cartData
           );
-          document.querySelector(".cwh-back-button")?.remove();
-          ENGrid.setBodyData("cwh-app-ready", "true");
+          this.redirectToCwhApp();
           return;
         }
 
@@ -93,7 +116,8 @@ export default class CwhApp {
               extra: { urlCartData },
             });
             this.logger.log("setupPage failed:", err);
-            ENGrid.setBodyData("cwh-app-ready", "true");
+            this.redirectToCwhApp();
+            return;
           });
       })
       .catch((err) => {
@@ -101,8 +125,8 @@ export default class CwhApp {
           extra: { urlCartData },
         });
         this.logger.log("Failed to decrypt cart data:", err);
-        document.querySelector(".cwh-back-button")?.remove();
-        ENGrid.setBodyData("cwh-app-ready", "true");
+        this.redirectToCwhApp();
+        return;
       });
   }
 
@@ -313,5 +337,13 @@ export default class CwhApp {
         enjs.hideField(fieldName);
       }
     });
+  }
+
+  private redirectToCwhApp() {
+    if (this.urlParams.get("bypass") === "true") {
+      this.logger.log("Bypass mode - skipping redirect to CWH app");
+      return;
+    }
+    window.location.href = "https://certifiedwildlifehabitat.nwf.org/";
   }
 }
