@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"2d61f651839b68e684ae8d24629ed607bc3baadc"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="931f8841-da91-4712-94de-bdc8702dfb33",e._sentryDebugIdIdentifier="sentry-dbid-931f8841-da91-4712-94de-bdc8702dfb33");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"818096156521f0a8c0d9623b21a33f82dcb58e18"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="347d3c71-b009-44d8-bc44-a87d4e20ee9f",e._sentryDebugIdIdentifier="sentry-dbid-347d3c71-b009-44d8-bc44-a87d4e20ee9f");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, May 19, 2026 @ 13:30:02 ET
+ *  Date: Tuesday, May 19, 2026 @ 13:45:54 ET
  *  By: michael
  *  ENGrid styles: v0.25.0
  *  ENGrid scripts: v0.25.1
@@ -32995,14 +32995,14 @@ class OptInLadder {
     const url = new URL(window.location.href);
     const path = url.pathname.split("/");
     path[path.length - 1] = String(page);
-    const nextUrl = new URL(url.origin + path.join("/"));
+    url.pathname = path.join("/");
 
     if (chain) {
-      nextUrl.searchParams.set("chain", "true");
+      url.searchParams.set("chain", "true");
     }
 
-    nextUrl.searchParams.set("engrid_optin_ladder_followup", "true");
-    return nextUrl.toString();
+    url.searchParams.set("engrid_optin_ladder_followup", "true");
+    return url.toString();
   }
 
   getFirstPageUrl() {
@@ -33035,7 +33035,9 @@ class OptInLadder {
 
   isFollowupStep() {
     const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get("engrid_optin_ladder_followup") === "true";
+    const fromUrl = searchParams.get("engrid_optin_ladder_followup") === "true";
+    const fromStorage = Number(sessionStorage.getItem("engrid.optin-ladder-submission-count")) > 0;
+    return fromUrl || fromStorage;
   }
 
 }
