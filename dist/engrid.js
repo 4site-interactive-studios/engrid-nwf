@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"7bc052a9853d9de7e72fef0aaed30d7ff0d56501"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="cd7b4822-837a-402d-924e-faf8d06b6fdb",e._sentryDebugIdIdentifier="sentry-dbid-cd7b4822-837a-402d-924e-faf8d06b6fdb");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"2d61f651839b68e684ae8d24629ed607bc3baadc"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="4d0b774c-b17d-4b97-8864-91ce6d25e31a",e._sentryDebugIdIdentifier="sentry-dbid-4d0b774c-b17d-4b97-8864-91ce6d25e31a");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, May 18, 2026 @ 07:23:22 ET
+ *  Date: Tuesday, May 26, 2026 @ 09:43:29 ET
  *  By: michael
  *  ENGrid styles: v0.25.0
  *  ENGrid scripts: v0.25.1
@@ -25403,14 +25403,7 @@ class Shop {
 
       addressChangeTimeout = window.setTimeout(async () => {
         if (!this.shouldCollectTax) return;
-        const address = this.getShippingAddress();
-
-        if (!address.country || !address.zip || !address.state || !address.city || !address.street) {
-          this.logger.log("Incomplete address, skipping tax calculation", address);
-          return;
-        }
-
-        this.logger.log("Address changed, calculating tax", address);
+        this.logger.log("Address changed, calculating tax");
         await this.calculateTotalPrice();
         this.updateCheckoutSummary();
       }, 500);
@@ -25628,7 +25621,15 @@ class Shop {
 
     if (!address.country || !address.zip || !address.state || !address.city || !address.street) {
       this.logger.log("Incomplete shipping address, skipping tax calculation", address);
-      return 0;
+      return false;
+    } //if zip code is not correct format return
+
+
+    const zipRegex = /^\d{5}(-\d{4})?$/;
+
+    if (!zipRegex.test(address.zip)) {
+      this.logger.log("Invalid zip code format, skipping tax calculation", address);
+      return false;
     }
 
     const order = {

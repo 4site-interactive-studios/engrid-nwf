@@ -205,21 +205,7 @@ export default class Shop {
       }
       addressChangeTimeout = window.setTimeout(async () => {
         if (!this.shouldCollectTax) return;
-        const address = this.getShippingAddress();
-        if (
-          !address.country ||
-          !address.zip ||
-          !address.state ||
-          !address.city ||
-          !address.street
-        ) {
-          this.logger.log(
-            "Incomplete address, skipping tax calculation",
-            address
-          );
-          return;
-        }
-        this.logger.log("Address changed, calculating tax", address);
+        this.logger.log("Address changed, calculating tax");
         await this.calculateTotalPrice();
         this.updateCheckoutSummary();
       }, 500);
@@ -508,7 +494,17 @@ export default class Shop {
         "Incomplete shipping address, skipping tax calculation",
         address
       );
-      return 0;
+      return false;
+    }
+
+    //if zip code is not correct format return
+    const zipRegex = /^\d{5}(-\d{4})?$/;
+    if (!zipRegex.test(address.zip)) {
+      this.logger.log(
+        "Invalid zip code format, skipping tax calculation",
+        address
+      );
+      return false;
     }
 
     const order: Order = {
