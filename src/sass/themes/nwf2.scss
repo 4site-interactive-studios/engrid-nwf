@@ -289,13 +289,6 @@
           position: relative;
           border-radius: 0 var(--recurring-frequency__button_border-radius)
             var(--recurring-frequency__button_border-radius) 0;
-
-          svg {
-            position: absolute;
-            left: -15px;
-            //width: 273px!important;
-            //height: 87px!important;
-          }
         }
 
         input:not(:checked) + label {
@@ -303,6 +296,21 @@
         }
       }
     }
+  }
+
+  // Skip this offset when upsell-animate-annual is active: the animated
+  // label's own svg positioning (further down) handles that item instead,
+  // and stacking both offsets pushes the svg too far left.
+  .radio-to-buttons_recurrfreq:not(.upsell-animate-annual)
+    .en__field--recurrfreq.en__field--radio
+    .en__field__element
+    .en__field__item:last-of-type
+    label
+    svg {
+    position: absolute;
+    left: -15px;
+    //width: 273px!important;
+    //height: 87px!important;
   }
 
   //Other amount input
@@ -658,6 +666,25 @@
       margin: 0;
     }
   }
+  // Annual upsell
+  .annual-upsell-msg {
+    img {
+      width: 56px;
+      margin: 0px 15% 0px auto;
+    }
+
+    .text-nudge {
+      font-family: "Fuzzy Bubbles", sans-serif;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    p:not(.text-nudge) {
+      margin: 0;
+    }
+  }
 
   .payment-information-header {
     display: flex;
@@ -813,22 +840,22 @@
     .en__field__item:nth-child(2) {
       padding-left: 0;
       padding-right: 0;
+    }
 
-      label {
-        --recurring-frequency__button_border-radius: 0;
-        flex-wrap: nowrap;
-        flex-direction: row-reverse;
-        position: relative;
-        padding-left: calc(19px + 1.5ch);
-        padding-right: 0px;
+    label.upsell-animated-label {
+      --recurring-frequency__button_border-radius: 0;
+      flex-wrap: nowrap;
+      flex-direction: row-reverse;
+      position: relative;
+      padding-left: calc(19px + 1.5ch);
+      padding-right: 0px;
 
-        @media only screen and (max-width: 800px) {
-          padding-left: calc(19px + 1ch);
-        }
+      @media only screen and (max-width: 800px) {
+        padding-left: calc(19px + 1ch);
+      }
 
-        @media only screen and (max-width: 600px) {
-          padding-left: calc(19px + 0.5ch);
-        }
+      @media only screen and (max-width: 600px) {
+        padding-left: calc(19px + 0.5ch);
       }
 
       svg {
@@ -972,7 +999,8 @@
   }
 
   @media screen and (max-width: 400px) {
-    .radio-to-buttons_recurrfreq .en__field__item:last-of-type {
+    .radio-to-buttons_recurrfreq:not(.upsell-animate-annual)
+      .en__field__item:last-of-type {
       svg {
         width: 180px !important;
         height: 57px !important;
@@ -981,7 +1009,8 @@
   }
 
   @media screen and (max-width: 359px) {
-    .radio-to-buttons_recurrfreq .en__field__item:last-of-type {
+    .radio-to-buttons_recurrfreq:not(.upsell-animate-annual)
+      .en__field__item:last-of-type {
       svg {
         left: -25px !important;
       }

@@ -1,5 +1,5 @@
 const tippy = require("tippy.js").default;
-const monthlyAnimationData = require("./monthly-animation.json");
+const upsellAnimationData = require("./upsell-animation.json");
 
 export const customScript = function (DonationFrequency, App) {
   App.log("ENGrid client scripts are executing");
@@ -301,29 +301,49 @@ export const customScript = function (DonationFrequency, App) {
       );
     }
 
-    App.loadJS(
-      "https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js",
-      () => {
-        const monthlyAnimation = lottie.loadAnimation({
-          container: document.querySelector(
-            "#en__field_transaction_recurrfreq1 + label"
-          ), // the dom element that will contain the animation
-          renderer: "svg",
-          animationData: monthlyAnimationData,
-          autoplay: false,
-          loop: false,
-        });
+    if (recurrFrequencyField) {
+      // Page builder can only tag the form block itself, so the
+      // "upsell-animate-annual" flag lives on the ancestor form block;
+      // its absence means the upsell animates on Monthly by default.
+      const upsellFormBlock = recurrFrequencyField.closest(
+        ".en__component--formblock"
+      );
+      const upsellFrequency =
+        upsellFormBlock &&
+        upsellFormBlock.classList.contains("upsell-animate-annual")
+          ? "ANNUAL"
+          : "MONTHLY";
+      const upsellLabel = recurrFrequencyField.querySelector(
+        `input[value='${upsellFrequency}'] + label`
+      );
 
-        const freq = DonationFrequency.getInstance();
-        freq.onFrequencyChange.subscribe((frequency) => {
-          if (frequency === "monthly") {
-            monthlyAnimation.play();
-          } else {
-            monthlyAnimation.goToAndStop(0);
+      if (upsellLabel) {
+        App.loadJS(
+          "https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js",
+          () => {
+            const upsellAnimation = lottie.loadAnimation({
+              container: upsellLabel, // the dom element that will contain the animation
+              renderer: "svg",
+              animationData: upsellAnimationData,
+              autoplay: false,
+              loop: false,
+            });
+
+            upsellLabel.classList.add("upsell-animated-label");
+
+            const frequencyValue = upsellFrequency.toLowerCase();
+            const freq = DonationFrequency.getInstance();
+            freq.onFrequencyChange.subscribe((frequency) => {
+              if (frequency === frequencyValue) {
+                upsellAnimation.play();
+              } else {
+                upsellAnimation.goToAndStop(0);
+              }
+            });
           }
-        });
+        );
       }
-    );
+    }
   }
 
   // Use the window.EngridDefaultDigitalWallets variable in a code block to set the default payment method to GooglePay / ApplePay

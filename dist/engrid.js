@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"52f7a7dfeb9b37f9513d89c359e23257b2ec7122"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="4645ca6c-6597-4426-afbe-7365613b8ce7",e._sentryDebugIdIdentifier="sentry-dbid-4645ca6c-6597-4426-afbe-7365613b8ce7");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"536baafac0a1e6f4110969b5721ef6ac71b6aa22"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="b6bcf336-298a-4559-8ecf-ce8865721bcd",e._sentryDebugIdIdentifier="sentry-dbid-b6bcf336-298a-4559-8ecf-ce8865721bcd");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,8 +18,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, June 3, 2026 @ 14:42:14 ET
- *  By: fernando
+ *  Date: Monday, July 27, 2026 @ 14:50:11 ET
+ *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
  *
@@ -10168,7 +10168,7 @@ tippy.setDefaultProps({
 
 /***/ }),
 
-/***/ 7403:
+/***/ 1869:
 /***/ ((module) => {
 
 "use strict";
@@ -25203,7 +25203,7 @@ const AppVersion = "0.25.6";
 ;// CONCATENATED MODULE: ./src/scripts/main.js
 const main_tippy = (__webpack_require__(3861)/* ["default"] */ .ZP);
 
-const monthlyAnimationData = __webpack_require__(7403);
+const upsellAnimationData = __webpack_require__(1869);
 
 const customScript = function (DonationFrequency, App) {
   App.log("ENGrid client scripts are executing"); // Add your client scripts here
@@ -25480,24 +25480,37 @@ const customScript = function (DonationFrequency, App) {
       recurrFrequencyField.insertAdjacentElement("beforeend", inlineMonthlyUpsell);
     }
 
-    App.loadJS("https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js", () => {
-      const monthlyAnimation = lottie.loadAnimation({
-        container: document.querySelector("#en__field_transaction_recurrfreq1 + label"),
-        // the dom element that will contain the animation
-        renderer: "svg",
-        animationData: monthlyAnimationData,
-        autoplay: false,
-        loop: false
-      });
-      const freq = DonationFrequency.getInstance();
-      freq.onFrequencyChange.subscribe(frequency => {
-        if (frequency === "monthly") {
-          monthlyAnimation.play();
-        } else {
-          monthlyAnimation.goToAndStop(0);
-        }
-      });
-    });
+    if (recurrFrequencyField) {
+      // Page builder can only tag the form block itself, so the
+      // "upsell-animate-annual" flag lives on the ancestor form block;
+      // its absence means the upsell animates on Monthly by default.
+      const upsellFormBlock = recurrFrequencyField.closest(".en__component--formblock");
+      const upsellFrequency = upsellFormBlock && upsellFormBlock.classList.contains("upsell-animate-annual") ? "ANNUAL" : "MONTHLY";
+      const upsellLabel = recurrFrequencyField.querySelector(`input[value='${upsellFrequency}'] + label`);
+
+      if (upsellLabel) {
+        App.loadJS("https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js", () => {
+          const upsellAnimation = lottie.loadAnimation({
+            container: upsellLabel,
+            // the dom element that will contain the animation
+            renderer: "svg",
+            animationData: upsellAnimationData,
+            autoplay: false,
+            loop: false
+          });
+          upsellLabel.classList.add("upsell-animated-label");
+          const frequencyValue = upsellFrequency.toLowerCase();
+          const freq = DonationFrequency.getInstance();
+          freq.onFrequencyChange.subscribe(frequency => {
+            if (frequency === frequencyValue) {
+              upsellAnimation.play();
+            } else {
+              upsellAnimation.goToAndStop(0);
+            }
+          });
+        });
+      }
+    }
   } // Use the window.EngridDefaultDigitalWallets variable in a code block to set the default payment method to GooglePay / ApplePay
 
 

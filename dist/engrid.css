@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, June 3, 2026 @ 14:42:14 ET
- *  By: fernando
+ *  Date: Monday, July 27, 2026 @ 14:50:11 ET
+ *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
  *
@@ -9224,12 +9224,12 @@ body[data-engrid-debug]:before{
   overflow:hidden;
   position:relative;
 }
-[data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio .en__field__element .en__field__item:last-of-type label svg{
-  left:-15px;
-  position:absolute;
-}
 [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio .en__field__element .en__field__item:last-of-type input:not(:checked)+label{
   border-left:none;
+}
+[data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq:not(.upsell-animate-annual) .en__field--recurrfreq.en__field--radio .en__field__element .en__field__item:last-of-type label svg{
+  left:-15px;
+  position:absolute;
 }
 [data-engrid-theme=nwf2] .en__field--withOther.en__field--radio.en__field--donationAmt .en__field__item--other{
   flex-basis:100%;
@@ -9621,6 +9621,20 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf2] .monthly-upsell-msg p:not(.text-nudge){
   margin:0;
 }
+[data-engrid-theme=nwf2] .annual-upsell-msg img{
+  margin:0 15% 0 auto;
+  width:56px;
+}
+[data-engrid-theme=nwf2] .annual-upsell-msg .text-nudge{
+  font-family:Fuzzy Bubbles,sans-serif;
+  font-size:20px;
+  font-weight:700;
+  margin-top:10px;
+  text-align:center;
+}
+[data-engrid-theme=nwf2] .annual-upsell-msg p:not(.text-nudge){
+  margin:0;
+}
 [data-engrid-theme=nwf2] .payment-information-header{
   align-items:center;
   display:flex;
@@ -9737,7 +9751,7 @@ body[data-engrid-debug]:before{
   padding-left:0;
   padding-right:0;
 }
-[data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) label{
+[data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label{
   --recurring-frequency__button_border-radius:0;
   flex-direction:row-reverse;
   flex-wrap:nowrap;
@@ -9746,37 +9760,37 @@ body[data-engrid-debug]:before{
   position:relative;
 }
 @media only screen and (max-width:800px){
-  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) label{
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label{
     padding-left:calc(19px + 1ch);
   }
 }
 @media only screen and (max-width:600px){
-  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) label{
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label{
     padding-left:calc(19px + .5ch);
   }
 }
-[data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
+[data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label svg{
   margin-left:-1.5ch;
   position:absolute;
 }
 @media only screen and (min-width:800px){
-  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label svg{
     transform:scale(1.3) !important;
   }
 }
 @media only screen and (max-width:799px){
-  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label svg{
     margin-left:-2.5ch;
     transform:scale(1.1) !important;
   }
 }
 @media only screen and (max-width:540px){
-  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label svg{
     transform:scale(1) !important;
   }
 }
 @media only screen and (max-width:440px){
-  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio .en__field__item:nth-child(2) svg{
+  [data-engrid-theme=nwf2] .recurring-frequency_count_3 .en__field--recurrfreq .en__field__element--radio label.upsell-animated-label svg{
     margin-left:-3.5ch;
   }
 }
@@ -10010,13 +10024,13 @@ body[data-engrid-debug]:before{
   }
 }
 @media screen and (max-width:400px){
-  [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field__item:last-of-type svg{
+  [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq:not(.upsell-animate-annual) .en__field__item:last-of-type svg{
     height:57px !important;
     width:180px !important;
   }
 }
 @media screen and (max-width:359px){
-  [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq .en__field__item:last-of-type svg{
+  [data-engrid-theme=nwf2] .radio-to-buttons_recurrfreq:not(.upsell-animate-annual) .en__field__item:last-of-type svg{
     left:-25px !important;
   }
 }
