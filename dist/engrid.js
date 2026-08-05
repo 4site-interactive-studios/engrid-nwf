@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"61f64cb09272bbb7326e2d6b832a197ae434d9a6"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="8218728a-f816-4f6b-9382-d7bd97f45129",e._sentryDebugIdIdentifier="sentry-dbid-8218728a-f816-4f6b-9382-d7bd97f45129");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"68ec4f46c992eefbe4de98019f31d27ea3c90512"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="ed6c3a7a-c67f-4825-8410-910f6dc07c8d",e._sentryDebugIdIdentifier="sentry-dbid-ed6c3a7a-c67f-4825-8410-910f6dc07c8d");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, August 5, 2026 @ 11:43:40 ET
+ *  Date: Wednesday, August 5, 2026 @ 13:23:06 ET
  *  By: nick
  *  ENGrid styles: v0.27.0
  *  ENGrid scripts: v0.27.0
@@ -19226,7 +19226,115 @@ class engrid_ENGrid {
   }
 
 }
+;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/logger.js
+
+/**
+ * A better logger. It only works if debug is enabled.
+ */
+
+class logger_EngridLogger {
+  constructor(prefix, color, background, emoji) {
+    this.prefix = "";
+    this.color = "black";
+    this.background = "white";
+    this.emoji = "";
+
+    if (emoji) {
+      this.emoji = emoji;
+    } else {
+      switch (color) {
+        case "red":
+          this.emoji = "🔴";
+          break;
+
+        case "green":
+          this.emoji = "🟢";
+          break;
+
+        case "blue":
+          this.emoji = "🔵";
+          break;
+
+        case "yellow":
+          this.emoji = "🟡";
+          this.background = "black";
+          break;
+
+        case "purple":
+          this.emoji = "🟣";
+          break;
+
+        case "black":
+        default:
+          this.emoji = "⚫";
+          break;
+      }
+    }
+
+    if (prefix) {
+      this.prefix = `[ENgrid ${prefix}]`;
+    }
+
+    if (color) {
+      this.color = color;
+    }
+
+    if (background) {
+      this.background = background;
+    }
+  }
+
+  get log() {
+    if (!engrid_ENGrid.debug && engrid_ENGrid.getUrlParameter("debug") !== "log") {
+      return () => {};
+    }
+
+    return console.log.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+  }
+
+  get success() {
+    if (!engrid_ENGrid.debug) {
+      return () => {};
+    }
+
+    return console.log.bind(window.console, "%c ✅ " + this.prefix + " %s", `color: green; background-color: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+  }
+
+  get danger() {
+    if (!engrid_ENGrid.debug) {
+      return () => {};
+    }
+
+    return console.log.bind(window.console, "%c ⛔️ " + this.prefix + " %s", `color: red; background-color: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+  }
+
+  get warn() {
+    if (!engrid_ENGrid.debug) {
+      return () => {};
+    }
+
+    return console.warn.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+  }
+
+  get dir() {
+    if (!engrid_ENGrid.debug) {
+      return () => {};
+    }
+
+    return console.dir.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+  }
+
+  get error() {
+    if (!engrid_ENGrid.debug) {
+      return () => {};
+    }
+
+    return console.error.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+  }
+
+}
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/events/donation-frequency.js
+
 
 
 class donation_frequency_DonationFrequency {
@@ -19234,7 +19342,9 @@ class donation_frequency_DonationFrequency {
     this._onFrequencyChange = new dist/* SimpleEventDispatcher */.FK();
     this._frequency = "onetime";
     this._recurring = "n";
-    this._dispatch = true; // Watch the Radios for Changes
+    this._dispatch = true;
+    this._frequencies = ["onetime"];
+    this.logger = new logger_EngridLogger("DonationFrequency", "white", "black", "💰"); // Watch the Radios for Changes
 
     document.addEventListener("change", e => {
       const element = e.target;
@@ -19291,6 +19401,10 @@ class donation_frequency_DonationFrequency {
 
   get onFrequencyChange() {
     return this._onFrequencyChange.asEvent();
+  }
+
+  get frequencies() {
+    return this._frequencies;
   } // Set amount var with currently selected amount
 
 
@@ -19304,8 +19418,11 @@ class donation_frequency_DonationFrequency {
       this.recurring = engrid_ENGrid.getFieldValue("transaction.recurrpay");
     } else if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "getSupporterData")) {
       this.recurring = ((_a = window.EngagingNetworks.require._defined.enjs.getSupporterData("recurrpay")) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "n";
-    } // ENGrid.enParseDependencies();
+    } // List of available frequencies on the form
 
+
+    this._frequencies = Array.from(document.querySelectorAll('input[name="transaction.recurrfreq"]')).filter(el => el instanceof HTMLInputElement).map(el => el.value.toLowerCase());
+    this.logger.log(`Loaded with frequency: ${this.frequency} and recurring: ${this.recurring} \nAvailable frequencies: ${this._frequencies.join(", ")}`); // ENGrid.enParseDependencies();
   } // Force a new recurrency
 
 
@@ -19348,6 +19465,8 @@ class donation_frequency_DonationFrequency {
       } else {
         this.setRecurrency("Y", dispatch);
       }
+    } else {
+      this.logger.warn(`Attempted to set a frequency of "${freq}" but it was not found on the form.`);
     } // Revert dispatch to default value (true)
 
 
@@ -20502,113 +20621,6 @@ class apple_pay_ApplePay {
       xhr.open("GET", validationUrl);
       xhr.send();
     });
-  }
-
-}
-;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/logger.js
-
-/**
- * A better logger. It only works if debug is enabled.
- */
-
-class logger_EngridLogger {
-  constructor(prefix, color, background, emoji) {
-    this.prefix = "";
-    this.color = "black";
-    this.background = "white";
-    this.emoji = "";
-
-    if (emoji) {
-      this.emoji = emoji;
-    } else {
-      switch (color) {
-        case "red":
-          this.emoji = "🔴";
-          break;
-
-        case "green":
-          this.emoji = "🟢";
-          break;
-
-        case "blue":
-          this.emoji = "🔵";
-          break;
-
-        case "yellow":
-          this.emoji = "🟡";
-          this.background = "black";
-          break;
-
-        case "purple":
-          this.emoji = "🟣";
-          break;
-
-        case "black":
-        default:
-          this.emoji = "⚫";
-          break;
-      }
-    }
-
-    if (prefix) {
-      this.prefix = `[ENgrid ${prefix}]`;
-    }
-
-    if (color) {
-      this.color = color;
-    }
-
-    if (background) {
-      this.background = background;
-    }
-  }
-
-  get log() {
-    if (!engrid_ENGrid.debug && engrid_ENGrid.getUrlParameter("debug") !== "log") {
-      return () => {};
-    }
-
-    return console.log.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
-  }
-
-  get success() {
-    if (!engrid_ENGrid.debug) {
-      return () => {};
-    }
-
-    return console.log.bind(window.console, "%c ✅ " + this.prefix + " %s", `color: green; background-color: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
-  }
-
-  get danger() {
-    if (!engrid_ENGrid.debug) {
-      return () => {};
-    }
-
-    return console.log.bind(window.console, "%c ⛔️ " + this.prefix + " %s", `color: red; background-color: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
-  }
-
-  get warn() {
-    if (!engrid_ENGrid.debug) {
-      return () => {};
-    }
-
-    return console.warn.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
-  }
-
-  get dir() {
-    if (!engrid_ENGrid.debug) {
-      return () => {};
-    }
-
-    return console.dir.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
-  }
-
-  get error() {
-    if (!engrid_ENGrid.debug) {
-      return () => {};
-    }
-
-    return console.error.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
   }
 
 }
@@ -23176,7 +23188,7 @@ class upsell_lightbox_UpsellLightbox {
   }
 
   parseMergeTags(str) {
-    return str.replace("{new-amount}", "<span class='upsell_suggestion'></span>").replace("{new-frequency}", "<span class='upsell_suggestion_frequency'></span>").replace("{old-amount}", "<span class='upsell_amount'></span>").replace("{old-frequency}", "<span class='upsell_frequency'></span>");
+    return str.replace(/\{new-amount\}/g, "<span class='upsell_suggestion'></span>").replace(/\{new-frequency\}/g, "<span class='upsell_suggestion_frequency'></span>").replace(/\{old-amount\}/g, "<span class='upsell_amount'></span>").replace(/\{old-frequency\}/g, "<span class='upsell_frequency'></span>");
   }
 
   renderLightbox() {
@@ -23190,7 +23202,7 @@ class upsell_lightbox_UpsellLightbox {
               <!-- ideal image size is 480x650 pixels -->
               <div class="background" style="background-image: url('${this.options.image}');"></div>
               <div class="upsellLightboxContent">
-              ${this.options.canClose ? `<span id="goUpClose"></span>` : ``}
+              ${this.options.canClose ? `<span id="goMonthlyClose"></span>` : ``}
                 <h1>
                   ${title}
                 </h1>
@@ -23233,7 +23245,7 @@ class upsell_lightbox_UpsellLightbox {
             </div>
             `;
     this.overlay.innerHTML = markup;
-    const closeButton = this.overlay.querySelector("#goUpClose");
+    const closeButton = this.overlay.querySelector("#goMonthlyClose");
     const yesButton = this.overlay.querySelector("#upsellYesButton a");
     const noButton = this.overlay.querySelector("#upsellNoButton button");
     yesButton.addEventListener("click", this.continue.bind(this));
@@ -23280,7 +23292,9 @@ class upsell_lightbox_UpsellLightbox {
 
     const value = parseFloat((_b = (_a = this.overlay.querySelector("#secondOtherField")) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : "");
     const live_upsell_amount = document.querySelectorAll("#upsellYesButton .upsell_suggestion");
-    const upsellAmount = this.getUpsellAmount();
+    const {
+      amount: upsellAmount
+    } = this.resolveUpsell();
 
     if (!isNaN(value) && value > 0) {
       this.checkOtherAmount(value);
@@ -23288,13 +23302,17 @@ class upsell_lightbox_UpsellLightbox {
       this.checkOtherAmount(upsellAmount);
     }
 
-    live_upsell_amount.forEach(elem => elem.innerHTML = this.getAmountTxt(upsellAmount + this._fees.calculateFees(upsellAmount)));
+    live_upsell_amount.forEach(elem => elem.innerHTML = this.getAmountTxt(upsellAmount + this._fees.calculateFees(upsellAmount))); // The resolved frequency can change with the entered amount, so refresh it
+
+    this.liveFrequency();
   }
 
   liveAmounts() {
     const live_upsell_amount = document.querySelectorAll(".upsell_suggestion");
     const live_amount = document.querySelectorAll(".upsell_amount");
-    const upsellAmount = this.getUpsellAmount();
+    const {
+      amount: upsellAmount
+    } = this.resolveUpsell();
 
     const suggestedAmount = upsellAmount + this._fees.calculateFees(upsellAmount);
 
@@ -23307,77 +23325,74 @@ class upsell_lightbox_UpsellLightbox {
     const live_upsell_suggestion_frequency = document.querySelectorAll(".upsell_suggestion_frequency");
     live_upsell_frequency.forEach(elem => elem.innerHTML = this.getFrequencyTxt());
     live_upsell_suggestion_frequency.forEach(elem => elem.innerHTML = this.getFrequencyTxt(this._upsellFrequency));
-  } // Return the Suggested Upsell Amount
+  } // Resolve the upsell amount and target frequency in a single pass and keep
+  // the cached _suggestAmount / _upsellFrequency in sync with the current
+  // donation amount and any value entered in the "other amount" field.
 
 
-  getUpsellAmount() {
-    var _a, _b;
+  resolveUpsell() {
+    var _a, _b, _c, _d;
 
     const amount = this._amount.amount;
     const otherAmount = parseFloat((_b = (_a = this.overlay.querySelector("#secondOtherField")) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : "");
+    const defaultFrequency = (_c = this.options.upsellToFrequency) !== null && _c !== void 0 ? _c : "monthly";
+    let upsellAmount;
+    let upsellFrequency;
 
     if (otherAmount > 0) {
-      return otherAmount > this.options.minAmount ? otherAmount : this.options.minAmount;
-    }
+      // An "other" amount doesn't belong to any amount range, so the upsell
+      // uses the default frequency
+      upsellAmount = otherAmount > this.options.minAmount ? otherAmount : this.options.minAmount;
+      upsellFrequency = defaultFrequency;
+    } else {
+      upsellAmount = 0;
+      upsellFrequency = defaultFrequency;
 
-    let upsellAmount = 0;
+      for (let i = 0; i < this.options.amountRange.length; i++) {
+        const val = this.options.amountRange[i];
 
-    for (let i = 0; i < this.options.amountRange.length; i++) {
-      let val = this.options.amountRange[i];
+        if (upsellAmount == 0 && amount <= val.max) {
+          if (val.suggestion === 0) {
+            upsellAmount = 0;
+          } else if (typeof val.suggestion === "number") {
+            upsellAmount = val.suggestion;
+          } else {
+            const suggestionMath = val.suggestion.replace("amount", amount.toFixed(2));
+            upsellAmount = parseFloat(Function('"use strict";return (' + suggestionMath + ")")());
+          }
 
-      if (upsellAmount == 0 && amount <= val.max) {
-        upsellAmount = val.suggestion;
-        if (upsellAmount === 0) return 0;
-
-        if (typeof upsellAmount !== "number") {
-          const suggestionMath = upsellAmount.replace("amount", amount.toFixed(2));
-          upsellAmount = parseFloat(Function('"use strict";return (' + suggestionMath + ")")());
+          upsellFrequency = (_d = val.frequency) !== null && _d !== void 0 ? _d : defaultFrequency;
+          break;
         }
-
-        break;
       }
+
+      upsellAmount = upsellAmount > this.options.minAmount ? upsellAmount : this.options.minAmount;
     }
 
-    return upsellAmount > this.options.minAmount ? upsellAmount : this.options.minAmount;
-  } // Return the Frequency to Upsell to
-
-
-  getUpsellFrequency() {
-    var _a, _b, _c, _d;
-
-    const defaultFrequency = (_a = this.options.upsellToFrequency) !== null && _a !== void 0 ? _a : "monthly";
-    const amount = this._amount.amount;
-    const otherAmount = parseFloat((_c = (_b = this.overlay.querySelector("#secondOtherField")) === null || _b === void 0 ? void 0 : _b.value) !== null && _c !== void 0 ? _c : ""); // If there's an "other" amount, it doesn't belong to any amount range,
-    // so we use the default upsell frequency
-
-    if (otherAmount > 0) {
-      return defaultFrequency;
-    }
-
-    for (let i = 0; i < this.options.amountRange.length; i++) {
-      let val = this.options.amountRange[i];
-
-      if (amount <= val.max) {
-        return (_d = val.frequency) !== null && _d !== void 0 ? _d : defaultFrequency;
-      }
-    }
-
-    return defaultFrequency;
+    this._suggestAmount = upsellAmount;
+    this._upsellFrequency = upsellFrequency;
+    return {
+      amount: upsellAmount,
+      frequency: upsellFrequency
+    };
   }
 
   shouldOpen() {
-    const upsellAmount = this.getUpsellAmount();
-    const paymenttype = engrid_ENGrid.getFieldValue("transaction.paymenttype") || "";
-    this._suggestAmount = upsellAmount;
-    this._upsellFrequency = this.getUpsellFrequency(); // If frequency is not onetime or
-    // the modal is already opened or
-    // there's no suggestion for this donation amount,
+    const {
+      amount: upsellAmount,
+      frequency: upsellFrequency
+    } = this.resolveUpsell();
+    const paymenttype = engrid_ENGrid.getFieldValue("transaction.paymenttype") || ""; // If frequency is not allowed, or
+    // the modal is already opened, or
+    // there's no suggestion for this donation amount, or
+    // the target upsell frequency is not available on the form,
     // we should not open
 
-    if (this.freqAllowed() && !this.shouldSkip() && !this.options.disablePaymentMethods.includes(paymenttype.toLowerCase()) && !this.overlay.classList.contains("is-submitting") && upsellAmount > 0) {
+    if (this.freqAllowed() && !this.shouldSkip() && !this.options.disablePaymentMethods.includes(paymenttype.toLowerCase()) && !this.overlay.classList.contains("is-submitting") && upsellAmount > 0 && this._frequency.frequencies.includes(upsellFrequency)) {
       this.logger.log("Upsell Frequency " + this._frequency.frequency);
       this.logger.log("Upsell Amount " + this._amount.amount);
       this.logger.log("Upsell Suggested Amount " + upsellAmount);
+      this.logger.log("Upsell Suggested Frequency " + upsellFrequency);
       return true;
     }
 
@@ -23389,6 +23404,7 @@ class upsell_lightbox_UpsellLightbox {
     const freq = this._frequency.frequency;
     const allowed = [];
     if (this.options.oneTime) allowed.push("onetime");
+    if (this.options.monthly) allowed.push("monthly");
     if (this.options.annual) allowed.push("annual");
     return allowed.includes(freq);
   }
@@ -23453,9 +23469,12 @@ class upsell_lightbox_UpsellLightbox {
     if (e.target instanceof Element && ((_a = document.querySelector("#upsellYesButton")) === null || _a === void 0 ? void 0 : _a.contains(e.target))) {
       this.logger.success("Upsold");
       this.setOriginalAmount(this._amount.amount.toString());
-      const upsoldAmount = this.getUpsellAmount();
-      const upsellFrequency = this._upsellFrequency;
+      const {
+        amount: upsoldAmount,
+        frequency: upsellFrequency
+      } = this.resolveUpsell();
       const originalAmount = this._amount.amount;
+      const originalFrequency = this._frequency.frequency;
 
       this._frequency.setFrequency(upsellFrequency);
 
@@ -23463,6 +23482,7 @@ class upsell_lightbox_UpsellLightbox {
 
       this._dataLayer.addEndOfGiftProcessEvent("ENGRID_UPSELL", {
         eventValue: true,
+        originalFrequency: originalFrequency,
         originalAmount: originalAmount,
         upsoldAmount: upsoldAmount,
         frequency: upsellFrequency
@@ -23472,9 +23492,11 @@ class upsell_lightbox_UpsellLightbox {
 
       this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_ORIGINAL_AMOUNT", originalAmount);
 
+      this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_ORIGINAL_FREQUENCY", this.getFrequencyTxt(originalFrequency).toUpperCase());
+
       this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", this.getFrequencyTxt(upsellFrequency).toUpperCase());
 
-      this.renderConversionField("upsellSuccess", "onetime", originalAmount, upsellFrequency, this._suggestAmount, upsellFrequency, upsoldAmount);
+      this.renderConversionField("upsellSuccess", originalFrequency, originalAmount, upsellFrequency, this._suggestAmount, upsellFrequency, upsoldAmount);
     } else {
       this.setOriginalAmount("");
       window.sessionStorage.removeItem("original");
