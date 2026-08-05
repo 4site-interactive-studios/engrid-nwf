@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"68ec4f46c992eefbe4de98019f31d27ea3c90512"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="ed6c3a7a-c67f-4825-8410-910f6dc07c8d",e._sentryDebugIdIdentifier="sentry-dbid-ed6c3a7a-c67f-4825-8410-910f6dc07c8d");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"029c49bd30c7e3df196401f274c38e158bd52de4"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="d2216051-8660-4fc7-987a-f0218ebff596",e._sentryDebugIdIdentifier="sentry-dbid-d2216051-8660-4fc7-987a-f0218ebff596");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, August 5, 2026 @ 13:23:06 ET
+ *  Date: Wednesday, August 5, 2026 @ 13:49:34 ET
  *  By: nick
  *  ENGrid styles: v0.27.0
  *  ENGrid scripts: v0.27.0
@@ -23302,9 +23302,7 @@ class upsell_lightbox_UpsellLightbox {
       this.checkOtherAmount(upsellAmount);
     }
 
-    live_upsell_amount.forEach(elem => elem.innerHTML = this.getAmountTxt(upsellAmount + this._fees.calculateFees(upsellAmount))); // The resolved frequency can change with the entered amount, so refresh it
-
-    this.liveFrequency();
+    live_upsell_amount.forEach(elem => elem.innerHTML = this.getAmountTxt(upsellAmount + this._fees.calculateFees(upsellAmount)));
   }
 
   liveAmounts() {
@@ -23340,10 +23338,10 @@ class upsell_lightbox_UpsellLightbox {
     let upsellFrequency;
 
     if (otherAmount > 0) {
-      // An "other" amount doesn't belong to any amount range, so the upsell
-      // uses the default frequency
+      // An "other" amount overrides the amount but keeps the frequency that
+      // was already shown when the lightbox opened
       upsellAmount = otherAmount > this.options.minAmount ? otherAmount : this.options.minAmount;
-      upsellFrequency = defaultFrequency;
+      upsellFrequency = this._upsellFrequency;
     } else {
       upsellAmount = 0;
       upsellFrequency = defaultFrequency;
