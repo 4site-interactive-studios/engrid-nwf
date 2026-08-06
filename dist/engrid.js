@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"029c49bd30c7e3df196401f274c38e158bd52de4"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="d2216051-8660-4fc7-987a-f0218ebff596",e._sentryDebugIdIdentifier="sentry-dbid-d2216051-8660-4fc7-987a-f0218ebff596");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"feb2ca113f10edd38c1f39fc40324af2cbce929b"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="61236877-fe6c-4047-a93e-4f199fcb5488",e._sentryDebugIdIdentifier="sentry-dbid-61236877-fe6c-4047-a93e-4f199fcb5488");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, August 5, 2026 @ 13:49:34 ET
+ *  Date: Thursday, August 6, 2026 @ 10:53:34 ET
  *  By: nick
  *  ENGrid styles: v0.27.0
  *  ENGrid scripts: v0.27.0
@@ -23386,7 +23386,7 @@ class upsell_lightbox_UpsellLightbox {
     // the target upsell frequency is not available on the form,
     // we should not open
 
-    if (this.freqAllowed() && !this.shouldSkip() && !this.options.disablePaymentMethods.includes(paymenttype.toLowerCase()) && !this.overlay.classList.contains("is-submitting") && upsellAmount > 0 && this._frequency.frequencies.includes(upsellFrequency)) {
+    if (this.freqAllowed() && !this.shouldSkip() && !this.options.disablePaymentMethods.includes(paymenttype.toLowerCase()) && !this.overlay.classList.contains("is-submitting") && upsellAmount > 0 && this._frequency.frequencies.includes(upsellFrequency) && this._frequency.frequency !== upsellFrequency) {
       this.logger.log("Upsell Frequency " + this._frequency.frequency);
       this.logger.log("Upsell Amount " + this._amount.amount);
       this.logger.log("Upsell Suggested Amount " + upsellAmount);
@@ -34805,6 +34805,8 @@ class frequency_upsell_modal_FrequencyUpsellModal extends modal_Modal {
 
 }
 ;// CONCATENATED MODULE: ../engrid/packages/scripts/dist/frequency-upsell.js
+// ! WE ARE PHASING OUT THIS COMPONENT IN FAVOR OF UPSELL-LIGHTBOX. PLEASE USE THAT COMPONENT FOR NEW IMPLEMENTATIONS.
+
 /*
  * FrequencyUpsell component which creates a modal to upsell the frequency of the donation
  * This is typically used to upsell a single donation into an annual donation, but the component
