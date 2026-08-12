@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"883e4c6e233c3515f76c8b2b8536560357e88204"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="efc1b96b-bba7-4720-94fe-a5670a0f673b",e._sentryDebugIdIdentifier="sentry-dbid-efc1b96b-bba7-4720-94fe-a5670a0f673b");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"02674dbe34a7eee9677e50dda21e6038ee9f7311"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="90634ba9-fbd8-4186-9397-39797525aa69",e._sentryDebugIdIdentifier="sentry-dbid-90634ba9-fbd8-4186-9397-39797525aa69");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,8 +18,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, August 6, 2026 @ 17:01:19 ET
- *  By: fernando
+ *  Date: Wednesday, August 12, 2026 @ 09:22:37 ET
+ *  By: michael
  *  ENGrid styles: v0.27.2
  *  ENGrid scripts: v0.27.2
  *
@@ -34413,10 +34413,39 @@ class CwhApp {
   }
 
   onLastPage() {
-    return engrid_ENGrid.getPageNumber() === engrid_ENGrid.getPageCount();
+    const pageNumber = engrid_ENGrid.getPageNumber();
+    const pageCount = engrid_ENGrid.getPageCount(); // Both helpers return null when pageJson is missing, and null === null would
+    // otherwise make every page look like the thank you page.
+
+    return typeof pageNumber === "number" && typeof pageCount === "number" && pageNumber === pageCount;
+  } // EN's canonical "a gift was processed" flag.
+
+
+  giftProcessComplete() {
+    const giftProcess = engrid_ENGrid.getGiftProcess();
+    return giftProcess === true || giftProcess === "true";
   }
 
   redirectToSuccessUrl() {
+    if (!this.giftProcessComplete() || !window.pageJson?.transactionId || !window.pageJson?.supporterId) {
+      captureMessage("[CWH App] Redirect blocked: missing required variables that confirm successful payment", {
+        level: "error",
+        extra: {
+          giftProcess: engrid_ENGrid.getGiftProcess(),
+          pageNumber: engrid_ENGrid.getPageNumber(),
+          pageCount: engrid_ENGrid.getPageCount(),
+          pageId: engrid_ENGrid.getPageID(),
+          enTransactionId: window.pageJson?.transactionId,
+          enSupporterId: window.pageJson?.supporterId,
+          hasSuccessUrl: !!sessionStorage.getItem("cwhSuccessUrl"),
+          referrer: document.referrer,
+          url: window.location.href
+        }
+      });
+      this.logger.log("Redirect blocked: gift process not complete");
+      return;
+    }
+
     let successUrlString = sessionStorage.getItem("cwhSuccessUrl");
     let transactionId = sessionStorage.getItem("cwhTransactionId");
 
@@ -34450,25 +34479,6 @@ class CwhApp {
       enTransactionId: window.pageJson?.transactionId,
       supporterId: window.pageJson?.supporterId
     };
-
-    if (!window.pageJson?.transactionId) {
-      captureMessage("[CWH App] pageJson.transactionId missing during redirect", {
-        level: "warning",
-        extra: {
-          returnPayload
-        }
-      });
-    }
-
-    if (!window.pageJson?.supporterId) {
-      captureMessage("[CWH App] pageJson.supporterId missing during redirect", {
-        level: "warning",
-        extra: {
-          returnPayload
-        }
-      });
-    }
-
     addBreadcrumb({
       message: "Attempting encryptJson",
       data: {

@@ -214,10 +214,50 @@ export default class CwhApp {
   }
 
   private onLastPage() {
-    return ENGrid.getPageNumber() === ENGrid.getPageCount();
+    const pageNumber = ENGrid.getPageNumber();
+    const pageCount = ENGrid.getPageCount();
+    // Both helpers return null when pageJson is missing, and null === null would
+    // otherwise make every page look like the thank you page.
+    return (
+      typeof pageNumber === "number" &&
+      typeof pageCount === "number" &&
+      pageNumber === pageCount
+    );
+  }
+
+  // EN's canonical "a gift was processed" flag.
+  private giftProcessComplete() {
+    const giftProcess = ENGrid.getGiftProcess();
+    return giftProcess === true || giftProcess === "true";
   }
 
   private redirectToSuccessUrl() {
+    if (
+      !this.giftProcessComplete() ||
+      !window.pageJson?.transactionId ||
+      !window.pageJson?.supporterId
+    ) {
+      Sentry.captureMessage(
+        "[CWH App] Redirect blocked: missing required variables that confirm successful payment",
+        {
+          level: "error",
+          extra: {
+            giftProcess: ENGrid.getGiftProcess(),
+            pageNumber: ENGrid.getPageNumber(),
+            pageCount: ENGrid.getPageCount(),
+            pageId: ENGrid.getPageID(),
+            enTransactionId: window.pageJson?.transactionId,
+            enSupporterId: window.pageJson?.supporterId,
+            hasSuccessUrl: !!sessionStorage.getItem("cwhSuccessUrl"),
+            referrer: document.referrer,
+            url: window.location.href,
+          },
+        }
+      );
+      this.logger.log("Redirect blocked: gift process not complete");
+      return;
+    }
+
     let successUrlString = sessionStorage.getItem("cwhSuccessUrl");
     let transactionId = sessionStorage.getItem("cwhTransactionId");
     if (!successUrlString || !transactionId) {
@@ -250,19 +290,6 @@ export default class CwhApp {
       enTransactionId: window.pageJson?.transactionId,
       supporterId: window.pageJson?.supporterId,
     };
-
-    if (!window.pageJson?.transactionId) {
-      Sentry.captureMessage(
-        "[CWH App] pageJson.transactionId missing during redirect",
-        { level: "warning", extra: { returnPayload } }
-      );
-    }
-    if (!window.pageJson?.supporterId) {
-      Sentry.captureMessage(
-        "[CWH App] pageJson.supporterId missing during redirect",
-        { level: "warning", extra: { returnPayload } }
-      );
-    }
 
     Sentry.addBreadcrumb({
       message: "Attempting encryptJson",
