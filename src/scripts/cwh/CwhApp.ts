@@ -34,9 +34,12 @@ export default class CwhApp {
       message: "[CWH App] Loading Form Page",
     });
 
+    const fromCartAbandonmentEmail = this.urlParams.has("cam-hash");
+
     if (
-      !document.referrer ||
-      !document.referrer.includes("certifiedwildlifehabitat.nwf.org")
+      !fromCartAbandonmentEmail &&
+      (!document.referrer ||
+        !document.referrer.includes("certifiedwildlifehabitat.nwf.org"))
     ) {
       Sentry.captureMessage(
         "[CWH App] Unexpected referrer, potential direct access to CWH app",
