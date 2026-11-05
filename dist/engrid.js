@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"6f502edfadedc4c421e762b4a38438c5b03dea86"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="92bde46f-304b-4629-963d-69e04048f001",e._sentryDebugIdIdentifier="sentry-dbid-92bde46f-304b-4629-963d-69e04048f001");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"c107cb5a7894ba3ef56726fa351f72a3fa9e37c5"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="52a2df0e-c3ef-4327-a2e8-eb489a65e73f",e._sentryDebugIdIdentifier="sentry-dbid-52a2df0e-c3ef-4327-a2e8-eb489a65e73f");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,8 +18,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 1, 2026 @ 10:37:54 ET
- *  By: nick
+ *  Date: Thursday, November 5, 2026 @ 09:13:35 ET
+ *  By: michael
  *  ENGrid styles: v0.28.3
  *  ENGrid scripts: v0.28.5
  *
@@ -35250,8 +35250,9 @@ class CwhApp {
     addBreadcrumb({
       message: "[CWH App] Loading Form Page"
     });
+    const fromCartAbandonmentEmail = this.urlParams.has("cam-hash");
 
-    if (!document.referrer || !document.referrer.includes("certifiedwildlifehabitat.nwf.org")) {
+    if (!fromCartAbandonmentEmail && (!document.referrer || !document.referrer.includes("certifiedwildlifehabitat.nwf.org"))) {
       captureMessage("[CWH App] Unexpected referrer, potential direct access to CWH app", {
         level: "warning",
         extra: {
