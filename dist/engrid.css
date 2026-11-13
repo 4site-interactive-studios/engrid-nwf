@@ -19,10 +19,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, November 5, 2026 @ 09:13:35 ET
- *  By: michael
- *  ENGrid styles: v0.28.3
- *  ENGrid scripts: v0.28.5
+ *  Date: Friday, November 13, 2026 @ 09:35:34 ET
+ *  By: pedroluan
+ *  ENGrid styles: v0.28.9
+ *  ENGrid scripts: v0.28.10
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -1921,7 +1921,7 @@ a:focus,a:hover{
   --checkbox_padding-left:0px;
   --checkbox_text-transform:var(--radio_text-transform);
   --checkbox_check_font-size:var(--radio_font-size);
-  --checkbox_content_checked:"✓";
+  --checkbox_content_checked:"\2713";
   --select_font-family:var(--input_font-family);
   --select_font-size:var(--input_font-size);
   --select_font-weight:initial;
@@ -2010,7 +2010,6 @@ a:focus,a:hover{
   max-width:100%;
   width:fit-content;
 }
-
 .en__component--formblock.inline-other .en__field--checkbox.en__field--withOther--active .en__field__element,.en__component--formblock.inline-other .en__field--radio.en__field--withOther--active .en__field__element,.en__component--svblock.inline-other .en__field--checkbox.en__field--withOther--active .en__field__element,.en__component--svblock.inline-other .en__field--radio.en__field--withOther--active .en__field__element,.en__registrants__registrantDetails.inline-other .en__field--checkbox.en__field--withOther--active .en__field__element,.en__registrants__registrantDetails.inline-other .en__field--radio.en__field--withOther--active .en__field__element{
   grid-template-columns:min-content;
 }
@@ -2323,7 +2322,7 @@ input[type=checkbox]:checked+label:before{
 @-moz-document url-prefix(){
   .en__pg__select input[type=radio]{
     accent-color:var(--radio_color_selected);
-    appearance:auto;
+    appearance:none;
     background:#0000;
     border:none;
     outline:none;
@@ -3181,6 +3180,7 @@ body:not(#en__pagebuilder) .click-to-expand.expanded .click-to-expand-cta{
 body:not(#en__pagebuilder):not([data-engrid-debug]) .hide:not(.en__field--validationFailed):not(:has(.en__field.en__field--validationFailed)),body:not(#en__pagebuilder):not([data-engrid-debug]) div:not(.en__field--validationFailed) .hide:not(.en__field--validationFailed):not(:has(.en__field.en__field--validationFailed)){
   display:none;
 }
+
 body:not(#en__pagebuilder):not([data-engrid-debug]):not([data-engrid-js-loading=finished]) .en__field--donationAmt .en__field__item label{
   color:#0000 !important;
 }
@@ -3235,6 +3235,7 @@ body:not(#en__pagebuilder):not([data-engrid-debug]) .hide-labels .en__field:not(
   --engrid__body-side_padding:var(--engrid__body-main_padding);
   --root_font-size:16px;
 }
+
 [data-engrid-theme] #en__digitalWallet,[data-engrid-theme] .en__digitalWallet__container{
   max-width:100% !important;
 }
@@ -3676,6 +3677,7 @@ body:not(#en__pagebuilder):not([data-engrid-debug]):not([data-engrid-transaction
 #en__pagebuilder .recurring-frequency-annual-hide,#en__pagebuilder .recurring-frequency-annual-show,#en__pagebuilder .recurring-frequency-monthly-hide,#en__pagebuilder .recurring-frequency-monthly-show,#en__pagebuilder .recurring-frequency-n-hide,#en__pagebuilder .recurring-frequency-n-show,#en__pagebuilder .recurring-frequency-onetime-hide,#en__pagebuilder .recurring-frequency-onetime-show,#en__pagebuilder .recurring-frequency-quarterly-hide,#en__pagebuilder .recurring-frequency-quarterly-show,#en__pagebuilder .recurring-frequency-semi-annual-hide,#en__pagebuilder .recurring-frequency-semi-annual-show,#en__pagebuilder .recurring-frequency-y-hide,#en__pagebuilder .recurring-frequency-y-show,[data-engrid-debug] .recurring-frequency-annual-hide,[data-engrid-debug] .recurring-frequency-annual-show,[data-engrid-debug] .recurring-frequency-monthly-hide,[data-engrid-debug] .recurring-frequency-monthly-show,[data-engrid-debug] .recurring-frequency-n-hide,[data-engrid-debug] .recurring-frequency-n-show,[data-engrid-debug] .recurring-frequency-onetime-hide,[data-engrid-debug] .recurring-frequency-onetime-show,[data-engrid-debug] .recurring-frequency-quarterly-hide,[data-engrid-debug] .recurring-frequency-quarterly-show,[data-engrid-debug] .recurring-frequency-semi-annual-hide,[data-engrid-debug] .recurring-frequency-semi-annual-show,[data-engrid-debug] .recurring-frequency-y-hide,[data-engrid-debug] .recurring-frequency-y-show{
   background-color:rgba(0,0,255,.102) !important;
 }
+
 [data-engrid-theme] #dd-container .dtd-callout,[data-engrid-theme] .dtd-plugin .dtd-callout{
   background-color:initial;
   border:none;
@@ -3982,6 +3984,14 @@ button.en__ecarditems__prevclose{
 }
 .en__ecarditems__showprev :hover{
   color:#fff;
+}
+
+body.engrid-ecard-preview-delegated .en__ecarditems__preview{
+  display:none !important;
+}
+
+.en__ecarditems__prevwrap{
+  max-width:90vw;
 }
 .en__ecardrecipients__futureDelivery input[type=date]{
   appearance:none;
@@ -8252,15 +8262,15 @@ body[data-engrid-debug]:before{
   padding-bottom:40px;
   padding-top:calc(var(--spacing_lg)/2);
 }
-[data-engrid-theme=nwf][data-engrid-layout*="2col"]{
-  --engrid__content-footer_margin:40px 0 0 0;
-}
 [data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-top{
   --engrid__body-top_background-color:var(--color_secondary);
 }
 [data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-main,[data-engrid-theme=nwf][data-engrid-layout*="2col"] .body-top{
   padding-bottom:calc(var(--spacing_lg)/2);
   padding-top:calc(var(--spacing_lg)/2);
+}
+[data-engrid-theme=nwf][data-engrid-layout*="2col"]{
+  --engrid__content-footer_margin:40px 0 0 0;
 }
 [data-engrid-theme=nwf] .en__field--donationAmt label,[data-engrid-theme=nwf] .en__field--recurrfreq label,[data-engrid-theme=nwf] .give-by-select label{
   outline:none !important;
@@ -8869,14 +8879,6 @@ body[data-engrid-debug]:before{
   }
 }
 
-[data-engrid-theme=nwf][data-engrid-subtheme=hecho]{
-  --color_primary:#41477b;
-  --color_primary_overlay:#dadceb;
-  --color_primary_accent:#333;
-  --color_secondary:#e0e9ea;
-  --submit__button_background-color:#ea7200;
-  --submit__button_background-color_hover:#d66800;
-}
 [data-engrid-theme=nwf][data-engrid-subtheme=hecho] .body-main{
   padding-bottom:2rem;
 }
@@ -8976,6 +8978,12 @@ body[data-engrid-debug]:before{
   padding:5px;
   vertical-align:-.125em;
 }
+[data-engrid-theme=nwf][data-engrid-subtheme=hecho]{
+  --color_primary:#41477b;
+  --color_primary_overlay:#dadceb;
+  --color_primary_accent:#333;
+  --color_secondary:#e0e9ea;
+}
 [data-engrid-theme=nwf][data-engrid-subtheme=hecho] .content-header>*{
   background-color:#5c5478;
   color:#fff;
@@ -9011,6 +9019,10 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf][data-engrid-subtheme=hecho][data-engrid-layout*="2col"] .body-top{
   --engrid__body-top_background-color:#d7d4e4;
 }
+[data-engrid-theme=nwf][data-engrid-subtheme=hecho]{
+  --submit__button_background-color:#ea7200;
+  --submit__button_background-color_hover:#d66800;
+}
 [data-engrid-theme=nwf][data-engrid-subtheme=hecho] .content-footer{
   --engrid__content-footer_background-color:#5c5478;
   --a_color:#fff;
@@ -9024,6 +9036,7 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf][data-engrid-subtheme=hecho] .social-sharing img.social-green{
   filter:hue-rotate(114deg);
 }
+
 [data-engrid-theme=nwf][data-engrid-subtheme=action-fund] .body-main{
   padding-bottom:2rem;
 }
@@ -9484,10 +9497,6 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=nwf2] .body-banner .tippy-box{
   width:auto;
 }
-[data-engrid-theme=nwf2] .en__component--premiumgiftblock{
-  --maximize_my_donation_image:url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/NWF_Logo_2023_110x110_FooterLogo.png?v=1704311069000);
-  margin:64px 0 7px;
-}
 [data-engrid-theme=nwf2] .en__component--premiumgiftblock[data-annual-disabled],[data-engrid-theme=nwf2] .en__component--premiumgiftblock[disabled=disabled]{
   display:none !important;
 }
@@ -9517,6 +9526,10 @@ body[data-engrid-debug]:before{
   position:absolute;
   text-transform:var(--h2_text-transform);
   top:-25px;
+}
+[data-engrid-theme=nwf2] .en__component--premiumgiftblock{
+  --maximize_my_donation_image:url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10033/NWF_Logo_2023_110x110_FooterLogo.png?v=1704311069000);
+  margin:64px 0 7px;
 }
 [data-engrid-theme=nwf2] .en__component--premiumgiftblock .en__pgHeader{
   margin-bottom:1.8rem;
