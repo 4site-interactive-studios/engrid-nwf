@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"2f50c7b9f22e355c8736064ef4359fd5c91ce392"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="bb3be0b8-cbc6-406b-8923-e2ef9eda508e",e._sentryDebugIdIdentifier="sentry-dbid-bb3be0b8-cbc6-406b-8923-e2ef9eda508e");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"74c26422f414ae13986a3ce2ce65e7902dab0f47"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="bb3be0b8-cbc6-406b-8923-e2ef9eda508e",e._sentryDebugIdIdentifier="sentry-dbid-bb3be0b8-cbc6-406b-8923-e2ef9eda508e");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,8 +18,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, November 5, 2026 @ 12:52:43 ET
- *  By: nick
+ *  Date: Friday, November 13, 2026 @ 09:59:01 ET
+ *  By: pedroluan
  *  ENGrid styles: v0.28.3
  *  ENGrid scripts: v0.28.7
  *
