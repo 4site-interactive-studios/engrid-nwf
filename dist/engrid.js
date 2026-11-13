@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"74c26422f414ae13986a3ce2ce65e7902dab0f47"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="bb3be0b8-cbc6-406b-8923-e2ef9eda508e",e._sentryDebugIdIdentifier="sentry-dbid-bb3be0b8-cbc6-406b-8923-e2ef9eda508e");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"4b20b65076dc45662ebfe2e6fb18d59b17a4ed93"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="7196a949-7a89-480c-bfd4-75e233fe700e",e._sentryDebugIdIdentifier="sentry-dbid-7196a949-7a89-480c-bfd4-75e233fe700e");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, November 13, 2026 @ 09:59:01 ET
+ *  Date: Friday, November 13, 2026 @ 10:02:02 ET
  *  By: pedroluan
  *  ENGrid styles: v0.28.3
  *  ENGrid scripts: v0.28.7
@@ -10250,6 +10250,24 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 
+;// CONCATENATED MODULE: ./src/scripts/optin-ladder-scroll-fix.ts
+/**
+ * TEMPORARY: remove after the ENgrid update in January.
+ *
+ * Mirrors the fix in ENgrid's OptInLadder (fix/prevent-scroll-anchoring):
+ * the Opt-In Ladder iFrame collapses to 0px and regrows between steps, and the
+ * browser's scroll anchoring then shifts the parent page down to the content
+ * below the iFrame. Disabling scroll anchoring keeps the page in place.
+ *
+ * Must run after `new OptInLadder()`, which injects the iFrame synchronously.
+ */
+class OptInLadderScrollFix {
+  constructor() {
+    if (!document.querySelector(".opt-in-ladder-iframe")) return;
+    document.documentElement.style.overflowAnchor = "none";
+  }
+
+}
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-scripts/dist/deprecated.js
 // A way to gracefully handle deprecation.
 // Find and replace HTML Elements, Classes, and more after the DOM is loaded but before any other Javascript fires.
@@ -55960,6 +55978,7 @@ function getReplay() {
 //# sourceMappingURL=index.js.map
 
 ;// CONCATENATED MODULE: ./src/index.ts
+
  // Uses ENGrid via NPM
 // import {
 //   Options,
@@ -56036,6 +56055,8 @@ const options = {
     window.validateXverify = XVerify.validateXverify; // new AnnualLimit();
 
     new OptInLadder();
+    new OptInLadderScrollFix(); // TEMPORARY: remove after the ENgrid update in January
+
     new Shop();
     new CwhApp();
   },

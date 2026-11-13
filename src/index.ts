@@ -1,3 +1,4 @@
+import { OptInLadderScrollFix } from './scripts/optin-ladder-scroll-fix';
 import {
   Options,
   App,
@@ -92,6 +93,7 @@ const options: Options = {
     (<any>window).validateXverify = XVerify.validateXverify;
     // new AnnualLimit();
     new OptInLadder();
+    new OptInLadderScrollFix(); // TEMPORARY: remove after the ENgrid update in January
     new Shop();
     new CwhApp();
   },
