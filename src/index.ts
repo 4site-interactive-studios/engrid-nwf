@@ -1,4 +1,4 @@
-import { OptInLadderScrollFix } from './../Claude outputs/optin-ladder-scroll-fix';
+import { OptInLadderScrollFix } from './scripts/optin-ladder-scroll-fix';
 import {
   Options,
   App,

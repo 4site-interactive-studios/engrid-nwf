@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"e4bce03fc318c5f1d08d6728dbe044d198851760"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="b4076cfb-bf2a-42e9-9c11-852201758d5b",e._sentryDebugIdIdentifier="sentry-dbid-b4076cfb-bf2a-42e9-9c11-852201758d5b");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"5205a00d746386226d434b944d85ae727fdd9555"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="9d647ee0-77e0-4ca1-b23f-f8a203323723",e._sentryDebugIdIdentifier="sentry-dbid-9d647ee0-77e0-4ca1-b23f-f8a203323723");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,7 +18,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, November 13, 2026 @ 09:35:34 ET
+ *  Date: Friday, November 13, 2026 @ 09:42:47 ET
  *  By: pedroluan
  *  ENGrid styles: v0.28.9
  *  ENGrid scripts: v0.28.10
@@ -10469,7 +10469,7 @@ const __WEBPACK_NAMESPACE_OBJECT__ = /*#__PURE__*/JSON.parse('{"nm":"NWF Button"
 module.exports = __WEBPACK_NAMESPACE_OBJECT__;
 });
 
-;// ./Claude outputs/optin-ladder-scroll-fix.ts
+;// ./src/scripts/optin-ladder-scroll-fix.ts
 /**
  * TEMPORARY: remove after the ENgrid update in January.
  *
