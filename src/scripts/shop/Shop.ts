@@ -16,6 +16,7 @@ declare global {
     EngridShop: {
       discountCodes?: Record<string, number>;
       removeVariants?: RemoveProductVariants[];
+      productOrder?: string[];
     };
     pageJson: {
       transactionId: string;
@@ -103,7 +104,61 @@ export default class Shop {
       this.addProductDetails(product);
     });
 
+    this.orderProducts();
     this.hideProductVariants();
+  }
+
+  private orderProducts() {
+    const productOrder = window.EngridShop?.productOrder;
+    if (!productOrder?.length) return;
+
+    const productList = document.querySelector(".en__pgList");
+    if (!productList) {
+      this.logger.log("Product list element not found");
+      return;
+    }
+
+    const remainingProducts = Array.from(
+      productList.querySelectorAll<HTMLElement>(":scope > .en__pg")
+    );
+    const processedNames = new Set<string>();
+
+    productOrder.forEach((productName) => {
+      const normalizedName = productName.trim().toLowerCase();
+      if (processedNames.has(normalizedName)) return;
+      processedNames.add(normalizedName);
+
+      const product = this.products.find(
+        (p) => p.name.trim().toLowerCase() === normalizedName
+      );
+      const productElement = product
+        ? this.getProductElement(product.id)
+        : null;
+      const productIndex = productElement
+        ? remainingProducts.indexOf(productElement)
+        : -1;
+
+      if (!productElement || productIndex === -1) {
+        this.logger.log(`Product not found in product order: ${productName}`);
+        return;
+      }
+
+      remainingProducts.splice(productIndex, 1);
+      productList.appendChild(productElement);
+    });
+
+    remainingProducts.forEach((productElement) => {
+      productList.appendChild(productElement);
+    });
+
+    if (document.querySelector(".en__error")) return;
+
+    const firstProduct = productList.querySelector<HTMLInputElement>(
+      '.en__pg input[name="en__pg"]:not([value="0"])'
+    );
+    if (firstProduct && !firstProduct.checked) {
+      firstProduct.click();
+    }
   }
 
   // Add event listeners and mutation observers

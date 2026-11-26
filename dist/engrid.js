@@ -1,4 +1,4 @@
-!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"4b20b65076dc45662ebfe2e6fb18d59b17a4ed93"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="7196a949-7a89-480c-bfd4-75e233fe700e",e._sentryDebugIdIdentifier="sentry-dbid-7196a949-7a89-480c-bfd4-75e233fe700e");}catch(e){}}();
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{};e.SENTRY_RELEASE={id:"c8aab199bb7772dd3279775b07deb5f6bbc62e7a"};var n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="063a9d03-85af-4ac1-a118-93e349335651",e._sentryDebugIdIdentifier="sentry-dbid-063a9d03-85af-4ac1-a118-93e349335651");}catch(e){}}();
 /*!
  * 
  *                ((((
@@ -18,8 +18,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, November 13, 2026 @ 10:02:02 ET
- *  By: pedroluan
+ *  Date: Thursday, November 26, 2026 @ 09:33:58 ET
+ *  By: michael
  *  ENGrid styles: v0.28.3
  *  ENGrid scripts: v0.28.7
  *
@@ -28756,7 +28756,47 @@ class Shop {
     this.products.forEach(product => {
       this.addProductDetails(product);
     });
+    this.orderProducts();
     this.hideProductVariants();
+  }
+
+  orderProducts() {
+    const productOrder = window.EngridShop?.productOrder;
+    if (!productOrder?.length) return;
+    const productList = document.querySelector(".en__pgList");
+
+    if (!productList) {
+      this.logger.log("Product list element not found");
+      return;
+    }
+
+    const remainingProducts = Array.from(productList.querySelectorAll(":scope > .en__pg"));
+    const processedNames = new Set();
+    productOrder.forEach(productName => {
+      const normalizedName = productName.trim().toLowerCase();
+      if (processedNames.has(normalizedName)) return;
+      processedNames.add(normalizedName);
+      const product = this.products.find(p => p.name.trim().toLowerCase() === normalizedName);
+      const productElement = product ? this.getProductElement(product.id) : null;
+      const productIndex = productElement ? remainingProducts.indexOf(productElement) : -1;
+
+      if (!productElement || productIndex === -1) {
+        this.logger.log(`Product not found in product order: ${productName}`);
+        return;
+      }
+
+      remainingProducts.splice(productIndex, 1);
+      productList.appendChild(productElement);
+    });
+    remainingProducts.forEach(productElement => {
+      productList.appendChild(productElement);
+    });
+    if (document.querySelector(".en__error")) return;
+    const firstProduct = productList.querySelector('.en__pg input[name="en__pg"]:not([value="0"])');
+
+    if (firstProduct && !firstProduct.checked) {
+      firstProduct.click();
+    }
   } // Add event listeners and mutation observers
 
 
